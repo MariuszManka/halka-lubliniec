@@ -1,7 +1,7 @@
 "use client";
 
-import { FormEvent, useEffect, useMemo, useState } from "react";
-import { AnimatePresence, motion, useReducedMotion } from "motion/react";
+import { FormEvent, useEffect, useMemo, useRef, useState } from "react";
+import { AnimatePresence, motion, useReducedMotion, useScroll, useTransform } from "motion/react";
 import {
   ArrowLeft,
   ArrowRight,
@@ -78,6 +78,93 @@ function Reveal({
     >
       {children}
     </motion.div>
+  );
+}
+
+function FolkRosette({ className = "" }: { className?: string }) {
+  return (
+    <span className={`folk-rosette ${className}`}>
+      {Array.from({ length: 8 }, (_, index) => (
+        <i key={index} style={{ "--petal": index } as React.CSSProperties} />
+      ))}
+      <b />
+    </span>
+  );
+}
+
+function FolkSprig({ side }: { side: "left" | "right" }) {
+  return (
+    <div className={`folk-sprig folk-sprig-${side}`}>
+      <span className="folk-thread" />
+      <span className="folk-leaf folk-leaf-one" />
+      <span className="folk-leaf folk-leaf-two" />
+      <span className="folk-leaf folk-leaf-three" />
+      <FolkRosette className="folk-sprig-flower" />
+    </div>
+  );
+}
+
+function FolkScrollMotif() {
+  const target = useRef<HTMLElement>(null);
+  const reduce = useReducedMotion();
+  const { scrollYProgress } = useScroll({
+    target,
+    offset: ["start end", "end start"],
+  });
+  const leftX = useTransform(scrollYProgress, [0, 0.3, 0.7, 1], [-190, 0, 0, -75]);
+  const rightX = useTransform(scrollYProgress, [0, 0.3, 0.7, 1], [190, 0, 0, 75]);
+  const threadScale = useTransform(scrollYProgress, [0.08, 0.42], [0.05, 1]);
+  const orbitRotate = useTransform(scrollYProgress, [0, 1], [-70, 110]);
+  const orbitScale = useTransform(scrollYProgress, [0, 0.45, 0.82, 1], [0.72, 1, 1.06, 0.88]);
+  const motifOpacity = useTransform(scrollYProgress, [0, 0.16, 0.86, 1], [0, 1, 1, 0.24]);
+  const copyY = useTransform(scrollYProgress, [0.05, 0.4, 0.82, 1], [54, 0, 0, -42]);
+  const copyOpacity = useTransform(scrollYProgress, [0.05, 0.28, 0.86, 1], [0, 1, 1, 0.2]);
+  const fieldY = useTransform(scrollYProgress, [0, 1], [90, -90]);
+
+  return (
+    <section className="folk-scroll" ref={target} aria-label="Tradycja rośnie z każdym pokoleniem">
+      <div className="folk-scroll-sticky">
+        <motion.div
+          className="folk-diamond-field"
+          aria-hidden="true"
+          style={reduce ? undefined : { y: fieldY, opacity: motifOpacity }}
+        >
+          {Array.from({ length: 24 }, (_, index) => <span key={index} />)}
+        </motion.div>
+
+        <motion.div
+          className="folk-scroll-orbit"
+          aria-hidden="true"
+          style={reduce ? undefined : { rotate: orbitRotate, scale: orbitScale, opacity: motifOpacity }}
+        >
+          <span className="folk-orbit-ring" />
+          <FolkRosette className="folk-main-rosette" />
+        </motion.div>
+
+        <motion.div
+          className="folk-sprig-wrap folk-sprig-wrap-left"
+          aria-hidden="true"
+          style={reduce ? undefined : { x: leftX, opacity: motifOpacity }}
+        >
+          <motion.div style={reduce ? undefined : { scaleX: threadScale }}><FolkSprig side="left" /></motion.div>
+        </motion.div>
+        <motion.div
+          className="folk-sprig-wrap folk-sprig-wrap-right"
+          aria-hidden="true"
+          style={reduce ? undefined : { x: rightX, opacity: motifOpacity }}
+        >
+          <motion.div style={reduce ? undefined : { scaleX: threadScale }}><FolkSprig side="right" /></motion.div>
+        </motion.div>
+
+        <motion.div
+          className="folk-scroll-copy"
+          style={reduce ? undefined : { y: copyY, opacity: copyOpacity }}
+        >
+          <span>Wzór nie stoi w miejscu</span>
+          <strong>Rośnie z każdym pokoleniem.</strong>
+        </motion.div>
+      </div>
+    </section>
   );
 }
 
@@ -225,7 +312,7 @@ export function HalkaSite() {
         ))}
       </section>
 
-      <div className="folk-ribbon" aria-hidden="true"><div /></div>
+      <FolkScrollMotif />
 
       <section className="together section-shell" aria-labelledby="together-title">
         <div className="together-grid">
@@ -372,8 +459,6 @@ export function HalkaSite() {
         </div>
         <a className="button button-secondary" href="#kontakt">Zapytaj o najbliższy występ <ArrowUpRight size={18} /></a>
       </section>
-
-      <div className="folk-ribbon folk-ribbon-second" aria-hidden="true"><div /></div>
 
       <section className="contact section-shell" id="kontakt" aria-labelledby="contact-title">
         <Reveal className="contact-heading">

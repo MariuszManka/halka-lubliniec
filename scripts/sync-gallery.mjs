@@ -17,6 +17,7 @@ const folders = (await readdir(assetsRoot, { withFileTypes: true }))
   .filter((entry) => entry.isDirectory())
   .map((entry) => entry.name)
   .filter((name) => name !== "Sesja zdjęciowa")
+  .filter((name) => overrides.has(name) || /(?:20\d{2}[.-]\d{2}[.-]\d{2}|\d{2}[.-]\d{2}[.-]20\d{2})/.test(name))
   .sort((a, b) => a.localeCompare(b, "pl", { numeric: true }));
 
 const slugify = (value) =>
