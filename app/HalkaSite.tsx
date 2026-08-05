@@ -16,7 +16,8 @@ import {
 } from "@phosphor-icons/react";
 import { galleryEvents } from "../content/generated-gallery";
 import { sessionImages } from "../content/generated-session";
-import { contact, facts, schedule, timeline } from "../content/site-content";
+import { calendarEvents, eventGroups, type CalendarEvent } from "../content/events";
+import { contact, facts, timeline } from "../content/site-content";
 
 type GalleryEvent = (typeof galleryEvents)[number];
 
@@ -33,6 +34,30 @@ const formatDate = (date: string) =>
     month: "long",
     year: "numeric",
   }).format(new Date(`${date}T12:00:00`));
+
+const monthNames = [
+  "styczeń", "luty", "marzec", "kwiecień", "maj", "czerwiec",
+  "lipiec", "sierpień", "wrzesień", "październik", "listopad", "grudzień",
+];
+const weekdayNames = ["Pon", "Wt", "Śr", "Czw", "Pt", "Sob", "Niedz"];
+const calendarMonths = [...new Set(calendarEvents.map((event) => event.date.slice(0, 7)))].sort();
+
+const formatEventDate = (event: CalendarEvent) => {
+  const start = new Date(`${event.date}T12:00:00`);
+  if (!event.endDate) {
+    return `${start.getDate()} ${monthNames[start.getMonth()]}`;
+  }
+  const end = new Date(`${event.endDate}T12:00:00`);
+  if (start.getMonth() === end.getMonth()) {
+    return `${start.getDate()}-${end.getDate()} ${monthNames[start.getMonth()]}`;
+  }
+  return `${start.getDate()} ${monthNames[start.getMonth()]} - ${end.getDate()} ${monthNames[end.getMonth()]}`;
+};
+
+const formatEventTime = (event: CalendarEvent) => {
+  if (!event.time) return "Godzina do potwierdzenia";
+  return event.endTime ? `${event.time}-${event.endTime}` : event.time;
+};
 
 function SessionImage({
   name,
@@ -137,6 +162,125 @@ function FolkScrollBackdrop() {
       <motion.div className="folk-backdrop-vine folk-backdrop-vine-right" style={reduce ? undefined : { y: drift }}>
         <div><FolkSprig side="right" /></div>
       </motion.div>
+    </div>
+  );
+}
+
+function EventsCalendar() {
+  const currentMonth = new Date().toISOString().slice(0, 7);
+  const firstCurrentOrFuture = calendarMonths.findIndex((month) => month >= currentMonth);
+  const initialMonth = firstCurrentOrFuture >= 0
+    ? calendarMonths[firstCurrentOrFuture]
+    : calendarMonths[calendarMonths.length - 1];
+  const [activeMonth, setActiveMonth] = useState(initialMonth);
+
+  const { cells, monthEvents, label } = useMemo(() => {
+    const [year, month] = activeMonth.split("-").map(Number);
+    const monthIndex = month - 1;
+    const daysInMonth = new Date(year, month, 0).getDate();
+    const leadingDays = (new Date(year, monthIndex, 1).getDay() + 6) % 7;
+    const dayCells = [
+      ...Array.from({ length: leadingDays }, () => null),
+      ...Array.from({ length: daysInMonth }, (_, index) => index + 1),
+    ];
+    const monthStart = `${activeMonth}-01`;
+    const monthEnd = `${activeMonth}-${String(daysInMonth).padStart(2, "0")}`;
+    const visible = calendarEvents
+      .filter((event) => event.date <= monthEnd && (event.endDate ?? event.date) >= monthStart)
+      .sort((a, b) => `${a.date}-${a.time ?? "99:99"}`.localeCompare(`${b.date}-${b.time ?? "99:99"}`));
+
+    return {
+      cells: dayCells,
+      monthEvents: visible,
+      label: `${monthNames[monthIndex]} ${year}`,
+    };
+  }, [activeMonth]);
+
+  return (
+    <div className="events-calendar">
+      <div className="calendar-toolbar">
+        <div className="calendar-month-switch" aria-label="Wybierz miesiąc">
+          {calendarMonths.map((month) => {
+            const [year, monthNumber] = month.split("-").map(Number);
+            return (
+              <button
+                type="button"
+                key={month}
+                className={activeMonth === month ? "active" : ""}
+                aria-pressed={activeMonth === month}
+                onClick={() => setActiveMonth(month)}
+              >
+                {monthNames[monthNumber - 1]} <span>{year}</span>
+              </button>
+            );
+          })}
+        </div>
+        <div className="calendar-legend" aria-label="Legenda grup">
+          {Object.entries(eventGroups).map(([key, group]) => (
+            <span key={key}><i className={group.className} />{group.label}</span>
+          ))}
+        </div>
+      </div>
+
+      <div className="calendar-panel">
+        <div className="calendar-panel-title">
+          <span>Plan występów i przygotowań</span>
+          <strong>{label}</strong>
+        </div>
+        <div className="calendar-grid" role="grid" aria-label={`Kalendarz: ${label}`}>
+          {weekdayNames.map((day) => <span className="calendar-weekday" key={day} role="columnheader">{day}</span>)}
+          {cells.map((day, cellIndex) => {
+            if (!day) return <span className="calendar-day calendar-day-empty" key={`empty-${cellIndex}`} aria-hidden="true" />;
+            const date = `${activeMonth}-${String(day).padStart(2, "0")}`;
+            const dayEvents = calendarEvents.filter(
+              (event) => event.date <= date && (event.endDate ?? event.date) >= date,
+            );
+            return (
+              <div className={`calendar-day ${dayEvents.length ? "has-events" : ""}`} key={date} role="gridcell">
+                <span className="calendar-day-number">{day}</span>
+                <div className="calendar-day-events">
+                  {dayEvents.map((event) => {
+                    const primaryGroup = eventGroups[event.groups[0]];
+                    return (
+                      <a className={`calendar-event ${primaryGroup.className}`} href={`#event-${event.id}`} key={event.id}>
+                        <span className="calendar-event-time">{event.time ?? "Termin"}</span>
+                        <strong>{event.location}</strong>
+                        <span className="calendar-event-dots" aria-hidden="true">
+                          {event.groups.map((group) => <i className={eventGroups[group].className} key={group} />)}
+                        </span>
+                      </a>
+                    );
+                  })}
+                </div>
+              </div>
+            );
+          })}
+        </div>
+      </div>
+
+      <div className="calendar-agenda" aria-label={`Agenda: ${label}`}>
+        {monthEvents.map((event) => (
+          <article className="agenda-event" id={`event-${event.id}`} key={event.id}>
+            <div className="agenda-date">
+              <strong>{formatEventDate(event)}</strong>
+              <span>{event.kind}</span>
+            </div>
+            <div className="agenda-main">
+              <span className="agenda-time">{formatEventTime(event)}</span>
+              <h3>{event.title}</h3>
+              <p><MapPin size={17} aria-hidden="true" />{event.location}</p>
+              {event.note && <small>{event.note}</small>}
+            </div>
+            <div className="agenda-groups">
+              {event.groups.map((group) => (
+                <span className={eventGroups[group].className} key={group}>
+                  <i />{eventGroups[group].label}
+                </span>
+              ))}
+            </div>
+          </article>
+        ))}
+      </div>
     </div>
   );
 }
@@ -415,21 +559,12 @@ export function HalkaSite() {
           <div className="calendar-icon"><CalendarBlank size={30} /></div>
           <div>
             <p className="section-kicker">Gdzie nas spotkać</p>
-            <h2 id="schedule-title">Najpierw próba. Potem scena.</h2>
-            <p>Aktualne terminy koncertów pojawią się tutaj. W międzyczasie możesz dołączyć do regularnych zajęć.</p>
+            <h2 id="schedule-title">Spotkajmy się pod sceną.</h2>
+            <p>Koncerty, dożynki, spotkania i przygotowania Halki. Wybierz miesiąc, aby zobaczyć dokładny plan.</p>
           </div>
         </Reveal>
-        <div className="schedule-list">
-          {schedule.map((item, index) => (
-            <Reveal className="schedule-row" key={`${item.day}-${item.time}-${item.title}`} delay={index * 0.07}>
-              <span className="schedule-day">{item.day}</span>
-              <strong>{item.time}</strong>
-              <div><h3>{item.title}</h3><p>{item.meta}</p></div>
-              <MapPin size={22} aria-hidden="true" />
-            </Reveal>
-          ))}
-        </div>
-        <a className="button button-secondary" href="#kontakt">Zapytaj o najbliższy występ <ArrowUpRight size={18} /></a>
+        <EventsCalendar />
+        <a className="button button-secondary schedule-contact" href="#kontakt">Zapytaj o wydarzenie <ArrowUpRight size={18} /></a>
       </section>
 
       <section className="contact section-shell" id="kontakt" aria-labelledby="contact-title">

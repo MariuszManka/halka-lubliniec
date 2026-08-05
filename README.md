@@ -51,11 +51,23 @@ Najczęściej zmieniane dane są w `content/site-content.ts`:
 
 Formularz kontaktowy otwiera wiadomość do adresu wpisanego w tym pliku. Bez dodatkowego serwera pocztowego nie wysyła danych bezpośrednio z przeglądarki.
 
+## Dodawanie wydarzenia do kalendarza
+
+Wydarzenia i próby są zapisane w `content/events.ts`. Aby dodać kolejne:
+
+1. Skopiuj jeden obiekt z listy `calendarEvents`.
+2. Ustaw unikalne `id`, datę w formacie `RRRR-MM-DD`, tytuł i lokalizację.
+3. Dodaj godzinę w polu `time`, jeśli jest znana.
+4. W polu `groups` wpisz jedną lub kilka grup: `ensemble`, `children`, `choir` albo `ballet`.
+
+Kalendarz sam utworzy nowy miesiąc, umieści wydarzenie w odpowiednim dniu i dobierze kolor grupy. Dla wydarzenia kilkudniowego dodaj `endDate`.
+
 ## Najważniejsze pliki
 
 - `app/HalkaSite.tsx` — układ i zachowanie strony,
 - `app/globals.css` — kolory, typografia, animacje i widok mobilny,
 - `content/site-content.ts` — treść stała,
+- `content/events.ts` — wydarzenia, próby i grupy widoczne w kalendarzu,
 - `content/gallery.config.json` — ustawienia wydarzeń w kronice,
 - `content/session.config.json` — wybór zdjęć z sesji,
 - `scripts/` — automatyczne przygotowanie zdjęć.
