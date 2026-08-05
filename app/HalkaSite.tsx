@@ -21,7 +21,7 @@ import {
 import { galleryEvents } from "../content/generated-gallery";
 import { sessionImages } from "../content/generated-session";
 import { calendarEvents, eventGroups, type CalendarEvent, type EventGroup } from "../content/events";
-import { contact, facts, timeline } from "../content/site-content";
+import { contact, facts, schedule, timeline } from "../content/site-content";
 
 type GalleryEvent = (typeof galleryEvents)[number];
 
@@ -251,7 +251,7 @@ function EventsCalendar() {
     });
   };
 
-  const { cells, monthEvents, label } = useMemo(() => {
+  const { cells, agendaEvents, hasPractices, label } = useMemo(() => {
     const [year, month] = activeMonth.split("-").map(Number);
     const monthIndex = month - 1;
     const daysInMonth = new Date(year, month, 0).getDate();
@@ -268,7 +268,8 @@ function EventsCalendar() {
 
     return {
       cells: dayCells,
-      monthEvents: visible,
+      agendaEvents: visible.filter((event) => event.kind !== "Próba"),
+      hasPractices: visible.some((event) => event.kind === "Próba"),
       label: `${monthNames[monthIndex]} ${year}`,
     };
   }, [activeMonth]);
@@ -346,7 +347,7 @@ function EventsCalendar() {
                         key={event.id}
                       >
                         <span className="calendar-event-time">{event.time ?? "Termin"}</span>
-                        <strong>{event.location}</strong>
+                        <strong>{event.kind === "Próba" ? event.title : event.location}</strong>
                         <span className="calendar-event-icons">
                           {event.groups.map((group) => <GroupIcon group={group} size={13} key={group} />)}
                         </span>
@@ -361,7 +362,17 @@ function EventsCalendar() {
       </div>
 
       <div className="calendar-agenda" aria-label={`Agenda: ${label}`}>
-        {monthEvents.map((event) => (
+        {hasPractices && (
+          <div className="practice-summary">
+            <div><span>Stały plan</span><strong>Próby w tym miesiącu</strong></div>
+            <div className="practice-summary-items">
+              {schedule.map((item) => (
+                <span key={`${item.day}-${item.title}`}><b>{item.day}</b>{item.title}<small>{item.time}</small></span>
+              ))}
+            </div>
+          </div>
+        )}
+        {agendaEvents.map((event) => (
           <article className="agenda-event" id={`event-${event.id}`} key={event.id}>
             <div className="agenda-date">
               <strong>{formatEventDate(event)}</strong>
