@@ -247,7 +247,14 @@ export function ChroniclePage() {
                           onClick={() => { setActiveEvent(event); setActiveImage(0); }}
                           aria-label={`Otwórz galerię: ${event.title}`}
                         >
-                          <img src={event.images[0].src} alt={event.images[0].alt} width={event.images[0].width} height={event.images[0].height} loading="lazy" />
+                          <span className="archive-main-photo">
+                            <img src={event.images[0].src} alt={event.images[0].alt} width={event.images[0].width} height={event.images[0].height} loading="lazy" />
+                          </span>
+                          <span className="archive-preview-stack" aria-hidden="true">
+                            {event.images.slice(1, 3).map((image) => (
+                              <img key={image.src} src={image.src} alt="" width={image.width} height={image.height} loading="lazy" />
+                            ))}
+                          </span>
                           <span className="archive-photo-count"><Camera size={17} /> {event.images.length}</span>
                         </button>
                         <div className="archive-event-info">
@@ -302,11 +309,8 @@ export function ChroniclePage() {
               exit={{ opacity: 0, scale: 0.97 }}
               onMouseDown={(event) => event.stopPropagation()}
             >
-              <div className="lightbox-topbar">
-                <div><span>{activeEvent.location}</span><h2 id="chronicle-lightbox-title">{activeEvent.title}</h2></div>
-                <button type="button" aria-label="Zamknij galerię" onClick={closeGallery}><X size={26} /></button>
-              </div>
               <div className="lightbox-stage">
+                <span className="lightbox-counter">{String(activeImage + 1).padStart(2, "0")} / {String(activeEvent.images.length).padStart(2, "0")}</span>
                 <button type="button" className="lightbox-arrow previous" aria-label="Poprzednie zdjęcie" onClick={showPrevious}><ArrowLeft size={24} /></button>
                 <AnimatePresence mode="wait">
                   <motion.img
@@ -323,10 +327,32 @@ export function ChroniclePage() {
                 </AnimatePresence>
                 <button type="button" className="lightbox-arrow next" aria-label="Następne zdjęcie" onClick={showNext}><ArrowRight size={24} /></button>
               </div>
-              <div className="lightbox-bottom">
-                <span>{activeImage + 1} / {activeEvent.images.length}</span>
-                <span>Fot. {activeEvent.credit}</span>
-              </div>
+              <aside className="lightbox-sidebar">
+                <button className="lightbox-close" type="button" aria-label="Zamknij galerię" onClick={closeGallery}><X size={24} /></button>
+                <p className="section-kicker">{formatDate(activeEvent.date)}</p>
+                <h2 id="chronicle-lightbox-title">{activeEvent.title}</h2>
+                <p className="lightbox-description">{activeEvent.description}</p>
+                <dl className="lightbox-details">
+                  <div><dt>Miejsce</dt><dd>{activeEvent.location}</dd></div>
+                  <div><dt>Zdjęcia</dt><dd>{activeEvent.images.length}</dd></div>
+                  <div><dt>Autor</dt><dd>{activeEvent.credit}</dd></div>
+                </dl>
+                <div className="lightbox-thumbnails" aria-label="Wybierz zdjęcie">
+                  {activeEvent.images.map((image, index) => (
+                    <button
+                      type="button"
+                      className={activeImage === index ? "active" : ""}
+                      aria-label={`Pokaż zdjęcie ${index + 1}`}
+                      aria-pressed={activeImage === index}
+                      onClick={() => setActiveImage(index)}
+                      key={image.src}
+                    >
+                      <img src={image.src} alt="" width={image.width} height={image.height} loading="lazy" />
+                    </button>
+                  ))}
+                </div>
+                <p className="lightbox-hint">Użyj strzałek klawiatury lub przycisków na zdjęciu.</p>
+              </aside>
             </motion.section>
           </motion.div>
         )}
