@@ -1,0 +1,29 @@
+[
+  {
+    "folder": "Dni Lublińca 2025",
+    "title": "Dni Lublińca 2025",
+    "date": "2025-06-14",
+    "location": "Lubliniec",
+    "description": "Wspólna scena wszystkich pokoleń Halki podczas święta naszego miasta.",
+    "credit": "Archiwum zespołu",
+    "selected": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
+  },
+  {
+    "folder": "20.03.2026 - Halka - Chorzów-1-001",
+    "title": "Spotkanie z tradycją",
+    "date": "2026-03-20",
+    "location": "Chorzów",
+    "description": "Pieśni i tańce w bezpośrednim spotkaniu z młodą publicznością.",
+    "credit": "Aleksander Fijał",
+    "selected": [1, 4, 8, 11, 14, 17, 21, 24, 27, 30, 34, 37, 53, 60, 63]
+  },
+  {
+    "folder": "2026.04.25 - Halka - Wisła-1-001",
+    "title": "Warsztaty w Wiśle",
+    "date": "2026-04-25",
+    "location": "Wisła",
+    "description": "Praca nad ruchem, śpiewem i zespołową energią poza codzienną salą prób.",
+    "credit": "Aleksander Fijał",
+    "selected": [1, 6, 12, 17, 22, 27, 33, 38, 43, 48, 54, 59, 64, 69, 75, 80, 85, 90, 96, 101]
+  }
+]
