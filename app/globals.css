@@ -560,21 +560,22 @@ main {
 
 .folk-backdrop-rosette {
   position: absolute;
-  filter: saturate(1.25) contrast(1.06);
+  filter: saturate(1.55) contrast(1.08);
 }
 
 .folk-backdrop-rosette .folk-rosette i {
-  border-color: rgba(190, 61, 54, 0.68);
-  background: linear-gradient(90deg, rgba(190, 61, 54, 0.3), rgba(190, 61, 54, 0.05));
+  border-color: rgba(229, 35, 54, 0.92);
+  background: linear-gradient(90deg, rgba(229, 35, 54, 0.62), rgba(229, 35, 54, 0.12));
 }
 
 .folk-backdrop-rosette .folk-rosette i:nth-child(even) {
-  border-color: rgba(34, 126, 77, 0.68);
-  background: linear-gradient(90deg, rgba(34, 126, 77, 0.3), rgba(34, 126, 77, 0.05));
+  border-color: rgba(0, 151, 78, 0.92);
+  background: linear-gradient(90deg, rgba(0, 151, 78, 0.62), rgba(0, 151, 78, 0.12));
 }
 
 .folk-backdrop-rosette .folk-rosette b {
-  box-shadow: 0 0 0 7px rgba(189, 74, 67, 0.12), 0 4px 16px rgba(75, 65, 48, 0.12);
+  background: #e52336;
+  box-shadow: 0 0 0 7px rgba(229, 35, 54, 0.2), 0 4px 16px rgba(75, 65, 48, 0.12);
 }
 
 .folk-backdrop-rosette .folk-rosette {
