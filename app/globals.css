@@ -1,17 +1,17 @@
 @import "tailwindcss";
 
 :root {
-  --bg: #0d1710;
-  --bg-soft: #122019;
-  --surface: #17271e;
-  --surface-2: #1d3024;
-  --text: #f4efe3;
-  --muted: #b9c3b8;
-  --line: rgba(244, 239, 227, 0.14);
-  --red: #d63b34;
-  --red-dark: #af2b27;
-  --green: #209456;
-  --ivory: #f4efe3;
+  --bg: #f3eee4;
+  --bg-soft: #ebe3d5;
+  --surface: #fffaf1;
+  --surface-2: #e5dac8;
+  --text: #19372a;
+  --muted: #617168;
+  --line: rgba(31, 70, 51, 0.16);
+  --red: #bd4a43;
+  --red-dark: #9f3934;
+  --green: #2f7953;
+  --ivory: #fffaf1;
   --radius: 22px;
   --header-height: 74px;
 }
@@ -27,7 +27,9 @@ html {
 
 body {
   margin: 0;
-  background: var(--bg);
+  background:
+    radial-gradient(circle at 10% 8%, rgba(255, 255, 255, 0.66), transparent 28%),
+    linear-gradient(180deg, #f7f3eb 0%, var(--bg) 48%, #eee5d8 100%);
   color: var(--text);
   font-family: var(--font-sans), system-ui, sans-serif;
   text-rendering: optimizeLegibility;
@@ -39,7 +41,7 @@ body::before {
   inset: 0;
   pointer-events: none;
   z-index: 30;
-  opacity: 0.035;
+  opacity: 0.024;
   background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 160 160' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.45'/%3E%3C/svg%3E");
 }
 
@@ -93,7 +95,7 @@ img {
   gap: 40px;
   padding: 0 max(24px, calc((100vw - 1400px) / 2));
   border-bottom: 1px solid var(--line);
-  background: rgba(13, 23, 16, 0.94);
+  background: rgba(247, 243, 235, 0.9);
   backdrop-filter: blur(16px);
 }
 
@@ -165,8 +167,8 @@ img {
 .header-cta {
   min-height: 42px;
   padding-inline: 18px;
-  background: var(--ivory);
-  color: var(--bg);
+  background: var(--text);
+  color: var(--ivory);
   font-size: 0.85rem;
 }
 
@@ -231,7 +233,7 @@ img {
 
 .mobile-nav a:last-child {
   border-bottom: 0;
-  color: #ff7770;
+  color: var(--red);
 }
 
 .hero {
@@ -251,7 +253,7 @@ img {
 .eyebrow,
 .section-kicker {
   margin: 0 0 20px;
-  color: #78c99a;
+  color: var(--green);
   font-size: 0.76rem;
   font-weight: 700;
   letter-spacing: 0.17em;
@@ -310,7 +312,7 @@ img {
 }
 
 .text-link:hover {
-  color: #78c99a;
+  color: var(--green);
 }
 
 .hero-visual {
@@ -365,7 +367,7 @@ img {
   padding: 16px 20px;
   border: 1px solid var(--line);
   border-radius: 14px;
-  background: rgba(18, 32, 25, 0.88);
+  background: rgba(255, 250, 241, 0.88);
   backdrop-filter: blur(12px);
 }
 
@@ -515,16 +517,16 @@ img {
   left: 50%;
   width: 42%;
   height: 17%;
-  border: 1px solid rgba(255, 112, 102, 0.72);
+  border: 1px solid rgba(189, 74, 67, 0.58);
   border-radius: 78% 20% 78% 20%;
-  background: linear-gradient(90deg, rgba(255, 90, 82, 0.54), rgba(255, 90, 82, 0.05));
+  background: linear-gradient(90deg, rgba(189, 74, 67, 0.24), rgba(189, 74, 67, 0.03));
   transform: rotate(calc(var(--petal) * 45deg)) translateX(11px);
   transform-origin: 0 50%;
 }
 
 .folk-rosette i:nth-child(even) {
-  border-color: rgba(120, 201, 154, 0.7);
-  background: linear-gradient(90deg, rgba(73, 150, 103, 0.55), rgba(73, 150, 103, 0.04));
+  border-color: rgba(47, 121, 83, 0.58);
+  background: linear-gradient(90deg, rgba(47, 121, 83, 0.24), rgba(47, 121, 83, 0.03));
 }
 
 .folk-rosette b {
@@ -568,11 +570,11 @@ img {
   top: 50%;
   width: 100%;
   height: 2px;
-  background: linear-gradient(90deg, transparent, rgba(120, 201, 154, 0.85), rgba(239, 230, 204, 0.8));
+  background: linear-gradient(90deg, transparent, rgba(47, 121, 83, 0.72), rgba(189, 74, 67, 0.48));
 }
 
 .folk-sprig-right .folk-thread {
-  background: linear-gradient(90deg, rgba(239, 230, 204, 0.8), rgba(120, 201, 154, 0.85), transparent);
+  background: linear-gradient(90deg, rgba(189, 74, 67, 0.48), rgba(47, 121, 83, 0.72), transparent);
 }
 
 .folk-leaf {
@@ -580,9 +582,9 @@ img {
   top: 50%;
   width: 46px;
   height: 22px;
-  border: 1px solid rgba(120, 201, 154, 0.65);
+  border: 1px solid rgba(47, 121, 83, 0.5);
   border-radius: 100% 0 100% 0;
-  background: rgba(40, 102, 65, 0.24);
+  background: rgba(47, 121, 83, 0.09);
   transform-origin: 0 50%;
 }
 
@@ -633,7 +635,7 @@ img {
 .folk-scroll-copy span {
   display: block;
   margin-bottom: 12px;
-  color: #78c99a;
+  color: var(--green);
   font-size: 0.72rem;
   font-weight: 800;
   letter-spacing: 0.17em;
@@ -660,7 +662,7 @@ main {
   inset: 0;
   overflow: hidden;
   pointer-events: none;
-  opacity: 0.2;
+  opacity: 0.17;
   mask-image: linear-gradient(180deg, transparent 2%, black 12%, black 90%, transparent 100%);
 }
 
@@ -669,8 +671,8 @@ main {
   position: absolute;
   inset: 0;
   background:
-    radial-gradient(circle at 88% 24%, rgba(255, 90, 82, 0.14), transparent 24%),
-    radial-gradient(circle at 8% 74%, rgba(73, 150, 103, 0.16), transparent 26%);
+    radial-gradient(circle at 88% 24%, rgba(189, 74, 67, 0.16), transparent 24%),
+    radial-gradient(circle at 8% 74%, rgba(47, 121, 83, 0.18), transparent 26%);
 }
 
 .folk-backdrop-field {
@@ -687,7 +689,7 @@ main {
 .folk-backdrop-field span {
   width: 11px;
   height: 11px;
-  border: 1px solid var(--ivory);
+  border: 1px solid rgba(34, 88, 60, 0.48);
   transform: rotate(45deg);
 }
 
@@ -855,7 +857,8 @@ main {
 .year-filter button.active {
   border-color: var(--ivory);
   background: var(--ivory);
-  color: var(--bg);
+  color: var(--text);
+  box-shadow: 0 8px 24px rgba(43, 69, 53, 0.09);
 }
 
 .event-list {
@@ -918,7 +921,7 @@ main {
   display: flex;
   flex-wrap: wrap;
   gap: 8px 18px;
-  color: #78c99a;
+  color: var(--green);
   font-size: 0.78rem;
   font-weight: 700;
   letter-spacing: 0.08em;
@@ -981,7 +984,7 @@ main {
 }
 
 .timeline-year {
-  color: #ff655d;
+  color: var(--red);
   font-family: var(--font-display), Georgia, serif;
   font-size: 2.15rem;
   font-style: italic;
@@ -1120,7 +1123,8 @@ main {
 .calendar-month-switch button.active {
   border-color: var(--ivory);
   background: var(--ivory);
-  color: var(--bg);
+  color: var(--text);
+  box-shadow: 0 8px 24px rgba(43, 69, 53, 0.09);
 }
 
 .calendar-legend {
@@ -1137,10 +1141,10 @@ main {
   font-weight: 700;
 }
 
-.group-ensemble { --group-color: #ff6b63; }
-.group-children { --group-color: #e5b85c; }
-.group-choir { --group-color: #79a9d7; }
-.group-ballet { --group-color: #78c99a; }
+.group-ensemble { --group-color: #c84e47; }
+.group-children { --group-color: #a87516; }
+.group-choir { --group-color: #4d7fae; }
+.group-ballet { --group-color: #4b936b; }
 
 .group-icon {
   position: relative;
@@ -1159,7 +1163,7 @@ main {
   inset: 4px;
   border: 1px solid color-mix(in srgb, var(--group-color) 54%, transparent);
   border-radius: 70% 18% 70% 18%;
-  background: color-mix(in srgb, var(--group-color) 10%, rgba(8, 18, 12, 0.75));
+  background: color-mix(in srgb, var(--group-color) 12%, rgba(255, 250, 241, 0.9));
   transform: rotate(45deg);
 }
 
@@ -1172,15 +1176,15 @@ main {
 .group-icon svg {
   position: relative;
   z-index: 1;
-  filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.45));
+  filter: drop-shadow(0 1px 1px rgba(42, 68, 52, 0.18));
 }
 
 .calendar-panel {
   overflow-x: auto;
   border: 1px solid var(--line);
   border-radius: var(--radius);
-  background: rgba(17, 31, 23, 0.9);
-  box-shadow: 0 30px 90px rgba(0, 0, 0, 0.22);
+  background: rgba(255, 250, 241, 0.9);
+  box-shadow: 0 30px 90px rgba(52, 67, 55, 0.11);
 }
 
 .calendar-panel-title {
@@ -1235,7 +1239,7 @@ main {
   padding: 12px;
   border-right: 1px solid var(--line);
   border-bottom: 1px solid var(--line);
-  background: rgba(8, 18, 12, 0.22);
+  background: rgba(255, 255, 255, 0.34);
 }
 
 .calendar-day:nth-child(7n) {
@@ -1243,7 +1247,7 @@ main {
 }
 
 .calendar-day-empty {
-  background: rgba(3, 9, 5, 0.28);
+  background: rgba(224, 214, 198, 0.42);
 }
 
 .calendar-day-number {
@@ -1256,7 +1260,7 @@ main {
 }
 
 .calendar-day.has-events .calendar-day-number {
-  color: var(--ivory);
+  color: var(--text);
 }
 
 .calendar-day-events {
@@ -1275,7 +1279,7 @@ main {
   border: 0;
   border-left: 3px solid var(--group-color);
   border-radius: 7px;
-  background: color-mix(in srgb, var(--group-color) 10%, rgba(8, 18, 12, 0.86));
+  background: color-mix(in srgb, var(--group-color) 9%, rgba(255, 250, 241, 0.95));
   color: var(--text);
   font: inherit;
   text-align: left;
@@ -1284,7 +1288,7 @@ main {
 }
 
 .calendar-event:hover {
-  background: color-mix(in srgb, var(--group-color) 18%, rgba(8, 18, 12, 0.9));
+  background: color-mix(in srgb, var(--group-color) 17%, rgba(255, 250, 241, 0.98));
   transform: translateY(-1px);
 }
 
@@ -1419,9 +1423,9 @@ main {
   border: 1px solid var(--line);
   border-radius: 16px;
   background:
-    radial-gradient(circle at 100% 0%, rgba(73, 150, 103, 0.14), transparent 34%),
+    radial-gradient(circle at 100% 0%, rgba(47, 121, 83, 0.12), transparent 34%),
     var(--bg-soft);
-  box-shadow: 0 24px 80px rgba(0, 0, 0, 0.48);
+  box-shadow: 0 24px 80px rgba(44, 61, 49, 0.22);
   backdrop-filter: blur(14px);
 }
 
@@ -1430,7 +1434,7 @@ main {
 }
 
 .event-popover.is-pinned {
-  border-color: rgba(239, 230, 204, 0.22);
+  border-color: rgba(31, 70, 51, 0.24);
 }
 
 .event-popup-close {
@@ -1461,7 +1465,7 @@ main {
 
 .event-popup-kind {
   margin: 0 0 10px;
-  color: #78c99a;
+  color: var(--green);
   font-size: 0.72rem;
   font-weight: 800;
   letter-spacing: 0.14em;
@@ -1614,7 +1618,7 @@ main {
 .contact-form textarea:hover,
 .contact-form input:focus,
 .contact-form textarea:focus {
-  border-color: #78c99a;
+  border-color: var(--green);
 }
 
 .consent {
@@ -1655,7 +1659,7 @@ main {
   height: 100%;
   min-height: 390px;
   border: 0;
-  filter: grayscale(0.7) contrast(1.06) brightness(0.82);
+  filter: grayscale(0.48) contrast(0.96) brightness(1.02) sepia(0.08);
 }
 
 .contact-details {
@@ -1685,7 +1689,7 @@ main {
 
 .contact-details svg {
   flex: 0 0 auto;
-  color: #78c99a;
+  color: var(--green);
 }
 
 .contact-details span {
