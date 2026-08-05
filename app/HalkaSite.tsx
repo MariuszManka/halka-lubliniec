@@ -26,7 +26,7 @@ import { contact, facts, timeline } from "../content/site-content";
 type GalleryEvent = (typeof galleryEvents)[number];
 
 const navItems = [
-  ["Kronika", "#kronika"],
+  ["Kronika", "/kronika"],
   ["Historia", "#historia"],
   ["Terminarz", "#terminarz"],
   ["Kontakt", "#kontakt"],
@@ -442,16 +442,12 @@ function EventsCalendar() {
 export function HalkaSite() {
   const reduce = useReducedMotion();
   const [menuOpen, setMenuOpen] = useState(false);
-  const [year, setYear] = useState<"all" | number>("all");
   const [activeEvent, setActiveEvent] = useState<GalleryEvent | null>(null);
   const [activeImage, setActiveImage] = useState(0);
   const [mailPrepared, setMailPrepared] = useState(false);
 
-  const years = useMemo(
-    () => [...new Set(galleryEvents.map((event) => event.year))].sort((a, b) => b - a),
-    [],
-  );
-  const visibleEvents = year === "all" ? galleryEvents : galleryEvents.filter((event) => event.year === year);
+  const pinnedEvents = galleryEvents.filter((event) => event.pinned);
+  const featuredEvents = (pinnedEvents.length ? pinnedEvents : galleryEvents).slice(0, 3);
 
   const closeGallery = () => {
     setActiveEvent(null);
@@ -551,7 +547,7 @@ export function HalkaSite() {
           <p className="hero-lead">Od 1948 roku śpiewamy, tańczymy i opowiadamy Śląsk kolejnym pokoleniom.</p>
           <div className="hero-actions">
             <a className="button button-primary" href="#historia">Poznaj nas <ArrowUpRight size={18} /></a>
-            <a className="text-link" href="#kronika">Otwórz kronikę <ArrowRight size={18} /></a>
+            <a className="text-link" href="/kronika">Otwórz kronikę <ArrowRight size={18} /></a>
           </div>
         </motion.div>
 
@@ -613,19 +609,12 @@ export function HalkaSite() {
             <p className="section-kicker">Kronika zespołu</p>
             <h2 id="chronicle-title">Każdy występ zostawia ślad.</h2>
           </div>
-          <p>Koncerty, wyjazdy i spotkania zapisane w obrazach. Wybierz rok i zajrzyj do środka.</p>
+          <p>Trzy wybrane wspomnienia z koncertów, wyjazdów i spotkań. Całe archiwum czeka w osobnej kronice.</p>
         </Reveal>
-
-        <div className="year-filter" aria-label="Filtruj kronikę według roku">
-          <button type="button" className={year === "all" ? "active" : ""} aria-pressed={year === "all"} onClick={() => setYear("all")}>Wszystkie</button>
-          {years.map((item) => (
-            <button key={item} type="button" className={year === item ? "active" : ""} aria-pressed={year === item} onClick={() => setYear(item)}>{item}</button>
-          ))}
-        </div>
 
         <motion.div className="event-list" layout>
           <AnimatePresence mode="popLayout">
-            {visibleEvents.map((event, eventIndex) => (
+            {featuredEvents.map((event, eventIndex) => (
               <motion.article
                 className="event-card"
                 key={event.id}
@@ -665,7 +654,12 @@ export function HalkaSite() {
             ))}
           </AnimatePresence>
         </motion.div>
-        {visibleEvents.length === 0 && <p className="empty-state">W tym roku nie ma jeszcze wpisów w kronice.</p>}
+        <Reveal className="chronicle-more">
+          <a className="button button-secondary" href="/kronika">
+            Zobacz całą kronikę <ArrowRight size={19} />
+          </a>
+          <p>Wszystkie wydarzenia, lata i fotografie w jednym miejscu.</p>
+        </Reveal>
       </section>
 
       <section className="history section-shell" id="historia" aria-labelledby="history-title">

@@ -99,6 +99,7 @@ for (const folder of folders) {
   events.push({
     id: slug,
     year: Number(date.slice(0, 4)),
+    pinned: override.pinned ?? false,
     title: override.title ?? titleFromFolder(folder),
     date,
     location: override.location ?? "Lubliniec",

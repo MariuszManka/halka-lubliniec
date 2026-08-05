@@ -3,6 +3,7 @@ export const galleryEvents = [
   {
     "id": "warsztaty-w-wisle",
     "year": 2026,
+    "pinned": true,
     "title": "Warsztaty w Wiśle",
     "date": "2026-04-25",
     "location": "Wisła",
@@ -134,6 +135,7 @@ export const galleryEvents = [
   {
     "id": "spotkanie-z-tradycja",
     "year": 2026,
+    "pinned": true,
     "title": "Spotkanie z tradycją",
     "date": "2026-03-20",
     "location": "Chorzów",
@@ -235,6 +237,7 @@ export const galleryEvents = [
   {
     "id": "dni-lublinca-2025",
     "year": 2025,
+    "pinned": true,
     "title": "Dni Lublińca 2025",
     "date": "2025-06-14",
     "location": "Lubliniec",
