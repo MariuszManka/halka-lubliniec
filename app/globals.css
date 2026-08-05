@@ -1143,15 +1143,36 @@ main {
 .group-ballet { --group-color: #78c99a; }
 
 .group-icon {
+  position: relative;
   width: 30px;
   height: 30px;
   flex: 0 0 auto;
   display: inline-grid;
   place-items: center;
-  border: 1px solid color-mix(in srgb, var(--group-color) 34%, transparent);
-  border-radius: 50%;
-  background: color-mix(in srgb, var(--group-color) 11%, rgba(8, 18, 12, 0.82));
   color: var(--group-color);
+}
+
+.group-icon::before,
+.group-icon::after {
+  content: "";
+  position: absolute;
+  inset: 4px;
+  border: 1px solid color-mix(in srgb, var(--group-color) 54%, transparent);
+  border-radius: 70% 18% 70% 18%;
+  background: color-mix(in srgb, var(--group-color) 10%, rgba(8, 18, 12, 0.75));
+  transform: rotate(45deg);
+}
+
+.group-icon::after {
+  inset: 6px;
+  border-radius: 18% 70% 18% 70%;
+  transform: rotate(-45deg);
+}
+
+.group-icon svg {
+  position: relative;
+  z-index: 1;
+  filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.45));
 }
 
 .calendar-panel {
@@ -1293,7 +1314,14 @@ main {
 .calendar-event-icons .group-icon {
   width: 20px;
   height: 20px;
-  border-color: color-mix(in srgb, var(--group-color) 28%, transparent);
+}
+
+.calendar-event-icons .group-icon::before {
+  inset: 2px;
+}
+
+.calendar-event-icons .group-icon::after {
+  inset: 4px;
 }
 
 .calendar-agenda {
@@ -1381,37 +1409,36 @@ main {
   background: transparent;
 }
 
-.event-popup-backdrop {
+.event-popover {
   position: fixed;
   z-index: 80;
-  inset: 0;
-  display: grid;
-  place-items: center;
-  padding: 20px;
-  background: rgba(3, 8, 5, 0.74);
-  backdrop-filter: blur(8px);
-}
-
-.event-popup {
-  position: relative;
-  width: min(100%, 540px);
-  max-height: calc(100dvh - 40px);
+  width: min(calc(100vw - 24px), 360px);
+  max-height: min(520px, calc(100dvh - 24px));
   overflow-y: auto;
-  padding: clamp(30px, 5vw, 48px);
+  padding: 24px;
   border: 1px solid var(--line);
-  border-radius: var(--radius);
+  border-radius: 16px;
   background:
     radial-gradient(circle at 100% 0%, rgba(73, 150, 103, 0.14), transparent 34%),
     var(--bg-soft);
-  box-shadow: 0 36px 120px rgba(0, 0, 0, 0.55);
+  box-shadow: 0 24px 80px rgba(0, 0, 0, 0.48);
+  backdrop-filter: blur(14px);
+}
+
+.event-popover.is-preview {
+  pointer-events: none;
+}
+
+.event-popover.is-pinned {
+  border-color: rgba(239, 230, 204, 0.22);
 }
 
 .event-popup-close {
   position: absolute;
-  top: 18px;
-  right: 18px;
-  width: 42px;
-  height: 42px;
+  top: 12px;
+  right: 12px;
+  width: 34px;
+  height: 34px;
   display: grid;
   place-items: center;
   border: 1px solid var(--line);
@@ -1424,12 +1451,12 @@ main {
 .event-popup-icons {
   display: flex;
   gap: 8px;
-  margin-bottom: 24px;
+  margin-bottom: 18px;
 }
 
 .event-popup-icons .group-icon {
-  width: 48px;
-  height: 48px;
+  width: 40px;
+  height: 40px;
 }
 
 .event-popup-kind {
@@ -1441,25 +1468,25 @@ main {
   text-transform: uppercase;
 }
 
-.event-popup h2 {
-  max-width: 11ch;
+.event-popover h2 {
+  max-width: 12ch;
   margin: 0;
   font-family: var(--font-display), Georgia, serif;
-  font-size: clamp(2.6rem, 7vw, 4rem);
+  font-size: 2.35rem;
   font-weight: 430;
   letter-spacing: -0.035em;
   line-height: 0.96;
 }
 
 .event-popup-description {
-  margin: 22px 0 0;
+  margin: 16px 0 0;
   color: var(--muted);
   line-height: 1.65;
 }
 
 .event-popup-details {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: 1fr 1fr;
   gap: 1px;
   margin: 28px 0 0;
   overflow: hidden;
@@ -1472,6 +1499,10 @@ main {
   min-width: 0;
   padding: 16px;
   background: var(--surface);
+}
+
+.event-popup-details > div:last-child {
+  grid-column: 1 / -1;
 }
 
 .event-popup-details dt {
@@ -1926,9 +1957,8 @@ main {
   .calendar-day { min-height: 142px; }
   .agenda-event { grid-template-columns: 1fr; gap: 14px; padding-block: 24px; }
   .agenda-groups { grid-column: 1; }
-  .event-popup-details { grid-template-columns: 1fr; }
-  .event-popup { padding: 34px 24px 26px; }
-  .event-popup h2 { padding-right: 36px; }
+  .event-popover { padding: 22px; }
+  .event-popover h2 { padding-right: 30px; font-size: 2.15rem; }
   .contact-form { padding: 26px 20px; }
   .footer-links { gap: 18px; }
   .lightbox-stage { padding-inline: 8px; }

@@ -11,8 +11,8 @@ import {
   EnvelopeSimple,
   List,
   MapPin,
-  MicrophoneStage,
-  PersonSimpleRun,
+  MusicNotes,
+  PersonArmsSpread,
   Phone,
   Smiley,
   UsersThree,
@@ -66,8 +66,8 @@ const formatEventTime = (event: CalendarEvent) => {
 const groupIcons = {
   ensemble: UsersThree,
   children: Smiley,
-  choir: MicrophoneStage,
-  ballet: PersonSimpleRun,
+  choir: MusicNotes,
+  ballet: PersonArmsSpread,
 } as const;
 
 function GroupIcon({ group, size = 17 }: { group: EventGroup; size?: number }) {
@@ -193,21 +193,63 @@ function EventsCalendar() {
     ? calendarMonths[firstCurrentOrFuture]
     : calendarMonths[calendarMonths.length - 1];
   const [activeMonth, setActiveMonth] = useState(initialMonth);
-  const [selectedEvent, setSelectedEvent] = useState<CalendarEvent | null>(null);
+  const [eventPopover, setEventPopover] = useState<{
+    event: CalendarEvent;
+    left: number;
+    top?: number;
+    bottom?: number;
+    pinned: boolean;
+  } | null>(null);
 
   useEffect(() => {
-    if (!selectedEvent) return;
-    const previousOverflow = document.body.style.overflow;
+    if (!eventPopover) return;
     const closeOnEscape = (event: KeyboardEvent) => {
-      if (event.key === "Escape") setSelectedEvent(null);
+      if (event.key === "Escape") setEventPopover(null);
     };
-    document.body.style.overflow = "hidden";
     window.addEventListener("keydown", closeOnEscape);
     return () => {
-      document.body.style.overflow = previousOverflow;
       window.removeEventListener("keydown", closeOnEscape);
     };
-  }, [selectedEvent]);
+  }, [eventPopover]);
+
+  useEffect(() => {
+    if (!eventPopover?.pinned) return;
+    const closeOutside = (event: PointerEvent) => {
+      const target = event.target as Element;
+      if (!target.closest("[data-event-popover], [data-event-anchor]")) setEventPopover(null);
+    };
+    const closeOnMove = () => setEventPopover(null);
+    document.addEventListener("pointerdown", closeOutside);
+    window.addEventListener("resize", closeOnMove);
+    window.addEventListener("scroll", closeOnMove, true);
+    return () => {
+      document.removeEventListener("pointerdown", closeOutside);
+      window.removeEventListener("resize", closeOnMove);
+      window.removeEventListener("scroll", closeOnMove, true);
+    };
+  }, [eventPopover?.pinned]);
+
+  const showEventPopover = (
+    event: CalendarEvent,
+    anchor: HTMLButtonElement,
+    pinned: boolean,
+  ) => {
+    const rect = anchor.getBoundingClientRect();
+    const width = Math.min(360, window.innerWidth - 24);
+    const left = Math.min(
+      window.innerWidth - width - 12,
+      Math.max(12, rect.left + rect.width / 2 - width / 2),
+    );
+    const placeBelow = window.innerHeight - rect.bottom > 340 || rect.top < 340;
+    setEventPopover({
+      event,
+      left,
+      pinned,
+      ...(placeBelow
+        ? { top: rect.bottom + 10 }
+        : { bottom: window.innerHeight - rect.top + 10 }),
+    });
+  };
 
   const { cells, monthEvents, label } = useMemo(() => {
     const [year, month] = activeMonth.split("-").map(Number);
@@ -280,7 +322,26 @@ function EventsCalendar() {
                       <button
                         type="button"
                         className={`calendar-event ${primaryGroup.className}`}
-                        onClick={() => setSelectedEvent(event)}
+                        data-event-anchor
+                        onMouseEnter={(mouseEvent) => {
+                          if (!eventPopover?.pinned) showEventPopover(event, mouseEvent.currentTarget, false);
+                        }}
+                        onMouseLeave={() => {
+                          setEventPopover((current) => current?.pinned ? current : null);
+                        }}
+                        onFocus={(focusEvent) => {
+                          if (!eventPopover?.pinned) showEventPopover(event, focusEvent.currentTarget, false);
+                        }}
+                        onBlur={() => {
+                          setEventPopover((current) => current?.pinned ? current : null);
+                        }}
+                        onClick={(clickEvent) => {
+                          if (eventPopover?.pinned && eventPopover.event.id === event.id) {
+                            setEventPopover(null);
+                          } else {
+                            showEventPopover(event, clickEvent.currentTarget, true);
+                          }
+                        }}
                         aria-label={`Pokaż szczegóły wydarzenia: ${event.title}, ${event.location}`}
                         key={event.id}
                       >
@@ -324,57 +385,54 @@ function EventsCalendar() {
       </div>
 
       <AnimatePresence>
-        {selectedEvent && (
-          <motion.div
-            className="event-popup-backdrop"
-            role="presentation"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            onMouseDown={() => setSelectedEvent(null)}
+        {eventPopover && (
+          <motion.aside
+            className={`event-popover ${eventPopover.pinned ? "is-pinned" : "is-preview"}`}
+            data-event-popover
+            role={eventPopover.pinned ? "dialog" : "tooltip"}
+            aria-labelledby="event-popover-title"
+            style={{
+              left: eventPopover.left,
+              ...(eventPopover.top !== undefined
+                ? { top: eventPopover.top }
+                : { bottom: eventPopover.bottom }),
+            }}
+            initial={{ opacity: 0, y: 7, scale: 0.98 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, y: 5, scale: 0.985 }}
+            transition={{ duration: 0.2, ease: [0.16, 1, 0.3, 1] }}
           >
-            <motion.section
-              className="event-popup"
-              role="dialog"
-              aria-modal="true"
-              aria-labelledby="event-popup-title"
-              initial={{ opacity: 0, y: 18, scale: 0.97 }}
-              animate={{ opacity: 1, y: 0, scale: 1 }}
-              exit={{ opacity: 0, y: 12, scale: 0.98 }}
-              transition={{ duration: 0.24, ease: [0.16, 1, 0.3, 1] }}
-              onMouseDown={(event) => event.stopPropagation()}
-            >
+            {eventPopover.pinned && (
               <button
                 className="event-popup-close"
                 type="button"
                 aria-label="Zamknij szczegóły wydarzenia"
-                onClick={() => setSelectedEvent(null)}
-                autoFocus
+                onClick={() => setEventPopover(null)}
               >
-                <X size={20} />
+                <X size={18} />
               </button>
-              <div className="event-popup-icons">
-                {selectedEvent.groups.map((group) => <GroupIcon group={group} size={24} key={group} />)}
-              </div>
-              <p className="event-popup-kind">{selectedEvent.kind}</p>
-              <h2 id="event-popup-title">{selectedEvent.title}</h2>
-              <p className="event-popup-description">
-                {selectedEvent.note ?? `Udział: ${selectedEvent.groups.map((group) => eventGroups[group].label.toLowerCase()).join(" i ")}.`}
-              </p>
-              <dl className="event-popup-details">
-                <div><dt>Data</dt><dd>{formatEventDate(selectedEvent)} {selectedEvent.date.slice(0, 4)}</dd></div>
-                <div><dt>Godzina</dt><dd>{formatEventTime(selectedEvent)}</dd></div>
-                <div><dt>Miejsce</dt><dd>{selectedEvent.location}</dd></div>
-              </dl>
-              <div className="event-popup-groups">
-                {selectedEvent.groups.map((group) => (
+            )}
+            <div className="event-popup-icons">
+              {eventPopover.event.groups.map((group) => <GroupIcon group={group} size={21} key={group} />)}
+            </div>
+            <p className="event-popup-kind">{eventPopover.event.kind}</p>
+            <h2 id="event-popover-title">{eventPopover.event.title}</h2>
+            <p className="event-popup-description">
+              {eventPopover.event.note ?? `Udział: ${eventPopover.event.groups.map((group) => eventGroups[group].label.toLowerCase()).join(" i ")}.`}
+            </p>
+            <dl className="event-popup-details">
+              <div><dt>Data</dt><dd>{formatEventDate(eventPopover.event)} {eventPopover.event.date.slice(0, 4)}</dd></div>
+              <div><dt>Godzina</dt><dd>{formatEventTime(eventPopover.event)}</dd></div>
+              <div><dt>Miejsce</dt><dd>{eventPopover.event.location}</dd></div>
+            </dl>
+            <div className="event-popup-groups">
+              {eventPopover.event.groups.map((group) => (
                   <span className={eventGroups[group].className} key={group}>
                     <GroupIcon group={group} size={16} />{eventGroups[group].label}
                   </span>
-                ))}
-              </div>
-            </motion.section>
-          </motion.div>
+              ))}
+            </div>
+          </motion.aside>
         )}
       </AnimatePresence>
     </div>
