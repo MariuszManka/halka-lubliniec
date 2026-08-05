@@ -370,7 +370,12 @@ function EventsCalendar() {
             <div className="agenda-main">
               <span className="agenda-time">{formatEventTime(event)}</span>
               <h3>{event.title}</h3>
-              <p><MapPin size={17} aria-hidden="true" />{event.location}</p>
+              <p>
+                <MapPin size={17} aria-hidden="true" />
+                {event.locationUrl ? (
+                  <a href={event.locationUrl} target="_blank" rel="noreferrer">{event.location}<ArrowUpRight size={14} /></a>
+                ) : event.location}
+              </p>
               {event.note && <small>{event.note}</small>}
             </div>
             <div className="agenda-groups">
@@ -423,7 +428,16 @@ function EventsCalendar() {
             <dl className="event-popup-details">
               <div><dt>Data</dt><dd>{formatEventDate(eventPopover.event)} {eventPopover.event.date.slice(0, 4)}</dd></div>
               <div><dt>Godzina</dt><dd>{formatEventTime(eventPopover.event)}</dd></div>
-              <div><dt>Miejsce</dt><dd>{eventPopover.event.location}</dd></div>
+              <div>
+                <dt>Miejsce</dt>
+                <dd>
+                  {eventPopover.event.locationUrl ? (
+                    <a href={eventPopover.event.locationUrl} target="_blank" rel="noreferrer">
+                      {eventPopover.event.location}<ArrowUpRight size={14} />
+                    </a>
+                  ) : eventPopover.event.location}
+                </dd>
+              </div>
             </dl>
             <div className="event-popup-groups">
               {eventPopover.event.groups.map((group) => (

@@ -1303,6 +1303,24 @@ main {
   font-size: 0.84rem;
 }
 
+.agenda-main p a,
+.event-popup-details dd a {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  color: var(--green);
+  font-weight: 700;
+  text-decoration: underline;
+  text-decoration-color: color-mix(in srgb, var(--green) 35%, transparent);
+  text-underline-offset: 3px;
+}
+
+.agenda-main p a:hover,
+.event-popup-details dd a:hover {
+  color: var(--red);
+  text-decoration-color: currentColor;
+}
+
 .agenda-main small {
   display: block;
   margin-top: 10px;
