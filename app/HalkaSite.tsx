@@ -11,12 +11,16 @@ import {
   EnvelopeSimple,
   List,
   MapPin,
+  MicrophoneStage,
+  PersonSimpleRun,
   Phone,
+  Smiley,
+  UsersThree,
   X,
 } from "@phosphor-icons/react";
 import { galleryEvents } from "../content/generated-gallery";
 import { sessionImages } from "../content/generated-session";
-import { calendarEvents, eventGroups, type CalendarEvent } from "../content/events";
+import { calendarEvents, eventGroups, type CalendarEvent, type EventGroup } from "../content/events";
 import { contact, facts, timeline } from "../content/site-content";
 
 type GalleryEvent = (typeof galleryEvents)[number];
@@ -58,6 +62,22 @@ const formatEventTime = (event: CalendarEvent) => {
   if (!event.time) return "Godzina do potwierdzenia";
   return event.endTime ? `${event.time}-${event.endTime}` : event.time;
 };
+
+const groupIcons = {
+  ensemble: UsersThree,
+  children: Smiley,
+  choir: MicrophoneStage,
+  ballet: PersonSimpleRun,
+} as const;
+
+function GroupIcon({ group, size = 17 }: { group: EventGroup; size?: number }) {
+  const Icon = groupIcons[group];
+  return (
+    <span className={`group-icon ${eventGroups[group].className}`} aria-hidden="true">
+      <Icon size={size} weight="duotone" />
+    </span>
+  );
+}
 
 function SessionImage({
   name,
@@ -173,6 +193,21 @@ function EventsCalendar() {
     ? calendarMonths[firstCurrentOrFuture]
     : calendarMonths[calendarMonths.length - 1];
   const [activeMonth, setActiveMonth] = useState(initialMonth);
+  const [selectedEvent, setSelectedEvent] = useState<CalendarEvent | null>(null);
+
+  useEffect(() => {
+    if (!selectedEvent) return;
+    const previousOverflow = document.body.style.overflow;
+    const closeOnEscape = (event: KeyboardEvent) => {
+      if (event.key === "Escape") setSelectedEvent(null);
+    };
+    document.body.style.overflow = "hidden";
+    window.addEventListener("keydown", closeOnEscape);
+    return () => {
+      document.body.style.overflow = previousOverflow;
+      window.removeEventListener("keydown", closeOnEscape);
+    };
+  }, [selectedEvent]);
 
   const { cells, monthEvents, label } = useMemo(() => {
     const [year, month] = activeMonth.split("-").map(Number);
@@ -217,7 +252,7 @@ function EventsCalendar() {
         </div>
         <div className="calendar-legend" aria-label="Legenda grup">
           {Object.entries(eventGroups).map(([key, group]) => (
-            <span key={key}><i className={group.className} />{group.label}</span>
+            <span key={key}><GroupIcon group={key as EventGroup} size={16} />{group.label}</span>
           ))}
         </div>
       </div>
@@ -242,13 +277,19 @@ function EventsCalendar() {
                   {dayEvents.map((event) => {
                     const primaryGroup = eventGroups[event.groups[0]];
                     return (
-                      <a className={`calendar-event ${primaryGroup.className}`} href={`#event-${event.id}`} key={event.id}>
+                      <button
+                        type="button"
+                        className={`calendar-event ${primaryGroup.className}`}
+                        onClick={() => setSelectedEvent(event)}
+                        aria-label={`Pokaż szczegóły wydarzenia: ${event.title}, ${event.location}`}
+                        key={event.id}
+                      >
                         <span className="calendar-event-time">{event.time ?? "Termin"}</span>
                         <strong>{event.location}</strong>
-                        <span className="calendar-event-dots" aria-hidden="true">
-                          {event.groups.map((group) => <i className={eventGroups[group].className} key={group} />)}
+                        <span className="calendar-event-icons">
+                          {event.groups.map((group) => <GroupIcon group={group} size={13} key={group} />)}
                         </span>
-                      </a>
+                      </button>
                     );
                   })}
                 </div>
@@ -274,13 +315,68 @@ function EventsCalendar() {
             <div className="agenda-groups">
               {event.groups.map((group) => (
                 <span className={eventGroups[group].className} key={group}>
-                  <i />{eventGroups[group].label}
+                  <GroupIcon group={group} size={15} />{eventGroups[group].label}
                 </span>
               ))}
             </div>
           </article>
         ))}
       </div>
+
+      <AnimatePresence>
+        {selectedEvent && (
+          <motion.div
+            className="event-popup-backdrop"
+            role="presentation"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            onMouseDown={() => setSelectedEvent(null)}
+          >
+            <motion.section
+              className="event-popup"
+              role="dialog"
+              aria-modal="true"
+              aria-labelledby="event-popup-title"
+              initial={{ opacity: 0, y: 18, scale: 0.97 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              exit={{ opacity: 0, y: 12, scale: 0.98 }}
+              transition={{ duration: 0.24, ease: [0.16, 1, 0.3, 1] }}
+              onMouseDown={(event) => event.stopPropagation()}
+            >
+              <button
+                className="event-popup-close"
+                type="button"
+                aria-label="Zamknij szczegóły wydarzenia"
+                onClick={() => setSelectedEvent(null)}
+                autoFocus
+              >
+                <X size={20} />
+              </button>
+              <div className="event-popup-icons">
+                {selectedEvent.groups.map((group) => <GroupIcon group={group} size={24} key={group} />)}
+              </div>
+              <p className="event-popup-kind">{selectedEvent.kind}</p>
+              <h2 id="event-popup-title">{selectedEvent.title}</h2>
+              <p className="event-popup-description">
+                {selectedEvent.note ?? `Udział: ${selectedEvent.groups.map((group) => eventGroups[group].label.toLowerCase()).join(" i ")}.`}
+              </p>
+              <dl className="event-popup-details">
+                <div><dt>Data</dt><dd>{formatEventDate(selectedEvent)} {selectedEvent.date.slice(0, 4)}</dd></div>
+                <div><dt>Godzina</dt><dd>{formatEventTime(selectedEvent)}</dd></div>
+                <div><dt>Miejsce</dt><dd>{selectedEvent.location}</dd></div>
+              </dl>
+              <div className="event-popup-groups">
+                {selectedEvent.groups.map((group) => (
+                  <span className={eventGroups[group].className} key={group}>
+                    <GroupIcon group={group} size={16} />{eventGroups[group].label}
+                  </span>
+                ))}
+              </div>
+            </motion.section>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 }
