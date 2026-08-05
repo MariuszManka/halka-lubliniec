@@ -26,7 +26,7 @@ import { contact, facts, timeline } from "../content/site-content";
 type GalleryEvent = (typeof galleryEvents)[number];
 
 const navItems = [
-  ["Kronika", "/kronika"],
+  ["Galeria", "/galeria"],
   ["Historia", "#historia"],
   ["Terminarz", "#terminarz"],
   ["Kontakt", "#kontakt"],
@@ -547,7 +547,7 @@ export function HalkaSite() {
           <p className="hero-lead">Od 1948 roku śpiewamy, tańczymy i opowiadamy Śląsk kolejnym pokoleniom.</p>
           <div className="hero-actions">
             <a className="button button-primary" href="#historia">Poznaj nas <ArrowUpRight size={18} /></a>
-            <a className="text-link" href="/kronika">Otwórz kronikę <ArrowRight size={18} /></a>
+            <a className="text-link" href="/galeria">Zobacz galerię <ArrowRight size={18} /></a>
           </div>
         </motion.div>
 
@@ -603,13 +603,13 @@ export function HalkaSite() {
         </div>
       </section>
 
-      <section className="chronicle section-shell" id="kronika" aria-labelledby="chronicle-title">
+      <section className="chronicle section-shell" id="galeria" aria-labelledby="chronicle-title">
         <Reveal className="section-heading chronicle-heading">
           <div>
-            <p className="section-kicker">Kronika zespołu</p>
-            <h2 id="chronicle-title">Każdy występ zostawia ślad.</h2>
+            <p className="section-kicker">Wybrane kadry</p>
+            <h2 id="chronicle-title">Ostatnio w obiektywie.</h2>
           </div>
-          <p>Trzy wybrane wspomnienia z koncertów, wyjazdów i spotkań. Całe archiwum czeka w osobnej kronice.</p>
+          <p>Trzy wybrane galerie z koncertów, wyjazdów i spotkań. Więcej zdjęć znajdziesz na osobnej podstronie.</p>
         </Reveal>
 
         <motion.div className="event-list" layout>
@@ -654,11 +654,25 @@ export function HalkaSite() {
             ))}
           </AnimatePresence>
         </motion.div>
-        <Reveal className="chronicle-more">
-          <a className="button button-secondary" href="/kronika">
-            Zobacz całą kronikę <ArrowRight size={19} />
-          </a>
-          <p>Wszystkie wydarzenia, lata i fotografie w jednym miejscu.</p>
+        <Reveal className="gallery-passage">
+          <div className="gallery-passage-image">
+            <img
+              src={featuredEvents[0].images[1]?.src ?? featuredEvents[0].images[0].src}
+              alt={featuredEvents[0].images[1]?.alt ?? featuredEvents[0].images[0].alt}
+              width={featuredEvents[0].images[1]?.width ?? featuredEvents[0].images[0].width}
+              height={featuredEvents[0].images[1]?.height ?? featuredEvents[0].images[0].height}
+              loading="lazy"
+            />
+            <span><Camera size={18} /> Pełna galeria</span>
+          </div>
+          <div className="gallery-passage-copy">
+            <p className="section-kicker">Więcej niż trzy kadry</p>
+            <h3>Zajrzyj do całej opowieści.</h3>
+            <p>Wszystkie realizacje, koncerty i fotografie uporządkowane według lat — z miejscem na kolejne wspomnienia.</p>
+            <a className="button button-primary" href="/galeria">
+              Przejdź do galerii <ArrowRight size={19} />
+            </a>
+          </div>
         </Reveal>
       </section>
 

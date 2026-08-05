@@ -6,6 +6,6 @@ export const metadata: Metadata = {
   description: "Galerie z koncertów, warsztatów, wyjazdów i spotkań Zespołu Pieśni i Tańca Halka z Lublińca.",
 };
 
-export default function GalleryLegacyRoute() {
+export default function Gallery() {
   return <ChroniclePage />;
 }

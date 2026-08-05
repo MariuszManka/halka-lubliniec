@@ -12,7 +12,7 @@ const formatDate = (date: string) =>
     .format(new Date(`${date}T12:00:00`));
 
 const navItems = [
-  ["Kronika", "/kronika"],
+  ["Galeria", "/galeria"],
   ["Historia", "/#historia"],
   ["Terminarz", "/#terminarz"],
   ["Kontakt", "/#kontakt"],
@@ -113,7 +113,7 @@ export function ChroniclePage() {
         </a>
         <nav className="desktop-nav" aria-label="Główna nawigacja">
           {navItems.map(([label, href]) => (
-            <a className={href === "/kronika" ? "active" : ""} key={href} href={href}>{label}</a>
+            <a className={href === "/galeria" ? "active" : ""} key={href} href={href}>{label}</a>
           ))}
         </nav>
         <a className="header-cta chronicle-home-link" href="/"><House size={17} /> Strona główna</a>
@@ -152,35 +152,59 @@ export function ChroniclePage() {
           transition={{ duration: 0.85, ease: [0.16, 1, 0.3, 1] }}
         >
           <a className="chronicle-breadcrumb" href="/"><ArrowLeft size={16} /> Strona główna</a>
-          <p className="section-kicker">Fotograficzna kronika Halki</p>
-          <h1>Historie zapisane <em>w ruchu i obrazie.</em></h1>
+          <p className="section-kicker">Galeria Zespołu Halka</p>
+          <h1>Scena pełna <em>żywych kadrów.</em></h1>
           <p>
-            Koncerty, warsztaty, spotkania i podróże. Każdy rok to kolejny rozdział,
-            a każde wydarzenie ma tu miejsce na własną opowieść.
+            Koncerty, warsztaty, spotkania i podróże widziane z bliska. Wybierz rok,
+            otwórz wydarzenie i zobacz Halkę w ruchu.
           </p>
         </motion.div>
+        <motion.figure
+          className="gallery-hero-visual"
+          initial={reduce ? false : { opacity: 0, scale: 0.94, rotate: 1.5 }}
+          animate={{ opacity: 1, scale: 1, rotate: 0 }}
+          transition={{ duration: 1, delay: 0.08, ease: [0.16, 1, 0.3, 1] }}
+        >
+          {galleryEvents.slice(0, 3).map((event, index) => (
+            <motion.div
+              className={`gallery-hero-photo gallery-hero-photo-${index + 1}`}
+              key={event.id}
+              animate={reduce ? undefined : { y: index === 1 ? [0, -8, 0] : [0, 7, 0] }}
+              transition={{ duration: 7 + index, repeat: Infinity, ease: "easeInOut" }}
+            >
+              <img
+                src={event.images[index + 1]?.src ?? event.images[0].src}
+                alt={event.images[index + 1]?.alt ?? event.images[0].alt}
+                width={event.images[index + 1]?.width ?? event.images[0].width}
+                height={event.images[index + 1]?.height ?? event.images[0].height}
+                loading={index === 0 ? "eager" : "lazy"}
+              />
+            </motion.div>
+          ))}
+          <figcaption><Camera size={18} /> Halka w obiektywie</figcaption>
+        </motion.figure>
         <motion.div
           className="chronicle-hero-stats"
           initial={reduce ? false : { opacity: 0, x: 24 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.85, delay: 0.12, ease: [0.16, 1, 0.3, 1] }}
         >
-          <div><strong>{galleryEvents.length}</strong><span>wydarzenia</span></div>
+          <div><strong>{galleryEvents.length}</strong><span>galerie wydarzeń</span></div>
           <div><strong>{totalPhotos}</strong><span>fotografii</span></div>
-          <div><strong>{years.length}</strong><span>lata w kronice</span></div>
+          <div><strong>{years.length}</strong><span>lata w galerii</span></div>
         </motion.div>
       </section>
 
       <section className="chronicle-archive section-shell" aria-labelledby="archive-title">
         <div className="chronicle-archive-heading">
           <div>
-            <p className="section-kicker">Archiwum wydarzeń</p>
-            <h2 id="archive-title">Wybierz rok. Otwórz wspomnienie.</h2>
+            <p className="section-kicker">Galerie według lat</p>
+            <h2 id="archive-title">Wybierz rok. Zobacz wydarzenie.</h2>
           </div>
-          <p>W jednym roku może pojawić się dowolna liczba koncertów i realizacji — każdy wpis zachowuje własną galerię.</p>
+          <p>W każdym roku może pojawić się dowolna liczba koncertów i realizacji. Każde wydarzenie otwiera osobny zestaw fotografii.</p>
         </div>
 
-        <div className="year-filter chronicle-year-filter" aria-label="Filtruj kronikę według roku">
+        <div className="year-filter chronicle-year-filter" aria-label="Filtruj galerię według roku">
           <button type="button" className={year === "all" ? "active" : ""} aria-pressed={year === "all"} onClick={() => setYear("all")}>Wszystkie lata</button>
           {years.map((item) => (
             <button type="button" key={item} className={year === item ? "active" : ""} aria-pressed={year === item} onClick={() => setYear(item)}>{item}</button>
@@ -248,8 +272,8 @@ export function ChroniclePage() {
       </section>
 
       <section className="chronicle-return section-shell">
-        <p className="section-kicker">To dopiero część historii</p>
-        <h2>Halka żyje także dzisiaj.</h2>
+        <p className="section-kicker">Poza kadrem</p>
+        <h2>Poznaj Halkę bliżej.</h2>
         <p>Zobacz historię zespołu, najbliższe wydarzenia i miejsca, w których można nas spotkać.</p>
         <a className="button button-primary" href="/#historia">Wróć do opowieści <ArrowRight size={18} /></a>
       </section>
