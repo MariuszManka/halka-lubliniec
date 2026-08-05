@@ -223,7 +223,7 @@ img {
   border: 1px solid var(--line);
   border-radius: 16px;
   background: var(--surface);
-  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.25);
+  box-shadow: 0 24px 60px rgba(45, 62, 50, 0.16);
 }
 
 .mobile-nav a {
@@ -280,7 +280,7 @@ img {
 }
 
 .hero h1 em {
-  color: #ff5a52;
+  color: var(--red);
   font-weight: 420;
 }
 
@@ -348,7 +348,7 @@ img {
   aspect-ratio: 1;
   overflow: hidden;
   border-radius: 50%;
-  box-shadow: 0 50px 120px rgba(0, 0, 0, 0.38);
+  box-shadow: 0 42px 100px rgba(48, 65, 53, 0.2);
 }
 
 .hero-photo-ring img {
@@ -387,6 +387,10 @@ img {
   grid-template-columns: repeat(4, 1fr);
   border-top: 1px solid var(--line);
   border-bottom: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: rgba(255, 250, 241, 0.52);
+  box-shadow: 0 18px 60px rgba(52, 67, 55, 0.07);
+  overflow: hidden;
 }
 
 .fact {
@@ -410,97 +414,6 @@ img {
 .fact span {
   color: var(--muted);
   font-size: 0.84rem;
-}
-
-.folk-scroll {
-  position: relative;
-  height: min(145vh, 1180px);
-  min-height: 900px;
-  margin-block: 34px 70px;
-  overflow: clip;
-  border-block: 1px solid var(--line);
-  background:
-    radial-gradient(circle at 50% 50%, rgba(34, 94, 61, 0.2), transparent 34%),
-    linear-gradient(180deg, rgba(13, 26, 19, 0.34), rgba(7, 16, 11, 0.7));
-}
-
-.folk-scroll-sticky {
-  position: sticky;
-  top: var(--header-height);
-  height: calc(100dvh - var(--header-height));
-  min-height: 620px;
-  display: grid;
-  place-items: center;
-  overflow: hidden;
-  isolation: isolate;
-}
-
-.folk-scroll-sticky::before,
-.folk-scroll-sticky::after {
-  content: "";
-  position: absolute;
-  z-index: -1;
-  inset: 50% auto auto 50%;
-  width: min(72vw, 980px);
-  aspect-ratio: 1;
-  border: 1px solid rgba(239, 230, 204, 0.06);
-  transform: translate(-50%, -50%) rotate(45deg);
-}
-
-.folk-scroll-sticky::after {
-  width: min(48vw, 650px);
-  border-color: rgba(239, 230, 204, 0.08);
-}
-
-.folk-diamond-field {
-  position: absolute;
-  inset: -120px 8%;
-  display: grid;
-  grid-template-columns: repeat(6, 1fr);
-  align-content: space-around;
-  justify-items: center;
-  gap: 72px 8vw;
-  opacity: 0.18;
-}
-
-.folk-diamond-field span {
-  width: 9px;
-  height: 9px;
-  border: 1px solid rgba(239, 230, 204, 0.4);
-  transform: rotate(45deg);
-}
-
-.folk-scroll-orbit {
-  position: absolute;
-  z-index: 1;
-  width: clamp(270px, 30vw, 440px);
-  aspect-ratio: 1;
-  display: grid;
-  place-items: center;
-}
-
-.folk-orbit-ring {
-  position: absolute;
-  inset: 0;
-  border: 1px dashed rgba(239, 230, 204, 0.25);
-  border-radius: 50%;
-  box-shadow:
-    0 0 0 28px rgba(239, 230, 204, 0.018),
-    0 0 0 29px rgba(239, 230, 204, 0.055);
-}
-
-.folk-orbit-ring::before,
-.folk-orbit-ring::after {
-  content: "";
-  position: absolute;
-  inset: 12%;
-  border: 1px solid rgba(255, 90, 82, 0.3);
-  transform: rotate(45deg);
-}
-
-.folk-orbit-ring::after {
-  inset: 28%;
-  border-color: rgba(120, 201, 154, 0.42);
 }
 
 .folk-rosette {
@@ -541,23 +454,6 @@ img {
   transform: translate(-50%, -50%);
   box-shadow: 0 0 0 7px rgba(239, 230, 204, 0.09);
 }
-
-.folk-main-rosette {
-  width: 52%;
-}
-
-.folk-sprig-wrap {
-  position: absolute;
-  z-index: 2;
-  top: 50%;
-  width: min(32vw, 490px);
-  transform: translateY(-50%);
-}
-
-.folk-sprig-wrap-left { left: 0; }
-.folk-sprig-wrap-right { right: 0; }
-.folk-sprig-wrap-left > div { transform-origin: right center; }
-.folk-sprig-wrap-right > div { transform-origin: left center; }
 
 .folk-sprig {
   position: relative;
@@ -619,38 +515,6 @@ img {
   border-width: 3px;
 }
 
-.folk-scroll-copy {
-  position: relative;
-  z-index: 4;
-  width: min(88vw, 720px);
-  padding: clamp(30px, 5vw, 56px);
-  border: 1px solid rgba(239, 230, 204, 0.14);
-  border-radius: 50%;
-  background: rgba(9, 19, 13, 0.82);
-  box-shadow: 0 30px 100px rgba(0, 0, 0, 0.36);
-  backdrop-filter: blur(15px);
-  text-align: center;
-}
-
-.folk-scroll-copy span {
-  display: block;
-  margin-bottom: 12px;
-  color: var(--green);
-  font-size: 0.72rem;
-  font-weight: 800;
-  letter-spacing: 0.17em;
-  text-transform: uppercase;
-}
-
-.folk-scroll-copy strong {
-  display: block;
-  font-family: var(--font-display), Georgia, serif;
-  font-size: clamp(2.6rem, 5vw, 5.4rem);
-  font-weight: 430;
-  letter-spacing: -0.04em;
-  line-height: 0.95;
-}
-
 main {
   position: relative;
   isolation: isolate;
@@ -662,7 +526,8 @@ main {
   inset: 0;
   overflow: hidden;
   pointer-events: none;
-  opacity: 0.17;
+  opacity: 0.3;
+  mix-blend-mode: multiply;
   mask-image: linear-gradient(180deg, transparent 2%, black 12%, black 90%, transparent 100%);
 }
 
@@ -671,8 +536,8 @@ main {
   position: absolute;
   inset: 0;
   background:
-    radial-gradient(circle at 88% 24%, rgba(189, 74, 67, 0.16), transparent 24%),
-    radial-gradient(circle at 8% 74%, rgba(47, 121, 83, 0.18), transparent 26%);
+    radial-gradient(circle at 88% 24%, rgba(189, 74, 67, 0.23), transparent 25%),
+    radial-gradient(circle at 8% 74%, rgba(47, 121, 83, 0.25), transparent 27%);
 }
 
 .folk-backdrop-field {
@@ -683,19 +548,19 @@ main {
   align-content: space-around;
   justify-items: center;
   gap: 78px 8vw;
-  opacity: 0.24;
+  opacity: 0.42;
 }
 
 .folk-backdrop-field span {
-  width: 11px;
-  height: 11px;
-  border: 1px solid rgba(34, 88, 60, 0.48);
+  width: 12px;
+  height: 12px;
+  border: 1.5px solid rgba(34, 88, 60, 0.62);
   transform: rotate(45deg);
 }
 
 .folk-backdrop-rosette {
   position: absolute;
-  filter: saturate(0.88);
+  filter: saturate(1.12) contrast(1.04);
 }
 
 .folk-backdrop-rosette .folk-rosette {
@@ -703,26 +568,26 @@ main {
 }
 
 .folk-backdrop-rosette-one {
-  top: 8%;
-  right: -78px;
-  width: clamp(220px, 24vw, 390px);
+  top: 5%;
+  right: -42px;
+  width: clamp(250px, 27vw, 440px);
 }
 
 .folk-backdrop-rosette-two {
-  bottom: 4%;
-  left: -62px;
-  width: clamp(170px, 19vw, 310px);
+  bottom: 2%;
+  left: -34px;
+  width: clamp(210px, 22vw, 360px);
 }
 
 .folk-backdrop-vine {
   position: absolute;
-  width: min(39vw, 570px);
-  opacity: 0.7;
+  width: min(45vw, 660px);
+  opacity: 0.92;
 }
 
 .folk-backdrop-vine-left {
   top: 36%;
-  left: -18%;
+  left: -14%;
 }
 
 .folk-backdrop-vine-left > div {
@@ -730,7 +595,7 @@ main {
 }
 
 .folk-backdrop-vine-right {
-  right: -18%;
+  right: -14%;
   bottom: 17%;
 }
 
@@ -776,6 +641,7 @@ main {
   padding: clamp(28px, 5vw, 68px);
   border-radius: var(--radius);
   background: var(--surface);
+  box-shadow: 0 24px 70px rgba(48, 65, 53, 0.09);
 }
 
 .together-copy h2,
@@ -855,9 +721,9 @@ main {
 
 .year-filter button:hover,
 .year-filter button.active {
-  border-color: var(--ivory);
-  background: var(--ivory);
-  color: var(--text);
+  border-color: var(--text);
+  background: var(--text);
+  color: var(--ivory);
   box-shadow: 0 8px 24px rgba(43, 69, 53, 0.09);
 }
 
@@ -874,6 +740,7 @@ main {
   border: 1px solid var(--line);
   border-radius: var(--radius);
   background: var(--surface);
+  box-shadow: 0 24px 80px rgba(48, 65, 53, 0.1);
 }
 
 .event-gallery-button {
@@ -1034,6 +901,7 @@ main {
 .generation-image {
   overflow: hidden;
   border-radius: var(--radius);
+  box-shadow: 0 18px 55px rgba(48, 65, 53, 0.09);
 }
 
 .generation-image-large {
@@ -1121,9 +989,9 @@ main {
 
 .calendar-month-switch button:hover,
 .calendar-month-switch button.active {
-  border-color: var(--ivory);
-  background: var(--ivory);
-  color: var(--text);
+  border-color: var(--text);
+  background: var(--text);
+  color: var(--ivory);
   box-shadow: 0 8px 24px rgba(43, 69, 53, 0.09);
 }
 
@@ -1183,8 +1051,8 @@ main {
   overflow-x: auto;
   border: 1px solid var(--line);
   border-radius: var(--radius);
-  background: rgba(255, 250, 241, 0.9);
-  box-shadow: 0 30px 90px rgba(52, 67, 55, 0.11);
+  background: rgba(255, 250, 241, 0.95);
+  box-shadow: 0 30px 90px rgba(52, 67, 55, 0.13);
 }
 
 .calendar-panel-title {
@@ -1424,7 +1292,7 @@ main {
   border-radius: 16px;
   background:
     radial-gradient(circle at 100% 0%, rgba(47, 121, 83, 0.12), transparent 34%),
-    var(--bg-soft);
+    var(--surface);
   box-shadow: 0 24px 80px rgba(44, 61, 49, 0.22);
   backdrop-filter: blur(14px);
 }
@@ -1570,6 +1438,7 @@ main {
   border: 1px solid var(--line);
   border-radius: var(--radius);
   background: var(--surface);
+  box-shadow: 0 24px 80px rgba(48, 65, 53, 0.1);
 }
 
 .contact-form {
@@ -1853,7 +1722,7 @@ main {
 @media (max-width: 800px) {
   :root { --header-height: 66px; }
   .section-shell { width: min(100% - 32px, 1400px); }
-  .folk-backdrop { opacity: 0.15; }
+  .folk-backdrop { opacity: 0.25; }
   .folk-backdrop-field { grid-template-columns: repeat(5, 1fr); }
   .folk-backdrop-rosette-one { right: -100px; }
   .folk-backdrop-rosette-two { left: -90px; }
@@ -1872,15 +1741,10 @@ main {
   .facts { grid-template-columns: 1fr 1fr; }
   .fact:nth-child(2) { border-right: 0; }
   .fact:nth-child(-n + 2) { border-bottom: 1px solid var(--line); }
-  .folk-scroll { height: 118vh; min-height: 760px; margin-block: 20px 40px; }
-  .folk-scroll-sticky { min-height: 560px; }
-  .folk-diamond-field { grid-template-columns: repeat(4, 1fr); gap: 58px 12vw; }
-  .folk-sprig-wrap { width: 39vw; }
   .folk-sprig { height: 150px; }
   .folk-leaf { width: 34px; height: 17px; }
   .folk-sprig-flower { width: 58px; right: -26px; }
   .folk-sprig-right .folk-sprig-flower { left: -26px; }
-  .folk-scroll-copy { width: min(78vw, 570px); padding: 36px 30px; }
   .together { padding-block: 40px 90px; }
   .together-grid { grid-template-columns: 1fr; }
   .together-group-photo,
@@ -1935,17 +1799,12 @@ main {
 
 @media (max-width: 480px) {
   .hero-visual { min-height: 340px; }
-  .folk-backdrop { opacity: 0.12; }
+  .folk-backdrop { opacity: 0.2; }
   .folk-backdrop-field { grid-template-columns: repeat(4, 1fr); gap: 64px 14vw; }
   .folk-backdrop-vine { display: none; }
   .hero h1 { font-size: 4rem; }
   .facts { grid-template-columns: 1fr; }
-  .folk-scroll { height: 110vh; min-height: 700px; }
-  .folk-scroll-orbit { width: 255px; }
-  .folk-sprig-wrap { width: 35vw; }
   .folk-leaf { display: none; }
-  .folk-scroll-copy { width: 82vw; border-radius: 44%; }
-  .folk-scroll-copy strong { font-size: 2.65rem; }
   .fact { border-right: 0; border-bottom: 1px solid var(--line); }
   .fact:last-child { border-bottom: 0; }
   .event-gallery-button { min-height: 280px; }
@@ -1977,9 +1836,7 @@ main {
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
   }
-  .folk-scroll { height: 760px; }
-  .folk-scroll-sticky { position: relative; top: 0; height: 760px; }
-  .folk-backdrop { opacity: 0.12; }
+  .folk-backdrop { opacity: 0.22; }
 }
 
 @media (prefers-reduced-transparency: reduce) {
