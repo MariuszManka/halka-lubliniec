@@ -1,6 +1,6 @@
 "use client";
 
-import { FormEvent, useEffect, useMemo, useRef, useState } from "react";
+import { FormEvent, useEffect, useMemo, useState } from "react";
 import { AnimatePresence, motion, useReducedMotion, useScroll, useTransform } from "motion/react";
 import {
   ArrowLeft,
@@ -104,67 +104,40 @@ function FolkSprig({ side }: { side: "left" | "right" }) {
   );
 }
 
-function FolkScrollMotif() {
-  const target = useRef<HTMLElement>(null);
+function FolkScrollBackdrop() {
   const reduce = useReducedMotion();
-  const { scrollYProgress } = useScroll({
-    target,
-    offset: ["start end", "end start"],
-  });
-  const leftX = useTransform(scrollYProgress, [0, 0.3, 0.7, 1], [-190, 0, 0, -75]);
-  const rightX = useTransform(scrollYProgress, [0, 0.3, 0.7, 1], [190, 0, 0, 75]);
-  const threadScale = useTransform(scrollYProgress, [0.08, 0.42], [0.05, 1]);
-  const orbitRotate = useTransform(scrollYProgress, [0, 1], [-70, 110]);
-  const orbitScale = useTransform(scrollYProgress, [0, 0.45, 0.82, 1], [0.72, 1, 1.06, 0.88]);
-  const motifOpacity = useTransform(scrollYProgress, [0, 0.16, 0.86, 1], [0, 1, 1, 0.24]);
-  const copyY = useTransform(scrollYProgress, [0.05, 0.4, 0.82, 1], [54, 0, 0, -42]);
-  const copyOpacity = useTransform(scrollYProgress, [0.05, 0.28, 0.86, 1], [0, 1, 1, 0.2]);
-  const fieldY = useTransform(scrollYProgress, [0, 1], [90, -90]);
+  const { scrollYProgress } = useScroll();
+  const drift = useTransform(scrollYProgress, [0, 1], [-150, 170]);
+  const driftReverse = useTransform(scrollYProgress, [0, 1], [130, -190]);
+  const rotate = useTransform(scrollYProgress, [0, 1], [-30, 145]);
+  const rotateReverse = useTransform(scrollYProgress, [0, 1], [80, -105]);
+  const scale = useTransform(scrollYProgress, [0, 0.45, 1], [0.82, 1.08, 0.9]);
+  const fieldY = useTransform(scrollYProgress, [0, 1], [120, -150]);
 
   return (
-    <section className="folk-scroll" ref={target} aria-label="Tradycja rośnie z każdym pokoleniem">
-      <div className="folk-scroll-sticky">
-        <motion.div
-          className="folk-diamond-field"
-          aria-hidden="true"
-          style={reduce ? undefined : { y: fieldY, opacity: motifOpacity }}
-        >
-          {Array.from({ length: 24 }, (_, index) => <span key={index} />)}
-        </motion.div>
-
-        <motion.div
-          className="folk-scroll-orbit"
-          aria-hidden="true"
-          style={reduce ? undefined : { rotate: orbitRotate, scale: orbitScale, opacity: motifOpacity }}
-        >
-          <span className="folk-orbit-ring" />
-          <FolkRosette className="folk-main-rosette" />
-        </motion.div>
-
-        <motion.div
-          className="folk-sprig-wrap folk-sprig-wrap-left"
-          aria-hidden="true"
-          style={reduce ? undefined : { x: leftX, opacity: motifOpacity }}
-        >
-          <motion.div style={reduce ? undefined : { scaleX: threadScale }}><FolkSprig side="left" /></motion.div>
-        </motion.div>
-        <motion.div
-          className="folk-sprig-wrap folk-sprig-wrap-right"
-          aria-hidden="true"
-          style={reduce ? undefined : { x: rightX, opacity: motifOpacity }}
-        >
-          <motion.div style={reduce ? undefined : { scaleX: threadScale }}><FolkSprig side="right" /></motion.div>
-        </motion.div>
-
-        <motion.div
-          className="folk-scroll-copy"
-          style={reduce ? undefined : { y: copyY, opacity: copyOpacity }}
-        >
-          <span>Wzór nie stoi w miejscu</span>
-          <strong>Rośnie z każdym pokoleniem.</strong>
-        </motion.div>
-      </div>
-    </section>
+    <div className="folk-backdrop" aria-hidden="true">
+      <motion.div className="folk-backdrop-field" style={reduce ? undefined : { y: fieldY }}>
+        {Array.from({ length: 35 }, (_, index) => <span key={index} />)}
+      </motion.div>
+      <motion.div
+        className="folk-backdrop-rosette folk-backdrop-rosette-one"
+        style={reduce ? undefined : { y: drift, rotate, scale }}
+      >
+        <FolkRosette />
+      </motion.div>
+      <motion.div
+        className="folk-backdrop-rosette folk-backdrop-rosette-two"
+        style={reduce ? undefined : { y: driftReverse, rotate: rotateReverse }}
+      >
+        <FolkRosette />
+      </motion.div>
+      <motion.div className="folk-backdrop-vine folk-backdrop-vine-left" style={reduce ? undefined : { y: driftReverse }}>
+        <div><FolkSprig side="left" /></div>
+      </motion.div>
+      <motion.div className="folk-backdrop-vine folk-backdrop-vine-right" style={reduce ? undefined : { y: drift }}>
+        <div><FolkSprig side="right" /></div>
+      </motion.div>
+    </div>
   );
 }
 
@@ -226,6 +199,7 @@ export function HalkaSite() {
 
   return (
     <main>
+      <FolkScrollBackdrop />
       <header className="site-header">
         <a className="brand" href="#top" aria-label="Halka, przejdź na początek strony">
           <img src="/logo.jpg" alt="" width="48" height="48" />
@@ -311,8 +285,6 @@ export function HalkaSite() {
           </Reveal>
         ))}
       </section>
-
-      <FolkScrollMotif />
 
       <section className="together section-shell" aria-labelledby="together-title">
         <div className="together-grid">
