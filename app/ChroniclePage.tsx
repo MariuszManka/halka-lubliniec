@@ -274,6 +274,14 @@ export function ChroniclePage() {
       </section>
 
       <section className="chronicle-return section-shell">
+        <span className="chronicle-return-ornament chronicle-return-ornament-left" aria-hidden="true">
+          <FolkRosette />
+          <i /><i /><i />
+        </span>
+        <span className="chronicle-return-ornament chronicle-return-ornament-right" aria-hidden="true">
+          <FolkRosette />
+          <i /><i /><i />
+        </span>
         <p className="section-kicker">Poza kadrem</p>
         <h2>Poznaj Halkę bliżej.</h2>
         <p>Zobacz historię zespołu, najbliższe wydarzenia i miejsca, w których można nas spotkać.</p>
