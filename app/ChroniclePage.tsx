@@ -174,8 +174,8 @@ export function ChroniclePage() {
         >
           <div className="gallery-costume-frame">
             <motion.img
-              src="/session/costume-detail.webp"
-              alt="Detal tradycyjnego stroju Zespołu Halka"
+              src="/session/costume-ribbon.webp"
+              alt="Koronka i kolorowe tasiemki tradycyjnego stroju Zespołu Halka"
               width="1920"
               height="1080"
               loading="eager"
