@@ -2887,3 +2887,548 @@ main {
     margin-bottom: 70px;
   }
 }
+
+/* Redesign podstrony galerii — panoramiczny album */
+.chronicle-page .chronicle-folk-backdrop {
+  opacity: 0.18;
+}
+
+.chronicle-page .chronicle-hero {
+  display: block;
+  min-height: 0;
+  padding-block: 112px 82px;
+}
+
+.chronicle-page .gallery-hero-visual {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 172px;
+  gap: 4px;
+  min-height: 690px;
+  margin: 0;
+  overflow: hidden;
+  border-radius: 28px;
+  background: var(--text);
+  box-shadow: 0 34px 110px rgba(31, 52, 39, 0.2);
+}
+
+.gallery-hero-primary {
+  position: relative;
+  min-width: 0;
+  overflow: hidden;
+  background: #0b1710;
+}
+
+.gallery-hero-primary > img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.gallery-hero-shade {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(90deg, rgba(8, 18, 12, 0.84) 0%, rgba(8, 18, 12, 0.45) 48%, rgba(8, 18, 12, 0.08) 76%),
+    linear-gradient(0deg, rgba(8, 18, 12, 0.62), transparent 48%);
+}
+
+.chronicle-page .chronicle-hero-copy {
+  position: absolute;
+  z-index: 2;
+  inset: 0;
+  display: flex;
+  align-items: flex-start;
+  flex-direction: column;
+  justify-content: flex-end;
+  max-width: none;
+  padding: clamp(36px, 5vw, 74px);
+  color: var(--ivory);
+}
+
+.chronicle-page .chronicle-breadcrumb {
+  position: absolute;
+  top: clamp(30px, 4vw, 54px);
+  left: clamp(36px, 5vw, 74px);
+  margin: 0;
+  color: rgba(255, 250, 241, 0.78);
+}
+
+.chronicle-page .chronicle-breadcrumb:hover {
+  color: var(--ivory);
+}
+
+.chronicle-page .chronicle-hero-copy .section-kicker {
+  color: rgba(255, 250, 241, 0.7);
+}
+
+.chronicle-page .chronicle-hero h1 {
+  max-width: 8.5ch;
+  margin: 10px 0 22px;
+  color: var(--ivory);
+  font-size: clamp(5rem, 7.5vw, 8.8rem);
+  line-height: 0.84;
+}
+
+.chronicle-page .chronicle-hero h1 em {
+  color: #e26a61;
+}
+
+.chronicle-page .chronicle-hero-copy > p:last-child {
+  max-width: 590px;
+  margin: 0;
+  color: rgba(255, 250, 241, 0.78);
+}
+
+.gallery-hero-primary figcaption {
+  position: absolute;
+  z-index: 3;
+  right: 30px;
+  bottom: 30px;
+  display: grid;
+  gap: 3px;
+  max-width: 260px;
+  padding: 13px 16px;
+  border: 1px solid rgba(255, 250, 241, 0.24);
+  border-radius: 12px;
+  background: rgba(12, 29, 19, 0.64);
+  color: var(--ivory);
+  text-align: right;
+  backdrop-filter: blur(12px);
+}
+
+.gallery-hero-primary figcaption span {
+  color: rgba(255, 250, 241, 0.68);
+  font-size: 0.64rem;
+  font-weight: 700;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+}
+
+.gallery-hero-primary figcaption strong {
+  font-family: var(--font-display), Georgia, serif;
+  font-size: 1.15rem;
+  font-weight: 500;
+}
+
+.gallery-hero-filmstrip {
+  display: grid;
+  grid-template-rows: repeat(3, minmax(0, 1fr)) auto;
+  gap: 4px;
+  min-width: 0;
+  background: var(--text);
+}
+
+.gallery-hero-filmstrip > button {
+  position: relative;
+  min-width: 0;
+  overflow: hidden;
+  padding: 0;
+  border: 0;
+  background: #0b1710;
+  color: var(--ivory);
+  cursor: pointer;
+}
+
+.gallery-hero-filmstrip > button:not(.gallery-hero-open)::after {
+  position: absolute;
+  inset: 0;
+  content: "";
+  background: rgba(9, 23, 15, 0.08);
+  transition: background-color 220ms ease;
+}
+
+.gallery-hero-filmstrip > button:not(.gallery-hero-open):hover::after {
+  background: transparent;
+}
+
+.gallery-hero-filmstrip img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: saturate(0.84);
+  transition: filter 300ms ease, transform 650ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.gallery-hero-filmstrip button:hover img {
+  filter: saturate(1.05);
+  transform: scale(1.045);
+}
+
+.gallery-hero-filmstrip button > span {
+  position: absolute;
+  z-index: 2;
+  right: 10px;
+  bottom: 8px;
+  font-size: 0.62rem;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+}
+
+.gallery-hero-filmstrip .gallery-hero-open {
+  min-height: 72px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+  padding: 16px 10px;
+  background: var(--red);
+  font-size: 0.73rem;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  transition: background-color 180ms ease;
+}
+
+.gallery-hero-filmstrip .gallery-hero-open:hover {
+  background: var(--red-dark);
+}
+
+.chronicle-page .chronicle-hero-stats {
+  position: relative;
+  z-index: 4;
+  width: calc(100% - 72px);
+  margin: -26px auto 0;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  background: var(--surface);
+  box-shadow: 0 18px 50px rgba(35, 57, 43, 0.12);
+}
+
+.chronicle-page .chronicle-hero-stats div {
+  padding: 22px 30px;
+  border-bottom: 0;
+}
+
+.chronicle-page .chronicle-hero-stats div:first-child {
+  padding-left: 30px;
+}
+
+.chronicle-page .chronicle-hero-stats div:last-child {
+  padding-right: 30px;
+}
+
+.chronicle-page .chronicle-hero-stats strong {
+  font-size: 3rem;
+}
+
+.chronicle-page .chronicle-archive {
+  padding-block: 110px 160px;
+}
+
+.chronicle-page .chronicle-archive-heading {
+  grid-template-columns: minmax(0, 0.9fr) minmax(300px, 0.55fr);
+  margin-bottom: 40px;
+}
+
+.chronicle-page .chronicle-archive-heading h2 {
+  max-width: 11ch;
+  font-size: clamp(4.5rem, 7vw, 7.8rem);
+  line-height: 0.86;
+}
+
+.chronicle-page .chronicle-year-filter {
+  width: 100%;
+  margin-bottom: 92px;
+  padding: 12px 0;
+  border: 0;
+  border-block: 1px solid var(--line);
+  border-radius: 0;
+  background: color-mix(in srgb, var(--bg) 92%, transparent);
+  box-shadow: none;
+}
+
+.chronicle-page .chronicle-year-filter button {
+  min-height: 38px;
+  padding-inline: 16px;
+}
+
+.chronicle-page .chronicle-years {
+  gap: 150px;
+}
+
+.chronicle-page .chronicle-year-heading {
+  position: relative;
+  align-items: flex-end;
+  margin-bottom: 38px;
+  padding-bottom: 20px;
+}
+
+.chronicle-page .chronicle-year-heading strong {
+  color: var(--red);
+  font-size: clamp(5rem, 9vw, 9rem);
+  line-height: 0.7;
+}
+
+.chronicle-page .archive-events-grid {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  gap: 70px 34px;
+}
+
+.chronicle-page .archive-event-card {
+  grid-column: span 6;
+  overflow: visible;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+  transform: none;
+}
+
+.chronicle-page .archive-event-card-featured,
+.chronicle-page .archive-event-card:last-child:nth-child(even) {
+  grid-column: 1 / -1;
+}
+
+.chronicle-page .archive-event-card:hover {
+  border-color: transparent;
+  box-shadow: none;
+  transform: none;
+}
+
+.chronicle-page .archive-event-cover {
+  display: grid;
+  grid-template-columns: minmax(0, 2.15fr) minmax(110px, 0.65fr);
+  gap: 4px;
+  height: clamp(390px, 39vw, 540px);
+  border-radius: 20px;
+}
+
+.chronicle-page .archive-event-card-featured .archive-event-cover,
+.chronicle-page .archive-event-card:last-child:nth-child(even) .archive-event-cover {
+  height: clamp(520px, 57vw, 720px);
+}
+
+.chronicle-page .archive-event-cover::after {
+  background: linear-gradient(180deg, transparent 67%, rgba(7, 16, 10, 0.34));
+}
+
+.chronicle-page .archive-main-photo {
+  min-width: 0;
+  overflow: hidden;
+}
+
+.chronicle-page .archive-preview-stack {
+  position: static;
+  display: grid;
+  grid-template-rows: repeat(2, minmax(0, 1fr));
+  gap: 4px;
+  min-width: 0;
+  overflow: hidden;
+}
+
+.chronicle-page .archive-preview-stack img {
+  width: 100%;
+  height: 100%;
+  min-height: 0;
+  border: 0;
+  border-radius: 0;
+  box-shadow: none;
+  object-fit: cover;
+  transform: none;
+  transition: transform 650ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.chronicle-page .archive-preview-stack img:first-child,
+.chronicle-page .archive-preview-stack img:last-child,
+.chronicle-page .archive-event-cover:hover .archive-preview-stack img:first-child,
+.chronicle-page .archive-event-cover:hover .archive-preview-stack img:last-child {
+  transform: none;
+}
+
+.chronicle-page .archive-event-cover:hover .archive-preview-stack img {
+  transform: scale(1.04);
+}
+
+.chronicle-page .archive-photo-count {
+  top: auto;
+  bottom: 18px;
+  left: 18px;
+  background: rgba(18, 37, 27, 0.78);
+}
+
+.chronicle-page .archive-event-info {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 10px 30px;
+  padding: 24px 2px 0;
+}
+
+.chronicle-page .archive-event-meta,
+.chronicle-page .archive-event-info h3,
+.chronicle-page .archive-event-info p {
+  grid-column: 1;
+}
+
+.chronicle-page .archive-event-info h3 {
+  margin: 12px 0 2px;
+  font-size: clamp(2.6rem, 4vw, 4.8rem);
+}
+
+.chronicle-page .archive-event-info p {
+  max-width: 690px;
+  min-height: 0;
+}
+
+.chronicle-page .archive-event-info .text-link {
+  grid-column: 2;
+  grid-row: 1 / 4;
+  align-self: center;
+  margin: 0;
+  white-space: nowrap;
+}
+
+@media (max-width: 1000px) {
+  .chronicle-page .gallery-hero-visual {
+    grid-template-columns: minmax(0, 1fr) 140px;
+    min-height: 620px;
+  }
+
+  .gallery-hero-primary figcaption {
+    display: none;
+  }
+
+  .chronicle-page .archive-event-card,
+  .chronicle-page .archive-event-card-featured,
+  .chronicle-page .archive-event-card:last-child:nth-child(even) {
+    grid-column: 1 / -1;
+  }
+
+  .chronicle-page .archive-event-cover,
+  .chronicle-page .archive-event-card-featured .archive-event-cover,
+  .chronicle-page .archive-event-card:last-child:nth-child(even) .archive-event-cover {
+    height: min(67vw, 630px);
+  }
+}
+
+@media (max-width: 720px) {
+  .chronicle-page .chronicle-hero {
+    padding-block: 84px 64px;
+  }
+
+  .chronicle-page .gallery-hero-visual {
+    grid-template-columns: 1fr;
+    grid-template-rows: 560px auto;
+    min-height: 0;
+    border-radius: 20px;
+  }
+
+  .chronicle-page .chronicle-hero-copy {
+    padding: 30px 24px;
+  }
+
+  .chronicle-page .chronicle-breadcrumb {
+    top: 26px;
+    left: 24px;
+  }
+
+  .chronicle-page .chronicle-hero h1 {
+    font-size: clamp(4rem, 17vw, 5.8rem);
+  }
+
+  .gallery-hero-filmstrip {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    grid-template-rows: 126px auto;
+  }
+
+  .gallery-hero-filmstrip .gallery-hero-open {
+    grid-column: 1 / -1;
+    min-height: 58px;
+  }
+
+  .chronicle-page .chronicle-hero-stats {
+    width: calc(100% - 28px);
+    grid-template-columns: 1fr;
+    margin-top: -18px;
+  }
+
+  .chronicle-page .chronicle-hero-stats div,
+  .chronicle-page .chronicle-hero-stats div:first-child,
+  .chronicle-page .chronicle-hero-stats div:last-child {
+    padding: 14px 18px;
+    border-right: 0;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .chronicle-page .chronicle-hero-stats div:last-child {
+    border-bottom: 0;
+  }
+
+  .chronicle-page .chronicle-hero-stats strong {
+    font-size: 2.2rem;
+  }
+
+  .chronicle-page .chronicle-archive {
+    padding-block: 82px 110px;
+  }
+
+  .chronicle-page .chronicle-archive-heading {
+    grid-template-columns: 1fr;
+    gap: 22px;
+  }
+
+  .chronicle-page .chronicle-archive-heading h2 {
+    font-size: clamp(3.8rem, 16vw, 5.5rem);
+  }
+
+  .chronicle-page .chronicle-year-filter {
+    margin-bottom: 66px;
+  }
+
+  .chronicle-page .chronicle-years {
+    gap: 110px;
+  }
+
+  .chronicle-page .chronicle-year-heading {
+    align-items: flex-start;
+  }
+
+  .chronicle-page .archive-events-grid {
+    gap: 66px;
+  }
+
+  .chronicle-page .archive-event-cover,
+  .chronicle-page .archive-event-card-featured .archive-event-cover,
+  .chronicle-page .archive-event-card:last-child:nth-child(even) .archive-event-cover {
+    grid-template-columns: minmax(0, 1fr) 92px;
+    height: 86vw;
+    max-height: 560px;
+  }
+
+  .chronicle-page .archive-event-info {
+    grid-template-columns: 1fr;
+  }
+
+  .chronicle-page .archive-event-info .text-link {
+    grid-column: 1;
+    grid-row: auto;
+    justify-self: start;
+    margin-top: 14px;
+  }
+}
+
+@media (max-width: 430px) {
+  .chronicle-page .gallery-hero-visual {
+    grid-template-rows: 520px auto;
+  }
+
+  .gallery-hero-filmstrip {
+    grid-template-rows: 104px auto;
+  }
+
+  .chronicle-page .chronicle-hero h1 {
+    font-size: 4rem;
+  }
+
+  .chronicle-page .archive-event-cover,
+  .chronicle-page .archive-event-card-featured .archive-event-cover,
+  .chronicle-page .archive-event-card:last-child:nth-child(even) .archive-event-cover {
+    grid-template-columns: 1fr;
+    height: 105vw;
+  }
+
+  .chronicle-page .archive-preview-stack {
+    display: none;
+  }
+}

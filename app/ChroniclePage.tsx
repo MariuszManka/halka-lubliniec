@@ -72,6 +72,8 @@ export function ChroniclePage() {
   );
   const visibleYears = year === "all" ? years : years.filter((item) => item === year);
   const totalPhotos = galleryEvents.reduce((sum, event) => sum + event.images.length, 0);
+  const heroEvent = galleryEvents[0];
+  const heroImage = heroEvent.images.find((image) => image.width > image.height) ?? heroEvent.images[0];
 
   const closeGallery = () => {
     setActiveEvent(null);
@@ -145,43 +147,59 @@ export function ChroniclePage() {
       </header>
 
       <section className="chronicle-hero section-shell">
-        <motion.div
-          className="chronicle-hero-copy"
-          initial={reduce ? false : { opacity: 0, y: 28 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.85, ease: [0.16, 1, 0.3, 1] }}
-        >
-          <a className="chronicle-breadcrumb" href="/"><ArrowLeft size={16} /> Strona główna</a>
-          <p className="section-kicker">Galeria Zespołu Halka</p>
-          <h1>Scena pełna <em>żywych kadrów.</em></h1>
-          <p>
-            Koncerty, warsztaty, spotkania i podróże widziane z bliska. Wybierz rok,
-            otwórz wydarzenie i zobacz Halkę w ruchu.
-          </p>
-        </motion.div>
         <motion.figure
           className="gallery-hero-visual"
-          initial={reduce ? false : { opacity: 0, scale: 0.94, rotate: 1.5 }}
-          animate={{ opacity: 1, scale: 1, rotate: 0 }}
-          transition={{ duration: 1, delay: 0.08, ease: [0.16, 1, 0.3, 1] }}
+          initial={reduce ? false : { opacity: 0, y: 28 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.95, ease: [0.16, 1, 0.3, 1] }}
         >
-          {galleryEvents.slice(0, 3).map((event, index) => (
+          <div className="gallery-hero-primary">
+            <motion.img
+              src={heroImage.src}
+              alt={heroImage.alt}
+              width={heroImage.width}
+              height={heroImage.height}
+              loading="eager"
+              initial={reduce ? false : { scale: 1.06 }}
+              animate={{ scale: 1 }}
+              transition={{ duration: 1.5, ease: [0.16, 1, 0.3, 1] }}
+            />
+            <div className="gallery-hero-shade" />
             <motion.div
-              className={`gallery-hero-photo gallery-hero-photo-${index + 1}`}
-              key={event.id}
-              animate={reduce ? undefined : { y: index === 1 ? [0, -8, 0] : [0, 7, 0] }}
-              transition={{ duration: 7 + index, repeat: Infinity, ease: "easeInOut" }}
+              className="chronicle-hero-copy"
+              initial={reduce ? false : { opacity: 0, x: -26 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.85, delay: 0.18, ease: [0.16, 1, 0.3, 1] }}
             >
-              <img
-                src={event.images[index + 1]?.src ?? event.images[0].src}
-                alt={event.images[index + 1]?.alt ?? event.images[0].alt}
-                width={event.images[index + 1]?.width ?? event.images[0].width}
-                height={event.images[index + 1]?.height ?? event.images[0].height}
-                loading={index === 0 ? "eager" : "lazy"}
-              />
+              <a className="chronicle-breadcrumb" href="/"><ArrowLeft size={16} /> Strona główna</a>
+              <p className="section-kicker">Galeria Zespołu Halka</p>
+              <h1>Tradycja <em>w każdym kadrze.</em></h1>
+              <p>Koncerty, warsztaty i podróże widziane z bliska. Otwórz wydarzenie i zobacz Halkę w ruchu.</p>
             </motion.div>
-          ))}
-          <figcaption><Camera size={18} /> Halka w obiektywie</figcaption>
+            <figcaption>
+              <span>{formatDate(heroEvent.date)} · {heroEvent.location}</span>
+              <strong>{heroEvent.title}</strong>
+            </figcaption>
+          </div>
+          <div className="gallery-hero-filmstrip" aria-label="Wybrane kadry">
+            {heroEvent.images.slice(1, 4).map((image, index) => (
+              <motion.button
+                type="button"
+                key={image.src}
+                onClick={() => { setActiveEvent(heroEvent); setActiveImage(index + 1); }}
+                aria-label={`Otwórz zdjęcie ${index + 2} z galerii ${heroEvent.title}`}
+                initial={reduce ? false : { opacity: 0, x: 20 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.65, delay: 0.32 + index * 0.08 }}
+              >
+                <img src={image.src} alt={image.alt} width={image.width} height={image.height} loading="lazy" />
+                <span>0{index + 2}</span>
+              </motion.button>
+            ))}
+            <button className="gallery-hero-open" type="button" onClick={() => { setActiveEvent(heroEvent); setActiveImage(0); }}>
+              <Camera size={20} /> Otwórz galerię
+            </button>
+          </div>
         </motion.figure>
         <motion.div
           className="chronicle-hero-stats"
@@ -234,7 +252,7 @@ export function ChroniclePage() {
                   <div className="archive-events-grid">
                     {events.map((event, index) => (
                       <motion.article
-                        className="archive-event-card"
+                        className={`archive-event-card ${index === 0 ? "archive-event-card-featured" : ""}`}
                         key={event.id}
                         initial={reduce ? false : { opacity: 0, y: 22 }}
                         whileInView={{ opacity: 1, y: 0 }}
