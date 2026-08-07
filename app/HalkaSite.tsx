@@ -79,15 +79,7 @@ function GroupIcon({ group, size = 17 }: { group: EventGroup; size?: number }) {
   );
 }
 
-function SessionImage({
-  name,
-  className = "",
-  loading = "lazy",
-}: {
-  name: string;
-  className?: string;
-  loading?: "lazy" | "eager";
-}) {
+function SessionImage({name, className = "", loading = "lazy",}: { name: string; className?: string; loading?: "lazy" | "eager"}) {
   const image = sessionImages.find((item) => item.name === name);
   if (!image) return null;
   return (

@@ -259,7 +259,7 @@ export const galleryEvents = [
       {
         "src": "/gallery/dni-lublinca-2025/03.webp",
         "width": 1800,
-        "height": 1199,
+        "height": 1198,
         "alt": "Dni Lublińca 2025, zdjęcie 3"
       },
       {
@@ -277,7 +277,7 @@ export const galleryEvents = [
       {
         "src": "/gallery/dni-lublinca-2025/06.webp",
         "width": 1800,
-        "height": 1198,
+        "height": 1199,
         "alt": "Dni Lublińca 2025, zdjęcie 6"
       },
       {
@@ -295,7 +295,7 @@ export const galleryEvents = [
       {
         "src": "/gallery/dni-lublinca-2025/09.webp",
         "width": 1800,
-        "height": 1199,
+        "height": 1198,
         "alt": "Dni Lublińca 2025, zdjęcie 9"
       },
       {

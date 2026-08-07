@@ -29,6 +29,16 @@ function FolkRosette() {
   );
 }
 
+function FolkDivider() {
+  return (
+    <span className="gallery-folk-divider" aria-hidden="true">
+      <i />
+      <b><span /><span /><span /></b>
+      <i />
+    </span>
+  );
+}
+
 function ChronicleBackdrop() {
   const reduce = useReducedMotion();
   const { scrollYProgress } = useScroll();
@@ -71,10 +81,6 @@ export function ChroniclePage() {
     [],
   );
   const visibleYears = year === "all" ? years : years.filter((item) => item === year);
-  const totalPhotos = galleryEvents.reduce((sum, event) => sum + event.images.length, 0);
-  const heroEvent = galleryEvents[0];
-  const heroImage = heroEvent.images.find((image) => image.width > image.height) ?? heroEvent.images[0];
-
   const closeGallery = () => {
     setActiveEvent(null);
     setActiveImage(0);
@@ -147,70 +153,41 @@ export function ChroniclePage() {
       </header>
 
       <section className="chronicle-hero section-shell">
+        <motion.div
+          className="chronicle-hero-copy"
+          initial={reduce ? false : { opacity: 0, x: -26 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.85, ease: [0.16, 1, 0.3, 1] }}
+        >
+          <a className="chronicle-breadcrumb" href="/"><ArrowLeft size={16} /> Strona główna</a>
+          <p className="section-kicker">Galeria Zespołu Halka</p>
+          <h1>Galeria</h1>
+          <FolkDivider />
+          <p>Koncerty, warsztaty i spotkania zapisane w kadrach. Każda galeria to osobna opowieść o ludziach, ruchu i tradycji.</p>
+        </motion.div>
+
         <motion.figure
-          className="gallery-hero-visual"
+          className="gallery-hero-costume"
           initial={reduce ? false : { opacity: 0, y: 28 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.95, ease: [0.16, 1, 0.3, 1] }}
         >
-          <div className="gallery-hero-primary">
+          <div className="gallery-costume-frame">
             <motion.img
-              src={heroImage.src}
-              alt={heroImage.alt}
-              width={heroImage.width}
-              height={heroImage.height}
+              src="/session/costume-detail.webp"
+              alt="Detal tradycyjnego stroju Zespołu Halka"
+              width="1920"
+              height="1080"
               loading="eager"
-              initial={reduce ? false : { scale: 1.06 }}
+              initial={reduce ? false : { scale: 1.07 }}
               animate={{ scale: 1 }}
               transition={{ duration: 1.5, ease: [0.16, 1, 0.3, 1] }}
             />
-            <div className="gallery-hero-shade" />
-            <motion.div
-              className="chronicle-hero-copy"
-              initial={reduce ? false : { opacity: 0, x: -26 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.85, delay: 0.18, ease: [0.16, 1, 0.3, 1] }}
-            >
-              <a className="chronicle-breadcrumb" href="/"><ArrowLeft size={16} /> Strona główna</a>
-              <p className="section-kicker">Galeria Zespołu Halka</p>
-              <h1>Tradycja <em>w każdym kadrze.</em></h1>
-              <p>Koncerty, warsztaty i podróże widziane z bliska. Otwórz wydarzenie i zobacz Halkę w ruchu.</p>
-            </motion.div>
-            <figcaption>
-              <span>{formatDate(heroEvent.date)} · {heroEvent.location}</span>
-              <strong>{heroEvent.title}</strong>
-            </figcaption>
+            <span className="gallery-costume-glow" />
           </div>
-          <div className="gallery-hero-filmstrip" aria-label="Wybrane kadry">
-            {heroEvent.images.slice(1, 4).map((image, index) => (
-              <motion.button
-                type="button"
-                key={image.src}
-                onClick={() => { setActiveEvent(heroEvent); setActiveImage(index + 1); }}
-                aria-label={`Otwórz zdjęcie ${index + 2} z galerii ${heroEvent.title}`}
-                initial={reduce ? false : { opacity: 0, x: 20 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.65, delay: 0.32 + index * 0.08 }}
-              >
-                <img src={image.src} alt={image.alt} width={image.width} height={image.height} loading="lazy" />
-                <span>0{index + 2}</span>
-              </motion.button>
-            ))}
-            <button className="gallery-hero-open" type="button" onClick={() => { setActiveEvent(heroEvent); setActiveImage(0); }}>
-              <Camera size={20} /> Otwórz galerię
-            </button>
-          </div>
+          <figcaption><span>Sesja zdjęciowa</span><strong>Detal, który niesie tradycję.</strong></figcaption>
+          <span className="gallery-costume-stitch" aria-hidden="true" />
         </motion.figure>
-        <motion.div
-          className="chronicle-hero-stats"
-          initial={reduce ? false : { opacity: 0, x: 24 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.85, delay: 0.12, ease: [0.16, 1, 0.3, 1] }}
-        >
-          <div><strong>{galleryEvents.length}</strong><span>galerie wydarzeń</span></div>
-          <div><strong>{totalPhotos}</strong><span>fotografii</span></div>
-          <div><strong>{years.length}</strong><span>lata w galerii</span></div>
-        </motion.div>
       </section>
 
       <section className="chronicle-archive section-shell" aria-labelledby="archive-title">
