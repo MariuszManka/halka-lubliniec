@@ -16,6 +16,7 @@ import {
   X,
 } from "@phosphor-icons/react";
 import { costumeFacts, costumeLooks } from "../content/costumes";
+import { costumeModalImages } from "../content/generated-costume-modal";
 import { sessionImages } from "../content/generated-session";
 
 const navItems = [
@@ -117,16 +118,25 @@ export function CostumesPage() {
   const [activeGroup, setActiveGroup] = useState<"female" | "male">("female");
   const [activePhoto, setActivePhoto] = useState(0);
   const look = activeLook === null ? null : costumeLooks[activeLook];
+  const modalSet = look
+    ? costumeModalImages[look.galleryKey as keyof typeof costumeModalImages]
+    : null;
+  const allowsFemale = look ? !look.genders || look.genders.includes("female") : false;
+  const allowsMale = look ? !look.genders || look.genders.includes("male") : false;
+  const femaleGallery = modalSet && allowsFemale ? modalSet.female : [];
+  const maleGallery = modalSet && allowsMale ? modalSet.male : [];
   const gallery = look
     ? activeGroup === "female"
-      ? look.femaleImages ?? []
-      : look.maleImages ?? []
+      ? femaleGallery
+      : maleGallery
     : [];
 
   const chooseLook = (index: number) => {
     const selected = costumeLooks[index];
+    const selectedSet = costumeModalImages[selected.galleryKey as keyof typeof costumeModalImages];
+    const femaleAvailable = (!selected.genders || selected.genders.includes("female")) && selectedSet?.female.length;
     setActiveLook(index);
-    setActiveGroup(selected.femaleImages?.length ? "female" : "male");
+    setActiveGroup(femaleAvailable ? "female" : "male");
     setActivePhoto(0);
   };
 
@@ -336,15 +346,15 @@ export function CostumesPage() {
                   <h3 id="costume-modal-title">{look.title}</h3>
                   <p>{look.description}</p>
 
-                  <div className="costume-modal-groups" role="tablist" aria-label="Wersja stroju">
-                    {look.femaleImages?.length ? (
+                  <div className={`costume-modal-groups is-${activeGroup}`} role="tablist" aria-label="Wersja stroju">
+                    {femaleGallery.length ? (
                       <button type="button" role="tab" aria-selected={activeGroup === "female"} className={activeGroup === "female" ? "active" : ""} onClick={() => chooseGroup("female")}>
-                        Strój damski <small>{look.femaleImages.length} zdjęć</small>
+                        <span>Strój damski</span><small aria-label={`${femaleGallery.length} zdjęć`}>{femaleGallery.length}</small>
                       </button>
                     ) : null}
-                    {look.maleImages?.length ? (
+                    {maleGallery.length ? (
                       <button type="button" role="tab" aria-selected={activeGroup === "male"} className={activeGroup === "male" ? "active" : ""} onClick={() => chooseGroup("male")}>
-                        Strój męski <small>{look.maleImages.length} zdjęć</small>
+                        <span>Strój męski</span><small aria-label={`${maleGallery.length} zdjęć`}>{maleGallery.length}</small>
                       </button>
                     ) : null}
                   </div>
@@ -394,30 +404,6 @@ export function CostumesPage() {
             </Reveal>
           ))}
         </div>
-      </section>
-
-      <section className="costume-motion section-shell" aria-labelledby="costume-motion-title">
-        <Reveal className="costume-motion-shell">
-          <div className="costume-motion-visual">
-            <CostumeImage name="dance-circle" />
-            <span>Forma<br />w ruchu</span>
-          </div>
-          <div className="costume-motion-copy">
-            <p className="section-kicker">Kostium w ruchu</p>
-            <h2 id="costume-motion-title">Zaprojektowany, by tańczyć.</h2>
-            <p>Szerokość spódnicy, układ warstw i kontrastowe obszycia nie są przypadkowe. Podczas obrotu kostium rysuje choreografię razem z tancerzem — kolor zaznacza kierunek, a fałdy podkreślają tempo.</p>
-            <div className="costume-motion-points">
-              <span><b>01</b> gest podkreślony linią stroju</span>
-              <span><b>02</b> kolor czytelny z widowni</span>
-              <span><b>03</b> warstwy pracujące w obrocie</span>
-            </div>
-            <a className="text-link" href="/galeria">Zobacz kostiumy na scenie <ArrowRight size={18} /></a>
-          </div>
-          <div className="costume-motion-strip" aria-hidden="true">
-            <CostumeImage name="dance-circle-two" />
-            <CostumeImage name="lublin-worn-1" />
-          </div>
-        </Reveal>
       </section>
 
       <section className="costume-cta section-shell">

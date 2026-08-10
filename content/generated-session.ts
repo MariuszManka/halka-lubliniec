@@ -601,5 +601,985 @@ export const sessionImages = [
     "alt": "Kolisty ruch sukni podczas tańca",
     "width": 2200,
     "height": 1467
+  },
+  {
+    "name": "modal-cieszyn-female-01",
+    "src": "/session/modal-cieszyn-female-01.webp",
+    "alt": "Strój damski — Cieszyn, fotografia 1",
+    "width": 1467,
+    "height": 2200
+  },
+  {
+    "name": "modal-cieszyn-female-02",
+    "src": "/session/modal-cieszyn-female-02.webp",
+    "alt": "Strój damski — Cieszyn, fotografia 2",
+    "width": 1467,
+    "height": 2200
+  },
+  {
+    "name": "modal-cieszyn-female-03",
+    "src": "/session/modal-cieszyn-female-03.webp",
+    "alt": "Strój damski — Cieszyn, fotografia 3",
+    "width": 1467,
+    "height": 2200
+  },
+  {
+    "name": "modal-cieszyn-female-04",
+    "src": "/session/modal-cieszyn-female-04.webp",
+    "alt": "Strój damski — Cieszyn, fotografia 4",
+    "width": 2200,
+    "height": 1467
+  },
+  {
+    "name": "modal-cieszyn-female-05",
+    "src": "/session/modal-cieszyn-female-05.webp",
+    "alt": "Strój damski — Cieszyn, fotografia 5",
+    "width": 2200,
+    "height": 1467
+  },
+  {
+    "name": "modal-cieszyn-female-06",
+    "src": "/session/modal-cieszyn-female-06.webp",
+    "alt": "Strój damski — Cieszyn, fotografia 6",
+    "width": 2200,
+    "height": 1467
+  },
+  {
+    "name": "modal-cieszyn-female-07",
+    "src": "/session/modal-cieszyn-female-07.webp",
+    "alt": "Strój damski — Cieszyn, fotografia 7",
+    "width": 2200,
+    "height": 1467
+  },
+  {
+    "name": "modal-cieszyn-female-08",
+    "src": "/session/modal-cieszyn-female-08.webp",
+    "alt": "Strój damski — Cieszyn, fotografia 8",
+    "width": 2200,
+    "height": 1467
+  },
+  {
+    "name": "modal-cieszyn-male-01",
+    "src": "/session/modal-cieszyn-male-01.webp",
+    "alt": "Strój męski — Cieszyn, fotografia 1",
+    "width": 1467,
+    "height": 2200
+  },
+  {
+    "name": "modal-cieszyn-male-02",
+    "src": "/session/modal-cieszyn-male-02.webp",
+    "alt": "Strój męski — Cieszyn, fotografia 2",
+    "width": 1467,
+    "height": 2200
+  },
+  {
+    "name": "modal-cieszyn-male-03",
+    "src": "/session/modal-cieszyn-male-03.webp",
+    "alt": "Strój męski — Cieszyn, fotografia 3",
+    "width": 2200,
+    "height": 1467
+  },
+  {
+    "name": "modal-cieszyn-male-04",
+    "src": "/session/modal-cieszyn-male-04.webp",
+    "alt": "Strój męski — Cieszyn, fotografia 4",
+    "width": 2200,
+    "height": 1467
+  },
+  {
+    "name": "modal-cieszyn-male-05",
+    "src": "/session/modal-cieszyn-male-05.webp",
+    "alt": "Strój męski — Cieszyn, fotografia 5",
+    "width": 2200,
+    "height": 1467
+  },
+  {
+    "name": "modal-krakow-female-01",
+    "src": "/session/modal-krakow-female-01.webp",
+    "alt": "Strój damski — Kraków, fotografia 1",
+    "width": 1467,
+    "height": 2200
+  },
+  {
+    "name": "modal-krakow-female-02",
+    "src": "/session/modal-krakow-female-02.webp",
+    "alt": "Strój damski — Kraków, fotografia 2",
+    "width": 2200,
+    "height": 1467
+  },
+  {
+    "name": "modal-krakow-female-03",
+    "src": "/session/modal-krakow-female-03.webp",
+    "alt": "Strój damski — Kraków, fotografia 3",
+    "width": 1467,
+    "height": 2200
+  },
+  {
+    "name": "modal-krakow-female-04",
+    "src": "/session/modal-krakow-female-04.webp",
+    "alt": "Strój damski — Kraków, fotografia 4",
+    "width": 2200,
+    "height": 1467
+  },
+  {
+    "name": "modal-krakow-female-05",
+    "src": "/session/modal-krakow-female-05.webp",
+    "alt": "Strój damski — Kraków, fotografia 5",
+    "width": 2200,
+    "height": 1467
+  },
+  {
+    "name": "modal-krakow-female-06",
+    "src": "/session/modal-krakow-female-06.webp",
+    "alt": "Strój damski — Kraków, fotografia 6",
+    "width": 2200,
+    "height": 1467
+  },
+  {
+    "name": "modal-krakow-female-07",
+    "src": "/session/modal-krakow-female-07.webp",
+    "alt": "Strój damski — Kraków, fotografia 7",
+    "width": 2200,
+    "height": 1467
+  },
+  {
+    "name": "modal-krakow-female-08",
+    "src": "/session/modal-krakow-female-08.webp",
+    "alt": "Strój damski — Kraków, fotografia 8",
+    "width": 2200,
+    "height": 1467
+  },
+  {
+    "name": "modal-krakow-female-09",
+    "src": "/session/modal-krakow-female-09.webp",
+    "alt": "Strój damski — Kraków, fotografia 9",
+    "width": 2200,
+    "height": 1467
+  },
+  {
+    "name": "modal-krakow-female-10",
+    "src": "/session/modal-krakow-female-10.webp",
+    "alt": "Strój damski — Kraków, fotografia 10",
+    "width": 2200,
+    "height": 1467
+  },
+  {
+    "name": "modal-krakow-male-01",
+    "src": "/session/modal-krakow-male-01.webp",
+    "alt": "Strój męski — Kraków, fotografia 1",
+    "width": 2200,
+    "height": 1467
+  },
+  {
+    "name": "modal-krakow-male-02",
+    "src": "/session/modal-krakow-male-02.webp",
+    "alt": "Strój męski — Kraków, fotografia 2",
+    "width": 2200,
+    "height": 1467
+  },
+  {
+    "name": "modal-krakow-male-03",
+    "src": "/session/modal-krakow-male-03.webp",
+    "alt": "Strój męski — Kraków, fotografia 3",
+    "width": 1467,
+    "height": 2200
+  },
+  {
+    "name": "modal-krakow-male-04",
+    "src": "/session/modal-krakow-male-04.webp",
+    "alt": "Strój męski — Kraków, fotografia 4",
+    "width": 2200,
+    "height": 1467
+  },
+  {
+    "name": "modal-krakow-male-05",
+    "src": "/session/modal-krakow-male-05.webp",
+    "alt": "Strój męski — Kraków, fotografia 5",
+    "width": 2200,
+    "height": 1467
+  },
+  {
+    "name": "modal-krakow-male-06",
+    "src": "/session/modal-krakow-male-06.webp",
+    "alt": "Strój męski — Kraków, fotografia 6",
+    "width": 2200,
+    "height": 1467
+  },
+  {
+    "name": "modal-krakow-male-07",
+    "src": "/session/modal-krakow-male-07.webp",
+    "alt": "Strój męski — Kraków, fotografia 7",
+    "width": 2200,
+    "height": 1467
+  },
+  {
+    "name": "modal-krakow-male-08",
+    "src": "/session/modal-krakow-male-08.webp",
+    "alt": "Strój męski — Kraków, fotografia 8",
+    "width": 2200,
+    "height": 1467
+  },
+  {
+    "name": "modal-lublin-female-01",
+    "src": "/session/modal-lublin-female-01.webp",
+    "alt": "Strój damski — Lublin, fotografia 1",
+    "width": 1467,
+    "height": 2200
+  },
+  {
+    "name": "modal-lublin-female-02",
+    "src": "/session/modal-lublin-female-02.webp",
+    "alt": "Strój damski — Lublin, fotografia 2",
+    "width": 1467,
+    "height": 2200
+  },
+  {
+    "name": "modal-lublin-female-03",
+    "src": "/session/modal-lublin-female-03.webp",
+    "alt": "Strój damski — Lublin, fotografia 3",
+    "width": 1467,
+    "height": 2200
+  },
+  {
+    "name": "modal-lublin-female-04",
+    "src": "/session/modal-lublin-female-04.webp",
+    "alt": "Strój damski — Lublin, fotografia 4",
+    "width": 1467,
+    "height": 2200
+  },
+  {
+    "name": "modal-lublin-female-05",
+    "src": "/session/modal-lublin-female-05.webp",
+    "alt": "Strój damski — Lublin, fotografia 5",
+    "width": 2200,
+    "height": 1467
+  },
+  {
+    "name": "modal-lublin-female-06",
+    "src": "/session/modal-lublin-female-06.webp",
+    "alt": "Strój damski — Lublin, fotografia 6",
+    "width": 2200,
+    "height": 1467
+  },
+  {
+    "name": "modal-lublin-female-07",
+    "src": "/session/modal-lublin-female-07.webp",
+    "alt": "Strój damski — Lublin, fotografia 7",
+    "width": 2200,
+    "height": 1467
+  },
+  {
+    "name": "modal-lublin-female-08",
+    "src": "/session/modal-lublin-female-08.webp",
+    "alt": "Strój damski — Lublin, fotografia 8",
+    "width": 1467,
+    "height": 2200
+  },
+  {
+    "name": "modal-lublin-female-09",
+    "src": "/session/modal-lublin-female-09.webp",
+    "alt": "Strój damski — Lublin, fotografia 9",
+    "width": 1467,
+    "height": 2200
+  },
+  {
+    "name": "modal-lublin-female-10",
+    "src": "/session/modal-lublin-female-10.webp",
+    "alt": "Strój damski — Lublin, fotografia 10",
+    "width": 2200,
+    "height": 1467
+  },
+  {
+    "name": "modal-lublin-female-11",
+    "src": "/session/modal-lublin-female-11.webp",
+    "alt": "Strój damski — Lublin, fotografia 11",
+    "width": 2200,
+    "height": 1467
+  },
+  {
+    "name": "modal-lublin-female-12",
+    "src": "/session/modal-lublin-female-12.webp",
+    "alt": "Strój damski — Lublin, fotografia 12",
+    "width": 2200,
+    "height": 1467
+  },
+  {
+    "name": "modal-lublin-female-13",
+    "src": "/session/modal-lublin-female-13.webp",
+    "alt": "Strój damski — Lublin, fotografia 13",
+    "width": 1467,
+    "height": 2200
+  },
+  {
+    "name": "modal-lublin-male-01",
+    "src": "/session/modal-lublin-male-01.webp",
+    "alt": "Strój męski — Lublin, fotografia 1",
+    "width": 1467,
+    "height": 2200
+  },
+  {
+    "name": "modal-lublin-male-02",
+    "src": "/session/modal-lublin-male-02.webp",
+    "alt": "Strój męski — Lublin, fotografia 2",
+    "width": 1467,
+    "height": 2200
+  },
+  {
+    "name": "modal-lublin-male-03",
+    "src": "/session/modal-lublin-male-03.webp",
+    "alt": "Strój męski — Lublin, fotografia 3",
+    "width": 1467,
+    "height": 2200
+  },
+  {
+    "name": "modal-lublin-male-04",
+    "src": "/session/modal-lublin-male-04.webp",
+    "alt": "Strój męski — Lublin, fotografia 4",
+    "width": 1467,
+    "height": 2200
+  },
+  {
+    "name": "modal-lublin-male-05",
+    "src": "/session/modal-lublin-male-05.webp",
+    "alt": "Strój męski — Lublin, fotografia 5",
+    "width": 1467,
+    "height": 2200
+  },
+  {
+    "name": "modal-lublin-male-06",
+    "src": "/session/modal-lublin-male-06.webp",
+    "alt": "Strój męski — Lublin, fotografia 6",
+    "width": 1467,
+    "height": 2200
+  },
+  {
+    "name": "modal-lublin-male-07",
+    "src": "/session/modal-lublin-male-07.webp",
+    "alt": "Strój męski — Lublin, fotografia 7",
+    "width": 2200,
+    "height": 1467
+  },
+  {
+    "name": "modal-narodowe-female-01",
+    "src": "/session/modal-narodowe-female-01.webp",
+    "alt": "Strój damski — Narodowe, fotografia 1",
+    "width": 1467,
+    "height": 2200
+  },
+  {
+    "name": "modal-narodowe-female-02",
+    "src": "/session/modal-narodowe-female-02.webp",
+    "alt": "Strój damski — Narodowe, fotografia 2",
+    "width": 2200,
+    "height": 1467
+  },
+  {
+    "name": "modal-narodowe-female-03",
+    "src": "/session/modal-narodowe-female-03.webp",
+    "alt": "Strój damski — Narodowe, fotografia 3",
+    "width": 2200,
+    "height": 1467
+  },
+  {
+    "name": "modal-narodowe-female-04",
+    "src": "/session/modal-narodowe-female-04.webp",
+    "alt": "Strój damski — Narodowe, fotografia 4",
+    "width": 1467,
+    "height": 2200
+  },
+  {
+    "name": "modal-narodowe-male-01",
+    "src": "/session/modal-narodowe-male-01.webp",
+    "alt": "Strój męski — Narodowe, fotografia 1",
+    "width": 1467,
+    "height": 2200
+  },
+  {
+    "name": "modal-narodowe-male-02",
+    "src": "/session/modal-narodowe-male-02.webp",
+    "alt": "Strój męski — Narodowe, fotografia 2",
+    "width": 1730,
+    "height": 2200
+  },
+  {
+    "name": "modal-narodowe-male-03",
+    "src": "/session/modal-narodowe-male-03.webp",
+    "alt": "Strój męski — Narodowe, fotografia 3",
+    "width": 2200,
+    "height": 1467
+  },
+  {
+    "name": "modal-narodowe-male-04",
+    "src": "/session/modal-narodowe-male-04.webp",
+    "alt": "Strój męski — Narodowe, fotografia 4",
+    "width": 2200,
+    "height": 1467
+  },
+  {
+    "name": "modal-narodowe-male-05",
+    "src": "/session/modal-narodowe-male-05.webp",
+    "alt": "Strój męski — Narodowe, fotografia 5",
+    "width": 2200,
+    "height": 1467
+  },
+  {
+    "name": "modal-rzeszow-female-01",
+    "src": "/session/modal-rzeszow-female-01.webp",
+    "alt": "Strój damski — Rzeszów, fotografia 1",
+    "width": 1467,
+    "height": 2200
+  },
+  {
+    "name": "modal-rzeszow-female-02",
+    "src": "/session/modal-rzeszow-female-02.webp",
+    "alt": "Strój damski — Rzeszów, fotografia 2",
+    "width": 1467,
+    "height": 2200
+  },
+  {
+    "name": "modal-rzeszow-female-03",
+    "src": "/session/modal-rzeszow-female-03.webp",
+    "alt": "Strój damski — Rzeszów, fotografia 3",
+    "width": 1467,
+    "height": 2200
+  },
+  {
+    "name": "modal-rzeszow-female-04",
+    "src": "/session/modal-rzeszow-female-04.webp",
+    "alt": "Strój damski — Rzeszów, fotografia 4",
+    "width": 1467,
+    "height": 2200
+  },
+  {
+    "name": "modal-rzeszow-female-05",
+    "src": "/session/modal-rzeszow-female-05.webp",
+    "alt": "Strój damski — Rzeszów, fotografia 5",
+    "width": 1467,
+    "height": 2200
+  },
+  {
+    "name": "modal-rzeszow-female-06",
+    "src": "/session/modal-rzeszow-female-06.webp",
+    "alt": "Strój damski — Rzeszów, fotografia 6",
+    "width": 1467,
+    "height": 2200
+  },
+  {
+    "name": "modal-rzeszow-female-07",
+    "src": "/session/modal-rzeszow-female-07.webp",
+    "alt": "Strój damski — Rzeszów, fotografia 7",
+    "width": 2200,
+    "height": 1467
+  },
+  {
+    "name": "modal-rzeszow-female-08",
+    "src": "/session/modal-rzeszow-female-08.webp",
+    "alt": "Strój damski — Rzeszów, fotografia 8",
+    "width": 2200,
+    "height": 1467
+  },
+  {
+    "name": "modal-rzeszow-female-09",
+    "src": "/session/modal-rzeszow-female-09.webp",
+    "alt": "Strój damski — Rzeszów, fotografia 9",
+    "width": 2200,
+    "height": 1467
+  },
+  {
+    "name": "modal-rzeszow-female-10",
+    "src": "/session/modal-rzeszow-female-10.webp",
+    "alt": "Strój damski — Rzeszów, fotografia 10",
+    "width": 2200,
+    "height": 1467
+  },
+  {
+    "name": "modal-rzeszow-female-11",
+    "src": "/session/modal-rzeszow-female-11.webp",
+    "alt": "Strój damski — Rzeszów, fotografia 11",
+    "width": 2200,
+    "height": 1467
+  },
+  {
+    "name": "modal-rzeszow-female-12",
+    "src": "/session/modal-rzeszow-female-12.webp",
+    "alt": "Strój damski — Rzeszów, fotografia 12",
+    "width": 2200,
+    "height": 1467
+  },
+  {
+    "name": "modal-rzeszow-male-01",
+    "src": "/session/modal-rzeszow-male-01.webp",
+    "alt": "Strój męski — Rzeszów, fotografia 1",
+    "width": 1467,
+    "height": 2200
+  },
+  {
+    "name": "modal-rzeszow-male-02",
+    "src": "/session/modal-rzeszow-male-02.webp",
+    "alt": "Strój męski — Rzeszów, fotografia 2",
+    "width": 2200,
+    "height": 1467
+  },
+  {
+    "name": "modal-rzeszow-male-03",
+    "src": "/session/modal-rzeszow-male-03.webp",
+    "alt": "Strój męski — Rzeszów, fotografia 3",
+    "width": 2200,
+    "height": 1467
+  },
+  {
+    "name": "modal-rzeszow-male-04",
+    "src": "/session/modal-rzeszow-male-04.webp",
+    "alt": "Strój męski — Rzeszów, fotografia 4",
+    "width": 2200,
+    "height": 1467
+  },
+  {
+    "name": "modal-rzeszow-male-05",
+    "src": "/session/modal-rzeszow-male-05.webp",
+    "alt": "Strój męski — Rzeszów, fotografia 5",
+    "width": 2200,
+    "height": 1467
+  },
+  {
+    "name": "modal-rzeszow-male-06",
+    "src": "/session/modal-rzeszow-male-06.webp",
+    "alt": "Strój męski — Rzeszów, fotografia 6",
+    "width": 2200,
+    "height": 1467
+  },
+  {
+    "name": "modal-slask-pszczyna-female-01",
+    "src": "/session/modal-slask-pszczyna-female-01.webp",
+    "alt": "Strój damski — Śląsk — Pszczyna, fotografia 1",
+    "width": 2200,
+    "height": 1467
+  },
+  {
+    "name": "modal-slask-pszczyna-female-02",
+    "src": "/session/modal-slask-pszczyna-female-02.webp",
+    "alt": "Strój damski — Śląsk — Pszczyna, fotografia 2",
+    "width": 2200,
+    "height": 1467
+  },
+  {
+    "name": "modal-slask-pszczyna-female-03",
+    "src": "/session/modal-slask-pszczyna-female-03.webp",
+    "alt": "Strój damski — Śląsk — Pszczyna, fotografia 3",
+    "width": 1467,
+    "height": 2200
+  },
+  {
+    "name": "modal-slask-pszczyna-female-04",
+    "src": "/session/modal-slask-pszczyna-female-04.webp",
+    "alt": "Strój damski — Śląsk — Pszczyna, fotografia 4",
+    "width": 1467,
+    "height": 2200
+  },
+  {
+    "name": "modal-slask-pszczyna-female-05",
+    "src": "/session/modal-slask-pszczyna-female-05.webp",
+    "alt": "Strój damski — Śląsk — Pszczyna, fotografia 5",
+    "width": 1467,
+    "height": 2200
+  },
+  {
+    "name": "modal-slask-pszczyna-female-06",
+    "src": "/session/modal-slask-pszczyna-female-06.webp",
+    "alt": "Strój damski — Śląsk — Pszczyna, fotografia 6",
+    "width": 1467,
+    "height": 2200
+  },
+  {
+    "name": "modal-slask-pszczyna-female-07",
+    "src": "/session/modal-slask-pszczyna-female-07.webp",
+    "alt": "Strój damski — Śląsk — Pszczyna, fotografia 7",
+    "width": 2200,
+    "height": 1467
+  },
+  {
+    "name": "modal-slask-pszczyna-female-08",
+    "src": "/session/modal-slask-pszczyna-female-08.webp",
+    "alt": "Strój damski — Śląsk — Pszczyna, fotografia 8",
+    "width": 2200,
+    "height": 1467
+  },
+  {
+    "name": "modal-slask-pszczyna-female-09",
+    "src": "/session/modal-slask-pszczyna-female-09.webp",
+    "alt": "Strój damski — Śląsk — Pszczyna, fotografia 9",
+    "width": 2200,
+    "height": 1467
+  },
+  {
+    "name": "modal-slask-pszczyna-female-10",
+    "src": "/session/modal-slask-pszczyna-female-10.webp",
+    "alt": "Strój damski — Śląsk — Pszczyna, fotografia 10",
+    "width": 2200,
+    "height": 1467
+  },
+  {
+    "name": "modal-slask-pszczyna-female-11",
+    "src": "/session/modal-slask-pszczyna-female-11.webp",
+    "alt": "Strój damski — Śląsk — Pszczyna, fotografia 11",
+    "width": 2200,
+    "height": 1467
+  },
+  {
+    "name": "modal-slask-pszczyna-male-01",
+    "src": "/session/modal-slask-pszczyna-male-01.webp",
+    "alt": "Strój męski — Śląsk — Pszczyna, fotografia 1",
+    "width": 2200,
+    "height": 1467
+  },
+  {
+    "name": "modal-slask-pszczyna-male-02",
+    "src": "/session/modal-slask-pszczyna-male-02.webp",
+    "alt": "Strój męski — Śląsk — Pszczyna, fotografia 2",
+    "width": 1467,
+    "height": 2200
+  },
+  {
+    "name": "modal-slask-pszczyna-male-03",
+    "src": "/session/modal-slask-pszczyna-male-03.webp",
+    "alt": "Strój męski — Śląsk — Pszczyna, fotografia 3",
+    "width": 2200,
+    "height": 1467
+  },
+  {
+    "name": "modal-slask-pszczyna-male-04",
+    "src": "/session/modal-slask-pszczyna-male-04.webp",
+    "alt": "Strój męski — Śląsk — Pszczyna, fotografia 4",
+    "width": 2200,
+    "height": 1467
+  },
+  {
+    "name": "modal-slask-pszczyna-male-05",
+    "src": "/session/modal-slask-pszczyna-male-05.webp",
+    "alt": "Strój męski — Śląsk — Pszczyna, fotografia 5",
+    "width": 2200,
+    "height": 1467
+  },
+  {
+    "name": "modal-slask-pszczyna-male-06",
+    "src": "/session/modal-slask-pszczyna-male-06.webp",
+    "alt": "Strój męski — Śląsk — Pszczyna, fotografia 6",
+    "width": 2200,
+    "height": 1467
+  },
+  {
+    "name": "modal-slask-pszczyna-male-07",
+    "src": "/session/modal-slask-pszczyna-male-07.webp",
+    "alt": "Strój męski — Śląsk — Pszczyna, fotografia 7",
+    "width": 2200,
+    "height": 1467
+  },
+  {
+    "name": "modal-slask-rozbark-female-01",
+    "src": "/session/modal-slask-rozbark-female-01.webp",
+    "alt": "Strój damski — Śląsk — Rozbark, fotografia 1",
+    "width": 2200,
+    "height": 1467
+  },
+  {
+    "name": "modal-slask-rozbark-female-02",
+    "src": "/session/modal-slask-rozbark-female-02.webp",
+    "alt": "Strój damski — Śląsk — Rozbark, fotografia 2",
+    "width": 1467,
+    "height": 2200
+  },
+  {
+    "name": "modal-slask-rozbark-female-03",
+    "src": "/session/modal-slask-rozbark-female-03.webp",
+    "alt": "Strój damski — Śląsk — Rozbark, fotografia 3",
+    "width": 1467,
+    "height": 2200
+  },
+  {
+    "name": "modal-slask-rozbark-female-04",
+    "src": "/session/modal-slask-rozbark-female-04.webp",
+    "alt": "Strój damski — Śląsk — Rozbark, fotografia 4",
+    "width": 1467,
+    "height": 2200
+  },
+  {
+    "name": "modal-slask-rozbark-female-05",
+    "src": "/session/modal-slask-rozbark-female-05.webp",
+    "alt": "Strój damski — Śląsk — Rozbark, fotografia 5",
+    "width": 1467,
+    "height": 2200
+  },
+  {
+    "name": "modal-slask-rozbark-female-06",
+    "src": "/session/modal-slask-rozbark-female-06.webp",
+    "alt": "Strój damski — Śląsk — Rozbark, fotografia 6",
+    "width": 2200,
+    "height": 1467
+  },
+  {
+    "name": "modal-slask-rozbark-female-07",
+    "src": "/session/modal-slask-rozbark-female-07.webp",
+    "alt": "Strój damski — Śląsk — Rozbark, fotografia 7",
+    "width": 2200,
+    "height": 1467
+  },
+  {
+    "name": "modal-slask-rozbark-female-08",
+    "src": "/session/modal-slask-rozbark-female-08.webp",
+    "alt": "Strój damski — Śląsk — Rozbark, fotografia 8",
+    "width": 2200,
+    "height": 1467
+  },
+  {
+    "name": "modal-slask-rozbark-female-09",
+    "src": "/session/modal-slask-rozbark-female-09.webp",
+    "alt": "Strój damski — Śląsk — Rozbark, fotografia 9",
+    "width": 2200,
+    "height": 1467
+  },
+  {
+    "name": "modal-slask-rozbark-female-10",
+    "src": "/session/modal-slask-rozbark-female-10.webp",
+    "alt": "Strój damski — Śląsk — Rozbark, fotografia 10",
+    "width": 2200,
+    "height": 1467
+  },
+  {
+    "name": "modal-slask-rozbark-female-11",
+    "src": "/session/modal-slask-rozbark-female-11.webp",
+    "alt": "Strój damski — Śląsk — Rozbark, fotografia 11",
+    "width": 1467,
+    "height": 2200
+  },
+  {
+    "name": "modal-slask-rozbark-female-12",
+    "src": "/session/modal-slask-rozbark-female-12.webp",
+    "alt": "Strój damski — Śląsk — Rozbark, fotografia 12",
+    "width": 2200,
+    "height": 1467
+  },
+  {
+    "name": "modal-slask-rozbark-female-13",
+    "src": "/session/modal-slask-rozbark-female-13.webp",
+    "alt": "Strój damski — Śląsk — Rozbark, fotografia 13",
+    "width": 2200,
+    "height": 1467
+  },
+  {
+    "name": "modal-slask-rozbark-female-14",
+    "src": "/session/modal-slask-rozbark-female-14.webp",
+    "alt": "Strój damski — Śląsk — Rozbark, fotografia 14",
+    "width": 2200,
+    "height": 1467
+  },
+  {
+    "name": "modal-slask-rozbark-female-15",
+    "src": "/session/modal-slask-rozbark-female-15.webp",
+    "alt": "Strój damski — Śląsk — Rozbark, fotografia 15",
+    "width": 2200,
+    "height": 1467
+  },
+  {
+    "name": "modal-slask-rozbark-female-16",
+    "src": "/session/modal-slask-rozbark-female-16.webp",
+    "alt": "Strój damski — Śląsk — Rozbark, fotografia 16",
+    "width": 1467,
+    "height": 2200
+  },
+  {
+    "name": "modal-slask-rozbark-male-01",
+    "src": "/session/modal-slask-rozbark-male-01.webp",
+    "alt": "Strój męski — Śląsk — Rozbark, fotografia 1",
+    "width": 1467,
+    "height": 2200
+  },
+  {
+    "name": "modal-slask-rozbark-male-02",
+    "src": "/session/modal-slask-rozbark-male-02.webp",
+    "alt": "Strój męski — Śląsk — Rozbark, fotografia 2",
+    "width": 2200,
+    "height": 1467
+  },
+  {
+    "name": "modal-slask-rozbark-male-03",
+    "src": "/session/modal-slask-rozbark-male-03.webp",
+    "alt": "Strój męski — Śląsk — Rozbark, fotografia 3",
+    "width": 2200,
+    "height": 1467
+  },
+  {
+    "name": "modal-slask-rozbark-male-04",
+    "src": "/session/modal-slask-rozbark-male-04.webp",
+    "alt": "Strój męski — Śląsk — Rozbark, fotografia 4",
+    "width": 2200,
+    "height": 1467
+  },
+  {
+    "name": "modal-slask-rozbark-male-05",
+    "src": "/session/modal-slask-rozbark-male-05.webp",
+    "alt": "Strój męski — Śląsk — Rozbark, fotografia 5",
+    "width": 2200,
+    "height": 1467
+  },
+  {
+    "name": "modal-slask-rozbark-male-06",
+    "src": "/session/modal-slask-rozbark-male-06.webp",
+    "alt": "Strój męski — Śląsk — Rozbark, fotografia 6",
+    "width": 2200,
+    "height": 1467
+  },
+  {
+    "name": "modal-slask-rozbark-male-07",
+    "src": "/session/modal-slask-rozbark-male-07.webp",
+    "alt": "Strój męski — Śląsk — Rozbark, fotografia 7",
+    "width": 2200,
+    "height": 1467
+  },
+  {
+    "name": "modal-zywiec-female-01",
+    "src": "/session/modal-zywiec-female-01.webp",
+    "alt": "Strój damski — Żywiec, fotografia 1",
+    "width": 1467,
+    "height": 2200
+  },
+  {
+    "name": "modal-zywiec-female-02",
+    "src": "/session/modal-zywiec-female-02.webp",
+    "alt": "Strój damski — Żywiec, fotografia 2",
+    "width": 1467,
+    "height": 2200
+  },
+  {
+    "name": "modal-zywiec-female-03",
+    "src": "/session/modal-zywiec-female-03.webp",
+    "alt": "Strój damski — Żywiec, fotografia 3",
+    "width": 1467,
+    "height": 2200
+  },
+  {
+    "name": "modal-zywiec-female-04",
+    "src": "/session/modal-zywiec-female-04.webp",
+    "alt": "Strój damski — Żywiec, fotografia 4",
+    "width": 1467,
+    "height": 2200
+  },
+  {
+    "name": "modal-zywiec-female-05",
+    "src": "/session/modal-zywiec-female-05.webp",
+    "alt": "Strój damski — Żywiec, fotografia 5",
+    "width": 2200,
+    "height": 1467
+  },
+  {
+    "name": "modal-zywiec-female-06",
+    "src": "/session/modal-zywiec-female-06.webp",
+    "alt": "Strój damski — Żywiec, fotografia 6",
+    "width": 2200,
+    "height": 1467
+  },
+  {
+    "name": "modal-zywiec-female-07",
+    "src": "/session/modal-zywiec-female-07.webp",
+    "alt": "Strój damski — Żywiec, fotografia 7",
+    "width": 2200,
+    "height": 1467
+  },
+  {
+    "name": "modal-zywiec-female-08",
+    "src": "/session/modal-zywiec-female-08.webp",
+    "alt": "Strój damski — Żywiec, fotografia 8",
+    "width": 2200,
+    "height": 1467
+  },
+  {
+    "name": "modal-zywiec-female-09",
+    "src": "/session/modal-zywiec-female-09.webp",
+    "alt": "Strój damski — Żywiec, fotografia 9",
+    "width": 2200,
+    "height": 1467
+  },
+  {
+    "name": "modal-zywiec-female-10",
+    "src": "/session/modal-zywiec-female-10.webp",
+    "alt": "Strój damski — Żywiec, fotografia 10",
+    "width": 2200,
+    "height": 1467
+  },
+  {
+    "name": "modal-zywiec-female-11",
+    "src": "/session/modal-zywiec-female-11.webp",
+    "alt": "Strój damski — Żywiec, fotografia 11",
+    "width": 1467,
+    "height": 2200
+  },
+  {
+    "name": "modal-zywiec-male-01",
+    "src": "/session/modal-zywiec-male-01.webp",
+    "alt": "Strój męski — Żywiec, fotografia 1",
+    "width": 1467,
+    "height": 2200
+  },
+  {
+    "name": "modal-zywiec-male-02",
+    "src": "/session/modal-zywiec-male-02.webp",
+    "alt": "Strój męski — Żywiec, fotografia 2",
+    "width": 1467,
+    "height": 2200
+  },
+  {
+    "name": "modal-zywiec-male-03",
+    "src": "/session/modal-zywiec-male-03.webp",
+    "alt": "Strój męski — Żywiec, fotografia 3",
+    "width": 1467,
+    "height": 2200
+  },
+  {
+    "name": "modal-zywiec-male-04",
+    "src": "/session/modal-zywiec-male-04.webp",
+    "alt": "Strój męski — Żywiec, fotografia 4",
+    "width": 2200,
+    "height": 1467
+  },
+  {
+    "name": "modal-zywiec-male-05",
+    "src": "/session/modal-zywiec-male-05.webp",
+    "alt": "Strój męski — Żywiec, fotografia 5",
+    "width": 2200,
+    "height": 1467
+  },
+  {
+    "name": "modal-zywiec-male-06",
+    "src": "/session/modal-zywiec-male-06.webp",
+    "alt": "Strój męski — Żywiec, fotografia 6",
+    "width": 2200,
+    "height": 1467
+  },
+  {
+    "name": "modal-zywiec-male-07",
+    "src": "/session/modal-zywiec-male-07.webp",
+    "alt": "Strój męski — Żywiec, fotografia 7",
+    "width": 2200,
+    "height": 1467
+  },
+  {
+    "name": "modal-zywiec-male-08",
+    "src": "/session/modal-zywiec-male-08.webp",
+    "alt": "Strój męski — Żywiec, fotografia 8",
+    "width": 2200,
+    "height": 1467
+  },
+  {
+    "name": "modal-zywiec-male-09",
+    "src": "/session/modal-zywiec-male-09.webp",
+    "alt": "Strój męski — Żywiec, fotografia 9",
+    "width": 2200,
+    "height": 1467
+  },
+  {
+    "name": "modal-zywiec-male-10",
+    "src": "/session/modal-zywiec-male-10.webp",
+    "alt": "Strój męski — Żywiec, fotografia 10",
+    "width": 2200,
+    "height": 1467
   }
 ] as const;

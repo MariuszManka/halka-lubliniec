@@ -2,6 +2,8 @@ export type CostumeLook = {
   title: string;
   eyebrow: string;
   description: string;
+  galleryKey: string;
+  genders?: Array<"female" | "male">;
   images: string[];
   femaleImages?: string[];
   maleImages?: string[];
@@ -21,6 +23,7 @@ export const costumeLooks: CostumeLook[] = [
   {
     title: "Strój cieszyński",
     eyebrow: "Śląsk Cieszyński",
+    galleryKey: "cieszyn",
     description:
       "Elegancka, oszczędna kolorystycznie sylwetka zyskuje blask dzięki biżuteryjnym zapięciom, koronce i bogato opracowanemu żywotkowi. W zestawie Halki pokazujemy zarówno kobiecą całość, jak i detale damskie oraz męskie.",
     images: ["cieszyn-worn-1", "cieszyn-worn-2", "cieszyn-female-detail", "cieszyn-female-detail-2", "cieszyn-male-detail"],
@@ -31,6 +34,7 @@ export const costumeLooks: CostumeLook[] = [
   {
     title: "Krakowiacy Zachodni",
     eyebrow: "Ziemia Krakowska",
+    galleryKey: "krakow",
     description:
       "Jedna z najbardziej rozpoznawalnych polskich tradycji kostiumowych, lecz znacznie bardziej różnorodna niż jej popularny wizerunek. W scenicznej kolekcji Halki spotykają się bogato zdobione gorsety, czerwone chusty, granatowe warstwy i szeroki pas.",
     images: ["krakow-worn-1", "krakow-worn-2", "krakow-worn-3", "krakow-female-detail", "krakow-male-detail", "krakow-turon"],
@@ -41,6 +45,7 @@ export const costumeLooks: CostumeLook[] = [
   {
     title: "Strój krzczonowski",
     eyebrow: "Lubelszczyzna",
+    galleryKey: "lublin",
     description:
       "Strój kojarzony z okolicami Krzczonowa wyróżnia rytmiczna kompozycja wielobarwnych taśm, haftów i koronek. Na tancerzach Halki najlepiej widać, jak pionowe zdobienia odpowiadają na ruch szerokich spódnic.",
     images: ["lublin-worn-1", "lublin-worn-2", "lublin-worn-3", "lublin-female-detail", "lublin-female-detail-2", "lublin-male-detail"],
@@ -51,6 +56,7 @@ export const costumeLooks: CostumeLook[] = [
   {
     title: "Strój rzeszowski",
     eyebrow: "Rzeszowszczyzna",
+    galleryKey: "rzeszow",
     description:
       "Kontrast błękitu, czerwieni i bieli tworzy bardzo czytelny obraz sceniczny. Męską sylwetkę porządkują kamizola oraz pas, a kobiecą — haftowana koszula, gorset, korale i starannie opracowane nakrycie głowy.",
     images: ["rzeszow-worn-1", "rzeszow-worn-2", "rzeszow-female-detail", "rzeszow-male-detail", "rzeszow-male-detail-2"],
@@ -61,6 +67,7 @@ export const costumeLooks: CostumeLook[] = [
   {
     title: "Górale Żywieccy",
     eyebrow: "Beskid Żywiecki",
+    galleryKey: "zywiec",
     description:
       "Kostium Górali Żywieckich łączy wyraźną linię skórzanego pasa, ciemne kamizelki i białe płótno z kobiecą, kwiatową kompozycją spódnicy i fartucha. Zestaw jest mocny w portrecie i wyjątkowo czytelny w parze.",
     images: ["zywiec-worn-1", "zywiec-worn-2", "zywiec-worn-3", "zywiec-female-detail", "zywiec-male-detail"],
@@ -71,6 +78,8 @@ export const costumeLooks: CostumeLook[] = [
   {
     title: "Strój pszczyński",
     eyebrow: "Ziemia Pszczyńska",
+    galleryKey: "slask-pszczyna",
+    genders: ["female"],
     description:
       "W kobiecej sylwetce uwagę przyciąga kwiecisty oplecek, jasny fartuch, kabotek i sznury korali. Fotografie Halki pokazują ten kostium od pełnej, lekkiej sylwetki aż po drobne złote obszycia i ażurową koronkę.",
     images: ["pszczyna-worn-1", "pszczyna-worn-2", "pszczyna-worn-3", "pszczyna-detail-1", "pszczyna-detail-2"],
@@ -80,6 +89,7 @@ export const costumeLooks: CostumeLook[] = [
   {
     title: "Strój rozbarski",
     eyebrow: "Górny Śląsk",
+    galleryKey: "slask-rozbark",
     description:
       "Strój rozbarski, nazywany również bytomskim, opiera się na mocnym kontraście bieli, ciemnych warstw oraz tkanin w kwiaty. W tej części kolekcji skupiamy się przede wszystkim na detalach kobiecych i męskich.",
     images: ["rozbark-detail-1", "rozbark-detail-2", "rozbark-detail-3", "rozbark-male-detail"],
@@ -90,6 +100,8 @@ export const costumeLooks: CostumeLook[] = [
   {
     title: "Mundur górniczy",
     eyebrow: "Śląsk przemysłowy",
+    galleryKey: "slask-pszczyna",
+    genders: ["male"],
     description:
       "Galowy mundur górniczy wnosi na scenę czerń, złoto i wyrazistą linię ramion. W zestawieniu z kostiumem pszczyńskim tworzy charakterystyczny obraz śląskiej opowieści zespołu.",
     images: ["mining-worn-1", "mining-worn-2", "mining-detail-1", "mining-detail-2"],
@@ -99,6 +111,7 @@ export const costumeLooks: CostumeLook[] = [
   {
     title: "Księstwo Warszawskie",
     eyebrow: "Kostium historyczny",
+    galleryKey: "narodowe",
     description:
       "Historyzujący zestaw z okresu Księstwa Warszawskiego poszerza repertuar Halki poza stroje regionalne. Empire'owa linia sukni, futrzane nakrycia głowy i mundur ułański budują obraz konkretnej epoki.",
     images: ["national-worn-1", "national-worn-2", "national-worn-3", "national-uniform-detail"],
