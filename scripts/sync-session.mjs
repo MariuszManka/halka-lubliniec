@@ -1,4 +1,4 @@
-import { readFile, rm, mkdir, writeFile } from "node:fs/promises";
+import { access, readFile, rm, mkdir, writeFile } from "node:fs/promises";
 import path from "node:path";
 import sharp from "sharp";
 
@@ -8,6 +8,14 @@ const assetsRoot = process.env.HALKA_ASSETS_DIR
   : path.resolve(siteRoot, "..", "ASSETS");
 const sessionRoot = path.join(assetsRoot, "Sesja zdjęciowa");
 const outputRoot = path.join(siteRoot, "public", "session");
+
+try {
+  await access(sessionRoot);
+} catch {
+  console.log("Pominięto synchronizację sesji: lokalny folder ASSETS nie jest dostępny w tym środowisku.");
+  process.exit(0);
+}
+
 const config = JSON.parse(
   await readFile(path.join(siteRoot, "content", "session.config.json"), "utf8"),
 );

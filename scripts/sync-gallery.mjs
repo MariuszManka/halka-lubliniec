@@ -1,4 +1,4 @@
-import { readdir, readFile, rm, mkdir, writeFile } from "node:fs/promises";
+import { access, readdir, readFile, rm, mkdir, writeFile } from "node:fs/promises";
 import path from "node:path";
 import sharp from "sharp";
 
@@ -9,6 +9,13 @@ const assetsRoot = process.env.HALKA_ASSETS_DIR
 const outputRoot = path.join(siteRoot, "public", "gallery");
 const configPath = path.join(siteRoot, "content", "gallery.config.json");
 const manifestPath = path.join(siteRoot, "content", "generated-gallery.ts");
+
+try {
+  await access(assetsRoot);
+} catch {
+  console.log("Pominięto synchronizację galerii: lokalny folder ASSETS nie jest dostępny w tym środowisku.");
+  process.exit(0);
+}
 
 const config = JSON.parse(await readFile(configPath, "utf8"));
 const overrides = new Map(config.map((event) => [event.folder, event]));
