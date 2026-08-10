@@ -27,6 +27,7 @@ type GalleryEvent = (typeof galleryEvents)[number];
 
 const navItems = [
   ["Galeria", "/galeria"],
+  ["Kostiumy", "/kostiumy"],
   ["Historia", "#historia"],
   ["Terminarz", "#terminarz"],
   ["Kontakt", "#kontakt"],

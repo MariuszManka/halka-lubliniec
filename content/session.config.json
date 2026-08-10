@@ -14,5 +14,15 @@
   { "name": "children-dance", "source": "Grupa 1 - dzieci/Grupa1_136.JPG", "alt": "Najmłodsza grupa podczas tańca" },
   { "name": "children-pair", "source": "Grupa 1 - dzieci/Grupa1_157.JPG", "alt": "Dzieci ćwiczące kroki taneczne" },
   { "name": "young-dancers", "source": "Grupa 2 - dzieci/Grupa2_188.jpg", "alt": "Młoda tancerka w stroju ludowym" },
-  { "name": "young-group", "source": "Grupa 2 - dzieci/Grupa2_207.jpg", "alt": "Dziecięca grupa w ruchu scenicznym" }
+  { "name": "young-group", "source": "Grupa 2 - dzieci/Grupa2_207.jpg", "alt": "Dziecięca grupa w ruchu scenicznym" },
+  { "name": "costume-hero", "source": "KOSTIUMY_/WKF_2918.jpg", "alt": "Tancerki Halki prezentujące barwne kostiumy ludowe" },
+  { "name": "costume-female-portrait", "source": "KOSTIUMY_/WKF_2374A.jpg", "alt": "Portret członkini Halki w zielonym kostiumie i białej chuście" },
+  { "name": "costume-male-portrait", "source": "KOSTIUMY_/WKF_2739.jpg", "alt": "Członek Halki w bogato zdobionym męskim kostiumie" },
+  { "name": "costume-leather-belt", "source": "KOSTIUMY_/WKF_1524.jpg", "alt": "Zdobiony skórzany pas będący elementem męskiego kostiumu" },
+  { "name": "costume-lace-black", "source": "KOSTIUMY_/WKF_1700.jpg", "alt": "Koronka i czarne obszycia białej koszuli kostiumowej" },
+  { "name": "costume-lace-white", "source": "KOSTIUMY_/WKF_4396.jpg", "alt": "Biała koronka, czerwone korale i złote obszycie kobiecego kostiumu" },
+  { "name": "costume-blue-detail", "source": "KOSTIUMY_/WKF_9600.jpg", "alt": "Biała koronka, czerwone korale i niebieska tkanina w kwiaty" },
+  { "name": "costume-pink-skirt", "source": "KOSTIUMY_/WKF_3094.jpg", "alt": "Warstwy różowej spódnicy wykończone wstążkami i koronką" },
+  { "name": "costume-embroidered-sleeve", "source": "KOSTIUMY_/WKF_1301.jpg", "alt": "Barwne hafty i taśmy na rękawie kostiumu ludowego" },
+  { "name": "costume-mask", "source": "KOSTIUMY_/WKF_2553.jpg", "alt": "Członek zespołu w kostiumie obrzędowym z maską" }
 ]

@@ -13,6 +13,7 @@ const formatDate = (date: string) =>
 
 const navItems = [
   ["Galeria", "/galeria"],
+  ["Kostiumy", "/kostiumy"],
   ["Historia", "/#historia"],
   ["Terminarz", "/#terminarz"],
   ["Kontakt", "/#kontakt"],

@@ -111,5 +111,75 @@ export const sessionImages = [
     "alt": "Dziecięca grupa w ruchu scenicznym",
     "width": 2200,
     "height": 1467
+  },
+  {
+    "name": "costume-hero",
+    "src": "/session/costume-hero.webp",
+    "alt": "Tancerki Halki prezentujące barwne kostiumy ludowe",
+    "width": 2200,
+    "height": 1467
+  },
+  {
+    "name": "costume-female-portrait",
+    "src": "/session/costume-female-portrait.webp",
+    "alt": "Portret członkini Halki w zielonym kostiumie i białej chuście",
+    "width": 2200,
+    "height": 1467
+  },
+  {
+    "name": "costume-male-portrait",
+    "src": "/session/costume-male-portrait.webp",
+    "alt": "Członek Halki w bogato zdobionym męskim kostiumie",
+    "width": 1467,
+    "height": 2200
+  },
+  {
+    "name": "costume-leather-belt",
+    "src": "/session/costume-leather-belt.webp",
+    "alt": "Zdobiony skórzany pas będący elementem męskiego kostiumu",
+    "width": 2200,
+    "height": 1467
+  },
+  {
+    "name": "costume-lace-black",
+    "src": "/session/costume-lace-black.webp",
+    "alt": "Koronka i czarne obszycia białej koszuli kostiumowej",
+    "width": 2200,
+    "height": 1467
+  },
+  {
+    "name": "costume-lace-white",
+    "src": "/session/costume-lace-white.webp",
+    "alt": "Biała koronka, czerwone korale i złote obszycie kobiecego kostiumu",
+    "width": 2200,
+    "height": 1467
+  },
+  {
+    "name": "costume-blue-detail",
+    "src": "/session/costume-blue-detail.webp",
+    "alt": "Biała koronka, czerwone korale i niebieska tkanina w kwiaty",
+    "width": 1467,
+    "height": 2200
+  },
+  {
+    "name": "costume-pink-skirt",
+    "src": "/session/costume-pink-skirt.webp",
+    "alt": "Warstwy różowej spódnicy wykończone wstążkami i koronką",
+    "width": 2200,
+    "height": 1467
+  },
+  {
+    "name": "costume-embroidered-sleeve",
+    "src": "/session/costume-embroidered-sleeve.webp",
+    "alt": "Barwne hafty i taśmy na rękawie kostiumu ludowego",
+    "width": 2200,
+    "height": 1467
+  },
+  {
+    "name": "costume-mask",
+    "src": "/session/costume-mask.webp",
+    "alt": "Członek zespołu w kostiumie obrzędowym z maską",
+    "width": 2200,
+    "height": 1467
   }
 ] as const;
