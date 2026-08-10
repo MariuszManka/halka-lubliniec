@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, type CSSProperties, type ReactNode } from "react";
+import { useEffect, useState, type CSSProperties, type ReactNode } from "react";
 import { AnimatePresence, motion, useReducedMotion, useScroll, useTransform } from "motion/react";
 import {
   ArrowLeft,
@@ -113,14 +113,48 @@ function CostumeBackdrop() {
 export function CostumesPage() {
   const reduce = useReducedMotion();
   const [menuOpen, setMenuOpen] = useState(false);
-  const [activeLook, setActiveLook] = useState(0);
+  const [activeLook, setActiveLook] = useState<number | null>(null);
+  const [activeGroup, setActiveGroup] = useState<"female" | "male">("female");
   const [activePhoto, setActivePhoto] = useState(0);
-  const look = costumeLooks[activeLook];
+  const look = activeLook === null ? null : costumeLooks[activeLook];
+  const gallery = look
+    ? activeGroup === "female"
+      ? look.femaleImages ?? []
+      : look.maleImages ?? []
+    : [];
 
   const chooseLook = (index: number) => {
+    const selected = costumeLooks[index];
     setActiveLook(index);
+    setActiveGroup(selected.femaleImages?.length ? "female" : "male");
     setActivePhoto(0);
   };
+
+  const chooseGroup = (group: "female" | "male") => {
+    setActiveGroup(group);
+    setActivePhoto(0);
+  };
+
+  const changePhoto = (direction: number) => {
+    if (!gallery.length) return;
+    setActivePhoto((current) => (current + direction + gallery.length) % gallery.length);
+  };
+
+  useEffect(() => {
+    if (activeLook === null) return;
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    const closeOnEscape = (event: KeyboardEvent) => {
+      if (event.key === "Escape") setActiveLook(null);
+      if (event.key === "ArrowLeft") changePhoto(-1);
+      if (event.key === "ArrowRight") changePhoto(1);
+    };
+    window.addEventListener("keydown", closeOnEscape);
+    return () => {
+      document.body.style.overflow = previousOverflow;
+      window.removeEventListener("keydown", closeOnEscape);
+    };
+  }, [activeLook, activeGroup, gallery.length]);
 
   return (
     <main className="costumes-page">
@@ -243,55 +277,102 @@ export function CostumesPage() {
           ))}
         </div>
 
-        <AnimatePresence mode="wait">
-          <motion.article
-            className="costume-look-detail"
-            key={look.title}
-            initial={reduce ? false : { opacity: 0, y: 18 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -10 }}
-            transition={{ duration: 0.42, ease: [0.16, 1, 0.3, 1] }}
-          >
-            <div className="costume-look-stage">
-              <AnimatePresence mode="wait">
-                <motion.div
-                  className="costume-look-stage-image"
-                  key={look.images[activePhoto]}
-                  initial={reduce ? false : { opacity: 0, scale: 1.02 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  exit={{ opacity: 0 }}
-                  transition={{ duration: 0.36 }}
-                >
-                  <CostumeImage name={look.images[activePhoto]} />
-                </motion.div>
-              </AnimatePresence>
-              <span className="costume-look-counter">{String(activePhoto + 1).padStart(2, "0")} / {String(look.images.length).padStart(2, "0")}</span>
-            </div>
-            <div className="costume-look-story">
-              <p className="section-kicker">{look.eyebrow}</p>
-              <h3>{look.title}</h3>
-              <p>{look.description}</p>
-              <ul>
-                {look.details.map((detail) => <li key={detail}><Check size={16} weight="bold" /> {detail}</li>)}
-              </ul>
-              <div className="costume-look-thumbnails" aria-label={`Zdjęcia: ${look.title}`}>
-                {look.images.map((imageName, index) => (
-                  <button
-                    type="button"
-                    className={activePhoto === index ? "active" : ""}
-                    aria-label={`Pokaż zdjęcie ${index + 1}`}
-                    aria-pressed={activePhoto === index}
-                    onClick={() => setActivePhoto(index)}
-                    key={imageName}
-                  >
-                    <CostumeImage name={imageName} />
-                  </button>
-                ))}
-              </div>
-            </div>
-          </motion.article>
-        </AnimatePresence>
       </section>
+
+      <AnimatePresence>
+        {look && gallery.length > 0 && (
+          <motion.div
+            className="costume-modal-backdrop"
+            initial={reduce ? false : { opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.24 }}
+            onMouseDown={(event) => {
+              if (event.target === event.currentTarget) setActiveLook(null);
+            }}
+          >
+            <motion.section
+              className="costume-modal"
+              role="dialog"
+              aria-modal="true"
+              aria-labelledby="costume-modal-title"
+              initial={reduce ? false : { opacity: 0, y: 34, scale: 0.985 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              exit={{ opacity: 0, y: 18, scale: 0.99 }}
+              transition={{ duration: 0.42, ease: [0.16, 1, 0.3, 1] }}
+            >
+              <header className="costume-modal-header">
+                <span><b>{String((activeLook ?? 0) + 1).padStart(2, "0")}</b> {look.eyebrow}</span>
+                <button type="button" onClick={() => setActiveLook(null)} aria-label="Zamknij prezentację stroju" autoFocus>
+                  <X size={22} />
+                </button>
+              </header>
+
+              <div className="costume-modal-layout">
+                <div className="costume-modal-gallery">
+                  <AnimatePresence mode="wait">
+                    <motion.div
+                      className="costume-modal-main-image"
+                      key={`${activeGroup}-${gallery[activePhoto]}`}
+                      initial={reduce ? false : { opacity: 0, scale: 1.015 }}
+                      animate={{ opacity: 1, scale: 1 }}
+                      exit={{ opacity: 0 }}
+                      transition={{ duration: 0.3 }}
+                    >
+                      <CostumeImage name={gallery[activePhoto]} />
+                    </motion.div>
+                  </AnimatePresence>
+                  {gallery.length > 1 && (
+                    <div className="costume-modal-arrows">
+                      <button type="button" onClick={() => changePhoto(-1)} aria-label="Poprzednie zdjęcie"><ArrowLeft size={20} /></button>
+                      <span>{String(activePhoto + 1).padStart(2, "0")} / {String(gallery.length).padStart(2, "0")}</span>
+                      <button type="button" onClick={() => changePhoto(1)} aria-label="Następne zdjęcie"><ArrowRight size={20} /></button>
+                    </div>
+                  )}
+                </div>
+
+                <div className="costume-modal-story">
+                  <p className="section-kicker">Kolekcja regionalna</p>
+                  <h3 id="costume-modal-title">{look.title}</h3>
+                  <p>{look.description}</p>
+
+                  <div className="costume-modal-groups" role="tablist" aria-label="Wersja stroju">
+                    {look.femaleImages?.length ? (
+                      <button type="button" role="tab" aria-selected={activeGroup === "female"} className={activeGroup === "female" ? "active" : ""} onClick={() => chooseGroup("female")}>
+                        Strój damski <small>{look.femaleImages.length} zdjęć</small>
+                      </button>
+                    ) : null}
+                    {look.maleImages?.length ? (
+                      <button type="button" role="tab" aria-selected={activeGroup === "male"} className={activeGroup === "male" ? "active" : ""} onClick={() => chooseGroup("male")}>
+                        Strój męski <small>{look.maleImages.length} zdjęć</small>
+                      </button>
+                    ) : null}
+                  </div>
+
+                  <ul>
+                    {look.details.map((detail) => <li key={detail}><Check size={16} weight="bold" /> {detail}</li>)}
+                  </ul>
+
+                  <div className="costume-modal-thumbnails" role="tabpanel" aria-label={`${activeGroup === "female" ? "Strój damski" : "Strój męski"}: ${look.title}`}>
+                    {gallery.map((imageName, index) => (
+                      <button
+                        type="button"
+                        className={activePhoto === index ? "active" : ""}
+                        aria-label={`Pokaż zdjęcie ${index + 1}`}
+                        aria-pressed={activePhoto === index}
+                        onClick={() => setActivePhoto(index)}
+                        key={imageName}
+                      >
+                        <CostumeImage name={imageName} />
+                      </button>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            </motion.section>
+          </motion.div>
+        )}
+      </AnimatePresence>
 
       <section className="costume-anatomy section-shell" aria-labelledby="costume-anatomy-title">
         <Reveal className="costume-anatomy-heading">

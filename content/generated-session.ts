@@ -127,9 +127,30 @@ export const sessionImages = [
     "height": 1467
   },
   {
+    "name": "cieszyn-female-detail-3",
+    "src": "/session/cieszyn-female-detail-3.webp",
+    "alt": "Haftowany żywotek stroju cieszyńskiego",
+    "width": 2200,
+    "height": 1467
+  },
+  {
     "name": "cieszyn-male-detail",
     "src": "/session/cieszyn-male-detail.webp",
     "alt": "Detal męskiego stroju cieszyńskiego",
+    "width": 2200,
+    "height": 1467
+  },
+  {
+    "name": "cieszyn-male-detail-2",
+    "src": "/session/cieszyn-male-detail-2.webp",
+    "alt": "Wykończenie męskiego stroju cieszyńskiego",
+    "width": 2200,
+    "height": 1467
+  },
+  {
+    "name": "cieszyn-male-detail-3",
+    "src": "/session/cieszyn-male-detail-3.webp",
+    "alt": "Warstwy męskiego stroju cieszyńskiego",
     "width": 2200,
     "height": 1467
   },
@@ -162,9 +183,37 @@ export const sessionImages = [
     "height": 1467
   },
   {
+    "name": "krakow-female-detail-2",
+    "src": "/session/krakow-female-detail-2.webp",
+    "alt": "Dekoracja kobiecego stroju Krakowiaków Zachodnich",
+    "width": 2200,
+    "height": 1467
+  },
+  {
+    "name": "krakow-female-detail-3",
+    "src": "/session/krakow-female-detail-3.webp",
+    "alt": "Haft i koraliki krakowskiego gorsetu",
+    "width": 2200,
+    "height": 1467
+  },
+  {
     "name": "krakow-male-detail",
     "src": "/session/krakow-male-detail.webp",
     "alt": "Pas i dekoracyjne taśmy męskiego stroju Krakowiaków Zachodnich",
+    "width": 2200,
+    "height": 1467
+  },
+  {
+    "name": "krakow-male-detail-2",
+    "src": "/session/krakow-male-detail-2.webp",
+    "alt": "Męski strój Krakowiaków Zachodnich z bliska",
+    "width": 2200,
+    "height": 1467
+  },
+  {
+    "name": "krakow-male-detail-3",
+    "src": "/session/krakow-male-detail-3.webp",
+    "alt": "Zdobienia męskiego stroju Krakowiaków Zachodnich",
     "width": 2200,
     "height": 1467
   },
@@ -197,6 +246,20 @@ export const sessionImages = [
     "height": 2200
   },
   {
+    "name": "lublin-worn-female",
+    "src": "/session/lublin-worn-female.webp",
+    "alt": "Tancerka Halki w kobiecym stroju krzczonowskim",
+    "width": 1467,
+    "height": 2200
+  },
+  {
+    "name": "lublin-worn-male",
+    "src": "/session/lublin-worn-male.webp",
+    "alt": "Tancerz Halki w męskim stroju krzczonowskim",
+    "width": 1467,
+    "height": 2200
+  },
+  {
     "name": "lublin-female-detail",
     "src": "/session/lublin-female-detail.webp",
     "alt": "Warstwy i barwne obszycia kobiecego stroju krzczonowskiego",
@@ -211,9 +274,30 @@ export const sessionImages = [
     "height": 1467
   },
   {
+    "name": "lublin-female-detail-3",
+    "src": "/session/lublin-female-detail-3.webp",
+    "alt": "Taśmy i koronka kobiecego stroju krzczonowskiego",
+    "width": 2200,
+    "height": 1467
+  },
+  {
     "name": "lublin-male-detail",
     "src": "/session/lublin-male-detail.webp",
     "alt": "Haftowany kołnierz męskiego stroju krzczonowskiego",
+    "width": 1467,
+    "height": 2200
+  },
+  {
+    "name": "lublin-male-detail-2",
+    "src": "/session/lublin-male-detail-2.webp",
+    "alt": "Męski strój krzczonowski z bliska",
+    "width": 1467,
+    "height": 2200
+  },
+  {
+    "name": "lublin-male-detail-3",
+    "src": "/session/lublin-male-detail-3.webp",
+    "alt": "Zdobienie męskiego stroju krzczonowskiego",
     "width": 1467,
     "height": 2200
   },
@@ -239,6 +323,20 @@ export const sessionImages = [
     "height": 1467
   },
   {
+    "name": "rzeszow-female-detail-2",
+    "src": "/session/rzeszow-female-detail-2.webp",
+    "alt": "Kolorowy haft kobiecego stroju rzeszowskiego",
+    "width": 2200,
+    "height": 1467
+  },
+  {
+    "name": "rzeszow-female-detail-3",
+    "src": "/session/rzeszow-female-detail-3.webp",
+    "alt": "Wykończenie kobiecego stroju rzeszowskiego",
+    "width": 2200,
+    "height": 1467
+  },
+  {
     "name": "rzeszow-male-detail",
     "src": "/session/rzeszow-male-detail.webp",
     "alt": "Niebieska kamizola i pas męskiego stroju rzeszowskiego",
@@ -251,6 +349,13 @@ export const sessionImages = [
     "alt": "Detal męskiego stroju rzeszowskiego",
     "width": 1467,
     "height": 2200
+  },
+  {
+    "name": "rzeszow-male-detail-3",
+    "src": "/session/rzeszow-male-detail-3.webp",
+    "alt": "Męska kamizola rzeszowska z bliska",
+    "width": 2200,
+    "height": 1467
   },
   {
     "name": "zywiec-worn-1",
@@ -281,9 +386,37 @@ export const sessionImages = [
     "height": 1467
   },
   {
+    "name": "zywiec-female-detail-2",
+    "src": "/session/zywiec-female-detail-2.webp",
+    "alt": "Haft kobiecego stroju Górali Żywieckich",
+    "width": 2200,
+    "height": 1467
+  },
+  {
+    "name": "zywiec-female-detail-3",
+    "src": "/session/zywiec-female-detail-3.webp",
+    "alt": "Warstwy kobiecego stroju Górali Żywieckich",
+    "width": 1467,
+    "height": 2200
+  },
+  {
     "name": "zywiec-male-detail",
     "src": "/session/zywiec-male-detail.webp",
     "alt": "Zdobiony skórzany pas stroju Górali Żywieckich",
+    "width": 2200,
+    "height": 1467
+  },
+  {
+    "name": "zywiec-male-detail-2",
+    "src": "/session/zywiec-male-detail-2.webp",
+    "alt": "Męski strój Górali Żywieckich z bliska",
+    "width": 2200,
+    "height": 1467
+  },
+  {
+    "name": "zywiec-male-detail-3",
+    "src": "/session/zywiec-male-detail-3.webp",
+    "alt": "Zdobienia męskiego stroju Górali Żywieckich",
     "width": 2200,
     "height": 1467
   },
@@ -323,6 +456,13 @@ export const sessionImages = [
     "height": 1467
   },
   {
+    "name": "pszczyna-detail-3",
+    "src": "/session/pszczyna-detail-3.webp",
+    "alt": "Kwiatowy oplecek stroju pszczyńskiego",
+    "width": 2200,
+    "height": 1467
+  },
+  {
     "name": "rozbark-detail-1",
     "src": "/session/rozbark-detail-1.webp",
     "alt": "Korale, koronka i kwiecisty materiał stroju rozbarskiego",
@@ -344,9 +484,30 @@ export const sessionImages = [
     "height": 1467
   },
   {
+    "name": "rozbark-detail-4",
+    "src": "/session/rozbark-detail-4.webp",
+    "alt": "Kwiatysta tkanina stroju rozbarskiego",
+    "width": 2200,
+    "height": 1467
+  },
+  {
     "name": "rozbark-male-detail",
     "src": "/session/rozbark-male-detail.webp",
     "alt": "Detal męskiego stroju rozbarskiego",
+    "width": 2200,
+    "height": 1467
+  },
+  {
+    "name": "rozbark-male-detail-2",
+    "src": "/session/rozbark-male-detail-2.webp",
+    "alt": "Wykończenie męskiego stroju rozbarskiego",
+    "width": 2200,
+    "height": 1467
+  },
+  {
+    "name": "rozbark-male-detail-3",
+    "src": "/session/rozbark-male-detail-3.webp",
+    "alt": "Warstwy męskiego stroju rozbarskiego",
     "width": 2200,
     "height": 1467
   },
@@ -379,6 +540,13 @@ export const sessionImages = [
     "height": 1467
   },
   {
+    "name": "mining-detail-3",
+    "src": "/session/mining-detail-3.webp",
+    "alt": "Detal czarnego galowego munduru górniczego",
+    "width": 2200,
+    "height": 1467
+  },
+  {
     "name": "national-worn-1",
     "src": "/session/national-worn-1.webp",
     "alt": "Para Halki w kostiumach z okresu Księstwa Warszawskiego",
@@ -403,6 +571,20 @@ export const sessionImages = [
     "name": "national-uniform-detail",
     "src": "/session/national-uniform-detail.webp",
     "alt": "Złoty epolet munduru ułańskiego",
+    "width": 2200,
+    "height": 1467
+  },
+  {
+    "name": "national-uniform-detail-2",
+    "src": "/session/national-uniform-detail-2.webp",
+    "alt": "Detal historyzującego munduru ułańskiego",
+    "width": 2200,
+    "height": 1467
+  },
+  {
+    "name": "national-uniform-detail-3",
+    "src": "/session/national-uniform-detail-3.webp",
+    "alt": "Złote wykończenie munduru ułańskiego",
     "width": 2200,
     "height": 1467
   },

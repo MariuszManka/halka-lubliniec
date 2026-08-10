@@ -3,6 +3,8 @@ export type CostumeLook = {
   eyebrow: string;
   description: string;
   images: string[];
+  femaleImages?: string[];
+  maleImages?: string[];
   details: string[];
 };
 
@@ -22,6 +24,8 @@ export const costumeLooks: CostumeLook[] = [
     description:
       "Elegancka, oszczędna kolorystycznie sylwetka zyskuje blask dzięki biżuteryjnym zapięciom, koronce i bogato opracowanemu żywotkowi. W zestawie Halki pokazujemy zarówno kobiecą całość, jak i detale damskie oraz męskie.",
     images: ["cieszyn-worn-1", "cieszyn-worn-2", "cieszyn-female-detail", "cieszyn-female-detail-2", "cieszyn-male-detail"],
+    femaleImages: ["cieszyn-worn-1", "cieszyn-worn-2", "cieszyn-female-detail", "cieszyn-female-detail-2", "cieszyn-female-detail-3"],
+    maleImages: ["cieszyn-male-detail", "cieszyn-male-detail-2", "cieszyn-male-detail-3"],
     details: ["żywotek i kabotek", "koronkowe wykończenia", "biżuteryjne hoczki", "damska i męska sylwetka"],
   },
   {
@@ -30,6 +34,8 @@ export const costumeLooks: CostumeLook[] = [
     description:
       "Jedna z najbardziej rozpoznawalnych polskich tradycji kostiumowych, lecz znacznie bardziej różnorodna niż jej popularny wizerunek. W scenicznej kolekcji Halki spotykają się bogato zdobione gorsety, czerwone chusty, granatowe warstwy i szeroki pas.",
     images: ["krakow-worn-1", "krakow-worn-2", "krakow-worn-3", "krakow-female-detail", "krakow-male-detail", "krakow-turon"],
+    femaleImages: ["krakow-worn-1", "krakow-worn-2", "krakow-worn-3", "krakow-female-detail", "krakow-female-detail-2", "krakow-female-detail-3"],
+    maleImages: ["krakow-worn-1", "krakow-worn-2", "krakow-male-detail", "krakow-male-detail-2", "krakow-male-detail-3", "krakow-turon"],
     details: ["gorset i czerwona chusta", "granatowa sukmana", "szeroki pas", "kostium obrzędowy z turoniem"],
   },
   {
@@ -38,6 +44,8 @@ export const costumeLooks: CostumeLook[] = [
     description:
       "Strój kojarzony z okolicami Krzczonowa wyróżnia rytmiczna kompozycja wielobarwnych taśm, haftów i koronek. Na tancerzach Halki najlepiej widać, jak pionowe zdobienia odpowiadają na ruch szerokich spódnic.",
     images: ["lublin-worn-1", "lublin-worn-2", "lublin-worn-3", "lublin-female-detail", "lublin-female-detail-2", "lublin-male-detail"],
+    femaleImages: ["lublin-worn-1", "lublin-worn-2", "lublin-worn-3", "lublin-worn-female", "lublin-female-detail", "lublin-female-detail-2", "lublin-female-detail-3"],
+    maleImages: ["lublin-worn-male", "lublin-male-detail", "lublin-male-detail-2", "lublin-male-detail-3"],
     details: ["wielobarwne taśmy", "haft krzczonowski", "korale i koronki", "rytmiczne podziały stroju"],
   },
   {
@@ -46,6 +54,8 @@ export const costumeLooks: CostumeLook[] = [
     description:
       "Kontrast błękitu, czerwieni i bieli tworzy bardzo czytelny obraz sceniczny. Męską sylwetkę porządkują kamizola oraz pas, a kobiecą — haftowana koszula, gorset, korale i starannie opracowane nakrycie głowy.",
     images: ["rzeszow-worn-1", "rzeszow-worn-2", "rzeszow-female-detail", "rzeszow-male-detail", "rzeszow-male-detail-2"],
+    femaleImages: ["rzeszow-worn-1", "rzeszow-worn-2", "rzeszow-female-detail", "rzeszow-female-detail-2", "rzeszow-female-detail-3"],
+    maleImages: ["rzeszow-male-detail", "rzeszow-male-detail-2", "rzeszow-male-detail-3"],
     details: ["niebieska kamizola", "czerwone obszycia", "haftowana koszula", "korale i nakrycie głowy"],
   },
   {
@@ -54,6 +64,8 @@ export const costumeLooks: CostumeLook[] = [
     description:
       "Kostium Górali Żywieckich łączy wyraźną linię skórzanego pasa, ciemne kamizelki i białe płótno z kobiecą, kwiatową kompozycją spódnicy i fartucha. Zestaw jest mocny w portrecie i wyjątkowo czytelny w parze.",
     images: ["zywiec-worn-1", "zywiec-worn-2", "zywiec-worn-3", "zywiec-female-detail", "zywiec-male-detail"],
+    femaleImages: ["zywiec-worn-1", "zywiec-worn-3", "zywiec-female-detail", "zywiec-female-detail-2", "zywiec-female-detail-3"],
+    maleImages: ["zywiec-worn-1", "zywiec-worn-2", "zywiec-male-detail", "zywiec-male-detail-2", "zywiec-male-detail-3"],
     details: ["szeroki skórzany pas", "białe płótno", "kwiatowy fartuch", "kontrast pary tanecznej"],
   },
   {
@@ -62,6 +74,7 @@ export const costumeLooks: CostumeLook[] = [
     description:
       "W kobiecej sylwetce uwagę przyciąga kwiecisty oplecek, jasny fartuch, kabotek i sznury korali. Fotografie Halki pokazują ten kostium od pełnej, lekkiej sylwetki aż po drobne złote obszycia i ażurową koronkę.",
     images: ["pszczyna-worn-1", "pszczyna-worn-2", "pszczyna-worn-3", "pszczyna-detail-1", "pszczyna-detail-2"],
+    femaleImages: ["pszczyna-worn-1", "pszczyna-worn-2", "pszczyna-worn-3", "pszczyna-detail-1", "pszczyna-detail-2", "pszczyna-detail-3"],
     details: ["oplecek zszyty ze spódnicą", "kabotek", "jasny fartuch", "korale i złote obszycia"],
   },
   {
@@ -70,6 +83,8 @@ export const costumeLooks: CostumeLook[] = [
     description:
       "Strój rozbarski, nazywany również bytomskim, opiera się na mocnym kontraście bieli, ciemnych warstw oraz tkanin w kwiaty. W tej części kolekcji skupiamy się przede wszystkim na detalach kobiecych i męskich.",
     images: ["rozbark-detail-1", "rozbark-detail-2", "rozbark-detail-3", "rozbark-male-detail"],
+    femaleImages: ["rozbark-detail-1", "rozbark-detail-2", "rozbark-detail-3", "rozbark-detail-4"],
+    maleImages: ["rozbark-male-detail", "rozbark-male-detail-2", "rozbark-male-detail-3"],
     details: ["kwiatyste tkaniny", "korale i koronka", "damskie detale", "męskie wykończenia"],
   },
   {
@@ -78,6 +93,7 @@ export const costumeLooks: CostumeLook[] = [
     description:
       "Galowy mundur górniczy wnosi na scenę czerń, złoto i wyrazistą linię ramion. W zestawieniu z kostiumem pszczyńskim tworzy charakterystyczny obraz śląskiej opowieści zespołu.",
     images: ["mining-worn-1", "mining-worn-2", "mining-detail-1", "mining-detail-2"],
+    maleImages: ["mining-worn-1", "mining-worn-2", "mining-detail-1", "mining-detail-2", "mining-detail-3"],
     details: ["czarna sukienna forma", "złote obszycia", "dekoracyjne guziki", "galowa sylwetka"],
   },
   {
@@ -86,6 +102,8 @@ export const costumeLooks: CostumeLook[] = [
     description:
       "Historyzujący zestaw z okresu Księstwa Warszawskiego poszerza repertuar Halki poza stroje regionalne. Empire'owa linia sukni, futrzane nakrycia głowy i mundur ułański budują obraz konkretnej epoki.",
     images: ["national-worn-1", "national-worn-2", "national-worn-3", "national-uniform-detail"],
+    femaleImages: ["national-worn-1", "national-worn-2", "national-worn-3"],
+    maleImages: ["national-worn-1", "national-uniform-detail", "national-uniform-detail-2", "national-uniform-detail-3"],
     details: ["suknia o linii empire", "futrzane nakrycia głowy", "mundur ułański", "złoty epolet"],
   },
 ];
