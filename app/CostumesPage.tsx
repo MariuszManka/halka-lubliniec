@@ -15,6 +15,7 @@ import {
   Stack,
   X,
 } from "@phosphor-icons/react";
+import { costumeFacts, costumeLooks } from "../content/costumes";
 import { sessionImages } from "../content/generated-session";
 
 const navItems = [
@@ -23,41 +24,6 @@ const navItems = [
   ["Historia", "/#historia"],
   ["Terminarz", "/#terminarz"],
   ["Kontakt", "/#kontakt"],
-] as const;
-
-const costumeLooks = [
-  {
-    title: "Sylwetka kobieca",
-    eyebrow: "Warstwa, kolor, ruch",
-    description:
-      "Biała koszula, dekoracyjna kamizelka, korale i szeroka spódnica budują wyrazistą sylwetkę. Rytm wstążek i koronek staje się szczególnie czytelny dopiero podczas tańca.",
-    images: ["costume-hero", "costume-female-portrait", "costume-pink-skirt", "costume-blue-detail"],
-    details: ["warstwowe spódnice", "białe płótno i koronka", "korale oraz chusty", "barwne obszycia"],
-  },
-  {
-    title: "Sylwetka męska",
-    eyebrow: "Forma i charakter",
-    description:
-      "Męski kostium opiera się na mocnym kontraście białej koszuli i ciemniejszych warstw. Haftowany kołnierz, dekoracyjne taśmy i szeroki pas porządkują całą kompozycję.",
-    images: ["costume-male-portrait", "costume-collar", "costume-leather-belt", "costume-embroidered-sleeve"],
-    details: ["haftowany kołnierz", "kontrastowe taśmy", "szeroki skórzany pas", "dekoracyjne wykończenia"],
-  },
-  {
-    title: "Detal i rzemiosło",
-    eyebrow: "Z bliska",
-    description:
-      "Najmniejsze elementy nadają kostiumom rytm: ażurowa koronka, haft, rzędy korali i wielobarwne tasiemki. Na scenie tworzą całość, tutaj można zobaczyć je osobno.",
-    images: ["costume-lace-white", "costume-lace-black", "costume-ribbon", "costume-blue-detail"],
-    details: ["ażurowe koronki", "haftowane płótno", "tkane wstążki", "kolorystyczne kontrasty"],
-  },
-  {
-    title: "Kostium obrzędowy",
-    eyebrow: "Postać i widowisko",
-    description:
-      "Niektóre kostiumy służą nie tylko tańcowi — budują sceniczną postać. Maska, mocna forma i świadomy gest zamieniają strój w element opowieści.",
-    images: ["costume-mask", "costume-leather-belt", "costume-male-portrait", "portrait-trio"],
-    details: ["maska i rekwizyt", "czytelna sylwetka", "ruch sceniczny", "element opowieści"],
-  },
 ] as const;
 
 function CostumeImage({
@@ -220,11 +186,11 @@ export function CostumesPage() {
           transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
         >
           <figure className="costumes-hero-main">
-            <CostumeImage name="costume-hero" loading="eager" />
-            <figcaption><span>01</span><strong>Sylwetka</strong></figcaption>
+            <CostumeImage name="costume-hero-new" loading="eager" />
+            <figcaption><span>01</span><strong>Lubelszczyzna</strong></figcaption>
           </figure>
           <figure className="costumes-hero-detail">
-            <CostumeImage name="costume-leather-belt" loading="eager" />
+            <CostumeImage name="costume-hero-detail" loading="eager" />
             <figcaption><Sparkle size={16} weight="fill" /> Detal stroju</figcaption>
           </figure>
           <span className="costumes-hero-stitch" aria-hidden="true" />
@@ -255,6 +221,10 @@ export function CostumesPage() {
           <p>Każda kategoria otwiera własny zestaw fotografii: od całej sylwetki po elementy, które łatwo przeoczyć z widowni.</p>
         </Reveal>
 
+        <Reveal className="costume-catalogue-note" delay={0.06}>
+          Fotografie przedstawiają kostiumy sceniczne Halki, uporządkowane według regionów i tradycji, do których nawiązują.
+        </Reveal>
+
         <div className="costume-look-grid" role="list" aria-label="Kategorie kostiumów">
           {costumeLooks.map((item, index) => (
             <Reveal key={item.title} className="costume-look-reveal" delay={index * 0.05}>
@@ -265,7 +235,7 @@ export function CostumesPage() {
                 aria-pressed={activeLook === index}
               >
                 <span className="costume-look-image"><CostumeImage name={item.images[0]} /></span>
-                <span className="costume-look-number">0{index + 1}</span>
+                <span className="costume-look-number">{String(index + 1).padStart(2, "0")}</span>
                 <span className="costume-look-copy"><small>{item.eyebrow}</small><strong>{item.title}</strong></span>
                 <span className="costume-look-arrow"><ArrowUpRight size={19} /></span>
               </button>
@@ -295,7 +265,7 @@ export function CostumesPage() {
                   <CostumeImage name={look.images[activePhoto]} />
                 </motion.div>
               </AnimatePresence>
-              <span className="costume-look-counter">0{activePhoto + 1} / 0{look.images.length}</span>
+              <span className="costume-look-counter">{String(activePhoto + 1).padStart(2, "0")} / {String(look.images.length).padStart(2, "0")}</span>
             </div>
             <div className="costume-look-story">
               <p className="section-kicker">{look.eyebrow}</p>
@@ -329,29 +299,44 @@ export function CostumesPage() {
           <h2 id="costume-anatomy-title">To detal buduje całość.</h2>
         </Reveal>
         <div className="costume-anatomy-grid">
-          {[
-            ["costume-lace-white", "Koronka", "Światło przechodzi przez ażurowy wzór i wydobywa jego rytm."],
-            ["costume-leather-belt", "Pas", "Mocny element konstrukcyjny staje się jednocześnie ozdobą sylwetki."],
-            ["costume-embroidered-sleeve", "Haft", "Kolorystyczny zapis prowadzony nicią, taśmą i powtarzalnym motywem."],
-            ["costume-pink-skirt", "Warstwy", "Fałdy, wstążki i koronki nabierają pełnego wyrazu w ruchu."],
-          ].map(([image, title, description], index) => (
-            <Reveal className="costume-anatomy-card" delay={index * 0.06} key={title}>
-              <figure><CostumeImage name={image} /><span>0{index + 1}</span></figure>
-              <div><h3>{title}</h3><p>{description}</p></div>
+          {costumeFacts.map((fact, index) => (
+            <Reveal className="costume-anatomy-card" delay={index * 0.05} key={fact.title}>
+              <figure><CostumeImage name={fact.image} /><span>{String(index + 1).padStart(2, "0")}</span></figure>
+              <div>
+                <small>{fact.region}</small>
+                <h3>{fact.title}</h3>
+                <p>{fact.description}</p>
+                <a href={fact.sourceUrl} target={fact.sourceUrl.startsWith("http") ? "_blank" : undefined} rel={fact.sourceUrl.startsWith("http") ? "noreferrer" : undefined}>
+                  {fact.sourceLabel} <ArrowUpRight size={14} />
+                </a>
+              </div>
             </Reveal>
           ))}
         </div>
       </section>
 
       <section className="costume-motion section-shell" aria-labelledby="costume-motion-title">
-        <Reveal className="costume-motion-photo costume-motion-photo-main"><CostumeImage name="dance-duo" /></Reveal>
-        <Reveal className="costume-motion-copy" delay={0.08}>
-          <p className="section-kicker">Kostium w ruchu</p>
-          <h2 id="costume-motion-title">Zaprojektowany, by tańczyć.</h2>
-          <p>Szerokość spódnicy, układ warstw i kontrastowe obszycia nie są przypadkowe. Podczas obrotu kostium rysuje choreografię razem z tancerzem.</p>
-          <a className="text-link" href="/galeria">Zobacz kostiumy na scenie <ArrowRight size={18} /></a>
+        <Reveal className="costume-motion-shell">
+          <div className="costume-motion-visual">
+            <CostumeImage name="dance-circle" />
+            <span>Forma<br />w ruchu</span>
+          </div>
+          <div className="costume-motion-copy">
+            <p className="section-kicker">Kostium w ruchu</p>
+            <h2 id="costume-motion-title">Zaprojektowany, by tańczyć.</h2>
+            <p>Szerokość spódnicy, układ warstw i kontrastowe obszycia nie są przypadkowe. Podczas obrotu kostium rysuje choreografię razem z tancerzem — kolor zaznacza kierunek, a fałdy podkreślają tempo.</p>
+            <div className="costume-motion-points">
+              <span><b>01</b> gest podkreślony linią stroju</span>
+              <span><b>02</b> kolor czytelny z widowni</span>
+              <span><b>03</b> warstwy pracujące w obrocie</span>
+            </div>
+            <a className="text-link" href="/galeria">Zobacz kostiumy na scenie <ArrowRight size={18} /></a>
+          </div>
+          <div className="costume-motion-strip" aria-hidden="true">
+            <CostumeImage name="dance-circle-two" />
+            <CostumeImage name="lublin-worn-1" />
+          </div>
         </Reveal>
-        <Reveal className="costume-motion-photo costume-motion-photo-detail" delay={0.14}><CostumeImage name="dance-circle-two" /></Reveal>
       </section>
 
       <section className="costume-cta section-shell">
