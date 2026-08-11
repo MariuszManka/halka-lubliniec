@@ -27,11 +27,11 @@ npm run build
 npm run gallery:sync
 ```
 
-Skrypt wybierze reprezentatywny zestaw zdjęć, zoptymalizuje je do formatu WEBP i dopisze wydarzenie do strony. Opis, tytuł lub ręczny wybór konkretnych zdjęć można ustawić w `content/gallery.config.json`.
+Skrypt wybierze reprezentatywny zestaw zdjęć, zoptymalizuje je do formatu WEBP, dopisze wydarzenie do strony i automatycznie doda brakujący domyślny wpis do `content/gallery.config.json`. Opis, tytuł lub ręczny wybór konkretnych zdjęć możesz potem nadpisać w tym pliku.
 
 ## Zdjęcia z sesji
 
-Lista wybranych fotografii z folderu `ASSETS/Sesja zdjęciowa` znajduje się w `content/session.config.json`. Po zmianie listy uruchom:
+Lista fotografii z folderu `ASSETS/Sesja zdjęciowa` znajduje się w `content/session.config.json`. Skrypt automatycznie dopisuje tam także brakujące domyślne wpisy dla nowych zdjęć spoza folderu `do użycia`. Po zmianie listy uruchom:
 
 ```bash
 npm run session:sync

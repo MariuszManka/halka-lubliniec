@@ -11,16 +11,12 @@ import {
   EnvelopeSimple,
   List,
   MapPin,
-  MusicNotes,
-  PersonArmsSpread,
   Phone,
-  Smiley,
-  UsersThree,
   X,
 } from "@phosphor-icons/react";
 import { galleryEvents } from "../content/generated-gallery";
 import { sessionImages } from "../content/generated-session";
-import { calendarEvents, eventGroups, type CalendarEvent, type EventGroup } from "../content/events";
+import { calendarEvents, eventGroups, type CalendarEvent } from "../content/events";
 import { contact, facts, schedule, timeline } from "../content/site-content";
 
 type GalleryEvent = (typeof galleryEvents)[number];
@@ -63,22 +59,6 @@ const formatEventTime = (event: CalendarEvent) => {
   if (!event.time) return "Godzina do potwierdzenia";
   return event.endTime ? `${event.time}-${event.endTime}` : event.time;
 };
-
-const groupIcons = {
-  ensemble: UsersThree,
-  children: Smiley,
-  choir: MusicNotes,
-  ballet: PersonArmsSpread,
-} as const;
-
-function GroupIcon({ group, size = 17 }: { group: EventGroup; size?: number }) {
-  const Icon = groupIcons[group];
-  return (
-    <span className={`group-icon ${eventGroups[group].className}`} aria-hidden="true">
-      <Icon size={size} weight="duotone" />
-    </span>
-  );
-}
 
 function SessionImage({name, className = "", loading = "lazy",}: { name: string; className?: string; loading?: "lazy" | "eager"}) {
   const image = sessionImages.find((item) => item.name === name);
@@ -233,14 +213,17 @@ function EventsCalendar() {
       window.innerWidth - width - 12,
       Math.max(12, rect.left + rect.width / 2 - width / 2),
     );
-    const placeBelow = window.innerHeight - rect.bottom > 340 || rect.top < 340;
+    const estimatedHeight = Math.min(440, window.innerHeight - 24);
+    const spaceBelow = window.innerHeight - rect.bottom - 12;
+    const desiredTop = spaceBelow >= estimatedHeight
+      ? rect.bottom + 10
+      : rect.top - estimatedHeight - 10;
+    const top = Math.max(12, Math.min(desiredTop, window.innerHeight - estimatedHeight - 12));
     setEventPopover({
       event,
       left,
+      top,
       pinned,
-      ...(placeBelow
-        ? { top: rect.bottom + 10 }
-        : { bottom: window.innerHeight - rect.top + 10 }),
     });
   };
 
@@ -288,7 +271,7 @@ function EventsCalendar() {
         </div>
         <div className="calendar-legend" aria-label="Legenda grup">
           {Object.entries(eventGroups).map(([key, group]) => (
-            <span key={key}><GroupIcon group={key as EventGroup} size={16} />{group.label}</span>
+            <span className={group.className} key={key}><i aria-hidden="true" />{group.label}</span>
           ))}
         </div>
       </div>
@@ -341,9 +324,6 @@ function EventsCalendar() {
                       >
                         <span className="calendar-event-time">{event.time ?? "Termin"}</span>
                         <strong>{event.kind === "Próba" ? event.title : event.location}</strong>
-                        <span className="calendar-event-icons">
-                          {event.groups.map((group) => <GroupIcon group={group} size={13} key={group} />)}
-                        </span>
                       </button>
                     );
                   })}
@@ -385,7 +365,7 @@ function EventsCalendar() {
             <div className="agenda-groups">
               {event.groups.map((group) => (
                 <span className={eventGroups[group].className} key={group}>
-                  <GroupIcon group={group} size={15} />{eventGroups[group].label}
+                  {eventGroups[group].label}
                 </span>
               ))}
             </div>
@@ -421,9 +401,6 @@ function EventsCalendar() {
                 <X size={18} />
               </button>
             )}
-            <div className="event-popup-icons">
-              {eventPopover.event.groups.map((group) => <GroupIcon group={group} size={21} key={group} />)}
-            </div>
             <p className="event-popup-kind">{eventPopover.event.kind}</p>
             <h2 id="event-popover-title">{eventPopover.event.title}</h2>
             <p className="event-popup-description">
@@ -446,7 +423,7 @@ function EventsCalendar() {
             <div className="event-popup-groups">
               {eventPopover.event.groups.map((group) => (
                   <span className={eventGroups[group].className} key={group}>
-                    <GroupIcon group={group} size={16} />{eventGroups[group].label}
+                    {eventGroups[group].label}
                   </span>
               ))}
             </div>
@@ -510,7 +487,7 @@ export function HalkaSite() {
   };
 
   return (
-    <main>
+    <main className="home-page">
       <FolkScrollBackdrop />
       <header className="site-header">
         <a className="brand" href="#top" aria-label="Halka, przejdź na początek strony">
@@ -613,10 +590,10 @@ export function HalkaSite() {
             <a className="text-link" href="#historia">Przeczytaj naszą historię <ArrowRight size={18} /></a>
           </Reveal>
           <Reveal className="together-detail" delay={0.12}>
-            <SessionImage name="costume-detail" />
+            <SessionImage name="grupa-1-dzieci-grupa1-166" />
           </Reveal>
           <Reveal className="together-portrait" delay={0.18}>
-            <SessionImage name="portrait-trio" />
+            <SessionImage name="children-pair" />
           </Reveal>
         </div>
       </section>
@@ -723,15 +700,55 @@ export function HalkaSite() {
 
       <section className="generations section-shell" aria-labelledby="generations-title">
         <Reveal className="generations-copy">
-          <p className="section-kicker">Halka to ludzie</p>
-          <h2 id="generations-title">Od pierwszego kroku do wspólnej sceny.</h2>
-          <p>Najmłodsi uczą się rytmu, starsi niosą doświadczenie, a scena mieści wszystkich.</p>
+          <div>
+            <p className="section-kicker">Halka to ludzie</p>
+            <h2 id="generations-title">Od pierwszego kroku do wspólnej sceny.</h2>
+          </div>
+          <div className="generations-intro">
+            <span className="generations-count" aria-hidden="true"><strong>4</strong> grupy</span>
+            <p>
+              Dwie grupy dziecięce, chór oraz reprezentacyjna grupa baletowa tworzą jeden zespół.
+              Każda rozwija się we własnym rytmie, ale wszystkie spotykają się na wspólnej scenie.
+            </p>
+          </div>
         </Reveal>
         <div className="generations-gallery">
-          <Reveal className="generation-image generation-image-large"><SessionImage name="children-group" /></Reveal>
-          <Reveal className="generation-image"><SessionImage name="children-pair" /></Reveal>
-          <Reveal className="generation-image"><SessionImage name="portrait-choir" /></Reveal>
-          <Reveal className="generation-image generation-image-wide"><SessionImage name="dance-duo" /></Reveal>
+          <Reveal className="generation-card generation-card-primary generation-card-children-one">
+            <div className="generation-image"><SessionImage name="children-group" /></div>
+            <div className="generation-card-copy">
+              <div className="generation-meta"><span className="generation-number">01</span><p>6–8 lat</p></div>
+              <h3>Grupa dziecięca</h3>
+              <p className="generation-description">Tutaj zaczyna się przygoda z folklorem — przez zabawę, rytm i pierwsze wspólne układy.</p>
+              <span className="generation-discipline">Śpiew <i /> Taniec</span>
+            </div>
+          </Reveal>
+          <Reveal className="generation-card generation-card-children-two">
+            <div className="generation-image"><SessionImage name="2-grupowe-halka-wkf-7642" /></div>
+            <div className="generation-card-copy">
+              <div className="generation-meta"><span className="generation-number">02</span><p>9–14 lat</p></div>
+              <h3>Grupa dziecięca</h3>
+              <p className="generation-description">Młodzi artyści rozwijają technikę, muzykalność i pewność, która pozwala swobodnie wejść na scenę.</p>
+              <span className="generation-discipline">Śpiew <i /> Taniec</span>
+            </div>
+          </Reveal>
+          <Reveal className="generation-card generation-card-choir">
+            <div className="generation-image"><SessionImage name="2-grupowe-halka-wkf-8263" /></div>
+            <div className="generation-card-copy">
+              <div className="generation-meta"><span className="generation-number">03</span><p>Głos zespołu</p></div>
+              <h3>Chór</h3>
+              <p className="generation-description">Wielogłos, pamięć melodii i siła wspólnego śpiewu nadają opowieściom Halki ich charakterystyczne brzmienie.</p>
+              <span className="generation-discipline">Pieśni ludowe <i /> Wielogłos</span>
+            </div>
+          </Reveal>
+          <Reveal className="generation-card generation-card-wide generation-card-ballet">
+            <div className="generation-image"><SessionImage name="2-grupowe-halka-wkf-0785" /></div>
+            <div className="generation-card-copy">
+              <div className="generation-meta"><span className="generation-number">04</span><p>Od 15 lat</p></div>
+              <h3>Grupa baletowa</h3>
+              <p className="generation-description">Najbardziej widowiskowa odsłona zespołu — precyzja, energia i regionalne tańce w pełnej formie scenicznej.</p>
+              <span className="generation-discipline">Taniec <i /> Reprezentacja</span>
+            </div>
+          </Reveal>
         </div>
       </section>
 

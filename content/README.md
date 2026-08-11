@@ -2,7 +2,7 @@
 
 Każde wydarzenie jest osobnym folderem ze zdjęciami w katalogu `ASSETS`. Nazwa folderu powinna zawierać datę, na przykład `2027.06.12 - Halka - Opole`.
 
-Opcjonalne opisy wydarzeń ustawia się w `gallery.config.json`:
+Opisy wydarzeń ustawia się w `gallery.config.json`. Skrypt `npm run gallery:sync` sam dopisuje tam brakujące domyślne wpisy, które można później edytować:
 
 - `folder` — dokładna nazwa folderu w `ASSETS`,
 - `title`, `date`, `location`, `description`, `credit` — treść widoczna na stronie,

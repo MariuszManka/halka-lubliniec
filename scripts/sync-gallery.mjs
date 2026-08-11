@@ -17,14 +17,15 @@ try {
   process.exit(0);
 }
 
-const config = JSON.parse(await readFile(configPath, "utf8"));
-const overrides = new Map(config.map((event) => [event.folder, event]));
+const readJson = async (filePath) => JSON.parse(await readFile(filePath, "utf8"));
+const currentConfig = await readJson(configPath);
+const configByFolder = new Map(currentConfig.map((event) => [event.folder, event]));
 
 const folders = (await readdir(assetsRoot, { withFileTypes: true }))
   .filter((entry) => entry.isDirectory())
   .map((entry) => entry.name)
   .filter((name) => name !== "Sesja zdjęciowa")
-  .filter((name) => overrides.has(name) || /(?:20\d{2}[.-]\d{2}[.-]\d{2}|\d{2}[.-]\d{2}[.-]20\d{2})/.test(name))
+  .filter((name) => configByFolder.has(name) || /(?:20\d{2}[.-]\d{2}[.-]\d{2}|\d{2}[.-]\d{2}[.-]20\d{2})/.test(name))
   .sort((a, b) => a.localeCompare(b, "pl", { numeric: true }));
 
 const slugify = (value) =>
@@ -70,6 +71,36 @@ const chooseIndexes = (count, maximum = 16) => {
     Math.round((index * (count - 1)) / (maximum - 1)),
   );
 };
+
+const createDefaultConfigEntry = (folder, fileCount) => ({
+  folder,
+  pinned: false,
+  title: titleFromFolder(folder),
+  date: dateFromFolder(folder),
+  location: "Lubliniec",
+  description: "Wspomnienie zapisane w kronice zespołu.",
+  credit: "Archiwum zespołu",
+  selected: chooseIndexes(fileCount).map((index) => index + 1),
+});
+
+const missingEntries = [];
+
+for (const folder of folders) {
+  if (configByFolder.has(folder)) continue;
+  const files = await findImages(folder);
+  if (!files.length) continue;
+  missingEntries.push(createDefaultConfigEntry(folder, files.length));
+}
+
+const nextConfig = [...currentConfig, ...missingEntries].sort((a, b) =>
+  String(a.folder).localeCompare(String(b.folder), "pl", { numeric: true }),
+);
+
+if (missingEntries.length) {
+  await writeFile(configPath, `${JSON.stringify(nextConfig, null, 2)}\n`, "utf8");
+}
+
+const overrides = new Map(nextConfig.map((event) => [event.folder, event]));
 
 await rm(outputRoot, { recursive: true, force: true });
 await mkdir(outputRoot, { recursive: true });
@@ -119,4 +150,6 @@ for (const folder of folders) {
 events.sort((a, b) => b.date.localeCompare(a.date));
 const output = `// Ten plik powstaje automatycznie przez npm run gallery:sync.\nexport const galleryEvents = ${JSON.stringify(events, null, 2)} as const;\n`;
 await writeFile(manifestPath, output, "utf8");
-console.log(`Gotowe: ${events.length} wydarzenia, ${events.reduce((sum, event) => sum + event.images.length, 0)} zdjęć.`);
+console.log(
+  `Gotowe: ${events.length} wydarzenia, ${events.reduce((sum, event) => sum + event.images.length, 0)} zdjęć, ${missingEntries.length} nowych wpisów w gallery.config.json.`,
+);

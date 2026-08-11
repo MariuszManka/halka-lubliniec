@@ -175,7 +175,7 @@ export function ChroniclePage() {
         >
           <div className="gallery-costume-frame">
             <motion.img
-              src="/session/costume-collar.webp"
+              src="/session/modal-zywiec-female-04.webp"
               alt="Barwny haft męskiego stroju ludowego Zespołu Halka"
               width="1467"
               height="2200"

@@ -159,21 +159,21 @@ export const costumeFacts: CostumeFact[] = [
     sourceUrl: "https://www.powiat.pszczyna.pl/powiat/o-powiecie/tradycja-pszczynskiego-stroju",
   },
   {
-    image: "krakow-male-detail",
-    title: "Lokalna odmiana",
-    region: "Krakowiacy Zachodni",
+    image: "modal-zywiec-male-05",
+    title: "Trzos",
+    region: "Górale Żywieccy",
     description:
-      "Nie istnieje jeden, niezmienny „strój krakowski”. Materiały, układ zdobień i bogactwo haftu różniły się nawet między blisko położonymi miejscowościami i mówiły o lokalnej tożsamości.",
-    sourceLabel: "Muzeum Etnograficzne w Krakowie",
-    sourceUrl: "https://etnomuzeum.eu/projekty-badawcze/stroj-krakowiakow-zachodnich-badania-monografia-upowszechnienie",
+      "Szeroki pas z grubej skóry zakładano na portki i koszulę. Żywiecki trzos zapinano na trzy lub cztery metalowe sprzączki, a jego powierzchnię zdobiły tłoczone ornamenty i metalowe guzy.",
+    sourceLabel: "Punkt Informacji Turystycznej w Suchej Beskidzkiej",
+    sourceUrl: "https://kapliczki.zameksucha.pl/it/strona/7/Tradycja_i_folklor.html",
   },
   {
-    image: "national-uniform-detail",
-    title: "Epolet",
-    region: "Kostium historyczny",
+    image: "modal-rzeszow-female-09",
+    title: "Gorset rzeszowski",
+    region: "Rzeszowszczyzna",
     description:
-      "Złoty epolet wzmacnia linię ramion munduru ułańskiego i pozwala odczytać wojskowy charakter postaci jeszcze zanim tancerz wykona pierwszy gest.",
-    sourceLabel: "Kolekcja sceniczna Halki",
-    sourceUrl: "#kolekcja",
+      "Czarny aksamit zdobiono cekinami i kwiatowym haftem ze szklanych koralików. Po I wojnie światowej dekoracja stawała się tak gęsta, że niemal całkowicie przesłaniała tkaninę gorsetu.",
+    sourceLabel: "Muzeum Etnograficzne w Rzeszowie",
+    sourceUrl: "https://ubioryludowe.muzeumetnograficzne.rzeszow.pl/zdobnictwo/",
   },
 ];
