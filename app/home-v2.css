@@ -530,7 +530,7 @@
 .home-v2-offer {
   padding-block: clamp(110px, 12vw, 180px);
   border-block: 1px solid var(--v2-line);
-  background: #f1ede4;
+  background: transparent;
 }
 
 .home-v2-offer-shell {
