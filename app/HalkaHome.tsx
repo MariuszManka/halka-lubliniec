@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import {
   ArrowRight,
   ArrowUpRight,
@@ -25,8 +25,13 @@ const formatGalleryDate = (date: string) => new Intl.DateTimeFormat("pl-PL", {
   year: "numeric",
 }).format(new Date(`${date}T12:00:00`));
 
+const homeImage = (src: string, width = 960) =>
+  src.replace("/session/", "/home-responsive/").replace(/\.webp$/, `-${width}.webp`);
+
 export function HalkaHome() {
   const [menuOpen, setMenuOpen] = useState(false);
+  const headerRef = useRef<HTMLElement>(null);
+  const menuButtonRef = useRef<HTMLButtonElement>(null);
   const today = new Date().toISOString().slice(0, 10);
   const upcomingPerformances = calendarEvents
     .filter((event) => event.kind === "Występ" && (event.endDate ?? event.date) >= today)
@@ -35,11 +40,32 @@ export function HalkaHome() {
     .sort((a, b) => Number(b.pinned) - Number(a.pinned) || b.date.localeCompare(a.date))
     .slice(0, 3);
 
+  useEffect(() => {
+    if (!menuOpen) return;
+
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") {
+        setMenuOpen(false);
+        menuButtonRef.current?.focus();
+      }
+    };
+    const handlePointerDown = (event: PointerEvent) => {
+      if (!headerRef.current?.contains(event.target as Node)) setMenuOpen(false);
+    };
+
+    document.addEventListener("keydown", handleKeyDown);
+    document.addEventListener("pointerdown", handlePointerDown);
+    return () => {
+      document.removeEventListener("keydown", handleKeyDown);
+      document.removeEventListener("pointerdown", handlePointerDown);
+    };
+  }, [menuOpen]);
+
   return (
     <main className="home-v2">
       <ScrollRosettes />
 
-      <header className="home-v2-header">
+      <header className="home-v2-header" ref={headerRef}>
         <a className="home-v2-brand" href="#poczatek" aria-label="Halka — przejdź na początek strony">
           <img src="/logo.jpg" alt="" width="46" height="46" />
           <span><strong>HALKA</strong><small>Lubliniec</small></span>
@@ -50,15 +76,17 @@ export function HalkaHome() {
         <a className="home-v2-contact" href="#kontakt">Kontakt</a>
         <button
           className="home-v2-menu-button"
+          ref={menuButtonRef}
           type="button"
           aria-label={menuOpen ? "Zamknij menu" : "Otwórz menu"}
           aria-expanded={menuOpen}
+          aria-controls="home-v2-mobile-menu"
           onClick={() => setMenuOpen((open) => !open)}
         >
           {menuOpen ? <X size={22} /> : <List size={22} />}
         </button>
         {menuOpen && (
-          <nav className="home-v2-mobile-nav" aria-label="Menu mobilne">
+          <nav className="home-v2-mobile-nav" id="home-v2-mobile-menu" aria-label="Menu mobilne">
             {mainNavigation.map((item) => <a href={item.href} key={item.href} onClick={() => setMenuOpen(false)}>{item.label}</a>)}
             <a href="#kontakt" onClick={() => setMenuOpen(false)}>Kontakt</a>
           </nav>
@@ -87,7 +115,7 @@ export function HalkaHome() {
           {ensembleGroups.map((group, index) => (
             <a className="home-v2-group-row" href={`/dolacz#${group.id}`} key={group.id}>
               <figure className="home-v2-group-photo">
-                <img src={group.image} alt={group.imageAlt} loading="lazy" />
+                <img src={group.image} srcSet={`${homeImage(group.image)} 960w`} sizes="(max-width: 820px) calc(100vw - 32px), 55vw" alt={group.imageAlt} loading="lazy" decoding="async" />
               </figure>
               <div className="home-v2-group-copy">
                 <div className="home-v2-group-meta">
@@ -134,7 +162,7 @@ export function HalkaHome() {
 
           <div className="home-v2-offer-showcase">
             <figure className="home-v2-offer-image">
-              <img src="/session/group.webp" alt="Wszystkie grupy Zespołu Pieśni i Tańca Halka na scenie" loading="lazy" />
+              <img src="/session/group.webp" srcSet="/home-responsive/group-960.webp 960w" sizes="(max-width: 940px) calc(100vw - 32px), 48vw" alt="Wszystkie grupy Zespołu Pieśni i Tańca Halka na scenie" loading="lazy" decoding="async" />
               <figcaption>Program dobieramy do miejsca, czasu i charakteru wydarzenia.</figcaption>
             </figure>
 
@@ -237,11 +265,11 @@ export function HalkaHome() {
 
         <div className="home-v2-history-visual" aria-label="Halka dawniej i dziś">
           <figure className="home-v2-history-main-photo">
-            <img src="/session/group.webp" alt="Współczesny skład Zespołu Pieśni i Tańca Halka" loading="lazy" />
+            <img src="/session/group.webp" srcSet="/home-responsive/group-960.webp 960w" sizes="(max-width: 940px) calc(100vw - 32px), 52vw" alt="Współczesny skład Zespołu Pieśni i Tańca Halka" loading="lazy" decoding="async" />
             <figcaption><span>Współczesna Halka</span><strong>Tradycja obecna na scenie</strong></figcaption>
           </figure>
           <figure className="home-v2-history-generation-photo">
-            <img src="/session/children-group.webp" alt="Najmłodsi członkowie Zespołu Pieśni i Tańca Halka" loading="lazy" />
+            <img src="/session/children-group.webp" srcSet="/home-responsive/children-group-960.webp 960w" sizes="(max-width: 520px) 42vw, 260px" alt="Najmłodsi członkowie Zespołu Pieśni i Tańca Halka" loading="lazy" decoding="async" />
             <figcaption>Następne pokolenie</figcaption>
           </figure>
           <span className="home-v2-history-mark" aria-hidden="true">1948</span>
@@ -260,23 +288,23 @@ export function HalkaHome() {
         </div>
         <div className="home-v2-costume-mosaic" aria-label="Detale kostiumów scenicznych Halki">
           <figure className="home-v2-costume-tile home-v2-costume-tile-belt">
-            <img src="/session/modal-zywiec-male-10.webp" alt="Zdobiony skórzany pas stroju Górali Żywieckich" loading="lazy" />
+            <img src="/session/modal-zywiec-male-10.webp" srcSet="/home-responsive/modal-zywiec-male-10-960.webp 960w" sizes="(max-width: 940px) 46vw, 24vw" alt="Zdobiony skórzany pas stroju Górali Żywieckich" loading="lazy" decoding="async" />
             <figcaption>Pas góralski</figcaption>
           </figure>
           <figure className="home-v2-costume-tile home-v2-costume-tile-beads">
-            <img src="/session/modal-zywiec-female-10.webp" alt="Kwiatowy haft kobiecego stroju Górali Żywieckich" loading="lazy" />
+            <img src="/session/modal-zywiec-female-10.webp" srcSet="/home-responsive/modal-zywiec-female-10-960.webp 960w" sizes="(max-width: 940px) 46vw, 24vw" alt="Kwiatowy haft kobiecego stroju Górali Żywieckich" loading="lazy" decoding="async" />
             <figcaption>Haft żywiecki</figcaption>
           </figure>
           <figure className="home-v2-costume-tile home-v2-costume-tile-collar">
-            <img src="/session/modal-lublin-female-13.webp" alt="Wielobarwne wstążki kobiecego stroju lubelskiego" loading="lazy" />
+            <img src="/session/modal-lublin-female-13.webp" srcSet="/home-responsive/modal-lublin-female-13-960.webp 960w" sizes="(max-width: 940px) 46vw, 24vw" alt="Wielobarwne wstążki kobiecego stroju lubelskiego" loading="lazy" decoding="async" />
             <figcaption>Wstążki</figcaption>
           </figure>
           <figure className="home-v2-costume-tile home-v2-costume-tile-embroidery">
-            <img src="/session/modal-krakow-male-07.webp" alt="Haftowany granatowy kaftan stroju Krakowiaków Zachodnich" loading="lazy" />
+            <img src="/session/modal-krakow-male-07.webp" srcSet="/home-responsive/modal-krakow-male-07-960.webp 960w" sizes="(max-width: 940px) 46vw, 24vw" alt="Haftowany granatowy kaftan stroju Krakowiaków Zachodnich" loading="lazy" decoding="async" />
             <figcaption>Haft krakowski</figcaption>
           </figure>
           <figure className="home-v2-costume-tile home-v2-costume-tile-lace">
-            <img src="/session/modal-lublin-female-06.webp" alt="Haftowany kołnierz i korale kobiecego stroju lubelskiego" loading="lazy" />
+            <img src="/session/modal-lublin-female-06.webp" srcSet="/home-responsive/modal-lublin-female-06-960.webp 960w" sizes="(max-width: 940px) 46vw, 24vw" alt="Haftowany kołnierz i korale kobiecego stroju lubelskiego" loading="lazy" decoding="async" />
             <figcaption>Kołnierz</figcaption>
           </figure>
         </div>

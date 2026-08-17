@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { DM_Sans, Newsreader } from "next/font/google";
+import { DM_Sans, Fraunces } from "next/font/google";
 import { headers } from "next/headers";
 import "./globals.css";
 
@@ -8,9 +8,10 @@ const sans = DM_Sans({
   subsets: ["latin", "latin-ext"],
 });
 
-const display = Newsreader({
+const display = Fraunces({
   variable: "--font-display",
   subsets: ["latin", "latin-ext"],
+  weight: "variable",
   style: ["normal", "italic"],
 });
 

@@ -2,6 +2,7 @@
 
 import { ArrowLeft, ArrowRight } from "@phosphor-icons/react";
 import { motion, useReducedMotion, useScroll, useTransform } from "motion/react";
+import Link from "next/link";
 import "./hero-variants.css";
 
 function FolkRosette() {
@@ -88,7 +89,7 @@ export function DanceHero() {
           animate={reduce ? undefined : { rotate: [-1.5, 1.5, -1.5] }}
           transition={{ duration: 9, repeat: Infinity, ease: "easeInOut" }}
         >
-          <img src="/session/dance-circle.webp" alt="Tancerka Halki widziana z góry podczas obrotu" width="2200" height="1467" fetchPriority="high" />
+          <img src="/session/dance-circle.webp" srcSet="/home-responsive/dance-circle-960.webp 960w, /home-responsive/dance-circle-1600.webp 1600w" sizes="(max-width: 940px) 72vw, 50vw" alt="Tancerka Halki widziana z góry podczas obrotu" width="2200" height="1467" fetchPriority="high" decoding="async" />
         </motion.div>
         <span className="hv-photo-accent" aria-hidden="true"><i /><i /><i /></span>
       </motion.figure>
@@ -101,12 +102,12 @@ export function HeroVariants() {
     <main className="hero-variants-page">
       <ScrollRosettes />
       <header className="hv-header">
-        <a className="hv-brand" href="/" aria-label="Wróć na stronę główną">
+        <Link className="hv-brand" href="/" aria-label="Wróć na stronę główną">
           <img src="/logo.jpg" alt="" width="44" height="44" />
           <span><strong>HALKA</strong><small>Lubliniec</small></span>
-        </a>
+        </Link>
         <p>Dopracowany kierunek hero</p>
-        <a className="hv-return" href="/"><ArrowLeft size={17} /> Strona główna</a>
+        <Link className="hv-return" href="/"><ArrowLeft size={17} /> Strona główna</Link>
       </header>
       <DanceHero />
       <section className="hv-after" aria-labelledby="hv-after-title">
