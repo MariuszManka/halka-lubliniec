@@ -114,27 +114,42 @@ export function HalkaHome() {
       </section>
 
       <section className="home-v2-offer" id="zapros" aria-labelledby="zapros-title">
-        <div className="home-v2-offer-image">
-          <img src="/session/group.webp" alt="Wszystkie grupy Zespołu Pieśni i Tańca Halka na scenie" loading="lazy" />
-        </div>
-        <div className="home-v2-offer-copy">
-          <p className="home-v2-section-note">Dla organizatorów</p>
-          <h2 id="zapros-title">Zaproś Halkę.</h2>
-          <p className="home-v2-offer-lead">
-            Przygotowujemy program do charakteru wydarzenia — od pełnej suity po występ chóru,
-            grupy dziecięcej lub całego zespołu. Skład i program ustalamy indywidualnie,
-            zależnie od terminu oraz dostępności członków.
-          </p>
-          <div className="home-v2-suite-list" aria-label="Gotowe suity zespołu">
-            {readySuites.map((suite) => (
-              <div className="home-v2-suite" key={suite.id}>
-                <span>{suite.label}</span><strong>{suite.name}</strong><p>{suite.description}</p>
-              </div>
-            ))}
+        <div className="home-v2-offer-shell home-v2-shell">
+          <div className="home-v2-offer-copy">
+            <p className="home-v2-section-note">Dla organizatorów</p>
+            <h2 id="zapros-title">Zaproś Halkę.</h2>
+            <p className="home-v2-offer-lead">
+              Możemy przygotować pełną suitę, występ chóru, grupy dziecięcej albo całego zespołu.
+              Ostateczny program i skład ustalamy wspólnie, zależnie od terminu oraz dostępności członków.
+            </p>
+
+            <div className="home-v2-offer-formats" aria-label="Możliwe formaty występu">
+              <div><strong>Pełna suita</strong><span>Pieśni i tańce, około 40 minut</span></div>
+              <div><strong>Wybrana grupa</strong><span>Chór, dzieci albo balet reprezentacyjny</span></div>
+            </div>
+
+            <div className="home-v2-offer-actions">
+              <a className="home-v2-button home-v2-button-primary" href="/zapros-halke">Poznaj ofertę występów <ArrowRight size={19} /></a>
+              <a className="home-v2-offer-mail" href={`mailto:${siteConfig.contact.email}?subject=Zapytanie%20o%20dostępność%20zespołu`}>Zapytaj o dostępność</a>
+            </div>
           </div>
-          <div className="home-v2-offer-actions">
-            <a className="home-v2-button home-v2-button-light" href="/zapros-halke">Poznaj możliwości występu <ArrowRight size={19} /></a>
-            <a className="home-v2-offer-mail" href={`mailto:${siteConfig.contact.email}?subject=Zapytanie%20o%20dostępność%20zespołu`}>Zapytaj o dostępność</a>
+
+          <div className="home-v2-offer-showcase">
+            <figure className="home-v2-offer-image">
+              <img src="/session/group.webp" alt="Wszystkie grupy Zespołu Pieśni i Tańca Halka na scenie" loading="lazy" />
+              <figcaption>Program dobieramy do miejsca, czasu i charakteru wydarzenia.</figcaption>
+            </figure>
+
+            <div className="home-v2-suite-list" aria-label="Gotowe suity zespołu">
+              <div className="home-v2-suite-heading"><span>Gotowy repertuar</span><strong>Trzy suity sceniczne</strong></div>
+              {readySuites.map((suite, index) => (
+                <div className={`home-v2-suite${index === 0 ? " home-v2-suite-featured" : ""}`} key={suite.id}>
+                  <span className="home-v2-suite-index">0{index + 1}</span>
+                  <div><small>{suite.label}</small><strong>{suite.name}</strong></div>
+                  <p>{suite.description}</p>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       </section>
