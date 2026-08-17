@@ -128,16 +128,16 @@ export function JoinPage() {
           <h2 id="join-how-title">Nie zapisujesz się.<br /><em>Po prostu przychodzisz.</em></h2>
         </div>
         <ol className="join-steps">
-          <li><span>01</span><div><strong>Wybierz właściwą grupę</strong><p>Dla siebie wybierz chór albo grupę taneczną — obie od 15 lat. Dla dziecka sprawdź grupę 6–8 lub 9–14 lat, w których łączymy śpiew i taniec.</p></div></li>
+          <li><span>01</span><div><strong>Wybierz właściwą grupę</strong><p>Sprawdź wiek uczestników oraz rodzaj zajęć. Chór skupia się na śpiewie, balet na tańcu, a obie grupy dziecięce łączą śpiew i taniec.</p></div></li>
           <li><span>02</span><div><strong>Sprawdź próbę</strong><p>Terminy znajdziesz poniżej. Wszystkie zajęcia odbywają się w siedzibie zespołu.</p></div></li>
-          <li><span>03</span><div><strong>Przyjdź lub przyprowadź dziecko</strong><p>Nie trzeba wcześniej się zapisywać ani niczego deklarować. Wystarczy pojawić się na wybranej próbie i sprawdzić, czy Halka jest dobrym miejscem dla Ciebie lub Twojego dziecka.</p></div></li>
+          <li><span>03</span><div><strong>Przyjdź na próbę</strong><p>Nie trzeba wcześniej się zapisywać ani niczego deklarować. Wystarczy pojawić się na wybranych zajęciach — samodzielnie lub z dzieckiem — i poznać zespół.</p></div></li>
         </ol>
       </section>
 
       <section className="join-groups join-shell" id="grupy" aria-labelledby="join-groups-title">
         <div className="join-section-heading join-section-heading-groups">
           <p>Cztery grupy. Jeden zespół.</p>
-          <h2 id="join-groups-title">Dla siebie albo dla dziecka.</h2>
+          <h2 id="join-groups-title">Wybierz swoją drogę do Halki.</h2>
         </div>
 
         <nav className="join-audience-paths" aria-label="Wybierz odpowiednią ścieżkę naboru">

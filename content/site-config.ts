@@ -61,7 +61,7 @@ export const ensembleGroups = [
   },
   {
     id: "balet",
-    name: "Grupa reprezentacyjna",
+    name: "Balet",
     age: "Od 15 lat",
     activity: "Taniec",
     schedule: "Środy i piątki, 18:00-20:00",
