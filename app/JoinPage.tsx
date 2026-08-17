@@ -97,7 +97,10 @@ export function JoinPage() {
       <section className="join-hero join-shell" aria-labelledby="join-title">
         <div className="join-hero-copy">
           <p className="join-eyebrow"><span>Nabór otwarty</span><i aria-hidden="true" /></p>
-          <h1 id="join-title">Twoje miejsce<br />może być <em>w Halce.</em></h1>
+          <h1 id="join-title">
+            <span>Twoje miejsce</span>
+            <span className="join-hero-title-line"><small>może być</small><em>w Halce.</em></span>
+          </h1>
           <p className="join-hero-lead">Masz co najmniej 15 lat i chcesz śpiewać albo tańczyć? A może szukasz zajęć dla dziecka? Nie prowadzimy przesłuchań, nie wymagamy doświadczenia, a udział w każdej grupie jest bezpłatny.</p>
           <div className="join-hero-actions">
             <a className="join-button join-button-primary" href="#grupy">Zobacz grupy i terminy <ArrowRight size={18} weight="bold" /></a>
@@ -114,9 +117,13 @@ export function JoinPage() {
           <figure className="join-hero-photo join-hero-photo-main">
             <img src="/session/group.webp" srcSet="/home-responsive/group-960.webp 960w" sizes="(max-width: 940px) calc(100vw - 32px), 48vw" alt="Wszystkie grupy Zespołu Pieśni i Tańca Halka" fetchPriority="high" decoding="async" />
           </figure>
-          <figure className="join-hero-photo join-hero-photo-detail">
-            <img src="/session/children-group.webp" srcSet="/home-responsive/children-group-960.webp 960w" sizes="(max-width: 620px) 42vw, 260px" alt="Najmłodsi członkowie zespołu Halka" decoding="async" />
+          <figure className="join-hero-photo join-hero-photo-choir">
+            <img src="/session/2-grupowe-halka-wkf-8263.webp" srcSet="/home-responsive/2-grupowe-halka-wkf-8263-960.webp 960w" sizes="(max-width: 620px) 48vw, 22vw" alt="Chór Zespołu Pieśni i Tańca Halka" decoding="async" />
           </figure>
+          <figure className="join-hero-photo join-hero-photo-children">
+            <img src="/session/children-group.webp" srcSet="/home-responsive/children-group-960.webp 960w" sizes="(max-width: 620px) 48vw, 22vw" alt="Najmłodsi członkowie zespołu Halka" decoding="async" />
+          </figure>
+          <span className="join-hero-visual-note">Cztery grupy<br /><strong>jedna Halka</strong></span>
           <span className="join-hero-year" aria-hidden="true">1948</span>
           <span className="join-hero-ornament" aria-hidden="true"><i /><i /><i /><i /><i /></span>
         </div>
