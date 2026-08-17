@@ -110,18 +110,20 @@ export function JoinPage() {
           </ul>
         </div>
 
-        <div className="join-hero-visual" aria-label="Członkowie różnych grup zespołu Halka">
-          <figure className="join-hero-photo join-hero-photo-main">
-            <img src="/session/group.webp" srcSet="/home-responsive/group-960.webp 960w" sizes="(max-width: 940px) calc(100vw - 32px), 48vw" alt="Wszystkie grupy Zespołu Pieśni i Tańca Halka" fetchPriority="high" decoding="async" />
-          </figure>
-          <figure className="join-hero-photo join-hero-photo-choir">
-            <img src="/session/2-grupowe-halka-wkf-8263.webp" srcSet="/home-responsive/2-grupowe-halka-wkf-8263-960.webp 960w" sizes="(max-width: 620px) 48vw, 22vw" alt="Chór Zespołu Pieśni i Tańca Halka" decoding="async" />
-          </figure>
-          <figure className="join-hero-photo join-hero-photo-children">
-            <img src="/session/children-group.webp" srcSet="/home-responsive/children-group-960.webp 960w" sizes="(max-width: 620px) 48vw, 22vw" alt="Najmłodsi członkowie zespołu Halka" decoding="async" />
-          </figure>
-          <span className="join-hero-visual-note">Cztery grupy<br /><strong>jedna Halka</strong></span>
+        <div className="join-hero-visual" aria-label="Tancerki Zespołu Pieśni i Tańca Halka">
           <span className="join-hero-year" aria-hidden="true">1948</span>
+          <figure className="join-hero-photo">
+            <img
+              src="/join/hero-dancers-1800.webp"
+              srcSet="/join/hero-dancers-960.webp 960w, /join/hero-dancers-1800.webp 1800w"
+              sizes="(max-width: 940px) calc(100vw - 32px), 54vw"
+              alt="Dwie tancerki Halki w strojach lubelskich"
+              fetchPriority="high"
+              decoding="async"
+            />
+            <figcaption><span>Balet</span><strong>od 15 lat</strong></figcaption>
+          </figure>
+          <span className="join-hero-visual-note"><small>Bez przesłuchań</small><strong>Przyjdź na próbę<br />i poznaj nas.</strong></span>
           <span className="join-hero-ornament" aria-hidden="true"><i /><i /><i /><i /><i /></span>
         </div>
       </section>
