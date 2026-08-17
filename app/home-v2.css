@@ -693,17 +693,26 @@
 .home-v2-history-generation-photo figcaption { padding: 10px 7px 4px; color: var(--v2-green-deep); font-size: 0.67rem; font-weight: 800; }
 .home-v2-history-mark { position: absolute; top: -0.13em; right: -0.04em; color: rgba(20, 95, 61, 0.07); font-family: var(--font-display), Georgia, serif; font-size: clamp(5.5rem, 10vw, 10rem); font-style: italic; font-weight: 520; line-height: 1; pointer-events: none; transform: translateY(-48%); }
 
-.home-v2-costumes { display: grid; grid-template-columns: minmax(360px, 0.78fr) minmax(0, 1.22fr); align-items: center; gap: clamp(60px, 9vw, 146px); padding-block: clamp(110px, 13vw, 190px); }
+.home-v2-costumes { display: grid; grid-template-columns: minmax(360px, 0.72fr) minmax(0, 1.28fr); align-items: center; gap: clamp(60px, 8vw, 122px); padding-block: clamp(110px, 13vw, 190px); }
 .home-v2-costume-copy h2 { max-width: 10ch; }
 .home-v2-costume-copy > p { margin-top: 28px; }
 .home-v2-costume-copy > .home-v2-button { margin-top: 30px; }
-.home-v2-costume-images { position: relative; min-width: 0; min-height: 680px; }
-.home-v2-costume-images figure { position: absolute; overflow: hidden; margin: 0; background: #101712; }
-.home-v2-costume-main { inset: 0 11% 0 15%; }
-.home-v2-costume-main img { width: 100%; height: 100%; object-fit: cover; object-position: 52% 30%; }
-.home-v2-costume-detail { right: 0; bottom: 7%; width: 34%; aspect-ratio: 0.82; box-shadow: 0 0 0 8px var(--v2-paper); }
-.home-v2-costume-detail img { width: 100%; height: 100%; object-fit: cover; }
-.home-v2-costume-images::before { position: absolute; top: 10%; left: 0; z-index: 2; width: 80px; height: 80px; background: conic-gradient(var(--v2-red) 0 12.5%, var(--v2-green) 0 25%, #f0bc43 0 37.5%, var(--v2-red) 0 50%, var(--v2-green) 0 62.5%, #f0bc43 0 75%, var(--v2-red) 0 87.5%, var(--v2-green) 0); clip-path: polygon(50% 0, 60% 40%, 100% 50%, 60% 60%, 50% 100%, 40% 60%, 0 50%, 40% 40%); content: ""; }
+.home-v2-costume-mosaic { min-width: 0; display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); grid-template-rows: repeat(10, minmax(0, 1fr)); gap: 12px; height: clamp(540px, 48vw, 680px); }
+.home-v2-costume-tile { position: relative; min-width: 0; overflow: hidden; margin: 0; border-radius: 14px; background: #182019; }
+.home-v2-costume-tile img { width: 100%; height: 100%; object-fit: cover; transition: transform 700ms cubic-bezier(0.16, 1, 0.3, 1); }
+.home-v2-costume-tile:hover img { transform: scale(1.035); }
+.home-v2-costume-tile::after { position: absolute; inset: 55% 0 0; background: linear-gradient(180deg, transparent, rgba(8, 17, 11, 0.58)); content: ""; }
+.home-v2-costume-tile figcaption { position: absolute; right: 14px; bottom: 12px; left: 14px; z-index: 1; color: rgba(255, 255, 255, 0.84); font-size: 0.62rem; font-weight: 780; letter-spacing: 0.05em; text-transform: uppercase; }
+.home-v2-costume-tile-belt { grid-column: 1 / 8; grid-row: 1 / 6; }
+.home-v2-costume-tile-beads { grid-column: 8 / 13; grid-row: 1 / 5; margin-top: 28px; }
+.home-v2-costume-tile-collar { grid-column: 1 / 5; grid-row: 6 / 11; margin-left: 22px; }
+.home-v2-costume-tile-embroidery { grid-column: 5 / 9; grid-row: 6 / 10; }
+.home-v2-costume-tile-lace { grid-column: 9 / 13; grid-row: 5 / 11; margin: 12px 18px 22px 0; }
+.home-v2-costume-tile-belt img { object-position: 50% 54%; }
+.home-v2-costume-tile-beads img { object-position: 48% 48%; }
+.home-v2-costume-tile-collar img { object-position: 62% 48%; }
+.home-v2-costume-tile-embroidery img { object-position: 50% 48%; }
+.home-v2-costume-tile-lace img { object-position: 58% 46%; }
 
 .home-v2-contact-section { display: grid; grid-template-columns: minmax(0, 1.08fr) minmax(340px, 0.72fr); gap: clamp(60px, 9vw, 150px); padding-block: clamp(96px, 11vw, 160px); border-top: 1px solid var(--v2-line); }
 .home-v2-contact-copy h2 { max-width: none; }
@@ -812,7 +821,7 @@
   .home-v2-gallery-card-1 { grid-column: 1 / -1; grid-row: auto; }
   .home-v2-costumes { grid-template-columns: 1fr; }
   .home-v2-costume-copy { max-width: 640px; }
-  .home-v2-costume-images { min-height: min(118vw, 720px); }
+  .home-v2-costume-mosaic { width: min(100%, 720px); height: min(92vw, 650px); }
   .home-v2-contact-section { grid-template-columns: 1fr; }
   .home-v2-socials { width: min(100%, 620px); }
   .home-v2-footer { grid-template-columns: 1fr; justify-items: start; }
@@ -880,10 +889,13 @@
   .home-v2-gallery-grid { grid-template-columns: 1fr; grid-template-rows: none; }
   .home-v2-gallery-card { min-height: 340px; }
   .home-v2-gallery-card-1 { min-height: 430px; }
-  .home-v2-costume-images { min-height: 560px; }
-  .home-v2-costume-main { right: 5%; left: 5%; }
-  .home-v2-costume-detail { right: 0; width: 40%; }
-  .home-v2-costume-images::before { width: 60px; height: 60px; }
+  .home-v2-costume-mosaic { grid-template-columns: repeat(6, minmax(0, 1fr)); grid-template-rows: repeat(13, minmax(0, 1fr)); gap: 8px; height: 690px; }
+  .home-v2-costume-tile { border-radius: 10px; }
+  .home-v2-costume-tile-belt { grid-column: 1 / 7; grid-row: 1 / 5; }
+  .home-v2-costume-tile-beads { grid-column: 1 / 4; grid-row: 5 / 9; margin: 0 0 0 12px; }
+  .home-v2-costume-tile-collar { grid-column: 4 / 7; grid-row: 5 / 8; margin: 0; }
+  .home-v2-costume-tile-embroidery { grid-column: 1 / 4; grid-row: 9 / 14; margin: 0 0 14px; }
+  .home-v2-costume-tile-lace { grid-column: 4 / 7; grid-row: 8 / 14; margin: 10px 10px 0 0; }
   .home-v2-contact-section { gap: 48px; }
   .home-v2-social { grid-template-columns: 38px minmax(0, 1fr) 20px; padding: 16px 12px; }
   .home-v2-footer nav { display: grid; grid-template-columns: 1fr 1fr; width: 100%; }

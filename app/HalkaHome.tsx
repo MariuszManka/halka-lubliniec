@@ -260,9 +260,27 @@ export function HalkaHome() {
           </p>
           <a className="home-v2-button home-v2-button-primary" href="/kostiumy">Odkryj kostiumy <ArrowRight size={19} /></a>
         </div>
-        <div className="home-v2-costume-images">
-          <figure className="home-v2-costume-main"><img src="/session/krakow-worn-1.webp" alt="Para Halki w strojach Krakowiaków Zachodnich" loading="lazy" /></figure>
-          <figure className="home-v2-costume-detail"><img src="/session/zywiec-male-detail.webp" alt="Zdobiony skórzany pas stroju Górali Żywieckich" loading="lazy" /></figure>
+        <div className="home-v2-costume-mosaic" aria-label="Detale kostiumów scenicznych Halki">
+          <figure className="home-v2-costume-tile home-v2-costume-tile-belt">
+            <img src="/session/zywiec-male-detail.webp" alt="Zdobiony skórzany pas stroju Górali Żywieckich" loading="lazy" />
+            <figcaption>Pas góralski</figcaption>
+          </figure>
+          <figure className="home-v2-costume-tile home-v2-costume-tile-beads">
+            <img src="/session/rzeszow-female-detail.webp" alt="Czerwone korale i kabotek stroju rzeszowskiego" loading="lazy" />
+            <figcaption>Korale</figcaption>
+          </figure>
+          <figure className="home-v2-costume-tile home-v2-costume-tile-collar">
+            <img src="/session/krakow-female-detail-2.webp" alt="Haftowany kołnierz stroju Krakowiaków Zachodnich" loading="lazy" />
+            <figcaption>Haft</figcaption>
+          </figure>
+          <figure className="home-v2-costume-tile home-v2-costume-tile-embroidery">
+            <img src="/session/pszczyna-detail-2.webp" alt="Kwiatowy haft i korale stroju pszczyńskiego" loading="lazy" />
+            <figcaption>Zdobienie</figcaption>
+          </figure>
+          <figure className="home-v2-costume-tile home-v2-costume-tile-lace">
+            <img src="/session/cieszyn-female-detail-2.webp" alt="Koronka i lamowanie kobiecego stroju cieszyńskiego" loading="lazy" />
+            <figcaption>Koronka</figcaption>
+          </figure>
         </div>
       </section>
 
