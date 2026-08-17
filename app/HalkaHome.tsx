@@ -164,6 +164,23 @@ export function HalkaHome() {
         </div>
 
         <div className="home-v2-event-list">
+          <section className="home-v2-fixed-plan" aria-labelledby="staly-plan-title">
+            <div className="home-v2-fixed-plan-heading">
+              <div>
+                <span><CalendarBlank size={18} /> Stały plan</span>
+                <h3 id="staly-plan-title">Regularne próby w siedzibie zespołu</h3>
+              </div>
+              <a href="/wydarzenia#proby">Wszystkie terminy prób <ArrowRight size={17} /></a>
+            </div>
+            <div className="home-v2-fixed-plan-grid">
+              {ensembleGroups.map((group) => (
+                <div key={group.id}>
+                  <span>{group.name}</span>
+                  <strong>{group.schedule}</strong>
+                </div>
+              ))}
+            </div>
+          </section>
           {upcomingPerformances.length ? upcomingPerformances.map((event) => {
             const date = new Date(`${event.date}T12:00:00`);
             return (
