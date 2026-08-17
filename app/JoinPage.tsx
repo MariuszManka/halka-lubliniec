@@ -137,7 +137,7 @@ export function JoinPage() {
       <section className="join-groups join-shell" id="grupy" aria-labelledby="join-groups-title">
         <div className="join-section-heading join-section-heading-groups">
           <p>Cztery grupy. Jeden zespół.</p>
-          <h2 id="join-groups-title">Wybierz swoją drogę do Halki.</h2>
+          <h2 id="join-groups-title">Wybierz swoją drogę <em>do Halki.</em></h2>
         </div>
 
         <nav className="join-audience-paths" aria-label="Wybierz odpowiednią ścieżkę naboru">
