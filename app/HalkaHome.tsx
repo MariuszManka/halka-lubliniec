@@ -106,15 +106,16 @@ export function HalkaHome() {
       </section>
 
       <section className="home-v2-join home-v2-shell" id="dolacz" aria-labelledby="dolacz-title">
-        <div className="home-v2-section-heading">
-          <div>
-            <p className="home-v2-section-note">Nabór otwarty przez cały rok</p>
-            <h2 id="dolacz-title">Znajdź swoje miejsce w Halce.</h2>
-          </div>
-          <div className="home-v2-section-intro">
+        <div className="home-v2-join-heading">
+          <p className="home-v2-section-note">Nabór otwarty przez cały rok</p>
+          <h2 id="dolacz-title">
+            <span>Znajdź swoje miejsce</span>
+            <em>w Halce.</em>
+          </h2>
+          <div className="home-v2-join-intro">
             <p>
-              Nie wymagamy doświadczenia ani przesłuchań. Wybierz grupę i przyjdź na najbliższą próbę —
-              pierwsze spotkanie nic nie kosztuje, podobnie jak późniejszy udział w zespole.
+              Nie wymagamy doświadczenia ani przesłuchań. Wybierz grupę i przyjdź na najbliższą próbę.
+              Pierwsze spotkanie nic nie kosztuje, podobnie jak późniejszy udział w zespole.
             </p>
             <a className="home-v2-text-link" href="/dolacz">Jak wygląda pierwsza próba <ArrowRight size={18} /></a>
           </div>
@@ -123,11 +124,21 @@ export function HalkaHome() {
         <div className="home-v2-group-list">
           {ensembleGroups.map((group, index) => (
             <a className="home-v2-group-row" href={`/dolacz#${group.id}`} key={group.id}>
-              <span className="home-v2-group-index">0{index + 1}</span>
-              <div className="home-v2-group-photo"><img src={group.image} alt={group.imageAlt} loading="lazy" /></div>
-              <div className="home-v2-group-name"><small>{group.age}</small><h3>{group.name}</h3></div>
-              <div className="home-v2-group-details"><span>{group.activity}</span><strong>{group.schedule}</strong></div>
-              <span className="home-v2-row-arrow"><ArrowRight size={19} /></span>
+              <figure className="home-v2-group-photo">
+                <img src={group.image} alt={group.imageAlt} loading="lazy" />
+              </figure>
+              <div className="home-v2-group-copy">
+                <div className="home-v2-group-meta">
+                  <span className="home-v2-group-index">0{index + 1}</span>
+                  <span>{group.age}</span>
+                </div>
+                <div className="home-v2-group-name"><h3>{group.name}</h3></div>
+                <div className="home-v2-group-details">
+                  <div><small>Zajęcia</small><strong>{group.activity}</strong></div>
+                  <div><small>Próby</small><strong>{group.schedule}</strong></div>
+                </div>
+                <span className="home-v2-group-action">Sprawdź najbliższą próbę <ArrowRight size={19} /></span>
+              </div>
             </a>
           ))}
         </div>
