@@ -735,12 +735,13 @@
 .home-v2-social-facebook { color: #1877f2; }
 .home-v2-social-instagram { color: #b42375; }
 .home-v2-social-youtube { color: #e62117; }
-.home-v2-map-card { overflow: hidden; border: 1px solid var(--v2-line); border-radius: 16px; background: #fffdf8; box-shadow: 0 18px 48px rgba(18, 59, 42, 0.07); }
-.home-v2-map-card iframe { width: 100%; height: 245px; display: block; border: 0; filter: saturate(0.88) contrast(0.96); }
+.home-v2-map-card { grid-column: 1 / -1; overflow: hidden; margin-top: clamp(12px, 2vw, 28px); border: 1px solid var(--v2-line); border-radius: 18px; background: #fffdf8; box-shadow: 0 20px 58px rgba(18, 59, 42, 0.08); }
+.home-v2-map-card iframe { width: 100%; height: clamp(340px, 34vw, 470px); display: block; border: 0; filter: saturate(0.9) contrast(0.97); }
 .home-v2-map-card > a { display: flex; align-items: center; justify-content: space-between; gap: 18px; padding: 16px 18px; border-top: 1px solid var(--v2-line); transition: background-color 180ms ease; }
 .home-v2-map-card > a:hover { background: rgba(20, 95, 61, 0.045); }
 .home-v2-map-card > a > span { display: flex; align-items: center; gap: 8px; color: var(--v2-green); }
 .home-v2-map-card > a strong { color: var(--v2-ink); font-size: 0.78rem; }
+.home-v2-map-card > a > span > small { color: #64796e; font-size: 0.68rem; font-weight: 650; }
 .home-v2-map-card > a small { display: inline-flex; align-items: center; gap: 5px; color: #64796e; font-size: 0.66rem; font-weight: 700; text-align: right; }
 
 .home-v2-footer { display: grid; grid-template-columns: auto 1fr auto; align-items: center; gap: 40px; padding-block: 34px; border-top: 1px solid var(--v2-line); }
@@ -909,8 +910,11 @@
   .home-v2-contact-section { gap: 48px; }
   .home-v2-social { grid-template-columns: 38px minmax(0, 1fr) 20px; padding: 16px 12px; }
   .home-v2-social-logo { width: 34px; height: 34px; }
-  .home-v2-map-card iframe { height: 220px; }
+  .home-v2-map-card { margin-top: 6px; border-radius: 14px; }
+  .home-v2-map-card iframe { height: 300px; }
   .home-v2-map-card > a { align-items: flex-start; flex-direction: column; gap: 6px; }
+  .home-v2-map-card > a > span { align-items: flex-start; flex-wrap: wrap; }
+  .home-v2-map-card > a > span > small { width: 100%; padding-left: 26px; }
   .home-v2-map-card > a small { text-align: left; }
   .home-v2-footer nav { display: grid; grid-template-columns: 1fr 1fr; width: 100%; }
 }
