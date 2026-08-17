@@ -617,7 +617,7 @@
   box-shadow: 0 24px 70px rgba(18, 59, 42, 0.075);
 }
 
-.home-v2-fixed-plan { padding: clamp(24px, 3vw, 36px); border-bottom: 1px solid var(--v2-line); background: #f3eee4; }
+.home-v2-fixed-plan { padding: clamp(24px, 3vw, 36px); border-bottom: 1px solid var(--v2-line); background: #fffdf8; }
 .home-v2-fixed-plan-heading { display: flex; align-items: flex-end; justify-content: space-between; gap: 28px; }
 .home-v2-fixed-plan-heading > div > span { display: inline-flex; align-items: center; gap: 7px; color: var(--v2-red); font-size: 0.66rem; font-weight: 820; letter-spacing: 0.09em; text-transform: uppercase; }
 .home-v2-fixed-plan-heading h3 { margin: 8px 0 0; font-family: var(--font-display), Georgia, serif; font-size: clamp(1.55rem, 2.3vw, 2.15rem); font-weight: 560; line-height: 1; text-wrap: balance; }
