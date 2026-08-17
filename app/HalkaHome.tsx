@@ -1,0 +1,278 @@
+"use client";
+
+import { useState } from "react";
+import {
+  ArrowRight,
+  ArrowUpRight,
+  CalendarBlank,
+  EnvelopeSimple,
+  FacebookLogo,
+  InstagramLogo,
+  List,
+  MapPin,
+  Phone,
+  YoutubeLogo,
+  X,
+} from "@phosphor-icons/react";
+import { calendarEvents, eventGroups } from "../content/events";
+import { galleryEvents } from "../content/generated-gallery";
+import { ensembleGroups, mainNavigation, readySuites, siteConfig } from "../content/site-config";
+
+const monthShort = ["STY", "LUT", "MAR", "KWI", "MAJ", "CZE", "LIP", "SIE", "WRZ", "PAŹ", "LIS", "GRU"];
+
+const formatGalleryDate = (date: string) => new Intl.DateTimeFormat("pl-PL", {
+  day: "numeric",
+  month: "long",
+  year: "numeric",
+}).format(new Date(`${date}T12:00:00`));
+
+export function HalkaHome() {
+  const [menuOpen, setMenuOpen] = useState(false);
+  const today = new Date().toISOString().slice(0, 10);
+  const upcomingPerformances = calendarEvents
+    .filter((event) => event.kind === "Występ" && (event.endDate ?? event.date) >= today)
+    .slice(0, 4);
+  const featuredGallery = [...galleryEvents]
+    .sort((a, b) => Number(b.pinned) - Number(a.pinned) || b.date.localeCompare(a.date))
+    .slice(0, 3);
+
+  return (
+    <main className="home-v2">
+      <div className="home-v2-backdrop" aria-hidden="true">
+        <span className="home-v2-rosette home-v2-rosette-one" />
+        <span className="home-v2-rosette home-v2-rosette-two" />
+      </div>
+
+      <header className="home-v2-header">
+        <a className="home-v2-brand" href="#poczatek" aria-label="Halka — przejdź na początek strony">
+          <img src="/logo.jpg" alt="" width="46" height="46" />
+          <span><strong>HALKA</strong><small>Lubliniec</small></span>
+        </a>
+        <nav className="home-v2-nav" aria-label="Główna nawigacja">
+          {mainNavigation.map((item) => <a href={item.href} key={item.href}>{item.label}</a>)}
+        </nav>
+        <a className="home-v2-contact" href="#kontakt">Kontakt</a>
+        <button
+          className="home-v2-menu-button"
+          type="button"
+          aria-label={menuOpen ? "Zamknij menu" : "Otwórz menu"}
+          aria-expanded={menuOpen}
+          onClick={() => setMenuOpen((open) => !open)}
+        >
+          {menuOpen ? <X size={22} /> : <List size={22} />}
+        </button>
+        {menuOpen && (
+          <nav className="home-v2-mobile-nav" aria-label="Menu mobilne">
+            {mainNavigation.map((item) => <a href={item.href} key={item.href} onClick={() => setMenuOpen(false)}>{item.label}</a>)}
+            <a href="#kontakt" onClick={() => setMenuOpen(false)}>Kontakt</a>
+          </nav>
+        )}
+      </header>
+
+      <section className="home-v2-hero" id="poczatek">
+        <div className="home-v2-hero-copy">
+          <p className="home-v2-motif">Tu tradycja żyje</p>
+          <h1>Od 1948 roku <em>tańczymy razem.</em></h1>
+          <p className="home-v2-lead">
+            Cztery grupy, wiele pokoleń i jedna scena. W Halce uczymy się od siebie,
+            pielęgnujemy śląskie korzenie i pokazujemy folklor z energią, która nie stoi w miejscu.
+          </p>
+          <div className="home-v2-hero-actions">
+            <a className="home-v2-button home-v2-button-primary" href="/dolacz">
+              Dołącz do Halki <ArrowRight size={19} weight="bold" />
+            </a>
+            <a className="home-v2-button home-v2-button-secondary" href="/zapros-halke">
+              Zaproś nas na wydarzenie
+            </a>
+          </div>
+          <div className="home-v2-open-call">
+            <span aria-hidden="true" />
+            <p><strong>Nabór otwarty przez cały rok.</strong> Bez przesłuchań i bez opłat — wystarczy przyjść na próbę.</p>
+          </div>
+        </div>
+
+        <figure className="home-v2-hero-visual">
+          <div className="home-v2-photo-field">
+            <img
+              src="/session/dance-circle.webp"
+              alt="Tancerka Halki widziana z góry podczas obrotu"
+              width="2200"
+              height="1467"
+              fetchPriority="high"
+            />
+          </div>
+          <figcaption><span>Zespół Pieśni i Tańca</span><strong>Halka · Lubliniec</strong></figcaption>
+        </figure>
+      </section>
+
+      <section className="home-v2-join home-v2-shell" id="dolacz" aria-labelledby="dolacz-title">
+        <div className="home-v2-section-heading">
+          <div>
+            <p className="home-v2-section-note">Nabór otwarty przez cały rok</p>
+            <h2 id="dolacz-title">Znajdź swoje miejsce w Halce.</h2>
+          </div>
+          <div className="home-v2-section-intro">
+            <p>
+              Nie wymagamy doświadczenia ani przesłuchań. Wybierz grupę i przyjdź na najbliższą próbę —
+              pierwsze spotkanie nic nie kosztuje, podobnie jak późniejszy udział w zespole.
+            </p>
+            <a className="home-v2-text-link" href="/dolacz">Jak wygląda pierwsza próba <ArrowRight size={18} /></a>
+          </div>
+        </div>
+
+        <div className="home-v2-group-list">
+          {ensembleGroups.map((group, index) => (
+            <a className="home-v2-group-row" href={`/dolacz#${group.id}`} key={group.id}>
+              <span className="home-v2-group-index">0{index + 1}</span>
+              <div className="home-v2-group-photo"><img src={group.image} alt={group.imageAlt} loading="lazy" /></div>
+              <div className="home-v2-group-name"><small>{group.age}</small><h3>{group.name}</h3></div>
+              <div className="home-v2-group-details"><span>{group.activity}</span><strong>{group.schedule}</strong></div>
+              <span className="home-v2-row-arrow"><ArrowRight size={19} /></span>
+            </a>
+          ))}
+        </div>
+
+        <div className="home-v2-join-footer">
+          <p><strong>Wszystkie próby odbywają się w siedzibie zespołu.</strong> ul. Stalmacha 12 w Lublińcu.</p>
+          <a href={siteConfig.contact.mapUrl} target="_blank" rel="noreferrer"><MapPin size={18} /> Pokaż na mapie</a>
+        </div>
+      </section>
+
+      <section className="home-v2-offer" id="zapros" aria-labelledby="zapros-title">
+        <div className="home-v2-offer-image">
+          <img src="/session/group.webp" alt="Wszystkie grupy Zespołu Pieśni i Tańca Halka na scenie" loading="lazy" />
+        </div>
+        <div className="home-v2-offer-copy">
+          <p className="home-v2-section-note">Dla organizatorów</p>
+          <h2 id="zapros-title">Zaproś Halkę.</h2>
+          <p className="home-v2-offer-lead">
+            Przygotowujemy program do charakteru wydarzenia — od pełnej suity po występ chóru,
+            grupy dziecięcej lub całego zespołu. Skład i program ustalamy indywidualnie,
+            zależnie od terminu oraz dostępności członków.
+          </p>
+          <div className="home-v2-suite-list" aria-label="Gotowe suity zespołu">
+            {readySuites.map((suite) => (
+              <div className="home-v2-suite" key={suite.id}>
+                <span>{suite.label}</span><strong>{suite.name}</strong><p>{suite.description}</p>
+              </div>
+            ))}
+          </div>
+          <div className="home-v2-offer-actions">
+            <a className="home-v2-button home-v2-button-light" href="/zapros-halke">Poznaj możliwości występu <ArrowRight size={19} /></a>
+            <a className="home-v2-offer-mail" href={`mailto:${siteConfig.contact.email}?subject=Zapytanie%20o%20dostępność%20zespołu`}>Zapytaj o dostępność</a>
+          </div>
+        </div>
+      </section>
+
+      <section className="home-v2-events home-v2-shell" id="wydarzenia" aria-labelledby="wydarzenia-title">
+        <div className="home-v2-section-heading home-v2-section-heading-compact">
+          <div>
+            <p className="home-v2-section-note">Najbliższe występy</p>
+            <h2 id="wydarzenia-title">Spotkajmy się pod sceną.</h2>
+          </div>
+          <a className="home-v2-text-link" href="/wydarzenia">Wszystkie wydarzenia <ArrowRight size={18} /></a>
+        </div>
+
+        <div className="home-v2-event-list">
+          {upcomingPerformances.length ? upcomingPerformances.map((event) => {
+            const date = new Date(`${event.date}T12:00:00`);
+            return (
+              <a className="home-v2-event-row" href="/wydarzenia" key={event.id}>
+                <time dateTime={event.date}><strong>{String(date.getDate()).padStart(2, "0")}</strong><span>{monthShort[date.getMonth()]} {date.getFullYear()}</span></time>
+                <div><span>{event.kind}</span><h3>{event.title}</h3></div>
+                <p><MapPin size={18} /> {event.location}</p>
+                <div className="home-v2-event-groups">
+                  {event.groups.map((group) => <span key={group}>{eventGroups[group].label}</span>)}
+                </div>
+                <ArrowUpRight className="home-v2-event-arrow" size={21} />
+              </a>
+            );
+          }) : (
+            <div className="home-v2-events-empty"><CalendarBlank size={26} /><p>Nowe terminy występów pojawią się tutaj po ich potwierdzeniu.</p></div>
+          )}
+        </div>
+      </section>
+
+      <section className="home-v2-gallery home-v2-shell" aria-labelledby="galeria-title">
+        <div className="home-v2-section-heading">
+          <div>
+            <p className="home-v2-section-note">Halka na scenie</p>
+            <h2 id="galeria-title">Zobacz nas w ruchu.</h2>
+          </div>
+          <div className="home-v2-section-intro">
+            <p>Koncerty, festiwale i spotkania, podczas których pieśń, ruch i kostium tworzą jeden obraz.</p>
+            <a className="home-v2-text-link" href="/galeria">Przejdź do galerii <ArrowRight size={18} /></a>
+          </div>
+        </div>
+        <div className="home-v2-gallery-grid">
+          {featuredGallery.map((event, index) => (
+            <a className={`home-v2-gallery-card home-v2-gallery-card-${index + 1}`} href="/galeria" key={event.id}>
+              <img src={event.images[0].src} alt={event.images[0].alt} loading="lazy" width={event.images[0].width} height={event.images[0].height} />
+              <div><span>{formatGalleryDate(event.date)} · {event.location}</span><h3>{event.title}</h3><p>{event.images.length} zdjęć</p></div>
+            </a>
+          ))}
+        </div>
+      </section>
+
+      <section className="home-v2-history" id="historia" aria-labelledby="historia-title">
+        <div className="home-v2-history-photo">
+          <img src="/session/group.webp" alt="Współczesny skład Zespołu Pieśni i Tańca Halka" loading="lazy" />
+          <span>Dziś</span>
+        </div>
+        <div className="home-v2-history-copy">
+          <p className="home-v2-section-note">Historia, która nadal trwa</p>
+          <p className="home-v2-history-year">1948</p>
+          <h2 id="historia-title">Kolejne pokolenia. Ta sama Halka.</h2>
+          <p>
+            Zespół powstał w Lublińcu w 1948 roku. Z czasem zmieniały się sceny, składy i programy,
+            ale nie zmieniła się potrzeba wspólnego śpiewania, tańczenia i przekazywania tradycji dalej.
+          </p>
+          <a className="home-v2-text-link home-v2-text-link-light" href="/historia">Poznaj historię zespołu <ArrowRight size={18} /></a>
+        </div>
+      </section>
+
+      <section className="home-v2-costumes home-v2-shell" aria-labelledby="kostiumy-title">
+        <div className="home-v2-costume-copy">
+          <p className="home-v2-section-note">Różne regiony · jedna kolekcja</p>
+          <h2 id="kostiumy-title">Kostium opowiada, zanim zacznie się taniec.</h2>
+          <p>
+            Każdy haft, pas i sposób wiązania ma własne znaczenie. Poznaj stroje, w których Halka
+            prezentuje różnorodność polskich regionów — nie tylko jako kolekcję, ale część scenicznej opowieści.
+          </p>
+          <a className="home-v2-button home-v2-button-primary" href="/kostiumy">Odkryj kostiumy <ArrowRight size={19} /></a>
+        </div>
+        <div className="home-v2-costume-images">
+          <figure className="home-v2-costume-main"><img src="/session/krakow-worn-1.webp" alt="Para Halki w strojach Krakowiaków Zachodnich" loading="lazy" /></figure>
+          <figure className="home-v2-costume-detail"><img src="/session/zywiec-male-detail.webp" alt="Zdobiony skórzany pas stroju Górali Żywieckich" loading="lazy" /></figure>
+        </div>
+      </section>
+
+      <section className="home-v2-contact-section home-v2-shell" id="kontakt" aria-labelledby="kontakt-title">
+        <div className="home-v2-contact-copy">
+          <p className="home-v2-section-note">Kontakt</p>
+          <h2 id="kontakt-title">Porozmawiajmy.</h2>
+          <p>
+            Chcesz dołączyć, zaprosić Halkę albo zapytać o współpracę? Wybierz najwygodniejszy kontakt.
+            Bieżące informacje publikujemy również w mediach społecznościowych.
+          </p>
+          <div className="home-v2-contact-actions">
+            <a href={`mailto:${siteConfig.contact.email}`}><EnvelopeSimple size={22} /><span><small>Napisz do nas</small><strong>{siteConfig.contact.email}</strong></span></a>
+            <a href={`tel:${siteConfig.contact.phone}`}><Phone size={22} /><span><small>Zadzwoń</small><strong>{siteConfig.contact.phoneDisplay}</strong></span></a>
+            <a href={siteConfig.contact.mapUrl} target="_blank" rel="noreferrer"><MapPin size={22} /><span><small>Siedziba zespołu</small><strong>{siteConfig.contact.address}</strong></span></a>
+          </div>
+        </div>
+        <div className="home-v2-socials" aria-label="Media społecznościowe Halki">
+          <a className="home-v2-social home-v2-social-facebook" href={siteConfig.social.facebook} target="_blank" rel="noreferrer"><FacebookLogo size={31} weight="fill" /><span><strong>Facebook</strong><small>Aktualności i wydarzenia</small></span><ArrowUpRight size={19} /></a>
+          <a className="home-v2-social home-v2-social-instagram" href={siteConfig.social.instagram} target="_blank" rel="noreferrer"><InstagramLogo size={31} weight="bold" /><span><strong>Instagram</strong><small>Kulisy i zdjęcia</small></span><ArrowUpRight size={19} /></a>
+          <a className="home-v2-social home-v2-social-youtube" href={siteConfig.social.youtube} target="_blank" rel="noreferrer"><YoutubeLogo size={32} weight="fill" /><span><strong>YouTube</strong><small>Występy i nagrania</small></span><ArrowUpRight size={19} /></a>
+        </div>
+      </section>
+
+      <footer className="home-v2-footer home-v2-shell">
+        <div className="home-v2-footer-brand"><img src="/logo.jpg" alt="Logo Zespołu Pieśni i Tańca Halka" width="58" height="58" /><span><strong>HALKA</strong><small>Od 1948 roku tańczymy razem.</small></span></div>
+        <nav aria-label="Nawigacja w stopce">{mainNavigation.map((item) => <a href={item.href} key={item.href}>{item.label}</a>)}</nav>
+        <p>© 2026 Zespół Pieśni i Tańca Halka w Lublińcu</p>
+      </footer>
+    </main>
+  );
+}

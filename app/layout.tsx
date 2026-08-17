@@ -20,7 +20,7 @@ export async function generateMetadata(): Promise<Metadata> {
   const protocol = requestHeaders.get("x-forwarded-proto") ?? (host.startsWith("localhost") ? "http" : "https");
   const base = new URL(`${protocol}://${host}`);
   const title = "Zespół Pieśni i Tańca Halka | Lubliniec";
-  const description = "Poznaj Zespół Pieśni i Tańca Halka z Lublińca. Kronika koncertów, historia od 1948 roku, próby i kontakt.";
+  const description = "Zespół Pieśni i Tańca Halka z Lublińca. Dołącz do jednej z czterech grup albo zaproś zespół na swoje wydarzenie.";
 
   return {
     metadataBase: base,
@@ -32,13 +32,13 @@ export async function generateMetadata(): Promise<Metadata> {
       description,
       type: "website",
       locale: "pl_PL",
-      images: [{ url: new URL("/og.png", base).toString(), width: 1734, height: 909, alt: "Halka, Zespół Pieśni i Tańca z Lublińca" }],
+      images: [{ url: new URL("/og-home.png", base).toString(), width: 1734, height: 909, alt: "Od 1948 roku tańczymy razem — Zespół Pieśni i Tańca Halka" }],
     },
     twitter: {
       card: "summary_large_image",
       title,
       description,
-      images: [new URL("/og.png", base).toString()],
+      images: [new URL("/og-home.png", base).toString()],
     },
   };
 }

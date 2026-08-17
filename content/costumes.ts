@@ -92,7 +92,7 @@ export const costumeLooks: CostumeLook[] = [
     galleryKey: "slask-rozbark",
     description:
       "Strój rozbarski, nazywany również bytomskim, opiera się na mocnym kontraście bieli, ciemnych warstw oraz tkanin w kwiaty. W tej części kolekcji skupiamy się przede wszystkim na detalach kobiecych i męskich.",
-    images: ["rozbark-detail-1", "rozbark-detail-2", "rozbark-detail-3", "rozbark-male-detail"],
+    images: ["modal-slask-rozbark-female-16", "rozbark-detail-2", "rozbark-detail-3", "rozbark-male-detail"],
     femaleImages: ["rozbark-detail-1", "rozbark-detail-2", "rozbark-detail-3", "rozbark-detail-4"],
     maleImages: ["rozbark-male-detail", "rozbark-male-detail-2", "rozbark-male-detail-3"],
     details: ["kwiatyste tkaniny", "korale i koronka", "damskie detale", "męskie wykończenia"],

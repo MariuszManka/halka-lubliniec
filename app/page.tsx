@@ -1,5 +1,6 @@
-import { HalkaSite } from "./HalkaSite";
+import { HalkaHome } from "./HalkaHome";
+import "./home-v2.css";
 
 export default function Home() {
-  return <HalkaSite />;
+  return <HalkaHome />;
 }

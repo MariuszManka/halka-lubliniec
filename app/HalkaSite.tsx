@@ -9,9 +9,12 @@ import {
   CalendarBlank,
   Camera,
   EnvelopeSimple,
+  FacebookLogo,
+  InstagramLogo,
   List,
   MapPin,
   Phone,
+  YoutubeLogo,
   X,
 } from "@phosphor-icons/react";
 import { galleryEvents } from "../content/generated-gallery";
@@ -801,6 +804,30 @@ export function HalkaSite() {
             </div>
           </Reveal>
         </div>
+        <Reveal className="social-callout" delay={0.08}>
+          <div className="social-callout-copy">
+            <p className="section-kicker">Halka na co dzień</p>
+            <h3>Zostań z nami także poza sceną.</h3>
+            <p>Zdjęcia z występów, kulisy prób i najświeższe informacje z życia zespołu znajdziesz w naszych mediach społecznościowych.</p>
+          </div>
+          <div className="social-links" aria-label="Media społecznościowe zespołu Halka">
+            <a className="social-link social-facebook" href="https://www.facebook.com/zpit.halka" target="_blank" rel="noreferrer">
+              <span className="social-link-icon"><FacebookLogo size={27} weight="fill" /></span>
+              <span className="social-link-copy"><strong>Facebook</strong><small>Aktualności i wydarzenia</small></span>
+              <ArrowUpRight size={20} aria-hidden="true" />
+            </a>
+            <a className="social-link social-instagram" href="https://www.instagram.com/zpit_halka/" target="_blank" rel="noreferrer">
+              <span className="social-link-icon"><InstagramLogo size={27} weight="bold" /></span>
+              <span className="social-link-copy"><strong>Instagram</strong><small>Zdjęcia i kulisy zespołu</small></span>
+              <ArrowUpRight size={20} aria-hidden="true" />
+            </a>
+            <a className="social-link social-youtube" href="https://www.youtube.com/@zpit.halka.lubliniec" target="_blank" rel="noreferrer">
+              <span className="social-link-icon"><YoutubeLogo size={28} weight="fill" /></span>
+              <span className="social-link-copy"><strong>YouTube</strong><small>Występy i nagrania</small></span>
+              <ArrowUpRight size={20} aria-hidden="true" />
+            </a>
+          </div>
+        </Reveal>
       </section>
 
       <footer className="footer section-shell">
