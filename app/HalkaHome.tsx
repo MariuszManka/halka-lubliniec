@@ -221,20 +221,32 @@ export function HalkaHome() {
         </div>
       </section>
 
-      <section className="home-v2-history" id="historia" aria-labelledby="historia-title">
-        <div className="home-v2-history-photo">
-          <img src="/session/group.webp" alt="Współczesny skład Zespołu Pieśni i Tańca Halka" loading="lazy" />
-          <span>Dziś</span>
-        </div>
+      <section className="home-v2-history home-v2-shell" id="historia" aria-labelledby="historia-title">
         <div className="home-v2-history-copy">
           <p className="home-v2-section-note">Historia, która nadal trwa</p>
-          <p className="home-v2-history-year">1948</p>
-          <h2 id="historia-title">Kolejne pokolenia. Ta sama Halka.</h2>
-          <p>
-            Zespół powstał w Lublińcu w 1948 roku. Z czasem zmieniały się sceny, składy i programy,
-            ale nie zmieniła się potrzeba wspólnego śpiewania, tańczenia i przekazywania tradycji dalej.
+          <p className="home-v2-history-kicker"><span>1948</span><i aria-hidden="true" />Dziś</p>
+          <h2 id="historia-title">Od 1948 roku tańczymy razem.</h2>
+          <p className="home-v2-history-lead">
+            Zmieniały się pokolenia, sceny i repertuar. Halka pozostała miejscem, w którym pieśni i tańce
+            są przekazywane dalej — nie jako zamknięte archiwum, lecz żywa część wspólnego życia.
           </p>
-          <a className="home-v2-text-link home-v2-text-link-light" href="/historia">Poznaj historię zespołu <ArrowRight size={18} /></a>
+          <div className="home-v2-history-facts" aria-label="Halka w liczbach">
+            <div><strong>75+</strong><span>lat działalności</span></div>
+            <div><strong>4</strong><span>działające grupy</span></div>
+          </div>
+          <a className="home-v2-text-link" href="/historia">Poznaj historię zespołu <ArrowRight size={18} /></a>
+        </div>
+
+        <div className="home-v2-history-visual" aria-label="Halka dawniej i dziś">
+          <figure className="home-v2-history-main-photo">
+            <img src="/session/group.webp" alt="Współczesny skład Zespołu Pieśni i Tańca Halka" loading="lazy" />
+            <figcaption><span>Współczesna Halka</span><strong>Tradycja obecna na scenie</strong></figcaption>
+          </figure>
+          <figure className="home-v2-history-generation-photo">
+            <img src="/session/children-group.webp" alt="Najmłodsi członkowie Zespołu Pieśni i Tańca Halka" loading="lazy" />
+            <figcaption>Następne pokolenie</figcaption>
+          </figure>
+          <span className="home-v2-history-mark" aria-hidden="true">1948</span>
         </div>
       </section>
 
