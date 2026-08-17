@@ -262,24 +262,24 @@ export function HalkaHome() {
         </div>
         <div className="home-v2-costume-mosaic" aria-label="Detale kostiumów scenicznych Halki">
           <figure className="home-v2-costume-tile home-v2-costume-tile-belt">
-            <img src="/session/zywiec-male-detail.webp" alt="Zdobiony skórzany pas stroju Górali Żywieckich" loading="lazy" />
+            <img src="/session/modal-zywiec-male-10.webp" alt="Zdobiony skórzany pas stroju Górali Żywieckich" loading="lazy" />
             <figcaption>Pas góralski</figcaption>
           </figure>
           <figure className="home-v2-costume-tile home-v2-costume-tile-beads">
-            <img src="/session/rzeszow-female-detail.webp" alt="Czerwone korale i kabotek stroju rzeszowskiego" loading="lazy" />
-            <figcaption>Korale</figcaption>
+            <img src="/session/modal-zywiec-female-10.webp" alt="Kwiatowy haft kobiecego stroju Górali Żywieckich" loading="lazy" />
+            <figcaption>Haft żywiecki</figcaption>
           </figure>
           <figure className="home-v2-costume-tile home-v2-costume-tile-collar">
-            <img src="/session/krakow-female-detail-2.webp" alt="Haftowany kołnierz stroju Krakowiaków Zachodnich" loading="lazy" />
-            <figcaption>Haft</figcaption>
+            <img src="/session/modal-lublin-female-13.webp" alt="Wielobarwne wstążki kobiecego stroju lubelskiego" loading="lazy" />
+            <figcaption>Wstążki</figcaption>
           </figure>
           <figure className="home-v2-costume-tile home-v2-costume-tile-embroidery">
-            <img src="/session/pszczyna-detail-2.webp" alt="Kwiatowy haft i korale stroju pszczyńskiego" loading="lazy" />
-            <figcaption>Zdobienie</figcaption>
+            <img src="/session/modal-krakow-male-07.webp" alt="Haftowany granatowy kaftan stroju Krakowiaków Zachodnich" loading="lazy" />
+            <figcaption>Haft krakowski</figcaption>
           </figure>
           <figure className="home-v2-costume-tile home-v2-costume-tile-lace">
-            <img src="/session/cieszyn-female-detail-2.webp" alt="Koronka i lamowanie kobiecego stroju cieszyńskiego" loading="lazy" />
-            <figcaption>Koronka</figcaption>
+            <img src="/session/modal-lublin-female-06.webp" alt="Haftowany kołnierz i korale kobiecego stroju lubelskiego" loading="lazy" />
+            <figcaption>Kołnierz</figcaption>
           </figure>
         </div>
       </section>

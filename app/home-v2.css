@@ -709,10 +709,10 @@
 .home-v2-costume-tile-embroidery { grid-column: 5 / 9; grid-row: 6 / 10; }
 .home-v2-costume-tile-lace { grid-column: 9 / 13; grid-row: 5 / 11; margin: 12px 18px 22px 0; }
 .home-v2-costume-tile-belt img { object-position: 50% 54%; }
-.home-v2-costume-tile-beads img { object-position: 48% 48%; }
-.home-v2-costume-tile-collar img { object-position: 62% 48%; }
-.home-v2-costume-tile-embroidery img { object-position: 50% 48%; }
-.home-v2-costume-tile-lace img { object-position: 58% 46%; }
+.home-v2-costume-tile-beads img { object-position: 50% 54%; }
+.home-v2-costume-tile-collar img { object-position: 50% 42%; }
+.home-v2-costume-tile-embroidery img { object-position: 50% 56%; }
+.home-v2-costume-tile-lace img { object-position: 48% 50%; }
 
 .home-v2-contact-section { display: grid; grid-template-columns: minmax(0, 1.08fr) minmax(340px, 0.72fr); gap: clamp(60px, 9vw, 150px); padding-block: clamp(96px, 11vw, 160px); border-top: 1px solid var(--v2-line); }
 .home-v2-contact-copy h2 { max-width: none; }
