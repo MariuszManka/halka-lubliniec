@@ -114,8 +114,8 @@ export function JoinPage() {
           <span className="join-hero-year" aria-hidden="true">1948</span>
           <figure className="join-hero-photo">
             <img
-              src="/join/hero-dancers-1800.webp"
-              srcSet="/join/hero-dancers-960.webp 960w, /join/hero-dancers-1800.webp 1800w"
+              src="/join/hero-dancers-landscape-1800.webp"
+              srcSet="/join/hero-dancers-landscape-960.webp 960w, /join/hero-dancers-landscape-1800.webp 1800w"
               sizes="(max-width: 940px) calc(100vw - 32px), 54vw"
               alt="Dwie tancerki Halki w strojach lubelskich"
               fetchPriority="high"
