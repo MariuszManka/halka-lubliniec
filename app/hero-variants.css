@@ -51,7 +51,7 @@
 }
 
 .hv-copy { position: relative; z-index: 4; min-width: 0; }
-.hv-eyebrow { display: grid; justify-items: start; gap: 10px; margin-bottom: 22px; color: var(--hv-green); }
+.hv-eyebrow { display: grid; justify-items: center; width: min(100%, 190px); gap: 10px; margin-bottom: 22px; color: var(--hv-green); }
 .hv-eyebrow > strong { font-size: 0.72rem; font-weight: 830; letter-spacing: 0.12em; text-transform: uppercase; }
 
 .hv-folk-divider {
@@ -144,7 +144,7 @@
   .hv-brand span { display: none; }
   .hv-header > p { font-size: 0.58rem; letter-spacing: 0.08em; }
   .hv-hero { width: calc(100% - 28px); grid-template-rows: auto minmax(165px, 1fr); gap: 9px; padding-block: 14px 18px; }
-  .hv-eyebrow { gap: 7px; margin-bottom: 11px; }
+  .hv-eyebrow { width: 160px; gap: 7px; margin-bottom: 11px; }
   .hv-eyebrow > strong { font-size: 0.62rem; }
   .hv-folk-divider { grid-template-columns: minmax(22px, 44px) 52px minmax(22px, 44px); width: 160px; }
   .hv-folk-divider > b { width: 52px; }
