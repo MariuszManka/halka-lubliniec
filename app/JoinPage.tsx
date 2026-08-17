@@ -31,6 +31,10 @@ const practiceMatchesGroup = (groupId: string, title: string, groups: readonly s
   return groups.includes("ballet");
 };
 
+const recruitmentGroups = ["chor", "balet", "grupa-1", "grupa-2"]
+  .map((id) => ensembleGroups.find((group) => group.id === id))
+  .filter((group): group is (typeof ensembleGroups)[number] => Boolean(group));
+
 export function JoinPage() {
   const [menuOpen, setMenuOpen] = useState(false);
   const headerRef = useRef<HTMLElement>(null);
@@ -94,15 +98,15 @@ export function JoinPage() {
         <div className="join-hero-copy">
           <p className="join-eyebrow"><span>Nabór otwarty</span><i aria-hidden="true" /></p>
           <h1 id="join-title">Twoje miejsce<br />może być <em>w Halce.</em></h1>
-          <p className="join-hero-lead">Nie prowadzimy przesłuchań i nie wymagamy doświadczenia. Wybierz grupę, sprawdź godzinę i przyjdź na próbę — bez zapisów i bez opłat.</p>
+          <p className="join-hero-lead">Masz co najmniej 15 lat i chcesz śpiewać albo tańczyć? A może szukasz zajęć dla dziecka? Nie prowadzimy przesłuchań, nie wymagamy doświadczenia, a udział w każdej grupie jest bezpłatny.</p>
           <div className="join-hero-actions">
-            <a className="join-button join-button-primary" href="#grupy">Wybierz swoją grupę <ArrowRight size={18} weight="bold" /></a>
+            <a className="join-button join-button-primary" href="#grupy">Zobacz grupy i terminy <ArrowRight size={18} weight="bold" /></a>
             <a className="join-button join-button-light" href={siteConfig.contact.mapUrl} target="_blank" rel="noreferrer"><MapPin size={18} /> Jak do nas trafić</a>
           </div>
           <ul className="join-hero-facts" aria-label="Najważniejsze informacje o naborze">
             <li><strong>0 zł</strong><span>udział jest bezpłatny</span></li>
             <li><strong>4</strong><span>grupy do wyboru</span></li>
-            <li><strong>cały rok</strong><span>możesz dołączyć w dowolnym momencie</span></li>
+            <li><strong>cały rok</strong><span>można dołączyć w dowolnym momencie</span></li>
           </ul>
         </div>
 
@@ -124,20 +128,25 @@ export function JoinPage() {
           <h2 id="join-how-title">Nie zapisujesz się.<br /><em>Po prostu przychodzisz.</em></h2>
         </div>
         <ol className="join-steps">
-          <li><span>01</span><div><strong>Wybierz grupę</strong><p>Dopasuj ją do wieku i tego, czy chcesz śpiewać, tańczyć, czy robić jedno i drugie.</p></div></li>
+          <li><span>01</span><div><strong>Wybierz właściwą grupę</strong><p>Dla siebie wybierz chór albo grupę taneczną — obie od 15 lat. Dla dziecka sprawdź grupę 6–8 lub 9–14 lat, w których łączymy śpiew i taniec.</p></div></li>
           <li><span>02</span><div><strong>Sprawdź próbę</strong><p>Terminy znajdziesz poniżej. Wszystkie zajęcia odbywają się w siedzibie zespołu.</p></div></li>
-          <li><span>03</span><div><strong>Przyjdź i zobacz</strong><p>Nie musisz nic deklarować. Weź udział w zajęciach i sprawdź, czy dobrze się z nami czujesz.</p></div></li>
+          <li><span>03</span><div><strong>Przyjdź lub przyprowadź dziecko</strong><p>Nie trzeba wcześniej się zapisywać ani niczego deklarować. Wystarczy pojawić się na wybranej próbie i sprawdzić, czy Halka jest dobrym miejscem dla Ciebie lub Twojego dziecka.</p></div></li>
         </ol>
       </section>
 
       <section className="join-groups join-shell" id="grupy" aria-labelledby="join-groups-title">
         <div className="join-section-heading join-section-heading-groups">
           <p>Cztery grupy. Jeden zespół.</p>
-          <h2 id="join-groups-title">Znajdź swój rytm.</h2>
+          <h2 id="join-groups-title">Dla siebie albo dla dziecka.</h2>
         </div>
 
+        <nav className="join-audience-paths" aria-label="Wybierz odpowiednią ścieżkę naboru">
+          <a href="#chor"><small>Chcę dołączyć</small><strong>Mam co najmniej 15 lat</strong><span>Chór lub grupa taneczna</span><ArrowRight size={19} /></a>
+          <a href="#grupa-1"><small>Szukam zajęć</small><strong>Dla dziecka w wieku 6–14 lat</strong><span>Dwie grupy łączące śpiew i taniec</span><ArrowRight size={19} /></a>
+        </nav>
+
         <div className="join-group-list">
-          {ensembleGroups.map((group, index) => {
+          {recruitmentGroups.map((group, index) => {
             const nextPractices = calendarEvents
               .filter((event) => event.kind === "Próba" && event.date >= today && practiceMatchesGroup(group.id, event.title, event.groups))
               .slice(0, 2);
@@ -151,8 +160,8 @@ export function JoinPage() {
                 <div className="join-group-copy">
                   <p className="join-group-status"><i aria-hidden="true" /> Nabór otwarty</p>
                   <h3>{group.name}</h3>
-                  <p className="join-group-intro">{group.age} · {group.activity}</p>
-                  <p>{group.id === "grupa-1" && "Pierwsze spotkanie z folklorem przez ruch, zabawę, śpiew i pracę w grupie."}{group.id === "grupa-2" && "Śpiew i taniec rozwijane razem — z coraz większą swobodą ruchu i sceniczną pewnością."}{group.id === "chor" && "Wspólny śpiew dla młodzieży i dorosłych. Wcześniejsze przygotowanie muzyczne nie jest potrzebne."}{group.id === "balet" && "Regularna praca nad techniką i choreografią dla młodzieży i dorosłych. Zaczynamy od podstaw."}</p>
+                  <p className="join-group-intro">{group.id.startsWith("grupa-") ? `Dla dzieci · ${group.age} · ${group.activity}` : `${group.age} · ${group.activity}`}</p>
+                  <p>{group.id === "grupa-1" && "Grupa dla najmłodszych dzieci, które przez ruch, zabawę i wspólny śpiew poznają folklor oraz uczą się pracy w zespole."}{group.id === "grupa-2" && "Grupa dla starszych dzieci, które rozwijają śpiew i taniec razem — z coraz większą swobodą ruchu i sceniczną pewnością."}{group.id === "chor" && "Jeśli chcesz śpiewać, możesz zacząć właśnie tutaj. Chór jest otwarty dla młodzieży i dorosłych, a wcześniejsze przygotowanie muzyczne nie jest potrzebne."}{group.id === "balet" && "Jeśli chcesz tańczyć, dołącz do regularnej pracy nad techniką i choreografią. Grupa jest przeznaczona dla młodzieży i dorosłych — zaczynamy od podstaw."}</p>
                   <div className="join-group-schedule">
                     <CalendarBlank size={22} weight="duotone" />
                     <div><small>Stały termin</small><strong>{group.schedule}</strong></div>
@@ -179,10 +188,10 @@ export function JoinPage() {
         <div className="join-first-copy">
           <p className="join-section-label">Pierwsza próba</p>
           <h2 id="first-visit-title">Weź ciekawość.<br />Resztę pokażemy.</h2>
-          <p>Na zajęcia dziecięce i taneczne warto zabrać wygodny strój sportowy, butelkę wody oraz wygodne buty na zmianę lub skarpetki. Na próbę chóru wystarczy przyjść.</p>
+          <p>Jeśli przychodzisz na próbę taneczną albo przyprowadzasz dziecko, warto zabrać wygodny strój sportowy, butelkę wody oraz buty na zmianę lub skarpetki. Na próbę chóru wystarczy po prostu przyjść.</p>
         </div>
         <div className="join-first-list">
-          <div><CheckCircle size={24} weight="fill" /><span><strong>Bez przesłuchania</strong><small>Nie oceniamy Cię przed pierwszymi zajęciami.</small></span></div>
+          <div><CheckCircle size={24} weight="fill" /><span><strong>Bez przesłuchania</strong><small>Nie oceniamy Ciebie ani dziecka przed pierwszymi zajęciami.</small></span></div>
           <div><CheckCircle size={24} weight="fill" /><span><strong>Bez wcześniejszego doświadczenia</strong><small>Wszystkiego uczymy podczas regularnych prób.</small></span></div>
           <div><CheckCircle size={24} weight="fill" /><span><strong>Całkowicie bezpłatnie</strong><small>Udział w każdej grupie kosztuje 0 zł.</small></span></div>
         </div>
