@@ -97,10 +97,7 @@ export function JoinPage() {
       <section className="join-hero join-shell" aria-labelledby="join-title">
         <div className="join-hero-copy">
           <p className="join-eyebrow"><span>Nabór otwarty</span><i aria-hidden="true" /></p>
-          <h1 id="join-title">
-            <span>Twoje miejsce</span>
-            <span className="join-hero-title-line"><small>może być</small><em>w Halce.</em></span>
-          </h1>
+          <h1 id="join-title">Twoje miejsce<br />może być <em>w Halce.</em></h1>
           <p className="join-hero-lead">Masz co najmniej 15 lat i chcesz śpiewać albo tańczyć? A może szukasz zajęć dla dziecka? Nie prowadzimy przesłuchań, nie wymagamy doświadczenia, a udział w każdej grupie jest bezpłatny.</p>
           <div className="join-hero-actions">
             <a className="join-button join-button-primary" href="#grupy">Zobacz grupy i terminy <ArrowRight size={18} weight="bold" /></a>
