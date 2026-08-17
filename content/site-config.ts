@@ -9,6 +9,7 @@ export const siteConfig = {
     phone: "+48343510687",
     address: "ul. Stalmacha 12, 42-700 Lubliniec",
     mapUrl: "https://maps.app.goo.gl/Fbw8pngy29Q4Bpmo9",
+    mapEmbedUrl: "https://www.google.com/maps?q=ul.%20Stalmacha%2012%2C%2042-700%20Lubliniec&output=embed",
   },
   social: {
     facebook: "https://www.facebook.com/zpit.halka",

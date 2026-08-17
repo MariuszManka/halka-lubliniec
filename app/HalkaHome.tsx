@@ -6,14 +6,12 @@ import {
   ArrowUpRight,
   CalendarBlank,
   EnvelopeSimple,
-  FacebookLogo,
-  InstagramLogo,
   List,
   MapPin,
   Phone,
-  YoutubeLogo,
   X,
 } from "@phosphor-icons/react";
+import { FaFacebookF, FaInstagram, FaYoutube } from "react-icons/fa6";
 import { calendarEvents, eventGroups } from "../content/events";
 import { galleryEvents } from "../content/generated-gallery";
 import { ensembleGroups, mainNavigation, readySuites, siteConfig } from "../content/site-config";
@@ -298,10 +296,24 @@ export function HalkaHome() {
             <a href={siteConfig.contact.mapUrl} target="_blank" rel="noreferrer"><MapPin size={22} /><span><small>Siedziba zespołu</small><strong>{siteConfig.contact.address}</strong></span></a>
           </div>
         </div>
-        <div className="home-v2-socials" aria-label="Media społecznościowe Halki">
-          <a className="home-v2-social home-v2-social-facebook" href={siteConfig.social.facebook} target="_blank" rel="noreferrer"><FacebookLogo size={31} weight="fill" /><span><strong>Facebook</strong><small>Aktualności i wydarzenia</small></span><ArrowUpRight size={19} /></a>
-          <a className="home-v2-social home-v2-social-instagram" href={siteConfig.social.instagram} target="_blank" rel="noreferrer"><InstagramLogo size={31} weight="bold" /><span><strong>Instagram</strong><small>Kulisy i zdjęcia</small></span><ArrowUpRight size={19} /></a>
-          <a className="home-v2-social home-v2-social-youtube" href={siteConfig.social.youtube} target="_blank" rel="noreferrer"><YoutubeLogo size={32} weight="fill" /><span><strong>YouTube</strong><small>Występy i nagrania</small></span><ArrowUpRight size={19} /></a>
+        <div className="home-v2-contact-aside">
+          <div className="home-v2-socials" aria-label="Media społecznościowe Halki">
+            <a className="home-v2-social home-v2-social-facebook" href={siteConfig.social.facebook} target="_blank" rel="noreferrer"><span className="home-v2-social-logo"><FaFacebookF aria-hidden="true" /></span><span><strong>Facebook</strong><small>Aktualności i wydarzenia</small></span><ArrowUpRight size={19} /></a>
+            <a className="home-v2-social home-v2-social-instagram" href={siteConfig.social.instagram} target="_blank" rel="noreferrer"><span className="home-v2-social-logo"><FaInstagram aria-hidden="true" /></span><span><strong>Instagram</strong><small>Kulisy i zdjęcia</small></span><ArrowUpRight size={19} /></a>
+            <a className="home-v2-social home-v2-social-youtube" href={siteConfig.social.youtube} target="_blank" rel="noreferrer"><span className="home-v2-social-logo"><FaYoutube aria-hidden="true" /></span><span><strong>YouTube</strong><small>Występy i nagrania</small></span><ArrowUpRight size={19} /></a>
+          </div>
+          <div className="home-v2-map-card">
+            <iframe
+              src={siteConfig.contact.mapEmbedUrl}
+              title="Mapa z lokalizacją siedziby Zespołu Pieśni i Tańca Halka"
+              loading="lazy"
+              referrerPolicy="no-referrer-when-downgrade"
+            />
+            <a href={siteConfig.contact.mapUrl} target="_blank" rel="noreferrer">
+              <span><MapPin size={18} /><strong>Siedziba zespołu</strong></span>
+              <small>Otwórz trasę w Google Maps <ArrowUpRight size={15} /></small>
+            </a>
+          </div>
         </div>
       </section>
 
