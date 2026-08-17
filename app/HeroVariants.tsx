@@ -15,7 +15,7 @@ function FolkRosette() {
   );
 }
 
-function ScrollRosettes() {
+export function ScrollRosettes() {
   const reduce = useReducedMotion();
   const { scrollYProgress } = useScroll();
   const rotate = useTransform(scrollYProgress, [0, 1], [-18, 170]);
@@ -69,11 +69,11 @@ function HeroCopy() {
   );
 }
 
-function DanceHero() {
+export function DanceHero() {
   const reduce = useReducedMotion();
 
   return (
-    <section className="hv-hero" aria-label="Hero strony głównej">
+    <section className="hv-hero" id="poczatek" aria-label="Hero strony głównej">
       <HeroCopy />
       <motion.figure
         className="hv-dance-visual"

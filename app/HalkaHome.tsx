@@ -17,6 +17,7 @@ import {
 import { calendarEvents, eventGroups } from "../content/events";
 import { galleryEvents } from "../content/generated-gallery";
 import { ensembleGroups, mainNavigation, readySuites, siteConfig } from "../content/site-config";
+import { DanceHero, ScrollRosettes } from "./HeroVariants";
 
 const monthShort = ["STY", "LUT", "MAR", "KWI", "MAJ", "CZE", "LIP", "SIE", "WRZ", "PAŹ", "LIS", "GRU"];
 
@@ -38,10 +39,7 @@ export function HalkaHome() {
 
   return (
     <main className="home-v2">
-      <div className="home-v2-backdrop" aria-hidden="true">
-        <span className="home-v2-rosette home-v2-rosette-one" />
-        <span className="home-v2-rosette home-v2-rosette-two" />
-      </div>
+      <ScrollRosettes />
 
       <header className="home-v2-header">
         <a className="home-v2-brand" href="#poczatek" aria-label="Halka — przejdź na początek strony">
@@ -69,41 +67,7 @@ export function HalkaHome() {
         )}
       </header>
 
-      <section className="home-v2-hero" id="poczatek">
-        <div className="home-v2-hero-copy">
-          <p className="home-v2-motif">Tu tradycja żyje</p>
-          <h1>Od 1948 roku <em>tańczymy razem.</em></h1>
-          <p className="home-v2-lead">
-            Cztery grupy, wiele pokoleń i jedna scena. W Halce uczymy się od siebie,
-            pielęgnujemy śląskie korzenie i pokazujemy folklor z energią, która nie stoi w miejscu.
-          </p>
-          <div className="home-v2-hero-actions">
-            <a className="home-v2-button home-v2-button-primary" href="/dolacz">
-              Dołącz do Halki <ArrowRight size={19} weight="bold" />
-            </a>
-            <a className="home-v2-button home-v2-button-secondary" href="/zapros-halke">
-              Zaproś nas na wydarzenie
-            </a>
-          </div>
-          <div className="home-v2-open-call">
-            <span aria-hidden="true" />
-            <p><strong>Nabór otwarty przez cały rok.</strong> Bez przesłuchań i bez opłat — wystarczy przyjść na próbę.</p>
-          </div>
-        </div>
-
-        <figure className="home-v2-hero-visual">
-          <div className="home-v2-photo-field">
-            <img
-              src="/session/dance-circle.webp"
-              alt="Tancerka Halki widziana z góry podczas obrotu"
-              width="2200"
-              height="1467"
-              fetchPriority="high"
-            />
-          </div>
-          <figcaption><span>Zespół Pieśni i Tańca</span><strong>Halka · Lubliniec</strong></figcaption>
-        </figure>
-      </section>
+      <DanceHero />
 
       <section className="home-v2-join home-v2-shell" id="dolacz" aria-labelledby="dolacz-title">
         <div className="home-v2-join-heading">

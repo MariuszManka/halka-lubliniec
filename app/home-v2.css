@@ -6,12 +6,33 @@
   --v2-red-dark: #ad1d25;
   --v2-paper: #f8f5ee;
   --v2-line: rgba(18, 59, 42, 0.16);
+  --hv-ink: var(--v2-ink);
+  --hv-green: var(--v2-green);
+  --hv-green-deep: var(--v2-green-deep);
+  --hv-red: var(--v2-red);
+  --hv-red-dark: var(--v2-red-dark);
+  --hv-paper: var(--v2-paper);
+  --hv-surface: #fffdf8;
+  --hv-line: var(--v2-line);
   position: relative;
   min-height: 100dvh;
   overflow: clip;
   background: var(--v2-paper);
   color: var(--v2-ink);
   isolation: isolate;
+}
+
+.home-v2 > .hv-scroll-decoration { z-index: 0; }
+
+.home-v2 > header,
+.home-v2 > section,
+.home-v2 > footer {
+  position: relative;
+  z-index: 1;
+}
+
+.home-v2 > .hv-hero {
+  min-height: calc(100dvh - 78px);
 }
 
 .home-v2-backdrop {
