@@ -81,7 +81,16 @@ export function ChroniclePage() {
     () => [...new Set(galleryEvents.map((event) => event.year))].sort((a, b) => b - a),
     [],
   );
-  const visibleYears = year === "all" ? years : years.filter((item) => item === year);
+  const visibleEvents = year === "all"
+    ? galleryEvents
+    : galleryEvents.filter((event) => event.year === year);
+  const coverFocus: Record<string, string> = {
+    "tydzien-kultury-beskidzkiej-2026": "50% 38%",
+    "warsztaty-w-wisle": "50% 42%",
+    "dzien-slaski-w-chorzowie": "50% 34%",
+    "polonez-na-lublinieckim-rynku": "50% 42%",
+    "dni-lublinca-2025": "50% 36%",
+  };
   const closeGallery = () => {
     setActiveEvent(null);
     setActiveImage(0);
@@ -176,7 +185,7 @@ export function ChroniclePage() {
           <div className="gallery-costume-frame">
             <motion.img
               src="/session/modal-zywiec-female-04.webp"
-              alt="Barwny haft męskiego stroju ludowego Zespołu Halka"
+              alt="Barwny haft stroju żywieckiego Zespołu Halka"
               width="1467"
               height="2200"
               loading="eager"
@@ -208,68 +217,45 @@ export function ChroniclePage() {
         </div>
 
         <AnimatePresence mode="popLayout">
-          <motion.div className="chronicle-years" layout>
-            {visibleYears.map((itemYear) => {
-              const events = galleryEvents.filter((event) => event.year === itemYear);
-              const photos = events.reduce((sum, event) => sum + event.images.length, 0);
-              return (
-                <motion.section
-                  className="chronicle-year-group"
-                  id={`rok-${itemYear}`}
-                  key={itemYear}
-                  layout
-                  initial={reduce ? false : { opacity: 0, y: 24 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: 16 }}
-                  transition={{ duration: 0.45 }}
+          <motion.div className="gallery-masonry" layout key={year}>
+            {visibleEvents.map((event, index) => (
+              <motion.article
+                className={`gallery-masonry-card gallery-masonry-card-${(index % 6) + 1}`}
+                key={event.id}
+                layout
+                initial={reduce ? false : { opacity: 0, y: 18 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: 12 }}
+                transition={{ duration: 0.5, delay: Math.min(index, 5) * 0.045, ease: [0.16, 1, 0.3, 1] }}
+                style={{ "--gallery-focus": coverFocus[event.id] ?? "50% 38%" } as React.CSSProperties}
+              >
+                <button
+                  className="gallery-card-button"
+                  type="button"
+                  onClick={() => { setActiveEvent(event); setActiveImage(0); }}
+                  aria-label={`Otwórz galerię: ${event.title}`}
                 >
-                  <header className="chronicle-year-heading">
-                    <strong>{itemYear}</strong>
-                    <span>{events.length} {events.length === 1 ? "wydarzenie" : "wydarzenia"} · {photos} zdjęć</span>
-                  </header>
-                  <div className="archive-events-grid">
-                    {events.map((event, index) => (
-                      <motion.article
-                        className={`archive-event-card ${index === 0 ? "archive-event-card-featured" : ""}`}
-                        key={event.id}
-                        initial={reduce ? false : { opacity: 0, y: 22 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        viewport={{ once: true, amount: 0.15 }}
-                        transition={{ duration: 0.6, delay: index * 0.05, ease: [0.16, 1, 0.3, 1] }}
-                      >
-                        <button
-                          className="archive-event-cover"
-                          type="button"
-                          onClick={() => { setActiveEvent(event); setActiveImage(0); }}
-                          aria-label={`Otwórz galerię: ${event.title}`}
-                        >
-                          <span className="archive-main-photo">
-                            <img src={event.images[0].src} alt={event.images[0].alt} width={event.images[0].width} height={event.images[0].height} loading="lazy" />
-                          </span>
-                          <span className="archive-preview-stack" aria-hidden="true">
-                            {event.images.slice(1, 3).map((image) => (
-                              <img key={image.src} src={image.src} alt="" width={image.width} height={image.height} loading="lazy" />
-                            ))}
-                          </span>
-                          <span className="archive-photo-count"><Camera size={17} /> {event.images.length}</span>
-                        </button>
-                        <div className="archive-event-info">
-                          <div className="archive-event-meta">
-                            <span>{formatDate(event.date)}</span>
-                            <span><MapPin size={15} /> {event.location}</span>
-                          </div>
-                          <h3>{event.title}</h3>
-                          <p>{event.description}</p>
-                          <button className="text-link" type="button" onClick={() => { setActiveEvent(event); setActiveImage(0); }}>
-                            Otwórz galerię <ArrowRight size={18} />
-                          </button>
-                        </div>
-                      </motion.article>
-                    ))}
-                  </div>
-                </motion.section>
-              );
-            })}
+                  <img
+                    src={event.images[0].src}
+                    alt={event.images[0].alt}
+                    width={event.images[0].width}
+                    height={event.images[0].height}
+                    loading="lazy"
+                  />
+                  <span className="gallery-card-shade" aria-hidden="true" />
+                  <span className="gallery-card-year">{event.year}</span>
+                  <span className="gallery-card-count"><Camera size={16} /> {event.images.length}</span>
+                  <span className="gallery-card-copy">
+                    <span className="gallery-card-meta">
+                      <span>{formatDate(event.date)}</span>
+                      <span><MapPin size={14} /> {event.location}</span>
+                    </span>
+                    <strong>{event.title}</strong>
+                    <span className="gallery-card-action">Zobacz zdjęcia <ArrowRight size={17} /></span>
+                  </span>
+                </button>
+              </motion.article>
+            ))}
           </motion.div>
         </AnimatePresence>
       </section>

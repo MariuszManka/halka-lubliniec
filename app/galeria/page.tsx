@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { ChroniclePage } from "../ChroniclePage";
+import "../gallery.css";
 
 export const metadata: Metadata = {
   title: "Galeria zespołu | Halka Lubliniec",

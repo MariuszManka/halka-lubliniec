@@ -1,0 +1,301 @@
+/* Galeria: jeden responsywny grid wydarzen. */
+.chronicle-page {
+  --gallery-ink: #153f2c;
+  --gallery-red: #c62f2c;
+  --gallery-cream: #fbf7ee;
+  overflow: clip;
+}
+
+/* Hero zachowuje wczesniejszy ksztalt i pozycje fotografii. */
+.chronicle-page .chronicle-hero {
+  min-height: min(820px, calc(100svh - var(--header-height, 84px)));
+  grid-template-columns: minmax(0, 0.92fr) minmax(360px, 0.72fr);
+  gap: clamp(46px, 7vw, 112px);
+  padding-top: clamp(62px, 8vh, 102px);
+  padding-bottom: clamp(76px, 9vh, 118px);
+}
+.chronicle-page .chronicle-hero-copy { max-width: 680px; }
+.chronicle-page .chronicle-hero-copy h1 { line-height: 0.88; letter-spacing: -0.055em; }
+.chronicle-page .gallery-hero-costume { width: min(100%, 555px); justify-self: end; margin: 0; }
+.chronicle-page .gallery-costume-frame {
+  aspect-ratio: 0.76;
+  overflow: hidden;
+  border: 1px solid rgba(21, 63, 44, 0.12);
+  border-radius: 42% 18px 42% 18px;
+  box-shadow: 0 30px 78px rgba(21, 63, 44, 0.13);
+}
+.chronicle-page .gallery-costume-frame img {
+  width: 100%; height: 100%; object-fit: cover; object-position: 50% 34%;
+}
+.chronicle-page .gallery-costume-stitch { right: -20px; top: 58px; opacity: 0.65; }
+
+.chronicle-page .chronicle-archive {
+  padding-top: clamp(104px, 11vw, 164px);
+  padding-bottom: clamp(112px, 12vw, 180px);
+}
+.chronicle-page .chronicle-archive-heading {
+  display: block;
+  max-width: 860px;
+  margin-bottom: 42px;
+}
+.chronicle-page .chronicle-archive-heading h2 { max-width: 790px; margin: 0; text-wrap: balance; }
+.chronicle-page .chronicle-archive-heading > p { max-width: 620px; margin: 22px 0 0; }
+
+.chronicle-page .chronicle-year-filter {
+  position: sticky;
+  z-index: 12;
+  top: calc(var(--header-height, 84px) + 12px);
+  display: flex;
+  width: max-content;
+  max-width: 100%;
+  gap: 6px;
+  margin: 0 0 clamp(58px, 7vw, 92px);
+  padding: 7px;
+  border: 1px solid rgba(21, 63, 44, 0.14);
+  border-radius: 999px;
+  background: var(--gallery-cream);
+  box-shadow: 0 13px 38px rgba(21, 63, 44, 0.08);
+  backdrop-filter: none;
+}
+.chronicle-page .chronicle-year-filter button {
+  flex: none; min-height: 44px; padding: 0 20px; border-radius: 999px; scroll-snap-align: start;
+}
+
+/* Jeden wspolny mosaic grid. Wiersze sa jawne, wiec karty nie moga sie nakladac. */
+.chronicle-page .gallery-masonry {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  grid-auto-rows: 20px;
+  grid-auto-flow: row dense;
+  gap: 18px;
+  width: 100%;
+  min-width: 0;
+}
+
+.chronicle-page .gallery-masonry-card {
+  position: relative;
+  min-width: 0;
+  min-height: 0;
+  overflow: hidden;
+  border-radius: 16px;
+  background: #dcd7ca;
+  box-shadow: 0 16px 42px rgba(21, 63, 44, 0.1);
+}
+.chronicle-page .gallery-masonry-card-1 { grid-column: span 7; grid-row: span 15; }
+.chronicle-page .gallery-masonry-card-2 { grid-column: span 5; grid-row: span 15; }
+.chronicle-page .gallery-masonry-card-3 { grid-column: span 4; grid-row: span 14; }
+.chronicle-page .gallery-masonry-card-4 { grid-column: span 5; grid-row: span 14; }
+.chronicle-page .gallery-masonry-card-5 { grid-column: span 3; grid-row: span 14; }
+.chronicle-page .gallery-masonry-card-6 { grid-column: span 7; grid-row: span 15; }
+.chronicle-page .gallery-masonry-card:only-child { grid-column: span 9; grid-row: span 15; }
+
+.chronicle-page .gallery-card-button {
+  position: absolute;
+  inset: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+  padding: 0;
+  border: 0;
+  border-radius: inherit;
+  background: #dcd7ca;
+  overflow: hidden;
+  color: #fffaf0;
+  text-align: left;
+  cursor: zoom-in;
+}
+
+.chronicle-page .gallery-card-button > img {
+  position: absolute;
+  inset: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+  max-width: none;
+  object-fit: cover;
+  object-position: var(--gallery-focus, 50% 38%);
+  transform: scale(1.001);
+  transition: transform 600ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+.chronicle-page .gallery-card-button:hover > img { transform: scale(1.035); }
+
+.chronicle-page .gallery-card-shade {
+  position: absolute;
+  inset: 25% 0 0;
+  background: linear-gradient(to bottom, transparent, rgba(7, 23, 16, 0.86));
+  pointer-events: none;
+}
+.chronicle-page .gallery-card-year,
+.chronicle-page .gallery-card-count {
+  position: absolute;
+  z-index: 2;
+  top: 15px;
+  min-height: 34px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 0 12px;
+  border-radius: 999px;
+  background: rgba(251, 247, 238, 0.94);
+  color: var(--gallery-ink);
+  font: 750 0.76rem/1 var(--font-sans, sans-serif);
+  letter-spacing: 0.04em;
+  box-shadow: 0 7px 20px rgba(8, 25, 17, 0.13);
+}
+.chronicle-page .gallery-card-year { left: 15px; }
+.chronicle-page .gallery-card-count { right: 15px; }
+
+.chronicle-page .gallery-card-copy {
+  position: absolute;
+  z-index: 2;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: block;
+  padding: clamp(22px, 3vw, 40px);
+}
+.chronicle-page .gallery-card-meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 7px 15px;
+  color: rgba(255, 250, 240, 0.82);
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.055em;
+  text-transform: uppercase;
+}
+.chronicle-page .gallery-card-meta > span { display: inline-flex; align-items: center; gap: 5px; }
+.chronicle-page .gallery-card-copy > strong {
+  display: block;
+  max-width: 690px;
+  margin-top: 12px;
+  color: #fffaf0;
+  font-family: var(--font-display, serif);
+  font-size: clamp(1.7rem, 2.55vw, 3.1rem);
+  font-weight: 650;
+  line-height: 1.02;
+  letter-spacing: -0.035em;
+  text-wrap: balance;
+}
+.chronicle-page .gallery-masonry-card-2 .gallery-card-copy > strong,
+.chronicle-page .gallery-masonry-card-3 .gallery-card-copy > strong,
+.chronicle-page .gallery-masonry-card-5 .gallery-card-copy > strong {
+  font-size: clamp(1.45rem, 2vw, 2.25rem);
+}
+.chronicle-page .gallery-card-action {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  margin-top: 15px;
+  color: #fffaf0;
+  font-size: 0.76rem;
+  font-weight: 750;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  opacity: 0;
+  transform: translateY(5px);
+  transition: opacity 260ms ease, transform 260ms ease;
+}
+.chronicle-page .gallery-card-button:hover .gallery-card-action,
+.chronicle-page .gallery-card-button:focus-visible .gallery-card-action {
+  opacity: 1;
+  transform: translateY(0);
+}
+.chronicle-page .gallery-card-button::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border: 1px solid rgba(255, 255, 255, 0.28);
+  border-radius: inherit;
+  pointer-events: none;
+}
+
+.chronicle-page .lightbox-backdrop { overscroll-behavior: contain; }
+.chronicle-page .lightbox { width: min(100%, 1540px); }
+
+@media (max-width: 1040px) {
+  .chronicle-page .chronicle-hero {
+    min-height: auto;
+    grid-template-columns: 1fr;
+    gap: 48px;
+    padding-top: 52px;
+  }
+  .chronicle-page .gallery-hero-costume { width: min(88vw, 555px); justify-self: center; }
+  .chronicle-page .gallery-masonry { grid-auto-rows: 22px; gap: 16px; }
+  .chronicle-page .gallery-masonry-card,
+  .chronicle-page .gallery-masonry-card-1,
+  .chronicle-page .gallery-masonry-card-2,
+  .chronicle-page .gallery-masonry-card-3,
+  .chronicle-page .gallery-masonry-card-4,
+  .chronicle-page .gallery-masonry-card-5,
+  .chronicle-page .gallery-masonry-card-6 {
+    grid-column: span 6;
+    grid-row: span 14;
+  }
+  .chronicle-page .gallery-masonry-card:first-child,
+  .chronicle-page .gallery-masonry-card:only-child {
+    grid-column: 1 / -1;
+    grid-row: span 14;
+  }
+}
+
+@media (max-width: 700px) {
+  .chronicle-page .chronicle-hero { padding-top: 38px; padding-bottom: 80px; }
+  .chronicle-page .chronicle-hero-copy h1 { font-size: clamp(4rem, 21vw, 6.4rem); }
+  .chronicle-page .gallery-hero-costume { width: 100%; }
+  .chronicle-page .gallery-costume-frame { aspect-ratio: 0.84; }
+  .chronicle-page .chronicle-archive { padding-top: 92px; padding-bottom: 112px; }
+  .chronicle-page .chronicle-archive-heading { margin-bottom: 30px; }
+  .chronicle-page .chronicle-year-filter {
+    position: relative;
+    top: auto;
+    width: 100%;
+    margin-bottom: 52px;
+    overflow-x: auto;
+    scroll-snap-type: x proximity;
+    scrollbar-width: none;
+  }
+  .chronicle-page .chronicle-year-filter::-webkit-scrollbar { display: none; }
+  .chronicle-page .gallery-masonry {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    grid-auto-rows: auto;
+    gap: 14px;
+  }
+  .chronicle-page .gallery-masonry-card,
+  .chronicle-page .gallery-masonry-card:first-child,
+  .chronicle-page .gallery-masonry-card:only-child,
+  .chronicle-page .gallery-masonry-card-1,
+  .chronicle-page .gallery-masonry-card-2,
+  .chronicle-page .gallery-masonry-card-3,
+  .chronicle-page .gallery-masonry-card-4,
+  .chronicle-page .gallery-masonry-card-5,
+  .chronicle-page .gallery-masonry-card-6 {
+    grid-column: 1;
+    grid-row: auto;
+    height: clamp(310px, 102vw, 430px);
+    border-radius: 14px;
+  }
+  .chronicle-page .gallery-masonry-card:nth-child(3n + 1) { height: clamp(270px, 82vw, 370px); }
+  .chronicle-page .gallery-card-copy { padding: 21px 18px; }
+  .chronicle-page .gallery-card-copy > strong,
+  .chronicle-page .gallery-masonry-card-2 .gallery-card-copy > strong,
+  .chronicle-page .gallery-masonry-card-3 .gallery-card-copy > strong,
+  .chronicle-page .gallery-masonry-card-5 .gallery-card-copy > strong {
+    max-width: 94%;
+    font-size: clamp(1.55rem, 7.6vw, 2.2rem);
+  }
+  .chronicle-page .gallery-card-meta { display: grid; gap: 5px; font-size: 0.68rem; }
+  .chronicle-page .gallery-card-action { display: none; }
+  .chronicle-page .gallery-card-year,
+  .chronicle-page .gallery-card-count { top: 12px; min-height: 32px; padding: 0 10px; }
+  .chronicle-page .gallery-card-year { left: 12px; }
+  .chronicle-page .gallery-card-count { right: 12px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .chronicle-page .gallery-card-button > img,
+  .chronicle-page .gallery-card-action { transition: none; }
+}
