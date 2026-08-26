@@ -1,0 +1,166 @@
+{
+  "joinPage": {
+    "hero": {
+      "eyebrow": "Nabór otwarty",
+      "title": "Twoje miejsce\nmoże być",
+      "titleAccent": "w Halce.",
+      "lead": "Masz co najmniej 15 lat i chcesz śpiewać albo tańczyć? A może szukasz zajęć dla dziecka? Nie prowadzimy przesłuchań, nie wymagamy doświadczenia, a udział w każdej grupie jest bezpłatny.",
+      "primaryCtaLabel": "Zobacz grupy i terminy",
+      "secondaryCtaLabel": "Jak do nas trafić",
+      "facts": [
+        { "value": "0 zł", "label": "udział jest bezpłatny" },
+        { "value": "4", "label": "grupy do wyboru" },
+        { "value": "cały rok", "label": "można dołączyć w dowolnym momencie" }
+      ],
+      "image": {
+        "src": "/join/hero-dancers-landscape-1800.webp",
+        "alt": "Dwie tancerki Halki w strojach lubelskich",
+        "width": 1800,
+        "height": 1200
+      },
+      "imageLabel": "Balet",
+      "imageMeta": "od 15 lat",
+      "noteLabel": "Bez przesłuchań",
+      "noteText": "Przyjdź na próbę\ni poznaj nas."
+    },
+    "how": {
+      "eyebrow": "Najprostsza droga do zespołu",
+      "title": "Nie zapisujesz się.",
+      "titleAccent": "Po prostu przychodzisz.",
+      "steps": [
+        { "title": "Wybierz właściwą grupę", "text": "Sprawdź wiek uczestników oraz rodzaj zajęć. Chór skupia się na śpiewie, balet na tańcu, a obie grupy dziecięce łączą śpiew i taniec." },
+        { "title": "Sprawdź próbę", "text": "Terminy znajdziesz poniżej. Wszystkie zajęcia odbywają się w siedzibie zespołu." },
+        { "title": "Przyjdź na próbę", "text": "Nie trzeba wcześniej się zapisywać ani niczego deklarować. Wystarczy pojawić się na wybranych zajęciach — samodzielnie lub z dzieckiem — i poznać zespół." }
+      ]
+    },
+    "groups": {
+      "eyebrow": "Cztery grupy. Jeden zespół.",
+      "title": "Wybierz swoją drogę",
+      "titleAccent": "do Halki.",
+      "paths": [
+        { "eyebrow": "Chcę dołączyć", "title": "Mam co najmniej 15 lat", "text": "Chór lub grupa taneczna", "href": "#chor" },
+        { "eyebrow": "Szukam zajęć", "title": "Dla dziecka w wieku 6–14 lat", "text": "Dwie grupy łączące śpiew i taniec", "href": "#grupa-1" }
+      ],
+      "items": [
+        {
+          "id": "chor",
+          "name": "Chór",
+          "meta": "Od 15 lat · Śpiew wielogłosowy",
+          "schedule": "Czwartki, 17:30-19:30",
+          "description": "Jeśli chcesz śpiewać, możesz zacząć właśnie tutaj. Chór jest otwarty dla młodzieży i dorosłych, a wcześniejsze przygotowanie muzyczne nie jest potrzebne.",
+          "statusLabel": "Nabór otwarty",
+          "image": { "src": "/session/2-grupowe-halka-wkf-8263.webp", "alt": "Chór Zespołu Pieśni i Tańca Halka" }
+        },
+        {
+          "id": "balet",
+          "name": "Balet",
+          "meta": "Od 15 lat · Taniec",
+          "schedule": "Środy i piątki, 18:00-20:00",
+          "description": "Jeśli chcesz tańczyć, dołącz do regularnej pracy nad techniką i choreografią. Grupa jest przeznaczona dla młodzieży i dorosłych — zaczynamy od podstaw.",
+          "statusLabel": "Nabór otwarty",
+          "image": { "src": "/session/2-grupowe-halka-wkf-0785.webp", "alt": "Grupa baletowa Zespołu Halka" }
+        },
+        {
+          "id": "grupa-1",
+          "name": "Grupa 1",
+          "meta": "Dla dzieci · 6-8 lat · Śpiew i taniec",
+          "schedule": "Środy i piątki, 15:30-16:20",
+          "description": "Grupa dla najmłodszych dzieci, które przez ruch, zabawę i wspólny śpiew poznają folklor oraz uczą się pracy w zespole.",
+          "statusLabel": "Nabór otwarty",
+          "image": { "src": "/session/children-group.webp", "alt": "Najmłodsza grupa dziecięca Zespołu Halka" }
+        },
+        {
+          "id": "grupa-2",
+          "name": "Grupa 2",
+          "meta": "Dla dzieci · 9-14 lat · Śpiew i taniec",
+          "schedule": "Środy i piątki, 16:30-17:50",
+          "description": "Grupa dla starszych dzieci, które rozwijają śpiew i taniec razem — z coraz większą swobodą ruchu i sceniczną pewnością.",
+          "statusLabel": "Nabór otwarty",
+          "image": { "src": "/session/2-grupowe-halka-wkf-7642.webp", "alt": "Druga grupa dziecięca Zespołu Halka" }
+        }
+      ]
+    },
+    "firstVisit": {
+      "eyebrow": "Pierwsza próba",
+      "title": "Weź ciekawość.",
+      "titleAccent": "Resztę pokażemy.",
+      "text": "Jeśli przychodzisz na próbę taneczną albo przyprowadzasz dziecko, warto zabrać wygodny strój sportowy, butelkę wody oraz buty na zmianę lub skarpetki. Na próbę chóru wystarczy po prostu przyjść.",
+      "benefits": [
+        { "title": "Bez przesłuchania", "text": "Nie oceniamy Ciebie ani dziecka przed pierwszymi zajęciami." },
+        { "title": "Bez wcześniejszego doświadczenia", "text": "Wszystkiego uczymy podczas regularnych prób." },
+        { "title": "Całkowicie bezpłatnie", "text": "Udział w każdej grupie kosztuje 0 zł." }
+      ]
+    },
+    "location": {
+      "eyebrow": "Tu się spotykamy",
+      "title": "Siedziba zespołu",
+      "mapCtaLabel": "Otwórz trasę w Google Maps",
+      "emailCtaLabel": "Masz pytanie? Napisz do nas"
+    }
+  },
+  "invitePage": {
+    "hero": {
+      "eyebrow": "Oferta występów",
+      "title": "Zaproś",
+      "titleAccent": "Halkę",
+      "titleSuffix": "na swoją scenę.",
+      "lead": "Koncert, święto miasta, dożynki albo spotkanie lokalnej społeczności. Program i skład dobieramy do miejsca, czasu oraz charakteru wydarzenia.",
+      "primaryCtaLabel": "Zapytaj o dostępność",
+      "secondaryCtaLabel": "Zobacz programy",
+      "image": { "src": "/gallery/tydzien-kultury-beskidzkiej-2026/01.webp", "alt": "Tancerze Halki podczas występu na scenie w Wiśle", "width": 1800, "height": 1200 },
+      "noteLabel": "Program ustalamy wspólnie",
+      "noteText": "Termin, miejsce i publiczność wyznaczają najlepszą formę występu."
+    },
+    "formats": {
+      "eyebrow": "Program występu",
+      "title": "Dobieramy program",
+      "titleAccent": "do wydarzenia.",
+      "lead": "Po krótkiej rozmowie proponujemy skład, repertuar i długość występu odpowiednie dla sceny oraz publiczności.",
+      "items": [
+        { "icon": "clock", "title": "Pełna suita regionalna", "text": "Spójny program pieśni i tańców w kostiumach danego regionu. Pełna forma może trwać około 40 minut." },
+        { "icon": "people", "title": "Wybrana część zespołu", "text": "Chór, grupa dziecięca albo balet. Dobieramy skład do charakteru wydarzenia i dostępnej przestrzeni." },
+        { "icon": "check", "title": "Cała Halka na scenie", "text": "Wspólny występ dzieci, chóru i baletu, jeśli termin pozwala zebrać pełny skład zespołu." }
+      ]
+    },
+    "suites": {
+      "eyebrow": "Gotowy repertuar",
+      "title": "Trzy regiony.",
+      "titleAccent": "Trzy charaktery.",
+      "lead": "Publikujemy tylko programy, które są gotowe do pokazania. Planowane suity lubelska i beskidzka pozostają kierunkiem dalszej pracy.",
+      "items": [
+        { "id": "slaska", "name": "Suita śląska", "label": "Program flagowy", "description": "Najbliższa miejscu, z którego wyrasta Halka. Łączy regionalny śpiew, taniec i kostium w pełną sceniczną opowieść.", "image": { "src": "/session/modal-slask-rozbark-female-01.webp", "alt": "Tancerki, chór i balet Halki podczas prezentacji programu śląskiego", "width": 1800, "height": 1198 } },
+        { "id": "rzeszowska", "name": "Suita rzeszowska", "label": "Gotowy program", "description": "Żywiołowa forma, charakterystyczny śpiew i kostiumy, które od pierwszej chwili budują energię występu.", "image": { "src": "/session/rzeszow-worn-2.webp", "alt": "Członkini Halki prezentująca elementy kobiecego stroju rzeszowskiego", "width": 1467, "height": 2200 } },
+        { "id": "krakowska", "name": "Suita krakowska", "label": "Gotowy program", "description": "Wyrazisty rytm, tempo i bogate kostiumy tworzą program dobrze rozpoznawalny przez publiczność w każdym wieku.", "image": { "src": "/session/krakow-worn-2.webp", "alt": "Członkowie Halki w strojach krakowskich", "width": 2200, "height": 1467 } }
+      ],
+      "costumesCtaLabel": "Zobacz kostiumy regionu"
+    },
+    "process": {
+      "eyebrow": "Przed występem",
+      "title": "Najpierw ustalamy, czego potrzebuje wydarzenie.",
+      "image": { "src": "/session/dance-circle.webp", "alt": "Tancerka Halki widziana z góry podczas obrotu", "width": 2200, "height": 1467 },
+      "items": [
+        { "icon": "calendar", "title": "Termin i miejsce", "text": "Sprawdzamy dostępność członków oraz możliwości dojazdu." },
+        { "icon": "clock", "title": "Długość programu", "text": "Ustalamy pełną suitę albo krótszą, dopasowaną formę." },
+        { "icon": "people", "title": "Skład zespołu", "text": "Potwierdzamy, które grupy mogą wystąpić w danym terminie." },
+        { "icon": "location", "title": "Warunki na miejscu", "text": "Rozmawiamy o przestrzeni, scenie i przebiegu wydarzenia." }
+      ]
+    },
+    "stage": {
+      "eyebrow": "Halka na żywo",
+      "title": "Zobacz nas",
+      "titleAccent": "w pełnym składzie.",
+      "lead": "Balet, chór i grupy dziecięce mogą spotkać się w jednym wspólnym programie.",
+      "image": { "src": "/gallery/dni-lublinca-2025/14.webp", "alt": "Dzieci, chór i balet Halki podczas wspólnego występu na Dniach Lublińca", "width": 1800, "height": 1200 },
+      "eventTitle": "Dni Lublińca",
+      "eventText": "Wspólny występ wszystkich grup zespołu",
+      "ctaLabel": "Przejdź do galerii"
+    },
+    "contact": {
+      "eyebrow": "Zapytaj o termin",
+      "title": "Porozmawiajmy o Twoim wydarzeniu.",
+      "lead": "Ostateczny program i skład potwierdzamy po sprawdzeniu dostępności zespołu.",
+      "hint": "W pierwszej wiadomości podaj termin, miejsce i przewidywaną długość występu.",
+      "socialPrompt": "Wolisz napisać w social mediach?"
+    }
+  }
+}

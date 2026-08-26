@@ -9,69 +9,29 @@ import {
   Check,
   Clock,
   EnvelopeSimple,
+  InstagramLogo,
   List,
   MapPin,
+  MessengerLogo,
   Phone,
   UsersThree,
   X,
 } from "@phosphor-icons/react";
 import { mainNavigation, siteConfig } from "../content/site-config";
+import type { InvitePageContent } from "../sanity/content-types";
 import { ScrollRosettes } from "./HeroVariants";
 
 const contactSubject = "Zapytanie%20o%20dost%C4%99pno%C5%9B%C4%87%20zespo%C5%82u";
 
-const performanceFormats = [
-  {
-    icon: Clock,
-    title: "Pełna suita regionalna",
-    text: "Spójny program pieśni i tańców w kostiumach danego regionu. Pełna forma może trwać około 40 minut.",
-  },
-  {
-    icon: UsersThree,
-    title: "Wybrana część zespołu",
-    text: "Chór, grupa dziecięca albo balet. Dobieramy skład do charakteru wydarzenia i dostępnej przestrzeni.",
-  },
-  {
-    icon: Check,
-    title: "Cała Halka na scenie",
-    text: "Wspólny występ dzieci, chóru i baletu, jeśli termin pozwala zebrać pełny skład zespołu.",
-  },
-] as const;
+const iconComponents = {
+  calendar: CalendarBlank,
+  check: Check,
+  clock: Clock,
+  location: MapPin,
+  people: UsersThree,
+} as const;
 
-const suites = [
-  {
-    id: "slaska",
-    name: "Suita śląska",
-    label: "Program flagowy",
-    description: "Najbliższa miejscu, z którego wyrasta Halka. Łączy regionalny śpiew, taniec i kostium w pełną sceniczną opowieść.",
-    image: "/gallery/dzien-slaski-w-chorzowie/01.webp",
-    imageAlt: "Tancerki, chór i balet Halki podczas prezentacji programu śląskiego",
-    width: 1800,
-    height: 1198,
-  },
-  {
-    id: "rzeszowska",
-    name: "Suita rzeszowska",
-    label: "Gotowy program",
-    description: "Żywiołowa forma, charakterystyczny śpiew i kostiumy, które od pierwszej chwili budują energię występu.",
-    image: "/session/rzeszow-worn-2.webp",
-    imageAlt: "Członkini Halki prezentująca elementy kobiecego stroju rzeszowskiego",
-    width: 1467,
-    height: 2200,
-  },
-  {
-    id: "krakowska",
-    name: "Suita krakowska",
-    label: "Gotowy program",
-    description: "Wyrazisty rytm, tempo i bogate kostiumy tworzą program dobrze rozpoznawalny przez publiczność w każdym wieku.",
-    image: "/session/krakow-worn-2.webp",
-    imageAlt: "Członkowie Halki w strojach krakowskich",
-    width: 2200,
-    height: 1467,
-  },
-] as const;
-
-export function InvitePage() {
+export function InvitePage({ content }: { content: InvitePageContent }) {
   const [menuOpen, setMenuOpen] = useState(false);
   const headerRef = useRef<HTMLElement>(null);
   const menuButtonRef = useRef<HTMLButtonElement>(null);
@@ -136,69 +96,75 @@ export function InvitePage() {
 
       <section className="invite-hero invite-shell" id="invite-content" aria-labelledby="invite-title">
         <div className="invite-hero-copy">
-          <p className="invite-eyebrow"><span>Oferta występów</span><i aria-hidden="true" /></p>
-          <h1 id="invite-title">Zaproś <em>Halkę</em><br />na swoją scenę.</h1>
-          <p className="invite-hero-lead">Koncert, święto miasta, dożynki albo spotkanie lokalnej społeczności. Program i skład dobieramy do miejsca, czasu oraz charakteru wydarzenia.</p>
+          <p className="invite-eyebrow"><span>{content.hero.eyebrow}</span><i aria-hidden="true" /></p>
+          <h1 id="invite-title">{content.hero.title} <em>{content.hero.titleAccent}</em><br />{content.hero.titleSuffix}</h1>
+          <p className="invite-hero-lead">{content.hero.lead}</p>
           <div className="invite-hero-actions">
-            <a className="invite-button invite-button-primary" href={`mailto:${siteConfig.contact.email}?subject=${contactSubject}`}>Zapytaj o dostępność <ArrowRight size={18} weight="bold" /></a>
-            <a className="invite-button invite-button-light" href="#programy">Zobacz programy</a>
+            <a className="invite-button invite-button-primary" href={`mailto:${siteConfig.contact.email}?subject=${contactSubject}`}>{content.hero.primaryCtaLabel} <ArrowRight size={18} weight="bold" /></a>
+            <a className="invite-button invite-button-light" href="#programy">{content.hero.secondaryCtaLabel}</a>
           </div>
         </div>
 
         <div className="invite-hero-visual">
           <figure className="invite-hero-photo">
             <img
-              src="/gallery/tydzien-kultury-beskidzkiej-2026/01.webp"
-              alt="Tancerze Halki podczas występu na scenie w Wiśle"
-              width="1800"
-              height="1200"
+              src={content.hero.image.src}
+              alt={content.hero.image.alt}
+              width={content.hero.image.width || 1800}
+              height={content.hero.image.height || 1200}
               fetchPriority="high"
               decoding="async"
             />
           </figure>
           <div className="invite-hero-note">
-            <span>Program ustalamy wspólnie</span>
-            <strong>Termin, miejsce i publiczność wyznaczają najlepszą formę występu.</strong>
+            <span>{content.hero.noteLabel}</span>
+            <strong>{content.hero.noteText}</strong>
           </div>
           <span className="invite-hero-ornament" aria-hidden="true"><i /><i /><i /><i /><i /></span>
         </div>
       </section>
 
       <section className="invite-formats invite-shell" aria-labelledby="formats-title">
-        <div className="invite-section-heading">
-          <p>Elastyczny program</p>
-          <h2 id="formats-title">Nie gotowy pakiet.<br /><em>Występ dla Was.</em></h2>
-          <p className="invite-section-lead">Zaczynamy od rozmowy o wydarzeniu. Następnie proponujemy zakres programu, który ma sens dla danej sceny i publiczności.</p>
+        <div className="invite-format-intro">
+          <span className="invite-format-kicker">{content.formats.eyebrow}</span>
+          <h2 id="formats-title"><span>{content.formats.title}</span><em>{content.formats.titleAccent}</em></h2>
+          <p>{content.formats.lead}</p>
         </div>
 
-        <div className="invite-format-layout">
-          {performanceFormats.map(({ icon: Icon, title, text }, index) => (
-            <article className={`invite-format-card invite-format-card-${index + 1}`} key={title}>
-              <span className="invite-format-icon"><Icon size={25} weight="duotone" /></span>
+        <ol className="invite-format-layout">
+          {content.formats.items.map(({ icon, title, text }, index) => {
+            const Icon = iconComponents[icon];
+            return (
+            <li className={`invite-format-card invite-format-card-${index + 1}`} key={title}>
+              <div className="invite-format-marker" aria-hidden="true">
+                <span>0{index + 1}</span>
+                <Icon size={30} weight="duotone" />
+              </div>
               <div><h3>{title}</h3><p>{text}</p></div>
-            </article>
-          ))}
-        </div>
+            </li>
+            );
+          })}
+        </ol>
       </section>
 
       <section className="invite-suites invite-shell" id="programy" aria-labelledby="suites-title">
         <div className="invite-section-heading invite-section-heading-suites">
-          <p>Gotowy repertuar</p>
-          <h2 id="suites-title">Trzy regiony.<br /><em>Trzy charaktery.</em></h2>
-          <p className="invite-section-lead">Publikujemy tylko programy, które są gotowe do pokazania. Planowane suity lubelska i beskidzka pozostają kierunkiem dalszej pracy.</p>
+          <p>{content.suites.eyebrow}</p>
+          <h2 id="suites-title">{content.suites.title}<br /><em>{content.suites.titleAccent}</em></h2>
+          <p className="invite-section-lead">{content.suites.lead}</p>
         </div>
 
         <div className="invite-suite-grid">
-          {suites.map((suite, index) => (
+          {content.suites.items.map((suite, index) => (
             <article className={`invite-suite invite-suite-${index + 1}`} id={suite.id} key={suite.id}>
               <figure>
-                <img src={suite.image} alt={suite.imageAlt} width={suite.width} height={suite.height} loading={index ? "lazy" : "eager"} decoding="async" />
+                <img src={suite.image.src} alt={suite.image.alt} width={suite.image.width || 1800} height={suite.image.height || 1200} loading={index ? "lazy" : "eager"} decoding="async" />
               </figure>
               <div className="invite-suite-copy">
                 <span>{suite.label}</span>
                 <h3>{suite.name}</h3>
                 <p>{suite.description}</p>
-                <a href="/kostiumy">Zobacz kostiumy regionu <ArrowUpRight size={18} /></a>
+                <a href="/kostiumy">{content.suites.costumesCtaLabel} <ArrowUpRight size={18} /></a>
               </div>
             </article>
           ))}
@@ -207,45 +173,71 @@ export function InvitePage() {
 
       <section className="invite-process invite-shell" aria-labelledby="process-title">
         <div className="invite-process-photo">
-          <img src="/session/dance-circle.webp" srcSet="/home-responsive/dance-circle-960.webp 960w, /home-responsive/dance-circle-1600.webp 1600w" sizes="(max-width: 940px) calc(100vw - 32px), 46vw" alt="Tancerka Halki widziana z góry podczas obrotu" width="2200" height="1467" loading="lazy" decoding="async" />
+          <img src={content.process.image.src} srcSet={content.process.image.src === "/session/dance-circle.webp" ? "/home-responsive/dance-circle-960.webp 960w, /home-responsive/dance-circle-1600.webp 1600w" : undefined} sizes="(max-width: 940px) calc(100vw - 32px), 46vw" alt={content.process.image.alt} width={content.process.image.width || 2200} height={content.process.image.height || 1467} loading="lazy" decoding="async" />
         </div>
         <div className="invite-process-copy">
-          <p className="invite-section-label">Przed występem</p>
-          <h2 id="process-title">Najpierw ustalamy, czego potrzebuje wydarzenie.</h2>
+          <p className="invite-section-label">{content.process.eyebrow}</p>
+          <h2 id="process-title">{content.process.title}</h2>
           <div className="invite-process-list">
-            <div><CalendarBlank size={23} /><span><strong>Termin i miejsce</strong><small>Sprawdzamy dostępność członków oraz możliwości dojazdu.</small></span></div>
-            <div><Clock size={23} /><span><strong>Długość programu</strong><small>Ustalamy pełną suitę albo krótszą, dopasowaną formę.</small></span></div>
-            <div><UsersThree size={23} /><span><strong>Skład zespołu</strong><small>Potwierdzamy, które grupy mogą wystąpić w danym terminie.</small></span></div>
-            <div><MapPin size={23} /><span><strong>Warunki na miejscu</strong><small>Rozmawiamy o przestrzeni, scenie i przebiegu wydarzenia.</small></span></div>
+            {content.process.items.map(({ icon, title, text }) => {
+              const Icon = iconComponents[icon];
+              return <div key={title}><Icon size={23} /><span><strong>{title}</strong><small>{text}</small></span></div>;
+            })}
           </div>
         </div>
       </section>
 
       <section className="invite-stage invite-shell" aria-labelledby="stage-title">
         <div className="invite-stage-heading">
-          <p>Halka na żywo</p>
-          <h2 id="stage-title">Pieśń, ruch i kostium pracują razem.</h2>
-          <a href="/galeria">Zobacz więcej zdjęć <ArrowRight size={18} /></a>
+          <p>{content.stage.eyebrow}</p>
+          <h2 id="stage-title">{content.stage.title} <em>{content.stage.titleAccent}</em></h2>
+          <span>{content.stage.lead}</span>
         </div>
-        <div className="invite-stage-grid">
-          <figure className="invite-stage-wide"><img src="/gallery/dzien-slaski-w-chorzowie/01.webp" alt="Występ Halki z udziałem chóru i baletu" width="1800" height="1198" loading="lazy" decoding="async" /></figure>
-          <figure><img src="/session/group.webp" srcSet="/home-responsive/group-960.webp 960w" sizes="(max-width: 720px) calc(100vw - 28px), 34vw" alt="Wszystkie grupy Zespołu Pieśni i Tańca Halka" width="2200" height="1411" loading="lazy" decoding="async" /></figure>
-          <figure><img src="/session/krakow-worn-2.webp" alt="Członkowie Halki prezentujący kostiumy krakowskie" width="2200" height="1467" loading="lazy" decoding="async" /></figure>
-        </div>
+        <figure className="invite-stage-window">
+          <img src={content.stage.image.src} alt={content.stage.image.alt} width={content.stage.image.width || 1800} height={content.stage.image.height || 1200} loading="lazy" decoding="async" />
+          <figcaption>
+            <span><strong>{content.stage.eventTitle}</strong><small>{content.stage.eventText}</small></span>
+            <Link href="/galeria">{content.stage.ctaLabel} <ArrowRight size={18} weight="bold" /></Link>
+          </figcaption>
+        </figure>
       </section>
 
       <section className="invite-contact" aria-labelledby="invite-contact-title">
+        <span className="invite-contact-ornament invite-contact-ornament-left" aria-hidden="true">
+          <span className="folk-rosette invite-contact-rosette"><i /><i /><i /><i /><i /><i /><i /><i /><b /></span>
+          <i /><i /><i />
+        </span>
+        <span className="invite-contact-ornament invite-contact-ornament-right" aria-hidden="true">
+          <span className="folk-rosette invite-contact-rosette"><i /><i /><i /><i /><i /><i /><i /><i /><b /></span>
+          <i /><i /><i />
+        </span>
         <div className="invite-contact-inner invite-shell">
-          <div>
-            <p>Zapytaj o termin</p>
-            <h2 id="invite-contact-title">Porozmawiajmy o Twoim wydarzeniu.</h2>
-            <span>Ostateczny program i skład potwierdzamy po sprawdzeniu dostępności zespołu.</span>
+          <div className="invite-contact-copy">
+            <p>{content.contact.eyebrow}</p>
+            <h2 id="invite-contact-title">{content.contact.title}</h2>
+            <span>{content.contact.lead}</span>
+            <small>{content.contact.hint}</small>
           </div>
-          <div className="invite-contact-actions">
-            <a className="invite-contact-primary" href={`mailto:${siteConfig.contact.email}?subject=${contactSubject}`}><EnvelopeSimple size={21} /><span><small>Napisz do nas</small><strong>{siteConfig.contact.email}</strong></span><ArrowUpRight size={19} /></a>
-            <a href={`tel:${siteConfig.contact.phone}`}><Phone size={21} /><span><small>Zadzwoń</small><strong>{siteConfig.contact.phoneDisplay}</strong></span></a>
-            <a href={siteConfig.social.messenger} target="_blank" rel="noreferrer"><span><small>Messenger</small><strong>Napisz na Facebooku</strong></span><ArrowUpRight size={19} /></a>
-            <a href={siteConfig.social.instagram} target="_blank" rel="noreferrer"><span><small>Instagram</small><strong>@zpit_halka</strong></span><ArrowUpRight size={19} /></a>
+          <div className="invite-contact-panel">
+            <div className="invite-contact-direct">
+              <a href={`mailto:${siteConfig.contact.email}?subject=${contactSubject}`}>
+                <span className="invite-contact-channel-icon"><EnvelopeSimple size={22} weight="duotone" /></span>
+                <span><small>E-mail</small><strong>{siteConfig.contact.email}</strong></span>
+                <span className="invite-contact-arrow"><ArrowUpRight size={18} weight="bold" /></span>
+              </a>
+              <a href={`tel:${siteConfig.contact.phone}`}>
+                <span className="invite-contact-channel-icon"><Phone size={22} weight="duotone" /></span>
+                <span><small>Telefon</small><strong>{siteConfig.contact.phoneDisplay}</strong></span>
+                <span className="invite-contact-arrow"><ArrowUpRight size={18} weight="bold" /></span>
+              </a>
+            </div>
+            <div className="invite-contact-socials">
+              <p>{content.contact.socialPrompt}</p>
+              <div>
+                <a href={siteConfig.social.messenger} target="_blank" rel="noreferrer"><MessengerLogo size={21} weight="fill" /><span>Messenger</span><ArrowUpRight size={16} /></a>
+                <a href={siteConfig.social.instagram} target="_blank" rel="noreferrer"><InstagramLogo size={21} weight="bold" /><span>Instagram</span><ArrowUpRight size={16} /></a>
+              </div>
+            </div>
           </div>
         </div>
       </section>

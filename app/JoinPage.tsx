@@ -12,7 +12,8 @@ import {
   X,
 } from "@phosphor-icons/react";
 import { calendarEvents } from "../content/events";
-import { ensembleGroups, mainNavigation, siteConfig } from "../content/site-config";
+import { mainNavigation, siteConfig } from "../content/site-config";
+import type { JoinPageContent } from "../sanity/content-types";
 import { ScrollRosettes } from "./HeroVariants";
 
 const dateFormatter = new Intl.DateTimeFormat("pl-PL", {
@@ -21,8 +22,9 @@ const dateFormatter = new Intl.DateTimeFormat("pl-PL", {
   month: "long",
 });
 
-const responsiveImage = (src: string) =>
-  src.replace("/session/", "/home-responsive/").replace(/\.webp$/, "-960.webp");
+const responsiveImage = (src: string) => src.startsWith("/session/")
+  ? src.replace("/session/", "/home-responsive/").replace(/\.webp$/, "-960.webp")
+  : undefined;
 
 const practiceMatchesGroup = (groupId: string, title: string, groups: readonly string[]) => {
   if (groupId === "grupa-1") return title === "Próba grupy 1";
@@ -31,11 +33,7 @@ const practiceMatchesGroup = (groupId: string, title: string, groups: readonly s
   return groups.includes("ballet");
 };
 
-const recruitmentGroups = ["chor", "balet", "grupa-1", "grupa-2"]
-  .map((id) => ensembleGroups.find((group) => group.id === id))
-  .filter((group): group is (typeof ensembleGroups)[number] => Boolean(group));
-
-export function JoinPage() {
+export function JoinPage({ content }: { content: JoinPageContent }) {
   const [menuOpen, setMenuOpen] = useState(false);
   const headerRef = useRef<HTMLElement>(null);
   const menuButtonRef = useRef<HTMLButtonElement>(null);
@@ -96,17 +94,15 @@ export function JoinPage() {
 
       <section className="join-hero join-shell" aria-labelledby="join-title">
         <div className="join-hero-copy">
-          <p className="join-eyebrow"><span>Nabór otwarty</span><i aria-hidden="true" /></p>
-          <h1 id="join-title">Twoje miejsce<br />może być <em>w Halce.</em></h1>
-          <p className="join-hero-lead">Masz co najmniej 15 lat i chcesz śpiewać albo tańczyć? A może szukasz zajęć dla dziecka? Nie prowadzimy przesłuchań, nie wymagamy doświadczenia, a udział w każdej grupie jest bezpłatny.</p>
+          <p className="join-eyebrow"><span>{content.hero.eyebrow}</span><i aria-hidden="true" /></p>
+          <h1 id="join-title">{content.hero.title.split("\n").map((line, index) => <span key={line}>{index > 0 && <br />}{line}</span>)} <em>{content.hero.titleAccent}</em></h1>
+          <p className="join-hero-lead">{content.hero.lead}</p>
           <div className="join-hero-actions">
-            <a className="join-button join-button-primary" href="#grupy">Zobacz grupy i terminy <ArrowRight size={18} weight="bold" /></a>
-            <a className="join-button join-button-light" href={siteConfig.contact.mapUrl} target="_blank" rel="noreferrer"><MapPin size={18} /> Jak do nas trafić</a>
+            <a className="join-button join-button-primary" href="#grupy">{content.hero.primaryCtaLabel} <ArrowRight size={18} weight="bold" /></a>
+            <a className="join-button join-button-light" href={siteConfig.contact.mapUrl} target="_blank" rel="noreferrer"><MapPin size={18} /> {content.hero.secondaryCtaLabel}</a>
           </div>
           <ul className="join-hero-facts" aria-label="Najważniejsze informacje o naborze">
-            <li><strong>0 zł</strong><span>udział jest bezpłatny</span></li>
-            <li><strong>4</strong><span>grupy do wyboru</span></li>
-            <li><strong>cały rok</strong><span>można dołączyć w dowolnym momencie</span></li>
+            {content.hero.facts.map((fact) => <li key={`${fact.value}-${fact.label}`}><strong>{fact.value}</strong><span>{fact.label}</span></li>)}
           </ul>
         </div>
 
@@ -114,45 +110,42 @@ export function JoinPage() {
           <span className="join-hero-year" aria-hidden="true">1948</span>
           <figure className="join-hero-photo">
             <img
-              src="/join/hero-dancers-landscape-1800.webp"
-              srcSet="/join/hero-dancers-landscape-960.webp 960w, /join/hero-dancers-landscape-1800.webp 1800w"
+              src={content.hero.image.src}
+              srcSet={content.hero.image.src.startsWith("/join/") ? "/join/hero-dancers-landscape-960.webp 960w, /join/hero-dancers-landscape-1800.webp 1800w" : undefined}
               sizes="(max-width: 940px) calc(100vw - 32px), 54vw"
-              alt="Dwie tancerki Halki w strojach lubelskich"
+              alt={content.hero.image.alt}
               fetchPriority="high"
               decoding="async"
             />
-            <figcaption><span>Balet</span><strong>od 15 lat</strong></figcaption>
+            <figcaption><span>{content.hero.imageLabel}</span><strong>{content.hero.imageMeta}</strong></figcaption>
           </figure>
-          <span className="join-hero-visual-note"><small>Bez przesłuchań</small><strong>Przyjdź na próbę<br />i poznaj nas.</strong></span>
+          <span className="join-hero-visual-note"><small>{content.hero.noteLabel}</small><strong>{content.hero.noteText.split("\n").map((line, index) => <span key={line}>{index > 0 && <br />}{line}</span>)}</strong></span>
           <span className="join-hero-ornament" aria-hidden="true"><i /><i /><i /><i /><i /></span>
         </div>
       </section>
 
       <section className="join-how join-shell" aria-labelledby="join-how-title">
         <div className="join-section-heading">
-          <p>Najprostsza droga do zespołu</p>
-          <h2 id="join-how-title">Nie zapisujesz się.<br /><em>Po prostu przychodzisz.</em></h2>
+          <p>{content.how.eyebrow}</p>
+          <h2 id="join-how-title">{content.how.title}<br /><em>{content.how.titleAccent}</em></h2>
         </div>
         <ol className="join-steps">
-          <li><span>01</span><div><strong>Wybierz właściwą grupę</strong><p>Sprawdź wiek uczestników oraz rodzaj zajęć. Chór skupia się na śpiewie, balet na tańcu, a obie grupy dziecięce łączą śpiew i taniec.</p></div></li>
-          <li><span>02</span><div><strong>Sprawdź próbę</strong><p>Terminy znajdziesz poniżej. Wszystkie zajęcia odbywają się w siedzibie zespołu.</p></div></li>
-          <li><span>03</span><div><strong>Przyjdź na próbę</strong><p>Nie trzeba wcześniej się zapisywać ani niczego deklarować. Wystarczy pojawić się na wybranych zajęciach — samodzielnie lub z dzieckiem — i poznać zespół.</p></div></li>
+          {content.how.steps.map((step, index) => <li key={step.title}><span>{String(index + 1).padStart(2, "0")}</span><div><strong>{step.title}</strong><p>{step.text}</p></div></li>)}
         </ol>
       </section>
 
       <section className="join-groups join-shell" id="grupy" aria-labelledby="join-groups-title">
         <div className="join-section-heading join-section-heading-groups">
-          <p>Cztery grupy. Jeden zespół.</p>
-          <h2 id="join-groups-title">Wybierz swoją drogę <em>do Halki.</em></h2>
+          <p>{content.groups.eyebrow}</p>
+          <h2 id="join-groups-title">{content.groups.title} <em>{content.groups.titleAccent}</em></h2>
         </div>
 
         <nav className="join-audience-paths" aria-label="Wybierz odpowiednią ścieżkę naboru">
-          <a href="#chor"><small>Chcę dołączyć</small><strong>Mam co najmniej 15 lat</strong><span>Chór lub grupa taneczna</span><ArrowRight size={19} /></a>
-          <a href="#grupa-1"><small>Szukam zajęć</small><strong>Dla dziecka w wieku 6–14 lat</strong><span>Dwie grupy łączące śpiew i taniec</span><ArrowRight size={19} /></a>
+          {content.groups.paths.map((path) => <a href={path.href} key={path.href}><small>{path.eyebrow}</small><strong>{path.title}</strong><span>{path.text}</span><ArrowRight size={19} /></a>)}
         </nav>
 
         <div className="join-group-list">
-          {recruitmentGroups.map((group, index) => {
+          {content.groups.items.map((group, index) => {
             const nextPractices = calendarEvents
               .filter((event) => event.kind === "Próba" && event.date >= today && practiceMatchesGroup(group.id, event.title, event.groups))
               .slice(0, 2);
@@ -160,14 +153,14 @@ export function JoinPage() {
             return (
               <article className={`join-group-card ${index % 2 ? "join-group-card-reverse" : ""}`} id={group.id} key={group.id}>
                 <figure className="join-group-image">
-                  <img src={group.image} srcSet={`${responsiveImage(group.image)} 960w`} sizes="(max-width: 760px) calc(100vw - 32px), 52vw" alt={group.imageAlt} loading="lazy" decoding="async" />
+                  <img src={group.image.src} srcSet={responsiveImage(group.image.src) ? `${responsiveImage(group.image.src)} 960w` : undefined} sizes="(max-width: 760px) calc(100vw - 32px), 52vw" alt={group.image.alt} loading="lazy" decoding="async" />
                   <figcaption>{String(index + 1).padStart(2, "0")} / 04</figcaption>
                 </figure>
                 <div className="join-group-copy">
-                  <p className="join-group-status"><i aria-hidden="true" /> Nabór otwarty</p>
+                  <p className="join-group-status"><i aria-hidden="true" /> {group.statusLabel}</p>
                   <h3>{group.name}</h3>
-                  <p className="join-group-intro">{group.id.startsWith("grupa-") ? `Dla dzieci · ${group.age} · ${group.activity}` : `${group.age} · ${group.activity}`}</p>
-                  <p>{group.id === "grupa-1" && "Grupa dla najmłodszych dzieci, które przez ruch, zabawę i wspólny śpiew poznają folklor oraz uczą się pracy w zespole."}{group.id === "grupa-2" && "Grupa dla starszych dzieci, które rozwijają śpiew i taniec razem — z coraz większą swobodą ruchu i sceniczną pewnością."}{group.id === "chor" && "Jeśli chcesz śpiewać, możesz zacząć właśnie tutaj. Chór jest otwarty dla młodzieży i dorosłych, a wcześniejsze przygotowanie muzyczne nie jest potrzebne."}{group.id === "balet" && "Jeśli chcesz tańczyć, dołącz do regularnej pracy nad techniką i choreografią. Grupa jest przeznaczona dla młodzieży i dorosłych — zaczynamy od podstaw."}</p>
+                  <p className="join-group-intro">{group.meta}</p>
+                  <p>{group.description}</p>
                   <div className="join-group-schedule">
                     <CalendarBlank size={22} weight="duotone" />
                     <div><small>Stały termin</small><strong>{group.schedule}</strong></div>
@@ -192,27 +185,25 @@ export function JoinPage() {
 
       <section className="join-first-visit join-shell" aria-labelledby="first-visit-title">
         <div className="join-first-copy">
-          <p className="join-section-label">Pierwsza próba</p>
-          <h2 id="first-visit-title">Weź ciekawość.<br />Resztę pokażemy.</h2>
-          <p>Jeśli przychodzisz na próbę taneczną albo przyprowadzasz dziecko, warto zabrać wygodny strój sportowy, butelkę wody oraz buty na zmianę lub skarpetki. Na próbę chóru wystarczy po prostu przyjść.</p>
+          <p className="join-section-label">{content.firstVisit.eyebrow}</p>
+          <h2 id="first-visit-title">{content.firstVisit.title}<br />{content.firstVisit.titleAccent}</h2>
+          <p>{content.firstVisit.text}</p>
         </div>
         <div className="join-first-list">
-          <div><CheckCircle size={24} weight="fill" /><span><strong>Bez przesłuchania</strong><small>Nie oceniamy Ciebie ani dziecka przed pierwszymi zajęciami.</small></span></div>
-          <div><CheckCircle size={24} weight="fill" /><span><strong>Bez wcześniejszego doświadczenia</strong><small>Wszystkiego uczymy podczas regularnych prób.</small></span></div>
-          <div><CheckCircle size={24} weight="fill" /><span><strong>Całkowicie bezpłatnie</strong><small>Udział w każdej grupie kosztuje 0 zł.</small></span></div>
+          {content.firstVisit.benefits.map((benefit) => <div key={benefit.title}><CheckCircle size={24} weight="fill" /><span><strong>{benefit.title}</strong><small>{benefit.text}</small></span></div>)}
         </div>
       </section>
 
       <section className="join-location" aria-labelledby="join-location-title">
         <div className="join-location-copy join-shell">
           <div>
-            <p className="join-section-label">Tu się spotykamy</p>
-            <h2 id="join-location-title">Siedziba zespołu</h2>
+            <p className="join-section-label">{content.location.eyebrow}</p>
+            <h2 id="join-location-title">{content.location.title}</h2>
             <p>{siteConfig.contact.address}</p>
           </div>
           <div className="join-location-actions">
-            <a className="join-button join-button-on-green" href={siteConfig.contact.mapUrl} target="_blank" rel="noreferrer">Otwórz trasę w Google Maps <ArrowRight size={18} /></a>
-            <a href={`mailto:${siteConfig.contact.email}`}><EnvelopeSimple size={18} /> Masz pytanie? Napisz do nas</a>
+            <a className="join-button join-button-on-green" href={siteConfig.contact.mapUrl} target="_blank" rel="noreferrer">{content.location.mapCtaLabel} <ArrowRight size={18} /></a>
+            <a href={`mailto:${siteConfig.contact.email}`}><EnvelopeSimple size={18} /> {content.location.emailCtaLabel}</a>
           </div>
         </div>
         <div className="join-map">
