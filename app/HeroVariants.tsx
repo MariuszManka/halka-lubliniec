@@ -89,7 +89,9 @@ export function DanceHero() {
           animate={reduce ? undefined : { rotate: [-1.5, 1.5, -1.5] }}
           transition={{ duration: 9, repeat: Infinity, ease: "easeInOut" }}
         >
-          <img src="/session/dance-circle.webp" srcSet="/home-responsive/dance-circle-960.webp 960w, /home-responsive/dance-circle-1600.webp 1600w" sizes="(max-width: 940px) 72vw, 50vw" alt="Tancerka Halki widziana z góry podczas obrotu" width="2200" height="1467" fetchPriority="high" decoding="async" />
+          {/* <img src="/session/dance-circle.webp" srcSet="/home-responsive/dance-circle-960.webp 960w, /home-responsive/dance-circle-1600.webp 1600w" sizes="(max-width: 940px) 72vw, 50vw" alt="Tancerka Halki widziana z góry podczas obrotu" width="2200" height="1467" fetchPriority="high" decoding="async" /> */}
+
+          <img src="/home-page-dance-circle.webp" srcSet="/home-responsive/home-page-dance-circle-960.webp 960w, /home-responsive/home-page-dance-circle-1600.webp 1600w" sizes="(max-width: 940px) 72vw, 50vw" alt="Tancerka Halki widziana z góry podczas obrotu" width="2200" height="1467" fetchPriority="high" decoding="async" />
         </motion.div>
         <span className="hv-photo-accent" aria-hidden="true"><i /><i /><i /></span>
       </motion.figure>

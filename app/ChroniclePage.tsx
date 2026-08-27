@@ -1,23 +1,16 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { AnimatePresence, motion, useReducedMotion, useScroll, useTransform } from "motion/react";
 import { ArrowLeft, ArrowRight, Camera, House, List, MapPin, X } from "@phosphor-icons/react";
 import { galleryEvents } from "../content/generated-gallery";
+import { mainNavigation } from "../content/site-config";
 
 type GalleryEvent = (typeof galleryEvents)[number];
 
 const formatDate = (date: string) =>
   new Intl.DateTimeFormat("pl-PL", { day: "numeric", month: "long", year: "numeric" })
     .format(new Date(`${date}T12:00:00`));
-
-const navItems = [
-  ["Galeria", "/galeria"],
-  ["Kostiumy", "/kostiumy"],
-  ["Historia", "/#historia"],
-  ["Terminarz", "/#terminarz"],
-  ["Kontakt", "/#kontakt"],
-] as const;
 
 function FolkRosette() {
   return (
@@ -76,6 +69,10 @@ export function ChroniclePage() {
   const [year, setYear] = useState<"all" | number>("all");
   const [activeEvent, setActiveEvent] = useState<GalleryEvent | null>(null);
   const [activeImage, setActiveImage] = useState(0);
+  const closeButtonRef = useRef<HTMLButtonElement>(null);
+  const lightboxRef = useRef<HTMLElement>(null);
+  const galleryTriggerRef = useRef<HTMLElement | null>(null);
+
 
   const years = useMemo(
     () => [...new Set(galleryEvents.map((event) => event.year))].sort((a, b) => b - a),
@@ -94,6 +91,7 @@ export function ChroniclePage() {
   const closeGallery = () => {
     setActiveEvent(null);
     setActiveImage(0);
+    window.requestAnimationFrame(() => galleryTriggerRef.current?.focus());
   };
   const showPrevious = () => {
     if (!activeEvent) return;
@@ -112,8 +110,26 @@ export function ChroniclePage() {
       if (event.key === "Escape") closeGallery();
       if (event.key === "ArrowLeft") showPrevious();
       if (event.key === "ArrowRight") showNext();
+      if (event.key === "Tab") {
+        const focusable = Array.from(
+          lightboxRef.current?.querySelectorAll<HTMLElement>(
+            'button:not([disabled]), a[href], [tabindex]:not([tabindex="-1"])',
+          ) ?? [],
+        );
+        if (focusable.length === 0) return;
+        const first = focusable[0];
+        const last = focusable[focusable.length - 1];
+        if (event.shiftKey && document.activeElement === first) {
+          event.preventDefault();
+          last.focus();
+        } else if (!event.shiftKey && document.activeElement === last) {
+          event.preventDefault();
+          first.focus();
+        }
+      }
     };
     window.addEventListener("keydown", onKeyDown);
+    window.requestAnimationFrame(() => closeButtonRef.current?.focus());
     return () => {
       document.body.style.overflow = previousOverflow;
       window.removeEventListener("keydown", onKeyDown);
@@ -130,8 +146,8 @@ export function ChroniclePage() {
           <span><strong>HALKA</strong><small>Lubliniec</small></span>
         </a>
         <nav className="desktop-nav" aria-label="Główna nawigacja">
-          {navItems.map(([label, href]) => (
-            <a className={href === "/galeria" ? "active" : ""} key={href} href={href}>{label}</a>
+          {mainNavigation.map((item) => (
+            <a className={item.href === "/galeria" ? "active" : ""} aria-current={item.href === "/galeria" ? "page" : undefined} key={item.href} href={item.href}>{item.label}</a>
           ))}
         </nav>
         <a className="header-cta chronicle-home-link" href="/"><House size={17} /> Strona główna</a>
@@ -153,8 +169,8 @@ export function ChroniclePage() {
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -10 }}
             >
-              {navItems.map(([label, href]) => (
-                <a key={href} href={href} onClick={() => setMenuOpen(false)}>{label}</a>
+              {mainNavigation.map((item) => (
+                <a aria-current={item.href === "/galeria" ? "page" : undefined} key={item.href} href={item.href} onClick={() => setMenuOpen(false)}>{item.label}</a>
               ))}
               <a href="/" onClick={() => setMenuOpen(false)}>Strona główna</a>
             </motion.nav>
@@ -210,14 +226,21 @@ export function ChroniclePage() {
         </div>
 
         <div className="year-filter chronicle-year-filter" aria-label="Filtruj galerię według roku">
-          <button type="button" className={year === "all" ? "active" : ""} aria-pressed={year === "all"} onClick={() => setYear("all")}>Wszystkie lata</button>
+          <button type="button" className={year === "all" ? "active" : ""} aria-pressed={year === "all"} aria-controls="gallery-event-grid" onClick={() => setYear("all")}>Wszystkie lata</button>
           {years.map((item) => (
-            <button type="button" key={item} className={year === item ? "active" : ""} aria-pressed={year === item} onClick={() => setYear(item)}>{item}</button>
+            <button type="button" key={item} className={year === item ? "active" : ""} aria-pressed={year === item} aria-controls="gallery-event-grid" onClick={() => setYear(item)}>{item}</button>
           ))}
         </div>
 
+        <p className="gallery-results-status" role="status" aria-live="polite">
+          {visibleEvents.length === 1 ? "1 galeria" : `${visibleEvents.length} galerii`}
+        </p>
+
         <AnimatePresence mode="popLayout">
-          <motion.div className="gallery-masonry" layout key={year}>
+          <motion.div className="gallery-masonry" id="gallery-event-grid" layout key={year}>
+            {visibleEvents.length === 0 && (
+              <p className="gallery-empty-state">W tym roku nie ma jeszcze opublikowanej galerii.</p>
+            )}
             {visibleEvents.map((event, index) => (
               <motion.article
                 className={`gallery-masonry-card gallery-masonry-card-${(index % 6) + 1}`}
@@ -232,7 +255,11 @@ export function ChroniclePage() {
                 <button
                   className="gallery-card-button"
                   type="button"
-                  onClick={() => { setActiveEvent(event); setActiveImage(0); }}
+                  onClick={(clickEvent) => {
+                    galleryTriggerRef.current = clickEvent.currentTarget;
+                    setActiveEvent(event);
+                    setActiveImage(0);
+                  }}
                   aria-label={`Otwórz galerię: ${event.title}`}
                 >
                   <img
@@ -240,7 +267,8 @@ export function ChroniclePage() {
                     alt={event.images[0].alt}
                     width={event.images[0].width}
                     height={event.images[0].height}
-                    loading="lazy"
+                    loading={index < 6 ? "eager" : "lazy"}
+                    fetchPriority={index < 2 ? "high" : "auto"}
                   />
                   <span className="gallery-card-shade" aria-hidden="true" />
                   <span className="gallery-card-year">{event.year}</span>
@@ -272,7 +300,7 @@ export function ChroniclePage() {
         <p className="section-kicker">Poza kadrem</p>
         <h2>Poznaj Halkę bliżej.</h2>
         <p>Zobacz historię zespołu, najbliższe wydarzenia i miejsca, w których można nas spotkać.</p>
-        <a className="button button-primary" href="/#historia">Wróć do opowieści <ArrowRight size={18} /></a>
+        <a className="button button-primary" href="/historia">Poznaj historię Halki <ArrowRight size={18} /></a>
       </section>
 
       <footer className="footer section-shell">
@@ -281,7 +309,7 @@ export function ChroniclePage() {
           <div><strong>HALKA</strong><span>Pieśń. Taniec. Pokolenia.</span></div>
         </div>
         <div className="footer-links">
-          {navItems.map(([label, href]) => <a key={href} href={href}>{label}</a>)}
+          {mainNavigation.map((item) => <a key={item.href} href={item.href}>{item.label}</a>)}
         </div>
         <p>© 2026 Zespół Pieśni i Tańca Halka w Lublińcu</p>
       </footer>
@@ -290,10 +318,12 @@ export function ChroniclePage() {
         {activeEvent && (
           <motion.div className="lightbox-backdrop" role="presentation" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} onMouseDown={closeGallery}>
             <motion.section
+              ref={lightboxRef}
               className="lightbox"
               role="dialog"
               aria-modal="true"
               aria-labelledby="chronicle-lightbox-title"
+              aria-describedby="chronicle-lightbox-description"
               initial={reduce ? false : { opacity: 0, scale: 0.97 }}
               animate={{ opacity: 1, scale: 1 }}
               exit={{ opacity: 0, scale: 0.97 }}
@@ -318,10 +348,10 @@ export function ChroniclePage() {
                 <button type="button" className="lightbox-arrow next" aria-label="Następne zdjęcie" onClick={showNext}><ArrowRight size={24} /></button>
               </div>
               <aside className="lightbox-sidebar">
-                <button className="lightbox-close" type="button" aria-label="Zamknij galerię" onClick={closeGallery}><X size={24} /></button>
+                <button ref={closeButtonRef} className="lightbox-close" type="button" aria-label="Zamknij galerię" onClick={closeGallery}><X size={24} /></button>
                 <p className="section-kicker">{formatDate(activeEvent.date)}</p>
                 <h2 id="chronicle-lightbox-title">{activeEvent.title}</h2>
-                <p className="lightbox-description">{activeEvent.description}</p>
+                <p className="lightbox-description" id="chronicle-lightbox-description">{activeEvent.description}</p>
                 <dl className="lightbox-details">
                   <div><dt>Miejsce</dt><dd>{activeEvent.location}</dd></div>
                   <div><dt>Zdjęcia</dt><dd>{activeEvent.images.length}</dd></div>

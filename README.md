@@ -17,6 +17,27 @@ Sprawdzenie wersji produkcyjnej:
 npm run build
 ```
 
+## Publikacja strony
+
+Po zalogowaniu w lokalnej aplikacji Codex mozesz opublikowac aktualny stan strony bez pisania tutaj na czacie:
+
+```bash
+npm run deploy
+```
+
+Domyslnie publikuje to wersje testowa podpieta pod `D:\HALKA\site\.openai\hosting.json`.
+
+Masz tez dwa jawne warianty:
+
+```bash
+npm run deploy:preview
+npm run deploy:production
+```
+
+`deploy:production` przelacza najpierw aktywny hosting na `D:\HALKA\site\.openai\hosting.production.json`, buduje projekt i potem uruchamia publikacje przez lokalnego Codexa.
+
+Jesli komenda przerwie sie od razu, najczesciej oznacza to brak zalogowania w aplikacji Codex albo problem z uprawnieniami do publikacji.
+
 ## Dodawanie koncertu do kroniki
 
 1. W katalogu `D:\HALKA\ASSETS` utwórz folder o nazwie np. `2027.06.15 - Halka - Opole`.

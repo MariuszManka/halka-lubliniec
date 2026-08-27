@@ -1,0 +1,174 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-08-27T12:00:00+02:00",
+  "title": "Design System: Halka Lubliniec",
+  "extensions": {
+    "colorMeta": {
+      "ink": {
+        "role": "neutral",
+        "displayName": "Atramentowa Zieleń",
+        "canonical": "#123b2a",
+        "tonalRamp": ["#071c12", "#0d2b1e", "#123b2a", "#2c5944", "#527764", "#809989", "#b3c0b7", "#eef2ef"]
+      },
+      "halka-green": {
+        "role": "primary",
+        "displayName": "Zieleń Halki",
+        "canonical": "#145f3d",
+        "tonalRamp": ["#062116", "#0b3b27", "#145f3d", "#2b7b57", "#569777", "#87b49a", "#bfd4c7", "#eff7f2"]
+      },
+      "halka-green-deep": {
+        "role": "primary",
+        "displayName": "Głęboka Zieleń Halki",
+        "canonical": "#0c452d",
+        "tonalRamp": ["#041b11", "#082f20", "#0c452d", "#226447", "#4b8268", "#7da48f", "#b5c9bd", "#edf4f0"]
+      },
+      "coral-red": {
+        "role": "secondary",
+        "displayName": "Czerwień Korali",
+        "canonical": "#d52b2f",
+        "tonalRamp": ["#3d0709", "#711116", "#a51f23", "#d52b2f", "#e85b5e", "#f28c8e", "#f9bfc0", "#fff0f0"]
+      },
+      "coral-red-deep": {
+        "role": "secondary",
+        "displayName": "Głęboka Czerwień Korali",
+        "canonical": "#ad1d25",
+        "tonalRamp": ["#350508", "#641015", "#8c171e", "#ad1d25", "#cf4e54", "#e68185", "#f3b8ba", "#fdeeee"]
+      },
+      "cream-fabric": {
+        "role": "neutral",
+        "displayName": "Kremowa Tkanina",
+        "canonical": "#f8f5ee",
+        "tonalRamp": ["#292722", "#4a463e", "#6e685e", "#938c80", "#b8b1a5", "#d8d2c8", "#ebe6de", "#f8f5ee"]
+      },
+      "warm-surface": {
+        "role": "neutral",
+        "displayName": "Ciepła Powierzchnia",
+        "canonical": "#fffdf8",
+        "tonalRamp": ["#2a2925", "#4c4a43", "#706d64", "#969288", "#bcb8ae", "#ddd9d0", "#f1eee7", "#fffdf8"]
+      },
+      "muted-green": {
+        "role": "neutral",
+        "displayName": "Stonowana Zieleń",
+        "canonical": "#4d6759",
+        "tonalRamp": ["#101913", "#26372e", "#4d6759", "#6b8275", "#8da097", "#afbeb6", "#d2dcd6", "#f2f6f3"]
+      },
+      "soft-line": {
+        "role": "neutral",
+        "displayName": "Miękka Linia",
+        "canonical": "rgba(18, 59, 42, 0.16)",
+        "tonalRamp": ["rgba(18, 59, 42, 0.9)", "rgba(18, 59, 42, 0.72)", "rgba(18, 59, 42, 0.56)", "rgba(18, 59, 42, 0.4)", "rgba(18, 59, 42, 0.28)", "rgba(18, 59, 42, 0.16)", "rgba(18, 59, 42, 0.09)", "rgba(18, 59, 42, 0.04)"]
+      }
+    },
+    "typographyMeta": {
+      "display": { "displayName": "Display", "purpose": "Nagłówki hero i główne wejścia do sekcji." },
+      "headline": { "displayName": "Headline", "purpose": "Tytuły galerii i większych bloków fotograficznych." },
+      "title": { "displayName": "Title", "purpose": "Nazwy wydarzeń, grup, suit i modułów." },
+      "body": { "displayName": "Body", "purpose": "Opisy, informacje organizacyjne i treść użytkowa." },
+      "label": { "displayName": "Label", "purpose": "Daty, kategorie, statusy i krótkie metadane." }
+    },
+    "shadows": [
+      { "name": "ambient-panel", "value": "0 24px 70px rgba(18, 59, 42, 0.075)", "purpose": "Duże panele wydarzeń i powierzchnie wymagające lekkiego odseparowania." },
+      { "name": "floating-photograph", "value": "0 18px 46px rgba(18, 59, 42, 0.16)", "purpose": "Nakładające się fotografie i detale galerii." },
+      { "name": "modal-depth", "value": "0 44px 140px rgba(0, 0, 0, 0.48)", "purpose": "Lightboxy i modale nad przyciemnionym tłem." }
+    ],
+    "motion": [
+      { "name": "ease-stage", "value": "cubic-bezier(0.16, 1, 0.3, 1)", "purpose": "Wejścia, przesunięcia strzałek i subtelne podnoszenie powierzchni." },
+      { "name": "state-fast", "value": "180ms ease", "purpose": "Kolor, tło i obrys w stanach hover oraz focus." },
+      { "name": "photo-drift", "value": "700ms cubic-bezier(0.16, 1, 0.3, 1)", "purpose": "Spokojne przybliżenie fotografii bez gwałtownego ruchu." }
+    ],
+    "breakpoints": [
+      { "name": "navigation-collapse", "value": "1180px" },
+      { "name": "single-column", "value": "820px" },
+      { "name": "compact-mobile", "value": "520px" }
+    ]
+  },
+  "components": [
+    {
+      "name": "Primary Button",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "Główne działanie rekrutacyjne, ofertowe lub kontaktowe.",
+      "html": "<a class=\"ds-btn-primary\" href=\"#\">Dołącz do Halki <span aria-hidden=\"true\">→</span></a>",
+      "css": ".ds-btn-primary{display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:52px;padding:0 23px;border-radius:999px;background:#d52b2f;color:#fff;font:780 .9rem/1.2 'DM Sans',system-ui,sans-serif;text-decoration:none;transition:transform 200ms cubic-bezier(.16,1,.3,1),background-color 200ms ease}.ds-btn-primary:hover{background:#ad1d25;transform:translateY(-2px)}.ds-btn-primary:focus-visible{outline:3px solid #145f3d;outline-offset:3px}.ds-btn-primary:active{transform:translateY(1px)}"
+    },
+    {
+      "name": "Secondary Button",
+      "kind": "button",
+      "refersTo": "button-secondary",
+      "description": "Drugie działanie w hero lub spokojna alternatywa dla głównego CTA.",
+      "html": "<a class=\"ds-btn-secondary\" href=\"#\">Zaproś Halkę</a>",
+      "css": ".ds-btn-secondary{display:inline-flex;align-items:center;justify-content:center;min-height:52px;padding:0 23px;border-radius:999px;box-shadow:inset 0 0 0 1px #145f3d;color:#0c452d;font:780 .9rem/1.2 'DM Sans',system-ui,sans-serif;text-decoration:none;transition:transform 200ms cubic-bezier(.16,1,.3,1),background-color 200ms ease,color 200ms ease}.ds-btn-secondary:hover{background:#0c452d;color:#fff;transform:translateY(-2px)}.ds-btn-secondary:focus-visible{outline:3px solid #d52b2f;outline-offset:3px}.ds-btn-secondary:active{transform:translateY(1px)}"
+    },
+    {
+      "name": "Year Filter",
+      "kind": "chip",
+      "description": "Zwarty filtr lat w galerii.",
+      "html": "<div class=\"ds-filter\" role=\"group\" aria-label=\"Filtruj według roku\"><button aria-pressed=\"true\">Wszystkie lata</button><button aria-pressed=\"false\">2026</button><button aria-pressed=\"false\">2025</button></div>",
+      "css": ".ds-filter{display:inline-flex;gap:6px;padding:7px;border:1px solid rgba(18,59,42,.16);border-radius:999px;background:#f8f5ee}.ds-filter button{min-height:44px;padding:0 20px;border:0;border-radius:999px;background:transparent;color:#123b2a;font:750 .78rem/1 'DM Sans',system-ui,sans-serif}.ds-filter button[aria-pressed='true']{background:#145f3d;color:#fff}.ds-filter button:hover{background:rgba(20,95,61,.08)}.ds-filter button:focus-visible{outline:3px solid #d52b2f;outline-offset:2px}"
+    },
+    {
+      "name": "Event Panel",
+      "kind": "card",
+      "refersTo": "event-panel",
+      "description": "Jasna, nieprzezroczysta powierzchnia dla wydarzeń i stałego planu prób.",
+      "html": "<article class=\"ds-event\"><time datetime=\"2026-08-02\"><strong>02</strong><span>SIE 2026</span></time><div><small>WYSTĘP</small><h3>Tydzień Kultury Beskidzkiej</h3><p>Wisła</p></div></article>",
+      "css": ".ds-event{display:grid;grid-template-columns:92px 1fr;gap:24px;align-items:center;padding:24px 30px;border:1px solid rgba(18,59,42,.16);border-radius:20px;background:#fffdf8;color:#123b2a;box-shadow:0 24px 70px rgba(18,59,42,.075);transition:background-color 180ms ease}.ds-event:hover{background:#fff}.ds-event time{display:grid;gap:2px}.ds-event time strong{color:#d52b2f;font:520 3.25rem/1 Fraunces,Georgia,serif}.ds-event time span,.ds-event small{color:#4d6759;font:800 .66rem/1.3 'DM Sans',system-ui,sans-serif;letter-spacing:.09em}.ds-event h3{margin:6px 0 4px;font:560 clamp(1.55rem,2.3vw,2.35rem)/1.04 Fraunces,Georgia,serif;letter-spacing:-.025em}.ds-event p{margin:0;color:#4d6759}.ds-event:focus-within{outline:3px solid #145f3d;outline-offset:3px}"
+    },
+    {
+      "name": "Photography Card",
+      "kind": "card",
+      "refersTo": "gallery-card",
+      "description": "Fotograficzna karta portfolio z kontrolowanym gradientem i typografią display.",
+      "html": "<a class=\"ds-photo-card\" href=\"#\"><div class=\"ds-photo-placeholder\" role=\"img\" aria-label=\"Zdjęcie zespołu podczas występu\"></div><span class=\"ds-photo-shade\"></span><div class=\"ds-photo-copy\"><small>02 SIERPNIA 2026 · WISŁA</small><h3>Tydzień Kultury Beskidzkiej</h3><p>19 zdjęć</p></div></a>",
+      "css": ".ds-photo-card{position:relative;display:block;min-height:360px;overflow:hidden;border-radius:14px;background:#111813;color:#fff;text-decoration:none}.ds-photo-placeholder{position:absolute;inset:0;background:linear-gradient(135deg,#315743,#0f1712);transition:transform 700ms cubic-bezier(.16,1,.3,1)}.ds-photo-card:hover .ds-photo-placeholder{transform:scale(1.035)}.ds-photo-shade{position:absolute;inset:24% 0 0;background:linear-gradient(180deg,transparent,rgba(7,16,11,.88))}.ds-photo-copy{position:absolute;right:0;bottom:0;left:0;padding:30px}.ds-photo-copy small{color:rgba(255,255,255,.72);font:700 .7rem/1.4 'DM Sans',system-ui,sans-serif}.ds-photo-copy h3{max-width:17ch;margin:8px 0 10px;font:520 clamp(2rem,3.5vw,4rem)/.98 Fraunces,Georgia,serif;letter-spacing:-.035em}.ds-photo-copy p{margin:0;color:#f0bc43;font:800 .7rem/1.4 'DM Sans',system-ui,sans-serif}.ds-photo-card:focus-visible{outline:3px solid #d52b2f;outline-offset:3px}"
+    },
+    {
+      "name": "Social Link",
+      "kind": "custom",
+      "description": "Lekki odnośnik do kanału społecznościowego z subtelnym ruchem poziomym.",
+      "html": "<a class=\"ds-social\" href=\"#\"><span class=\"ds-social-mark\" aria-hidden=\"true\">H</span><span><strong>Instagram</strong><small>Kulisy i zdjęcia</small></span><b aria-hidden=\"true\">↗</b></a>",
+      "css": ".ds-social{display:grid;grid-template-columns:44px 1fr 24px;align-items:center;gap:15px;padding:18px;border:1px solid rgba(18,59,42,.16);background:#fffdf8;color:#145f3d;text-decoration:none;transition:border-color 180ms ease,transform 220ms cubic-bezier(.16,1,.3,1),background-color 180ms ease}.ds-social:hover{transform:translateX(5px);border-color:currentColor;background:#fff}.ds-social-mark{display:grid;place-items:center;width:36px;height:36px;border-radius:50%;background:#145f3d;color:#fff;font:800 .8rem/1 'DM Sans',system-ui,sans-serif}.ds-social>span{display:grid;gap:3px}.ds-social strong{color:#123b2a}.ds-social small{color:#4d6759;font-size:.7rem}.ds-social:focus-visible{outline:3px solid #d52b2f;outline-offset:3px}"
+    },
+    {
+      "name": "Main Navigation",
+      "kind": "nav",
+      "description": "Jednorzędowa nawigacja z lekkim tekstem i czerwonym stanem aktywnym.",
+      "html": "<nav class=\"ds-nav\" aria-label=\"Główna nawigacja\"><a href=\"#\">Dołącz</a><a href=\"#\" aria-current=\"page\">Galeria</a><a href=\"#\">Historia</a><a href=\"#\">Kostiumy</a></nav>",
+      "css": ".ds-nav{display:flex;align-items:center;gap:28px;color:#3d5c4c;font:650 .82rem/1.2 'DM Sans',system-ui,sans-serif}.ds-nav a{display:inline-flex;align-items:center;min-height:44px;color:inherit;text-decoration:none;transition:color 180ms ease}.ds-nav a:hover,.ds-nav a[aria-current='page']{color:#d52b2f}.ds-nav a:focus-visible{outline:3px solid #145f3d;outline-offset:3px}"
+    }
+  ],
+  "narrative": {
+    "northStar": "Scena Pokoleń",
+    "overview": "System wizualny przedstawia Halkę jako żywą wspólnotę, która ma historię, ale nadal pracuje, występuje i zaprasza kolejne osoby na scenę. Fotografia jest głównym nośnikiem autentyczności, a duża typografia nadaje jej profesjonalną, współczesną oprawę. Motywy folkowe pełnią rolę rozpoznawalnego podpisu, nie dekoracyjnej warstwy dodawanej do każdego elementu. Całość jest folkowa, autentyczna, ciepła i międzypokoleniowa. Jasne powierzchnie tworzą spokojne tło dla nasyconych zdjęć, zieleni i czerwieni.",
+    "keyCharacteristics": [
+      "Fotografia sceniczna i portretowa prowadzi narrację.",
+      "Duża, miękka typografia display kontrastuje z precyzyjnymi etykietami sans-serif.",
+      "Zieleń buduje tożsamość i zaufanie, a czerwień wyznacza działanie i akcent.",
+      "Ornamenty wynikają z geometrii haftu, rozety, tkaniny i wstęgi.",
+      "Ruch jest spokojny, ciągły i podporządkowany przewijaniu lub informacji zwrotnej."
+    ],
+    "rules": [
+      { "name": "The Living Color Rule", "body": "Zieleń i czerwień pozostają nasycone; nie należy zamieniać ich na pastelowe lub przygaszone odpowiedniki.", "section": "colors" },
+      { "name": "The Red Leads Rule", "body": "Czerwień wskazuje najważniejsze działanie lub pojedynczy akcent w danym obszarze. Nie zalewa całych sekcji bez wyraźnego powodu.", "section": "colors" },
+      { "name": "The Two Voices Rule", "body": "Fraunces opowiada i buduje emocję; DM Sans wyjaśnia, porządkuje i prowadzi do działania. Nie należy odwracać tych ról.", "section": "typography" },
+      { "name": "The Full Person Rule", "body": "Kadrowanie może być dynamiczne, ale nie może przypadkowo odcinać głów, kluczowych elementów stroju ani wspólnej choreografii.", "section": "layout" },
+      { "name": "The Calm Surface Rule", "body": "Elementy są płaskie w spoczynku. Mocniejsza głębia pojawia się tylko wtedy, gdy wyjaśnia warstwę, modal albo stan interakcji.", "section": "elevation" }
+    ],
+    "dos": [
+      "Do używaj autentycznych zdjęć zespołu jako głównego materiału wizualnego.",
+      "Do zestawiaj duże nagłówki Fraunces z konkretną informacją podaną w DM Sans.",
+      "Do zachowuj Zieleń Halki, Czerwień Korali i Kremową Tkaninę jako główne role kolorystyczne.",
+      "Do stosuj ornamenty folklorystyczne jako podpis, dzielnik lub element tła, z dala od tekstów i twarzy.",
+      "Do zapewniaj widoczne CTA, focus klawiatury, pełne cele dotykowe oraz wariant ograniczonego ruchu.",
+      "Do projektuj kadry osobno dla desktopu i telefonu, chroniąc twarze, stroje i choreografię."
+    ],
+    "donts": [
+      "Don't zmieniaj nasyconej zieleni i czerwieni na pastelowe, przygaszone odpowiedniki.",
+      "Don't buduj muzealnej, pomnikowej lub urzędowej atmosfery.",
+      "Don't przeładowuj sekcji wieloma ornamentami, wzorami i kolorami jednocześnie.",
+      "Don't używaj generycznych gradientów technologicznych, szkła, neonów ani estetyki startupowego dashboardu.",
+      "Don't umieszczaj tekstu bezpośrednio na ruchliwym zdjęciu bez kontrolowanego kontrastu.",
+      "Don't stosuj mocnego cienia do każdego panelu ani karty."
+    ]
+  }
+}
