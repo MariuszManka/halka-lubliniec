@@ -58,7 +58,7 @@ export const costumeLooks: CostumeLook[] = [
     eyebrow: "Rzeszowszczyzna",
     galleryKey: "rzeszow",
     description:
-      "Kontrast błękitu, czerwieni i bieli tworzy bardzo czytelny obraz sceniczny. Męską sylwetkę porządkują kamizola oraz pas, a kobiecą — haftowana koszula, gorset, korale i starannie opracowane nakrycie głowy.",
+      "Kontrast błękitu, czerwieni i bieli tworzy bardzo czytelny obraz sceniczny. Męską sylwetkę porządkują kamizola oraz pas. Kobiecą tworzą haftowana koszula, gorset, korale i starannie opracowane nakrycie głowy.",
     images: ["rzeszow-worn-1", "rzeszow-worn-2", "rzeszow-female-detail", "rzeszow-male-detail", "rzeszow-male-detail-2"],
     femaleImages: ["rzeszow-worn-1", "rzeszow-worn-2", "rzeszow-female-detail", "rzeszow-female-detail-2", "rzeszow-female-detail-3"],
     maleImages: ["rzeszow-male-detail", "rzeszow-male-detail-2", "rzeszow-male-detail-3"],
@@ -112,49 +112,59 @@ export const costumeLooks: CostumeLook[] = [
     title: "Księstwo Warszawskie",
     eyebrow: "Kostium historyczny",
     galleryKey: "narodowe",
+    genders: ["male"],
     description:
-      "Historyzujący zestaw z okresu Księstwa Warszawskiego poszerza repertuar Halki poza stroje regionalne. Empire'owa linia sukni, futrzane nakrycia głowy i mundur ułański budują obraz konkretnej epoki.",
-    images: ["national-worn-1", "national-worn-2", "national-worn-3", "national-uniform-detail"],
+      "Historyzujący strój inspirowany umundurowaniem z okresu Księstwa Warszawskiego. Mundur ułański, charakterystyczne nakrycie głowy i ozdobne detale nawiązują do wojskowej tradycji początku XIX wieku.",    images: ["national-worn-1", "national-worn-2", "national-worn-3", "national-uniform-detail"],
     femaleImages: ["national-worn-1", "national-worn-2", "national-worn-3"],
     maleImages: ["national-worn-1", "national-uniform-detail", "national-uniform-detail-2", "national-uniform-detail-3"],
-    details: ["suknia o linii empire", "futrzane nakrycia głowy", "mundur ułański", "złoty epolet"],
+    details: ["czapka polska - czako", "ozdobne wykończenia munduru", "spodnie zdobione lampasami", "buty - sztyblety lub oficerki"],
+  },
+  {
+    title: "Kontusz szlachecki",
+    eyebrow: "Kostium historyczny",
+    galleryKey: "narodowe",
+    genders: ["female"],
+    description:
+      "Damski kostium inspirowany strojem polskiej szlachty, nawiązujący do tradycji dawnej Rzeczypospolitej. Charakterystyczny kontusz, dekoracyjne wykończenia i bogate tkaniny nadają całości reprezentacyjny, historyczny charakter.",    images: ["national-worn-1", "national-worn-2", "national-worn-3", "national-uniform-detail"],
+    femaleImages: ["national-worn-1", "national-worn-2", "national-worn-3"],
+    details: ["kontusz o dekoracyjnym kroju", "bogato zdobiona tkanina", "ozdobne wykończenia", "aksamitna czapka z futrem"],  
   },
 ];
 
 export const costumeFacts: CostumeFact[] = [
   {
-    image: "cieszyn-female-detail",
-    title: "Żywotek",
-    region: "Cieszyn",
+    image: "rozbark-purpurka",
+    title: "Purpurka",
+    region: "Górny Śląsk",
     description:
-      "To ozdobny stanik cieszyńskiej sukni. Muzealne egzemplarze wykonywano m.in. z aksamitu, płótna i usztywniającej tektury, a dekorowano metalową nicią, cekinami oraz koralikami.",
-    sourceLabel: "Muzeum Narodowe we Wrocławiu",
-    sourceUrl: "https://muzeumcyfrowe.mnwr.pl/obiekt/stanik-zywotek",
+      "Purpurka to charakterystyczna dla stroju rozbarskiego czerwona, płócienna chusta nagłowna zdobiona motywem kwiatowym. Mężatki zakładały ją na upięte w kok włosy i wiązały z tyłu głowy.",
+    sourceLabel: "Muzeum Miejskie w Rudzie Śląskiej",
+    sourceUrl: "https://muzeum.rsl.pl/wystawy/zbiory/stroj-damski-rozbarski",
   },
   {
     image: "lublin-female-detail-2",
     title: "Haft krzczonowski",
     region: "Lubelszczyzna",
     description:
-      "Łączy nasycone barwy z motywami roślinnymi i geometrycznymi. Ściegi prowadzone pionowo i poziomo budują rytmiczne grupy — dlatego ornament tak dobrze pracuje na scenie.",
+      "Łączy nasycone barwy z motywami roślinnymi i geometrycznymi. Ściegi prowadzone pionowo i poziomo budują rytmiczne grupy, dlatego ornament tak dobrze pracuje na scenie.",
     sourceLabel: "Muzeum Wsi Lubelskiej",
     sourceUrl: "https://skansen.lublin.pl/pl/aktualnosci/zapraszamy-na-warsztaty-z-rekodziela-2-2-2/",
   },
   {
     image: "rzeszow-male-detail",
-    title: "Kamizola",
-    region: "Rzeszów",
+    title: "Katana krakowska",
+    region: "Kraków",
     description:
-      "Niebieska, wełniana kamizola i sukieniaki są jednym z najbardziej charakterystycznych męskich zestawień regionu. Badacze wskazują w ich formie także inspiracje wojskowe.",
-    sourceLabel: "Muzeum Etnograficzne w Rzeszowie",
-    sourceUrl: "https://muzeumetnograficzne.rzeszow.pl/1015/11/27/watki-narodowe-w-stroju-rzeszowskim/",
+      "Katana krakowska wywodzi się z męskich kaftanów noszonych przez Krakowiaków. W wersjach z rękawami pełniła rolę okrycia wierzchniego, a jej granatowe sukno, czerwone podszycie, guziki i chwosty mocno budowały sceniczny charakter stroju.",
+    sourceLabel: "Stroje ludowe",
+    sourceUrl: "https://strojeludowe.net/stroje/krakowski/",
   },
   {
     image: "pszczyna-detail-1",
     title: "Oplecek i kabotek",
     region: "Pszczyna",
     description:
-      "Oplecek jest doszywany do spódnicy i porządkuje górną część kobiecej sylwetki. Zestawia się go z białą koszulą — kabotkiem — oraz koralami i jasnym fartuchem.",
+      "Oplecek jest doszywany do spódnicy i porządkuje górną część kobiecej sylwetki. Zestawia się go z białą koszulą zwaną kabotkiem, koralami i jasnym fartuchem.",
     sourceLabel: "Powiat Pszczyński",
     sourceUrl: "https://www.powiat.pszczyna.pl/powiat/o-powiecie/tradycja-pszczynskiego-stroju",
   },
@@ -164,8 +174,8 @@ export const costumeFacts: CostumeFact[] = [
     region: "Górale Żywieccy",
     description:
       "Szeroki pas z grubej skóry zakładano na portki i koszulę. Żywiecki trzos zapinano na trzy lub cztery metalowe sprzączki, a jego powierzchnię zdobiły tłoczone ornamenty i metalowe guzy.",
-    sourceLabel: "Punkt Informacji Turystycznej w Suchej Beskidzkiej",
-    sourceUrl: "https://kapliczki.zameksucha.pl/it/strona/7/Tradycja_i_folklor.html",
+    sourceLabel: "Polska Tradycja",
+    sourceUrl: "https://www.polskatradycja.pl/folklor/stroje-ludowe/gory/stroj-gorali-zywieckich.html",
   },
   {
     image: "modal-rzeszow-female-09",

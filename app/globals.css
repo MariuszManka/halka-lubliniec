@@ -4479,20 +4479,51 @@ main {
 }
 
 .costumes-hero-copy h1 {
-  margin: 8px 0 0;
+  max-width: 7ch;
+  margin: 0;
   font-family: var(--font-display), serif;
-  font-size: clamp(6.6rem, 10vw, 10.4rem);
+  font-size: clamp(4.7rem, 7.2vw, 6rem);
   font-weight: 500;
-  letter-spacing: -0.075em;
-  line-height: 0.78;
+  letter-spacing: -0.04em;
+  line-height: 0.9;
 }
 
 .costumes-hero-copy > p:last-of-type {
-  max-width: 570px;
+  max-width: 510px;
   margin: 28px 0 32px;
   color: var(--muted);
   font-size: clamp(1rem, 1.25vw, 1.18rem);
   line-height: 1.75;
+}
+
+.costumes-hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.costumes-hero-actions .button-primary {
+  min-height: 52px;
+  border: 1px solid var(--red);
+  background: rgba(255, 253, 248, 0.72);
+  color: var(--red);
+}
+
+.costumes-hero-actions .button-secondary {
+  min-height: 52px;
+  border: 1px solid var(--green);
+  background: rgba(255, 253, 248, 0.72);
+  color: var(--green);
+}
+
+.costumes-hero-actions .button-primary:hover {
+  background: var(--red);
+  color: white;
+}
+
+.costumes-hero-actions .button-secondary:hover {
+  background: var(--green);
+  color: white;
 }
 
 .costume-folk-divider {
@@ -4560,7 +4591,7 @@ main {
 
 .costumes-hero-main {
   position: absolute;
-  inset: 0 0 0 11%;
+  inset: 0 0 42px 11%;
   overflow: hidden;
   margin: 0;
   border-radius: 180px 18px 180px 18px;
@@ -4579,39 +4610,12 @@ main {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  object-position: 50% 26%;
-}
-
-.costumes-hero-main figcaption {
-  position: absolute;
-  right: 28px;
-  bottom: 25px;
-  z-index: 2;
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  color: white;
-  text-transform: uppercase;
-}
-
-.costumes-hero-main figcaption span {
-  display: grid;
-  place-items: center;
-  width: 34px;
-  height: 34px;
-  border: 1px solid rgba(255, 255, 255, 0.64);
-  border-radius: 50%;
-  font-size: 0.65rem;
-}
-
-.costumes-hero-main figcaption strong {
-  font-size: 0.74rem;
-  letter-spacing: 0.16em;
+  object-position: var(--costume-focus, 50% 26%);
 }
 
 .costumes-hero-detail {
   position: absolute;
-  bottom: -28px;
+  bottom: 10px;
   left: 0;
   z-index: 3;
   width: 37%;
@@ -4629,22 +4633,24 @@ main {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  object-position: var(--costume-focus, 50% 50%);
 }
 
-.costumes-hero-detail figcaption {
+.costumes-hero-caption {
   position: absolute;
-  right: 12px;
-  bottom: 12px;
+  right: 0;
+  bottom: 4px;
   display: flex;
   align-items: center;
   gap: 7px;
-  padding: 8px 11px;
-  border-radius: 999px;
-  background: rgba(255, 250, 241, 0.92);
-  color: var(--text);
+  margin: 0;
+  color: var(--green);
   font-size: 0.68rem;
-  font-weight: 700;
+  font-weight: 800;
+  letter-spacing: 0.06em;
 }
+
+.costumes-hero-caption svg { color: var(--red); }
 
 .costumes-hero-stitch {
   position: absolute;
@@ -4671,12 +4677,12 @@ main {
 .costume-anatomy-heading h2,
 .costume-motion-copy h2,
 .costume-cta h2 {
-  margin: 8px 0 0;
+  margin: 0;
   font-family: var(--font-display), serif;
-  font-size: clamp(4.2rem, 6.7vw, 7.2rem);
+  font-size: clamp(3.6rem, 5.5vw, 6rem);
   font-weight: 500;
-  letter-spacing: -0.055em;
-  line-height: 0.88;
+  letter-spacing: -0.04em;
+  line-height: 0.94;
 }
 
 .costumes-intro h2 em {
@@ -4715,97 +4721,190 @@ main {
 }
 
 .costume-catalogue-heading {
-  display: grid;
-  grid-template-columns: 1fr minmax(300px, 0.45fr);
-  align-items: end;
-  gap: 70px;
-  margin-bottom: 26px;
+  display: block;
+  max-width: 800px;
+  margin-bottom: 34px;
 }
 
 .costume-catalogue-heading > p {
-  margin: 0 0 8px;
+  max-width: 620px;
+  margin: 20px 0 0;
   color: var(--muted);
   line-height: 1.75;
 }
 
-.costume-catalogue-note {
-  max-width: 760px;
-  margin-bottom: 42px;
-  padding-left: 18px;
-  border-left: 3px solid var(--red);
-  color: var(--muted);
-  font-size: 0.78rem;
-  line-height: 1.65;
+.costume-catalogue-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  margin-bottom: 34px;
 }
+
+.costume-catalogue-toolbar > p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.75rem;
+  font-variant-numeric: tabular-nums;
+}
+
+.costume-catalogue-groups {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  width: min(100%, 430px);
+  padding: 5px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: rgba(255, 253, 248, 0.7);
+  isolation: isolate;
+}
+
+.costume-catalogue-groups::before {
+  position: absolute;
+  inset: 5px auto 5px 5px;
+  z-index: -1;
+  width: calc((100% - 10px) / 2);
+  border-radius: 999px;
+  background: var(--green);
+  box-shadow: 0 9px 24px rgba(20, 95, 61, 0.18);
+  content: "";
+  transition: transform 420ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.costume-catalogue-groups.is-male::before { transform: translateX(100%); }
+
+.costume-catalogue-groups button {
+  min-height: 48px;
+  padding: 0 20px;
+  border: 0;
+  border-radius: 999px;
+  background: transparent;
+  color: var(--muted);
+  font-weight: 760;
+  cursor: pointer;
+  transition: color 220ms ease, transform 180ms ease;
+}
+
+.costume-catalogue-groups button.active { color: white; }
+.costume-catalogue-groups button:active { transform: scale(0.98); }
+.costume-catalogue-groups button:focus-visible { outline: 3px solid var(--red); outline-offset: 3px; }
+
+.costume-catalogue-groups button:not(.active):hover { color: var(--green); }
 
 .costume-look-grid {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 16px;
+  columns: 3;
+  column-gap: 18px;
 }
 
-.costume-look-reveal { min-width: 0; }
+.costume-look-reveal {
+  display: inline-block;
+  width: 100%;
+  min-width: 0;
+  margin: 0 0 18px;
+  break-inside: avoid;
+  vertical-align: top;
+}
 
 .costume-look-card {
   position: relative;
+  display: block;
   width: 100%;
-  height: clamp(390px, 32vw, 500px);
+  min-height: 0;
+  aspect-ratio: 2 / 3;
   overflow: hidden;
   padding: 0;
   border: 0;
-  border-radius: 10px 42px 10px 10px;
-  background: #12271e;
-  color: white;
+  border-radius: 16px;
+  background: #101211;
+  color: #fff;
   text-align: left;
   cursor: pointer;
+  box-shadow: 0 18px 36px rgba(16, 33, 23, 0.11);
+  transition: transform 260ms cubic-bezier(0.16, 1, 0.3, 1), box-shadow 260ms ease;
+}
+
+.costume-look-reveal:nth-child(4n + 1) .costume-look-card { aspect-ratio: 2 / 3; }
+.costume-look-reveal:nth-child(4n + 2) .costume-look-card { aspect-ratio: 5 / 7; }
+.costume-look-reveal:nth-child(4n + 3) .costume-look-card { aspect-ratio: 4 / 5; }
+.costume-look-reveal:nth-child(4n + 4) .costume-look-card { aspect-ratio: 3 / 4; }
+
+.costume-look-card:focus-visible {
+  outline: 4px solid var(--red);
+  outline-offset: 4px;
 }
 
 .costume-look-card::after {
   position: absolute;
   inset: 0;
-  background: linear-gradient(180deg, rgba(8, 22, 16, 0.05) 28%, rgba(8, 22, 16, 0.87) 100%);
+  z-index: 1;
+  background: linear-gradient(180deg, transparent 48%, rgba(5, 9, 7, 0.18) 64%, rgba(5, 9, 7, 0.9) 100%);
   content: "";
-  transition: background 240ms ease;
+  pointer-events: none;
 }
 
 .costume-look-card.active::before {
   position: absolute;
-  inset: 10px;
+  inset: 7px;
   z-index: 3;
   border: 2px solid rgba(255, 255, 255, 0.82);
-  border-radius: 7px 34px 7px 7px;
+  border-radius: 11px;
   content: "";
   pointer-events: none;
 }
 
 .costume-look-image,
 .costume-look-image img {
+  width: 100%;
+}
+
+.costume-look-image {
   position: absolute;
   inset: 0;
-  width: 100%;
-  height: 100%;
+  display: block;
+  overflow: hidden;
+  background: #101211;
 }
 
 .costume-look-image img {
-  object-fit: cover;
-  transition: transform 600ms cubic-bezier(0.16, 1, 0.3, 1);
+  position: absolute;
+  inset: 0;
+  /* height: 100%; */
+  object-fit: contain;
+  object-position: var(--costume-focus, 50% 24%);
+  padding: 0;
+  transition: transform 700ms cubic-bezier(0.16, 1, 0.3, 1), filter 260ms ease;
 }
 
 .costume-look-card:hover .costume-look-image img,
 .costume-look-card.active .costume-look-image img {
-  transform: scale(1.045);
+  transform: scale(1.015);
+  filter: brightness(1.035);
 }
 
-.costume-look-card:hover::after,
-.costume-look-card.active::after {
-  background: linear-gradient(180deg, rgba(8, 22, 16, 0) 20%, rgba(8, 22, 16, 0.78) 100%);
+.costume-look-card:hover,
+.costume-look-card.active {
+  transform: translateY(-5px);
+  box-shadow: 0 26px 50px rgba(16, 33, 23, 0.17);
 }
 
-.costume-look-number,
+.costume-look-meta {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 2;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 18px;
+  min-height: 0;
+  padding: clamp(18px, 2.3vw, 30px);
+}
+
 .costume-look-copy,
 .costume-look-arrow {
-  position: absolute;
-  z-index: 2;
+  position: static;
 }
 
 .costume-modal-backdrop {
@@ -4815,13 +4914,13 @@ main {
   display: grid;
   place-items: center;
   padding: 32px;
-  background: rgba(18, 31, 24, 0.38);
-  backdrop-filter: blur(7px) saturate(0.92);
+  background: rgba(10, 24, 16, 0.58);
+  backdrop-filter: blur(10px) saturate(0.88);
 }
 
 .costume-modal {
-  width: min(1280px, 92vw);
-  height: min(800px, 86dvh);
+  width: min(1320px, 94vw);
+  height: min(820px, 88dvh);
   overflow: hidden;
   border: 1px solid rgba(255, 255, 255, 0.7);
   border-radius: 22px;
@@ -4851,14 +4950,10 @@ main {
 }
 
 .costume-modal-header > span b {
-  display: grid;
-  place-items: center;
-  width: 31px;
-  height: 31px;
-  border-radius: 50%;
-  background: var(--green);
-  color: white;
-  font-size: 0.62rem;
+  padding-left: 12px;
+  border-left: 1px solid var(--line);
+  color: var(--red);
+  font-size: inherit;
 }
 
 .costume-modal-header > button {
@@ -4952,12 +5047,12 @@ main {
 }
 
 .costume-modal-story h3 {
-  margin: 10px 0 22px;
+  margin: 0 0 22px;
   font-family: var(--font-display), serif;
-  font-size: clamp(3.4rem, 5vw, 5.7rem);
+  font-size: clamp(3.2rem, 4.3vw, 4.9rem);
   font-weight: 500;
-  letter-spacing: -0.055em;
-  line-height: 0.86;
+  letter-spacing: -0.04em;
+  line-height: 0.94;
 }
 
 .costume-modal-story > p:not(.section-kicker) {
@@ -5007,6 +5102,7 @@ main {
   justify-content: center;
   gap: 7px;
   min-width: 0;
+  min-height: 48px;
   padding: 11px 14px;
   border: 0;
   border-radius: 999px;
@@ -5087,13 +5183,18 @@ main {
 .costume-modal-story li svg { flex: 0 0 auto; color: var(--red); }
 
 .costume-modal-thumbnails {
-  display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
+  display: flex;
   gap: 8px;
+  overflow-x: auto;
+  padding: 2px 2px 8px;
+  scroll-snap-type: x proximity;
+  scrollbar-color: var(--green) transparent;
+  scrollbar-width: thin;
 }
 
 .costume-modal-thumbnails button {
   position: relative;
+  flex: 0 0 74px;
   aspect-ratio: 1;
   min-width: 0;
   overflow: hidden;
@@ -5103,6 +5204,7 @@ main {
   background: #12271e;
   opacity: 0.58;
   cursor: pointer;
+  scroll-snap-align: start;
   transition: border-color 180ms ease, opacity 180ms ease, transform 180ms ease;
 }
 
@@ -5119,30 +5221,16 @@ main {
   width: 100%;
   height: 100%;
   object-fit: cover;
-}
-
-.costume-look-number {
-  top: 24px;
-  left: 22px;
-  display: grid;
-  place-items: center;
-  width: 34px;
-  height: 34px;
-  border: 1px solid rgba(255, 255, 255, 0.58);
-  border-radius: 50%;
-  font-size: 0.62rem;
+  object-position: var(--costume-focus, 50% 22%);
 }
 
 .costume-look-copy {
-  right: 24px;
-  bottom: 26px;
-  left: 24px;
   display: grid;
-  gap: 8px;
+  gap: 7px;
 }
 
 .costume-look-copy small {
-  color: rgba(255, 255, 255, 0.7);
+  color: rgba(255, 255, 255, 0.76);
   font-size: 0.65rem;
   font-weight: 700;
   letter-spacing: 0.12em;
@@ -5150,18 +5238,30 @@ main {
 }
 
 .costume-look-copy strong {
-  max-width: 13ch;
+  max-width: 14ch;
   font-family: var(--font-display), serif;
-  font-size: clamp(2.2rem, 3vw, 3.5rem);
+  font-size: clamp(1.55rem, 2.05vw, 2.5rem);
   font-weight: 500;
-  line-height: 0.9;
+  line-height: 0.96;
+  color: #fff;
 }
 
 .costume-look-arrow {
-  right: 20px;
-  bottom: 22px;
-  display: none;
+  display: grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  margin-top: 2px;
+  flex: 0 0 auto;
+  border: 1px solid rgba(255, 255, 255, 0.36);
+  border-radius: 50%;
+  background: rgba(8, 15, 11, 0.34);
+  color: #fff;
+  transition: background-color 220ms ease, color 220ms ease, transform 220ms ease;
 }
+
+.costume-look-card:hover .costume-look-arrow,
+.costume-look-card:focus-visible .costume-look-arrow { background: var(--green); color: var(--green-deep); transform: rotate(5deg); }
 
 .costume-look-detail {
   display: grid;
@@ -5326,6 +5426,7 @@ main {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  object-position: var(--costume-focus, 50% 50%);
 }
 
 .costume-anatomy-card figure span {
@@ -5516,7 +5617,7 @@ main {
 }
 
 .costume-cta .section-kicker { color: rgba(255, 255, 255, 0.7); }
-.costume-cta h2 { font-size: clamp(4.5rem, 7.4vw, 8rem); }
+.costume-cta h2 { font-size: clamp(3.8rem, 6vw, 6rem); }
 
 .costume-cta > p:not(.section-kicker) {
   max-width: 570px;
@@ -5579,9 +5680,9 @@ main {
   .costumes-hero-collage { min-height: 560px; }
   .costumes-hero-copy { min-width: 0; }
   .costumes-hero-copy h1 { font-size: clamp(5.4rem, 8.5vw, 7.3rem); }
-  .costume-look-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-  .costume-look-card { height: min(61vw, 560px); }
-  .costume-look-copy strong { font-size: clamp(2.8rem, 5vw, 4.4rem); }
+  .costume-look-grid { columns: 2; }
+  .costume-look-card { min-height: 0; }
+  .costume-look-copy strong { font-size: clamp(1.8rem, 3.6vw, 2.7rem); }
   .costume-look-detail { grid-template-columns: minmax(0, 1.08fr) minmax(330px, 0.92fr); }
   .costume-anatomy-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .costume-anatomy-card:nth-child(3n + 2) { padding-top: 0; }
@@ -5606,6 +5707,7 @@ main {
   .costumes-intro { grid-template-columns: 1fr; gap: 48px; padding-block: 110px; }
   .costume-catalogue-heading { grid-template-columns: 1fr; gap: 24px; }
   .costume-catalogue-heading > p { max-width: 620px; }
+  .costume-catalogue-toolbar { align-items: flex-start; flex-direction: column; }
   .costume-look-detail { grid-template-columns: 1fr; }
   .costume-look-stage { min-height: min(74vw, 610px); }
   .costume-look-story { padding: 48px 34px 52px; }
@@ -5631,11 +5733,12 @@ main {
 @media (max-width: 680px) {
   .costumes-backdrop-thread { right: -18px; opacity: 0.16; }
   .costumes-backdrop-rosette .folk-rosette { width: 220px; }
-  .costumes-hero-copy h1 { font-size: clamp(5rem, 23vw, 7.2rem); }
+  .costumes-hero-copy h1 { font-size: clamp(4rem, 19vw, 5.2rem); }
   .costume-folk-divider { margin-top: 24px; }
   .costumes-hero-collage { min-height: clamp(420px, 120vw, 650px); }
-  .costumes-hero-main { inset: 0 0 0 4%; border-radius: 92px 12px 92px 12px; }
-  .costumes-hero-detail { bottom: -22px; width: 46%; min-width: 160px; height: 170px; border-width: 7px; }
+  .costumes-hero-main { inset: 0 0 42px 4%; border-radius: 92px 12px 92px 12px; }
+  .costumes-hero-detail { bottom: 5px; width: 46%; min-width: 160px; height: 170px; border-width: 7px; }
+  .costumes-hero-caption { max-width: 48%; font-size: 0.6rem; text-align: right; }
   .costumes-hero-stitch { right: -54px; }
   .costumes-intro h2,
   .costume-catalogue-heading h2,
@@ -5650,9 +5753,13 @@ main {
   .costumes-intro-facts > span:not(:first-child) { padding: 18px 0; border-right: 0; border-bottom: 1px solid var(--line); }
   .costumes-intro-facts > span:last-child { border-bottom: 0; }
   .costume-catalogue { padding-block: 84px 96px; }
-  .costume-look-grid { grid-template-columns: 1fr; }
-  .costume-look-card { height: min(108vw, 500px); }
-  .costume-look-copy strong { overflow-wrap: normal; word-break: normal; hyphens: auto; line-height: 0.94; }
+  .costume-catalogue-toolbar { gap: 14px; }
+  .costume-catalogue-groups { width: 100%; }
+  .costume-catalogue-toolbar > p { padding-left: 4px; }
+  .costume-look-grid { columns: 1; }
+  .costume-look-card { min-height: 0; }
+  .costume-look-image { min-height: 0; }
+  .costume-look-copy strong { overflow-wrap: normal; word-break: normal; hyphens: auto; line-height: 0.96; }
   .costume-look-story ul { grid-template-columns: 1fr; }
   .costume-look-thumbnails { gap: 6px; }
   .costume-modal-backdrop { padding: 8px; }
@@ -5670,7 +5777,8 @@ main {
     hyphens: auto;
   }
   .costume-modal-story ul { grid-template-columns: 1fr; gap: 7px; }
-  .costume-modal-thumbnails { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 6px; }
+  .costume-modal-thumbnails { gap: 6px; }
+  .costume-modal-thumbnails button { flex-basis: 66px; }
   .costume-anatomy { padding-block: 90px 98px; }
   .costume-anatomy-grid { grid-template-columns: 1fr; }
   .costume-anatomy-card:nth-child(2),
@@ -5694,6 +5802,18 @@ main {
   .costume-cta-ornament-right { right: -28px; }
 }
 
+@media (max-width: 520px) {
+  .costumes-hero-actions { display: grid; grid-template-columns: 1fr; }
+  .costumes-hero-actions .button { width: 100%; justify-content: center; }
+  .costume-catalogue-groups button { padding-inline: 10px; font-size: 0.78rem; }
+  .costume-look-card { padding: 0; border-radius: 14px; }
+  .costume-look-image { min-height: 0; border-radius: 0; }
+  .costume-look-meta { min-height: 0; gap: 12px; padding: 20px 18px; }
+  .costume-look-copy strong { font-size: clamp(1.5rem, 7vw, 2.2rem); }
+  .costume-modal-header > span { gap: 8px; letter-spacing: 0.08em; }
+  .costume-modal-header > span b { padding-left: 8px; }
+}
+
 @media (max-width: 940px) and (max-height: 700px) {
   .costume-modal-layout {
     grid-template-rows: clamp(160px, 32dvh, 230px) minmax(0, 1fr);
@@ -5706,6 +5826,12 @@ main {
   .costume-modal-groups::before,
   .costume-modal-groups button,
   .costume-modal-groups button small {
+    transition: none;
+  }
+
+  .costume-catalogue-groups::before,
+  .costume-catalogue-groups button,
+  .costume-look-arrow {
     transition: none;
   }
 }

@@ -11929,13 +11929,13 @@
   },
   {
     "name": "mining-worn-2",
-    "source": "KOSTIUMY_/Śląsk/Balet indywiduanle oraz grupowe - górniczy i pszczyński/Best/Grupa_4_390.jpg",
+    "source": "do użycia/Śląsk/Pszczyna/Strój męski - mundur górniczy/Grupa_4_389.jpg",
     "alt": "Mundur górniczy zestawiony ze strojami pszczyńskimi",
     "enabled": true
   },
   {
     "name": "pszczyna-worn-2",
-    "source": "KOSTIUMY_/Śląsk/Balet indywiduanle oraz grupowe - górniczy i pszczyński/Best/Grupa_4_460.jpg",
+    "source": "do użycia/Śląsk/Pszczyna/Strój damski/Grupa_4_460.jpg",
     "alt": "Portret tancerki w stroju pszczyńskim",
     "enabled": true
   },
@@ -11947,19 +11947,19 @@
   },
   {
     "name": "mining-worn-1",
-    "source": "KOSTIUMY_/Śląsk/Balet indywiduanle oraz grupowe - górniczy i pszczyński/Best/Grupa_4_465.jpg",
+    "source": "do użycia/Śląsk/Pszczyna/Strój męski - mundur górniczy/Grupa_4_465.jpg",
     "alt": "Tancerz Halki w galowym mundurze górniczym",
     "enabled": true
   },
   {
     "name": "pszczyna-worn-1",
-    "source": "KOSTIUMY_/Śląsk/Balet indywiduanle oraz grupowe - górniczy i pszczyński/Best/Grupa_4_474.jpg",
+    "source": "do użycia/Śląsk/Pszczyna/Strój damski/Grupa_4_476.jpg",
     "alt": "Dwie tancerki Halki w strojach pszczyńskich",
     "enabled": true
   },
   {
     "name": "pszczyna-worn-3",
-    "source": "KOSTIUMY_/Śląsk/Balet indywiduanle oraz grupowe - górniczy i pszczyński/Best/Grupa_4_477.jpg",
+    "source": "do użycia/Śląsk/Pszczyna/Strój damski/Grupa_4_481.jpg",
     "alt": "Tancerka Halki prezentująca strój pszczyński",
     "enabled": true
   },
@@ -12079,7 +12079,7 @@
   },
   {
     "name": "dance-circle",
-    "source": "KOSTIUMY_/Śląsk/Balet indywiduanle oraz grupowe - górniczy i pszczyński/Grupa_4_408.jpg",
+    "source": "do użycia/Śląsk/Pszczyna/Strój damski/Grupa_4_405.jpg",
     "alt": "Tancerka widziana z góry podczas obrotu",
     "enabled": true
   },
@@ -12619,7 +12619,7 @@
   },
   {
     "name": "pszczyna-detail-2",
-    "source": "KOSTIUMY_/Śląsk/Damski strój szczegóły/Strój Pszczyński/WKF_4373.jpg",
+    "source": "do użycia/Śląsk/Pszczyna/Strój damski/WKF_4374.jpg",
     "alt": "Detal kobiecego stroju pszczyńskiego",
     "enabled": true
   },
@@ -12661,7 +12661,7 @@
   },
   {
     "name": "pszczyna-detail-3",
-    "source": "KOSTIUMY_/Śląsk/Damski strój szczegóły/Strój Pszczyński/WKF_4380.jpg",
+    "source": "do użycia/Śląsk/Pszczyna/Strój damski/WKF_4377.jpg",
     "alt": "Kwiatowy oplecek stroju pszczyńskiego",
     "enabled": true
   },
@@ -12757,7 +12757,7 @@
   },
   {
     "name": "pszczyna-detail-1",
-    "source": "KOSTIUMY_/Śląsk/Damski strój szczegóły/Strój Pszczyński/WKF_4396.jpg",
+    "source": "do użycia/Śląsk/Pszczyna/Strój damski/WKF_4391.jpg",
     "alt": "Koronka, korale i różowy oplecek stroju pszczyńskiego",
     "enabled": true
   },
@@ -13015,7 +13015,7 @@
   },
   {
     "name": "rozbark-detail-2",
-    "source": "KOSTIUMY_/Śląsk/Damski strój szczegóły/Strój Rozbarski/WKF_9487.jpg",
+    "source": "do użycia/Śląsk/Rozbark/Strój damski/WKF_9516.jpg",
     "alt": "Detal kobiecego stroju rozbarskiego",
     "enabled": true
   },
@@ -13123,7 +13123,7 @@
   },
   {
     "name": "rozbark-detail-4",
-    "source": "KOSTIUMY_/Śląsk/Damski strój szczegóły/Strój Rozbarski/WKF_9505.jpg",
+    "source": "do użycia/Śląsk/Rozbark/Strój damski/WKF_9547.jpg",
     "alt": "Kwiatysta tkanina stroju rozbarskiego",
     "enabled": true
   },
@@ -13363,7 +13363,7 @@
   },
   {
     "name": "rozbark-detail-3",
-    "source": "KOSTIUMY_/Śląsk/Damski strój szczegóły/Strój Rozbarski/WKF_9545.jpg",
+    "source": "do użycia/Śląsk/Rozbark/Strój damski/WKF_9556.jpg",
     "alt": "Warstwy i zdobienia stroju rozbarskiego",
     "enabled": true
   },
@@ -13693,7 +13693,7 @@
   },
   {
     "name": "rozbark-detail-1",
-    "source": "KOSTIUMY_/Śląsk/Damski strój szczegóły/Strój Rozbarski/WKF_9600.jpg",
+    "source": "do użycia/Śląsk/Rozbark/Strój damski/WKF_9586.jpg",
     "alt": "Korale, koronka i kwiecisty materiał stroju rozbarskiego",
     "enabled": true
   },
@@ -14862,10 +14862,10 @@
     "enabled": false
   },
   {
-    "name": "kostiumy-slask-damski-stroj-szczego-y-stroj-rozbarski-wkf-9795",
-    "source": "KOSTIUMY_/Śląsk/Damski strój szczegóły/Strój Rozbarski/WKF_9795.jpg",
-    "alt": "WKF 9795",
-    "enabled": false
+    "name": "rozbark-purpurka",
+    "source": "do użycia/Śląsk/Rozbark/Strój damski/WKF_9794.jpg",
+    "alt": "Czerwona purpurka w kwiatowe wzory, wiązana z tyłu głowy",
+    "enabled": true
   },
   {
     "name": "kostiumy-slask-damski-stroj-szczego-y-stroj-rozbarski-wkf-9796",
@@ -14887,7 +14887,7 @@
   },
   {
     "name": "mining-detail-1",
-    "source": "KOSTIUMY_/Śląsk/Męski strój szczegóły/Mundur górniczy/WKF_4324.jpg",
+    "source": "do użycia/Śląsk/Pszczyna/Strój męski - mundur górniczy/WKF_4334.jpg",
     "alt": "Detal galowego munduru górniczego",
     "enabled": true
   },
@@ -14929,7 +14929,7 @@
   },
   {
     "name": "mining-detail-2",
-    "source": "KOSTIUMY_/Śląsk/Męski strój szczegóły/Mundur górniczy/WKF_4331.jpg",
+    "source": "do użycia/Śląsk/Pszczyna/Strój męski - mundur górniczy/WKF_4352.jpg",
     "alt": "Złote wykończenie galowego munduru górniczego",
     "enabled": true
   },
@@ -14971,7 +14971,7 @@
   },
   {
     "name": "mining-detail-3",
-    "source": "KOSTIUMY_/Śląsk/Męski strój szczegóły/Mundur górniczy/WKF_4338.jpg",
+    "source": "do użycia/Śląsk/Pszczyna/Strój męski - mundur górniczy/WKF_4372.jpg",
     "alt": "Detal czarnego galowego munduru górniczego",
     "enabled": true
   },
@@ -15181,7 +15181,7 @@
   },
   {
     "name": "rozbark-male-detail",
-    "source": "KOSTIUMY_/Śląsk/Męski strój szczegóły/Stój Rozbarski/WKF_0116.jpg",
+    "source": "do użycia/Śląsk/Rozbark/Strój męski/WKF_0134.jpg",
     "alt": "Detal męskiego stroju rozbarskiego",
     "enabled": true
   },
@@ -15205,7 +15205,7 @@
   },
   {
     "name": "rozbark-male-detail-2",
-    "source": "KOSTIUMY_/Śląsk/Męski strój szczegóły/Stój Rozbarski/WKF_0120.jpg",
+    "source": "do użycia/Śląsk/Rozbark/Strój męski/WKF_0139.jpg",
     "alt": "Wykończenie męskiego stroju rozbarskiego",
     "enabled": true
   },
@@ -15445,7 +15445,7 @@
   },
   {
     "name": "rozbark-male-detail-3",
-    "source": "KOSTIUMY_/Śląsk/Męski strój szczegóły/Stój Rozbarski/WKF_0160.jpg",
+    "source": "do użycia/Śląsk/Rozbark/Strój męski/WKF_0174.jpg",
     "alt": "Warstwy męskiego stroju rozbarskiego",
     "enabled": true
   },

@@ -43,6 +43,146 @@ export const sessionImages = [
     "height": 1467
   },
   {
+    "name": "dance-circle",
+    "src": "/session/dance-circle.webp",
+    "alt": "Tancerka widziana z góry podczas obrotu",
+    "width": 2200,
+    "height": 1467
+  },
+  {
+    "name": "pszczyna-worn-2",
+    "src": "/session/pszczyna-worn-2.webp",
+    "alt": "Portret tancerki w stroju pszczyńskim",
+    "width": 1467,
+    "height": 2200
+  },
+  {
+    "name": "pszczyna-worn-1",
+    "src": "/session/pszczyna-worn-1.webp",
+    "alt": "Dwie tancerki Halki w strojach pszczyńskich",
+    "width": 3712,
+    "height": 5568
+  },
+  {
+    "name": "pszczyna-worn-3",
+    "src": "/session/pszczyna-worn-3.webp",
+    "alt": "Tancerka Halki prezentująca strój pszczyński",
+    "width": 1467,
+    "height": 2200
+  },
+  {
+    "name": "pszczyna-detail-2",
+    "src": "/session/pszczyna-detail-2.webp",
+    "alt": "Detal kobiecego stroju pszczyńskiego",
+    "width": 2200,
+    "height": 1467
+  },
+  {
+    "name": "pszczyna-detail-3",
+    "src": "/session/pszczyna-detail-3.webp",
+    "alt": "Kwiatowy oplecek stroju pszczyńskiego",
+    "width": 2200,
+    "height": 1467
+  },
+  {
+    "name": "pszczyna-detail-1",
+    "src": "/session/pszczyna-detail-1.webp",
+    "alt": "Koronka, korale i różowy oplecek stroju pszczyńskiego",
+    "width": 4048,
+    "height": 3440
+  },
+  {
+    "name": "mining-worn-2",
+    "src": "/session/mining-worn-2.webp",
+    "alt": "Mundur górniczy zestawiony ze strojami pszczyńskimi",
+    "width": 2200,
+    "height": 1467
+  },
+  {
+    "name": "mining-worn-1",
+    "src": "/session/mining-worn-1.webp",
+    "alt": "Tancerz Halki w galowym mundurze górniczym",
+    "width": 1467,
+    "height": 2200
+  },
+  {
+    "name": "mining-detail-1",
+    "src": "/session/mining-detail-1.webp",
+    "alt": "Detal galowego munduru górniczego",
+    "width": 2200,
+    "height": 1467
+  },
+  {
+    "name": "mining-detail-2",
+    "src": "/session/mining-detail-2.webp",
+    "alt": "Złote wykończenie galowego munduru górniczego",
+    "width": 2200,
+    "height": 1467
+  },
+  {
+    "name": "mining-detail-3",
+    "src": "/session/mining-detail-3.webp",
+    "alt": "Detal czarnego galowego munduru górniczego",
+    "width": 2200,
+    "height": 1467
+  },
+  {
+    "name": "rozbark-detail-2",
+    "src": "/session/rozbark-detail-2.webp",
+    "alt": "Detal kobiecego stroju rozbarskiego",
+    "width": 2200,
+    "height": 1467
+  },
+  {
+    "name": "rozbark-detail-4",
+    "src": "/session/rozbark-detail-4.webp",
+    "alt": "Kwiatysta tkanina stroju rozbarskiego",
+    "width": 2200,
+    "height": 1467
+  },
+  {
+    "name": "rozbark-detail-3",
+    "src": "/session/rozbark-detail-3.webp",
+    "alt": "Warstwy i zdobienia stroju rozbarskiego",
+    "width": 2200,
+    "height": 1467
+  },
+  {
+    "name": "rozbark-detail-1",
+    "src": "/session/rozbark-detail-1.webp",
+    "alt": "Korale, koronka i kwiecisty materiał stroju rozbarskiego",
+    "width": 2906,
+    "height": 4540
+  },
+  {
+    "name": "rozbark-purpurka",
+    "src": "/session/rozbark-purpurka.webp",
+    "alt": "Czerwona purpurka w kwiatowe wzory, wiązana z tyłu głowy",
+    "width": 3504,
+    "height": 4400
+  },
+  {
+    "name": "rozbark-male-detail",
+    "src": "/session/rozbark-male-detail.webp",
+    "alt": "Detal męskiego stroju rozbarskiego",
+    "width": 2200,
+    "height": 1467
+  },
+  {
+    "name": "rozbark-male-detail-2",
+    "src": "/session/rozbark-male-detail-2.webp",
+    "alt": "Wykończenie męskiego stroju rozbarskiego",
+    "width": 2200,
+    "height": 1467
+  },
+  {
+    "name": "rozbark-male-detail-3",
+    "src": "/session/rozbark-male-detail-3.webp",
+    "alt": "Warstwy męskiego stroju rozbarskiego",
+    "width": 2200,
+    "height": 1467
+  },
+  {
     "name": "children-pair",
     "src": "/session/children-pair.webp",
     "alt": "Dzieci ćwiczące kroki taneczne",
@@ -60,8 +200,8 @@ export const sessionImages = [
     "name": "cieszyn-worn-1",
     "src": "/session/cieszyn-worn-1.webp",
     "alt": "Tancerka Halki w stroju cieszyńskim",
-    "width": 1467,
-    "height": 2200
+    "width": 3712,
+    "height": 5568
   },
   {
     "name": "cieszyn-worn-2",
@@ -172,8 +312,8 @@ export const sessionImages = [
     "name": "costume-hero-detail",
     "src": "/session/costume-hero-detail.webp",
     "alt": "Czerwony pas i barwne taśmy stroju Krakowiaków Zachodnich",
-    "width": 2200,
-    "height": 1467
+    "width": 5568,
+    "height": 3712
   },
   {
     "name": "krakow-male-detail",
@@ -242,8 +382,8 @@ export const sessionImages = [
     "name": "lublin-female-detail-2",
     "src": "/session/lublin-female-detail-2.webp",
     "alt": "Wielobarwny haft i taśmy stroju krzczonowskiego",
-    "width": 2200,
-    "height": 1467
+    "width": 4092,
+    "height": 3712
   },
   {
     "name": "lublin-female-detail-3",
@@ -291,8 +431,8 @@ export const sessionImages = [
     "name": "national-worn-1",
     "src": "/session/national-worn-1.webp",
     "alt": "Para Halki w kostiumach z okresu Księstwa Warszawskiego",
-    "width": 1467,
-    "height": 2200
+    "width": 3712,
+    "height": 5568
   },
   {
     "name": "national-worn-3",
@@ -326,8 +466,8 @@ export const sessionImages = [
     "name": "rzeszow-worn-1",
     "src": "/session/rzeszow-worn-1.webp",
     "alt": "Tancerka Halki w stroju rzeszowskim",
-    "width": 1467,
-    "height": 2200
+    "width": 3712,
+    "height": 5568
   },
   {
     "name": "rzeszow-worn-2",
@@ -368,8 +508,8 @@ export const sessionImages = [
     "name": "rzeszow-male-detail",
     "src": "/session/rzeszow-male-detail.webp",
     "alt": "Niebieska kamizola i pas męskiego stroju rzeszowskiego",
-    "width": 2200,
-    "height": 1467
+    "width": 2145,
+    "height": 1935
   },
   {
     "name": "rzeszow-male-detail-2",
@@ -379,144 +519,11 @@ export const sessionImages = [
     "height": 2200
   },
   {
-    "name": "mining-worn-2",
-    "src": "/session/mining-worn-2.webp",
-    "alt": "Mundur górniczy zestawiony ze strojami pszczyńskimi",
-    "width": 2200,
-    "height": 1467
-  },
-  {
-    "name": "pszczyna-worn-2",
-    "src": "/session/pszczyna-worn-2.webp",
-    "alt": "Portret tancerki w stroju pszczyńskim",
-    "width": 1467,
-    "height": 2200
-  },
-  {
-    "name": "mining-worn-1",
-    "src": "/session/mining-worn-1.webp",
-    "alt": "Tancerz Halki w galowym mundurze górniczym",
-    "width": 1467,
-    "height": 2200
-  },
-  {
-    "name": "pszczyna-worn-1",
-    "src": "/session/pszczyna-worn-1.webp",
-    "alt": "Dwie tancerki Halki w strojach pszczyńskich",
-    "width": 1467,
-    "height": 2200
-  },
-  {
-    "name": "pszczyna-worn-3",
-    "src": "/session/pszczyna-worn-3.webp",
-    "alt": "Tancerka Halki prezentująca strój pszczyński",
-    "width": 1467,
-    "height": 2200
-  },
-  {
-    "name": "dance-circle",
-    "src": "/session/dance-circle.webp",
-    "alt": "Tancerka widziana z góry podczas obrotu",
-    "width": 2200,
-    "height": 1467
-  },
-  {
-    "name": "pszczyna-detail-2",
-    "src": "/session/pszczyna-detail-2.webp",
-    "alt": "Detal kobiecego stroju pszczyńskiego",
-    "width": 2200,
-    "height": 1467
-  },
-  {
-    "name": "pszczyna-detail-3",
-    "src": "/session/pszczyna-detail-3.webp",
-    "alt": "Kwiatowy oplecek stroju pszczyńskiego",
-    "width": 2200,
-    "height": 1467
-  },
-  {
-    "name": "pszczyna-detail-1",
-    "src": "/session/pszczyna-detail-1.webp",
-    "alt": "Koronka, korale i różowy oplecek stroju pszczyńskiego",
-    "width": 2200,
-    "height": 1467
-  },
-  {
-    "name": "rozbark-detail-2",
-    "src": "/session/rozbark-detail-2.webp",
-    "alt": "Detal kobiecego stroju rozbarskiego",
-    "width": 2200,
-    "height": 1467
-  },
-  {
-    "name": "rozbark-detail-4",
-    "src": "/session/rozbark-detail-4.webp",
-    "alt": "Kwiatysta tkanina stroju rozbarskiego",
-    "width": 2200,
-    "height": 1467
-  },
-  {
-    "name": "rozbark-detail-3",
-    "src": "/session/rozbark-detail-3.webp",
-    "alt": "Warstwy i zdobienia stroju rozbarskiego",
-    "width": 2200,
-    "height": 1467
-  },
-  {
-    "name": "rozbark-detail-1",
-    "src": "/session/rozbark-detail-1.webp",
-    "alt": "Korale, koronka i kwiecisty materiał stroju rozbarskiego",
-    "width": 1467,
-    "height": 2200
-  },
-  {
-    "name": "mining-detail-1",
-    "src": "/session/mining-detail-1.webp",
-    "alt": "Detal galowego munduru górniczego",
-    "width": 2200,
-    "height": 1467
-  },
-  {
-    "name": "mining-detail-2",
-    "src": "/session/mining-detail-2.webp",
-    "alt": "Złote wykończenie galowego munduru górniczego",
-    "width": 2200,
-    "height": 1467
-  },
-  {
-    "name": "mining-detail-3",
-    "src": "/session/mining-detail-3.webp",
-    "alt": "Detal czarnego galowego munduru górniczego",
-    "width": 2200,
-    "height": 1467
-  },
-  {
-    "name": "rozbark-male-detail",
-    "src": "/session/rozbark-male-detail.webp",
-    "alt": "Detal męskiego stroju rozbarskiego",
-    "width": 2200,
-    "height": 1467
-  },
-  {
-    "name": "rozbark-male-detail-2",
-    "src": "/session/rozbark-male-detail-2.webp",
-    "alt": "Wykończenie męskiego stroju rozbarskiego",
-    "width": 2200,
-    "height": 1467
-  },
-  {
-    "name": "rozbark-male-detail-3",
-    "src": "/session/rozbark-male-detail-3.webp",
-    "alt": "Warstwy męskiego stroju rozbarskiego",
-    "width": 2200,
-    "height": 1467
-  },
-  {
     "name": "zywiec-worn-1",
     "src": "/session/zywiec-worn-1.webp",
     "alt": "Para Halki w strojach Górali Żywieckich",
-    "width": 1467,
-    "height": 2200
+    "width": 3488,
+    "height": 5568
   },
   {
     "name": "zywiec-worn-2",
@@ -634,8 +641,8 @@ export const sessionImages = [
     "name": "modal-cieszyn-male-01",
     "src": "/session/modal-cieszyn-male-01.webp",
     "alt": "Strój męski — Cieszyn, fotografia 1",
-    "width": 1467,
-    "height": 2200
+    "width": 3616,
+    "height": 5568
   },
   {
     "name": "modal-cieszyn-male-02",
@@ -739,8 +746,8 @@ export const sessionImages = [
     "name": "modal-krakow-male-01",
     "src": "/session/modal-krakow-male-01.webp",
     "alt": "Strój męski — Kraków, fotografia 1",
-    "width": 2200,
-    "height": 1467
+    "width": 3608,
+    "height": 5412
   },
   {
     "name": "modal-krakow-male-02",
@@ -886,8 +893,8 @@ export const sessionImages = [
     "name": "modal-lublin-male-01",
     "src": "/session/modal-lublin-male-01.webp",
     "alt": "Strój męski — Lublin, fotografia 1",
-    "width": 1467,
-    "height": 2200
+    "width": 3600,
+    "height": 5568
   },
   {
     "name": "modal-lublin-male-02",
@@ -1054,8 +1061,8 @@ export const sessionImages = [
     "name": "modal-rzeszow-female-09",
     "src": "/session/modal-rzeszow-female-09.webp",
     "alt": "Strój damski — Rzeszów, fotografia 9",
-    "width": 2200,
-    "height": 1467
+    "width": 2216,
+    "height": 2512
   },
   {
     "name": "modal-rzeszow-female-10",
@@ -1201,8 +1208,8 @@ export const sessionImages = [
     "name": "modal-slask-pszczyna-male-01",
     "src": "/session/modal-slask-pszczyna-male-01.webp",
     "alt": "Strój męski — Śląsk — Pszczyna, fotografia 1",
-    "width": 2200,
-    "height": 1467
+    "width": 3712,
+    "height": 5568
   },
   {
     "name": "modal-slask-pszczyna-male-02",
@@ -1516,7 +1523,7 @@ export const sessionImages = [
     "name": "modal-zywiec-male-05",
     "src": "/session/modal-zywiec-male-05.webp",
     "alt": "Strój męski — Żywiec, fotografia 5",
-    "width": 2200,
+    "width": 1828,
     "height": 1467
   },
   {

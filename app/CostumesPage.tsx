@@ -1,6 +1,7 @@
 "use client";
 
-import { useEffect, useState, type CSSProperties, type ReactNode } from "react";
+import Link from "next/link";
+import { useCallback, useEffect, useRef, useState, type CSSProperties, type ReactNode } from "react";
 import { AnimatePresence, motion, useReducedMotion, useScroll, useTransform } from "motion/react";
 import {
   ArrowLeft,
@@ -27,6 +28,30 @@ const navItems = [
   ["Kontakt", "/#kontakt"],
 ] as const;
 
+const costumeImageFocus: Record<string, string> = {
+  "costume-hero-new": "50% 30%",
+  "costume-hero-detail": "50% 48%",
+  "cieszyn-worn-1": "50% 14%",
+  "krakow-worn-1": "50% 12%",
+  "lublin-worn-1": "50% 16%",
+  "lublin-worn-male": "50% 15%",
+  "rzeszow-worn-1": "50% 12%",
+  "zywiec-worn-1": "50% 16%",
+  "pszczyna-worn-1": "50% 12%",
+  "mining-worn-1": "50% 15%",
+  "national-worn-1": "50% 12%",
+};
+
+function imageFocus(name: string) {
+  if (costumeImageFocus[name]) return costumeImageFocus[name];
+  if (name.startsWith("modal-") && !name.includes("detail")) return "50% 18%";
+  return "50% 50%";
+}
+
+function findCostumeImage(name: string) {
+  return sessionImages.find((item) => item.name === name);
+}
+
 function CostumeImage({
   name,
   className = "",
@@ -36,18 +61,36 @@ function CostumeImage({
   className?: string;
   loading?: "lazy" | "eager";
 }) {
-  const image = sessionImages.find((item) => item.name === name);
+  const image = findCostumeImage(name);
   if (!image) return null;
   return (
     <img
       className={className}
+      data-costume-image={name}
       src={image.src}
       alt={image.alt}
       width={image.width}
       height={image.height}
       loading={loading}
       fetchPriority={loading === "eager" ? "high" : "auto"}
+      style={{ "--costume-focus": imageFocus(name) } as CSSProperties}
     />
+  );
+}
+
+function CostumePreviewImage({ name }: { name: string }) {
+  const image = findCostumeImage(name);
+  if (!image) return null;
+
+  return (
+    <span
+      className="costume-look-image"
+      style={{
+        "--costume-focus": imageFocus(name),
+      } as CSSProperties}
+    >
+      <CostumeImage name={name} />
+    </span>
   );
 }
 
@@ -113,8 +156,11 @@ function CostumeBackdrop() {
 
 export function CostumesPage() {
   const reduce = useReducedMotion();
+  const modalRef = useRef<HTMLElement>(null);
+  const previousFocusRef = useRef<HTMLElement | null>(null);
   const [menuOpen, setMenuOpen] = useState(false);
   const [activeLook, setActiveLook] = useState<number | null>(null);
+  const [catalogueGroup, setCatalogueGroup] = useState<"female" | "male">("female");
   const [activeGroup, setActiveGroup] = useState<"female" | "male">("female");
   const [activePhoto, setActivePhoto] = useState(0);
   const look = activeLook === null ? null : costumeLooks[activeLook];
@@ -131,13 +177,23 @@ export function CostumesPage() {
       : maleGallery
     : [];
 
-  const chooseLook = (index: number) => {
+  const visibleLooks = costumeLooks
+    .map((item, index) => ({ item, index }))
+    .filter(({ item }) => !item.genders || item.genders.includes(catalogueGroup));
+
+  const chooseLook = (index: number, preferredGroup = catalogueGroup) => {
     const selected = costumeLooks[index];
     const selectedSet = costumeModalImages[selected.galleryKey as keyof typeof costumeModalImages];
+    const preferredAvailable = (!selected.genders || selected.genders.includes(preferredGroup)) && selectedSet?.[preferredGroup].length;
     const femaleAvailable = (!selected.genders || selected.genders.includes("female")) && selectedSet?.female.length;
+    previousFocusRef.current = document.activeElement instanceof HTMLElement ? document.activeElement : null;
     setActiveLook(index);
-    setActiveGroup(femaleAvailable ? "female" : "male");
+    setActiveGroup(preferredAvailable ? preferredGroup : femaleAvailable ? "female" : "male");
     setActivePhoto(0);
+  };
+
+  const chooseCatalogueGroup = (group: "female" | "male") => {
+    setCatalogueGroup(group);
   };
 
   const chooseGroup = (group: "female" | "male") => {
@@ -145,10 +201,10 @@ export function CostumesPage() {
     setActivePhoto(0);
   };
 
-  const changePhoto = (direction: number) => {
+  const changePhoto = useCallback((direction: number) => {
     if (!gallery.length) return;
     setActivePhoto((current) => (current + direction + gallery.length) % gallery.length);
-  };
+  }, [gallery.length]);
 
   useEffect(() => {
     if (activeLook === null) return;
@@ -158,29 +214,45 @@ export function CostumesPage() {
       if (event.key === "Escape") setActiveLook(null);
       if (event.key === "ArrowLeft") changePhoto(-1);
       if (event.key === "ArrowRight") changePhoto(1);
+      if (event.key === "Tab" && modalRef.current) {
+        const focusable = Array.from(
+          modalRef.current.querySelectorAll<HTMLElement>("button:not([disabled]), a[href], [tabindex]:not([tabindex='-1'])"),
+        );
+        const first = focusable[0];
+        const last = focusable[focusable.length - 1];
+        if (!first || !last) return;
+        if (event.shiftKey && document.activeElement === first) {
+          event.preventDefault();
+          last.focus();
+        } else if (!event.shiftKey && document.activeElement === last) {
+          event.preventDefault();
+          first.focus();
+        }
+      }
     };
     window.addEventListener("keydown", closeOnEscape);
     return () => {
       document.body.style.overflow = previousOverflow;
       window.removeEventListener("keydown", closeOnEscape);
+      previousFocusRef.current?.focus();
     };
-  }, [activeLook, activeGroup, gallery.length]);
+  }, [activeLook, activeGroup, changePhoto]);
 
   return (
     <main className="costumes-page">
       <CostumeBackdrop />
 
       <header className="site-header chronicle-site-header costumes-site-header">
-        <a className="brand" href="/" aria-label="Halka, wróć na stronę główną">
+        <Link className="brand" href="/" aria-label="Halka, wróć na stronę główną">
           <img src="/logo.jpg" alt="" width="48" height="48" />
           <span><strong>HALKA</strong><small>Lubliniec</small></span>
-        </a>
+        </Link>
         <nav className="desktop-nav" aria-label="Główna nawigacja">
           {navItems.map(([label, href]) => (
-            <a className={href === "/kostiumy" ? "active" : ""} key={href} href={href}>{label}</a>
+            <Link className={href === "/kostiumy" ? "active" : ""} key={href} href={href}>{label}</Link>
           ))}
         </nav>
-        <a className="header-cta chronicle-home-link" href="/"><House size={17} /> Strona główna</a>
+        <Link className="header-cta chronicle-home-link" href="/"><House size={17} /> Strona główna</Link>
         <button
           className="menu-button"
           type="button"
@@ -200,9 +272,9 @@ export function CostumesPage() {
               exit={{ opacity: 0, y: -10 }}
             >
               {navItems.map(([label, href]) => (
-                <a key={href} href={href} onClick={() => setMenuOpen(false)}>{label}</a>
+                <Link key={href} href={href} onClick={() => setMenuOpen(false)}>{label}</Link>
               ))}
-              <a href="/" onClick={() => setMenuOpen(false)}>Strona główna</a>
+              <Link href="/" onClick={() => setMenuOpen(false)}>Strona główna</Link>
             </motion.nav>
           )}
         </AnimatePresence>
@@ -215,12 +287,14 @@ export function CostumesPage() {
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.86, ease: [0.16, 1, 0.3, 1] }}
         >
-          <a className="chronicle-breadcrumb" href="/"><ArrowLeft size={16} /> Strona główna</a>
-          <p className="section-kicker">Kolekcja Zespołu Halka</p>
+          <Link className="chronicle-breadcrumb" href="/"><ArrowLeft size={16} /> Strona główna</Link>
           <h1>Kostiumy</h1>
           <CostumeDivider />
-          <p>Na scenie każdy haft, fałda i wstążka pracuje razem z ruchem. Zobacz stroje Halki z bliska — od całej sylwetki po najmniejszy detal.</p>
-          <a className="button button-primary" href="#kolekcja">Poznaj kolekcję <ArrowRight size={18} /></a>
+          <p>Każdy haft, fałda i wstążka pracuje razem z ruchem. Zobacz stroje Halki od sylwetki po detal.</p>
+          <div className="costumes-hero-actions" aria-label="Wybierz część kolekcji">
+            <a className="button button-primary" href="#kolekcja" onClick={() => chooseCatalogueGroup("female")}>Stroje damskie</a>
+            <a className="button button-secondary" href="#kolekcja" onClick={() => chooseCatalogueGroup("male")}>Stroje męskie</a>
+          </div>
         </motion.div>
 
         <motion.div
@@ -229,21 +303,29 @@ export function CostumesPage() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
         >
-          <figure className="costumes-hero-main">
+          <motion.figure
+            className="costumes-hero-main"
+            initial={reduce ? false : { clipPath: "inset(0 0 0 14% round 20px)", opacity: 0.82 }}
+            animate={{ clipPath: "inset(0 0 0 0% round 20px)", opacity: 1 }}
+            transition={{ duration: 0.82, ease: [0.16, 1, 0.3, 1] }}
+          >
             <CostumeImage name="costume-hero-new" loading="eager" />
-            <figcaption><span>01</span><strong>Lubelszczyzna</strong></figcaption>
-          </figure>
-          <figure className="costumes-hero-detail">
+          </motion.figure>
+          <motion.figure
+            className="costumes-hero-detail"
+            initial={reduce ? false : { opacity: 0, y: 30, rotate: -2 }}
+            animate={{ opacity: 1, y: 0, rotate: 0 }}
+            transition={{ duration: 0.72, delay: 0.62, ease: [0.16, 1, 0.3, 1] }}
+          >
             <CostumeImage name="costume-hero-detail" loading="eager" />
-            <figcaption><Sparkle size={16} weight="fill" /> Detal stroju</figcaption>
-          </figure>
+          </motion.figure>
+          <p className="costumes-hero-caption"><Sparkle size={15} weight="fill" /> Strój krzczonowski, Lubelszczyzna</p>
           <span className="costumes-hero-stitch" aria-hidden="true" />
         </motion.div>
       </section>
 
       <section className="costumes-intro section-shell" aria-labelledby="costumes-intro-title">
         <Reveal className="costumes-intro-title">
-          <p className="section-kicker">Strój sceniczny</p>
           <h2 id="costumes-intro-title">Nie tylko ubiór.<br /><em>Część opowieści.</em></h2>
         </Reveal>
         <Reveal className="costumes-intro-copy" delay={0.08}>
@@ -259,32 +341,53 @@ export function CostumesPage() {
       <section className="costume-catalogue section-shell" id="kolekcja" aria-labelledby="costume-catalogue-title">
         <Reveal className="costume-catalogue-heading">
           <div>
-            <p className="section-kicker">Katalog kostiumów</p>
-            <h2 id="costume-catalogue-title">Wybierz opowieść.</h2>
+            <h2 id="costume-catalogue-title">Wybierz region.</h2>
           </div>
-          <p>Każda kategoria otwiera własny zestaw fotografii: od całej sylwetki po elementy, które łatwo przeoczyć z widowni.</p>
+          <p>Najpierw wybierz stroje damskie lub męskie, potem otwórz region i zobacz pełne sylwetki oraz detale.</p>
         </Reveal>
 
-        <Reveal className="costume-catalogue-note" delay={0.06}>
-          Fotografie przedstawiają kostiumy sceniczne Halki, uporządkowane według regionów i tradycji, do których nawiązują.
+        <Reveal className="costume-catalogue-toolbar" delay={0.06}>
+          <div className={`costume-catalogue-groups is-${catalogueGroup}`} role="tablist" aria-label="Rodzaj stroju">
+            <button type="button" role="tab" aria-selected={catalogueGroup === "female"} className={catalogueGroup === "female" ? "active" : ""} onClick={() => chooseCatalogueGroup("female")}>Stroje damskie</button>
+            <button type="button" role="tab" aria-selected={catalogueGroup === "male"} className={catalogueGroup === "male" ? "active" : ""} onClick={() => chooseCatalogueGroup("male")}>Stroje męskie</button>
+          </div>
+          <p aria-live="polite">{visibleLooks.length} {visibleLooks.length === 1 ? "region" : "regionów"} w tej części kolekcji</p>
         </Reveal>
 
         <div className="costume-look-grid" role="list" aria-label="Kategorie kostiumów">
-          {costumeLooks.map((item, index) => (
-            <Reveal key={item.title} className="costume-look-reveal" delay={index * 0.05}>
-              <button
-                type="button"
-                className={`costume-look-card ${activeLook === index ? "active" : ""}`}
-                onClick={() => chooseLook(index)}
-                aria-pressed={activeLook === index}
-              >
-                <span className="costume-look-image"><CostumeImage name={item.images[0]} /></span>
-                <span className="costume-look-number">{String(index + 1).padStart(2, "0")}</span>
-                <span className="costume-look-copy"><small>{item.eyebrow}</small><strong>{item.title}</strong></span>
-                <span className="costume-look-arrow"><ArrowUpRight size={19} /></span>
-              </button>
-            </Reveal>
-          ))}
+          <AnimatePresence mode="popLayout" initial={false}>
+            {visibleLooks.map(({ item, index }, visibleIndex) => {
+              const catalogueModalSet = costumeModalImages[item.galleryKey as keyof typeof costumeModalImages];
+              const preview = catalogueGroup === "female"
+                ? item.femaleImages?.[0]
+                : catalogueModalSet?.male[0] ?? item.maleImages?.[0];
+              return (
+                <motion.div
+                  layout
+                  key={`${catalogueGroup}-${item.title}`}
+                  className="costume-look-reveal"
+                  initial={reduce ? false : { opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={reduce ? undefined : { opacity: 0, y: -12 }}
+                  transition={{ duration: 0.42, delay: visibleIndex * 0.035, ease: [0.16, 1, 0.3, 1] }}
+                >
+                  <button
+                    type="button"
+                    className={`costume-look-card ${activeLook === index ? "active" : ""}`}
+                    onClick={() => chooseLook(index, catalogueGroup)}
+                    aria-pressed={activeLook === index}
+                    aria-label={`Otwórz ${item.title}, ${catalogueGroup === "female" ? "stroje damskie" : "stroje męskie"}`}
+                  >
+                    <CostumePreviewImage name={preview ?? item.images[0]} />
+                    <span className="costume-look-meta">
+                      <span className="costume-look-copy"><small>{item.eyebrow}</small><strong>{item.title}</strong></span>
+                      <span className="costume-look-arrow" aria-hidden="true"><ArrowUpRight size={19} /></span>
+                    </span>
+                  </button>
+                </motion.div>
+              );
+            })}
+          </AnimatePresence>
         </div>
 
       </section>
@@ -302,17 +405,19 @@ export function CostumesPage() {
             }}
           >
             <motion.section
+              ref={modalRef}
               className="costume-modal"
               role="dialog"
               aria-modal="true"
               aria-labelledby="costume-modal-title"
+              aria-describedby="costume-modal-description"
               initial={reduce ? false : { opacity: 0, y: 34, scale: 0.985 }}
               animate={{ opacity: 1, y: 0, scale: 1 }}
               exit={{ opacity: 0, y: 18, scale: 0.99 }}
               transition={{ duration: 0.42, ease: [0.16, 1, 0.3, 1] }}
             >
               <header className="costume-modal-header">
-                <span><b>{String((activeLook ?? 0) + 1).padStart(2, "0")}</b> {look.eyebrow}</span>
+                <span>{look.eyebrow}<b>{activeGroup === "female" ? "Strój damski" : "Strój męski"}</b></span>
                 <button type="button" onClick={() => setActiveLook(null)} aria-label="Zamknij prezentację stroju" autoFocus>
                   <X size={22} />
                 </button>
@@ -342,9 +447,8 @@ export function CostumesPage() {
                 </div>
 
                 <div className="costume-modal-story">
-                  <p className="section-kicker">Kolekcja regionalna</p>
                   <h3 id="costume-modal-title">{look.title}</h3>
-                  <p>{look.description}</p>
+                  <p id="costume-modal-description">{look.description}</p>
 
                   <div className={`costume-modal-groups is-${activeGroup}`} role="tablist" aria-label="Wersja stroju">
                     {femaleGallery.length ? (
@@ -386,7 +490,6 @@ export function CostumesPage() {
 
       <section className="costume-anatomy section-shell" aria-labelledby="costume-anatomy-title">
         <Reveal className="costume-anatomy-heading">
-          <p className="section-kicker">Anatomia stroju</p>
           <h2 id="costume-anatomy-title">To detal buduje całość.</h2>
         </Reveal>
         <div className="costume-anatomy-grid">
@@ -409,10 +512,9 @@ export function CostumesPage() {
       <section className="costume-cta section-shell">
         <span className="costume-cta-ornament costume-cta-ornament-left"><FolkRosette /><i /><i /><i /></span>
         <span className="costume-cta-ornament costume-cta-ornament-right"><FolkRosette /><i /><i /><i /></span>
-        <p className="section-kicker">Pieśń. Taniec. Pokolenia.</p>
         <h2>Poznaj Halkę bliżej.</h2>
         <p>Zobacz nasze koncerty, wspomnienia i ludzi, którzy każdego dnia ożywiają te kostiumy.</p>
-        <a className="button button-primary" href="/galeria">Przejdź do galerii <ArrowRight size={18} /></a>
+        <Link className="button button-primary" href="/galeria">Przejdź do galerii <ArrowRight size={18} /></Link>
       </section>
 
       <footer className="footer section-shell">
@@ -421,7 +523,7 @@ export function CostumesPage() {
           <div><strong>HALKA</strong><span>Pieśń. Taniec. Pokolenia.</span></div>
         </div>
         <div className="footer-links">
-          {navItems.map(([label, href]) => <a key={href} href={href}>{label}</a>)}
+          {navItems.map(([label, href]) => <Link key={href} href={href}>{label}</Link>)}
         </div>
         <p>© 2026 Zespół Pieśni i Tańca Halka w Lublińcu</p>
       </footer>
