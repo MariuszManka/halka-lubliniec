@@ -4,6 +4,7 @@ import type { InvitePageContent, JoinPageContent } from "./content-types";
 const projectId = process.env.NEXT_PUBLIC_SANITY_PROJECT_ID;
 const dataset = process.env.NEXT_PUBLIC_SANITY_DATASET || "production";
 const apiVersion = process.env.NEXT_PUBLIC_SANITY_API_VERSION || "2026-08-26";
+const sanityRequired = process.env.SANITY_REQUIRED === "true";
 
 const imageProjection = `{
   "src": asset->url,
@@ -55,16 +56,27 @@ function mergeContent<T>(fallback: T, incoming: unknown): T {
 }
 
 async function fetchSanityDocument<T>(query: string): Promise<T | null> {
-  if (!projectId) return null;
+  if (!projectId) {
+    if (sanityRequired) {
+      throw new Error("NEXT_PUBLIC_SANITY_PROJECT_ID is required for the Firebase production build.");
+    }
+    return null;
+  }
 
   try {
     const endpoint = new URL(`https://${projectId}.apicdn.sanity.io/v${apiVersion}/data/query/${dataset}`);
     endpoint.searchParams.set("query", query);
-    const response = await fetch(endpoint, { cache: "no-store", headers: { Accept: "application/json" } });
-    if (!response.ok) return null;
+    const response = await fetch(endpoint, { cache: "force-cache", headers: { Accept: "application/json" } });
+    if (!response.ok) {
+      throw new Error(`Sanity request failed with status ${response.status}.`);
+    }
     const payload = await response.json() as { result?: T | null };
+    if (payload.result == null && sanityRequired) {
+      throw new Error("Sanity returned no published document for a required production page.");
+    }
     return payload.result ?? null;
-  } catch {
+  } catch (error) {
+    if (sanityRequired) throw error;
     return null;
   }
 }

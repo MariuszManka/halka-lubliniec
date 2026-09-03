@@ -4,7 +4,8 @@ import { getJoinPageContent } from "../../sanity/content";
 import "../home-v2.css";
 import "../join.css";
 
-export const dynamic = "force-dynamic";
+// Firebase Hosting serves a static export. Sanity is read while `next build` runs.
+export const dynamic = "force-static";
 
 export const metadata: Metadata = {
   title: "Dołącz do Halki | ZPiT Halka Lubliniec",
