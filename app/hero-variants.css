@@ -18,7 +18,7 @@
 .hv-header {
   position: relative;
   z-index: 20;
-  width: min(calc(100% - 48px), 1440px);
+  width: min(calc(100% - 48px), 1320px);
   min-height: 74px;
   margin-inline: auto;
   display: grid;
@@ -40,7 +40,7 @@
 .hv-hero {
   position: relative;
   z-index: 2;
-  width: min(calc(100% - 48px), 1440px);
+  width: min(calc(100% - 48px), 1320px);
   min-height: min-content;
   margin: auto;
   display: flex;
@@ -112,14 +112,11 @@
 .hv-proof dd { margin: 0; color: var(--hv-ink); font-family: var(--font-display), Georgia, serif; font-size: clamp(1.15rem, 1.6vw, 1.45rem); font-weight: 620; line-height: 1; }
 
 .hv-dance-visual { position: relative; min-width: 0; min-height: min(72vh, 680px); margin: 0; display: grid; place-items: center; pointer-events: none; }
-.hv-dance-photo { position: relative; z-index: 2; width: min(86%, 720px); aspect-ratio: 1; overflow: hidden; border-radius: 50%; will-change: transform; pointer-events: none; }
-.hv-dance-photo img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: 50% 50%; }
-.hv-dance-orbit { position: absolute; border: 1px solid rgba(20, 95, 61, 0.25); border-radius: 50%; pointer-events: none; }
+.hv-dance-photo { position: relative; z-index: 2; width: min(86%, 720px); overflow: visible; will-change: transform; pointer-events: none; }
+.hv-dance-photo img { display: block; width: 100%; height: auto; object-fit: contain; }
+.hv-dance-orbit { display: none; }
 .hv-dance-orbit-outer { width: min(94%, 790px); aspect-ratio: 1; }
 .hv-dance-orbit-inner { width: min(69%, 560px); aspect-ratio: 1; border-color: rgba(213, 43, 47, 0.22); }
-.hv-photo-accent { position: absolute; z-index: 3; right: 3%; bottom: 10%; width: 132px; display: grid; grid-template-columns: repeat(3, 18px); justify-content: space-between; transform: rotate(-9deg); }
-.hv-photo-accent i { width: 18px; aspect-ratio: 1; border: 4px solid var(--hv-green); transform: rotate(45deg); }
-.hv-photo-accent i:nth-child(2) { border-color: var(--hv-red); }
 
 .hv-dance-caption {
   position: absolute;
@@ -130,7 +127,7 @@
   display: grid;
   gap: 6px;
   padding: 17px 19px;
-  border-left: 3px solid var(--hv-red);
+  border-right: 4px solid var(--hv-red);
   background: rgba(255, 253, 248, 0.95);
   box-shadow: 0 18px 42px rgba(18, 59, 42, 0.12);
 }
@@ -161,11 +158,12 @@
   }
 
   .hv-dance-photo {
-    position: absolute;
-    inset: 0;
-    width: auto;
-    height: 100%;
-    max-width: 100%;
+    position: relative;
+    inset: auto;
+    top: clamp(-28px, -2vw, -18px);
+    width: min(76%, 600px);
+    height: auto;
+    max-width: none;
     margin: auto;
     box-sizing: border-box;
   }
@@ -180,11 +178,6 @@
     height: 86%;
   }
 
-  .hv-photo-accent {
-    right: 9%;
-    bottom: 4%;
-  }
-
   .hv-dance-caption {
     right: 0;
     bottom: 0px;
@@ -193,12 +186,10 @@
 
 .hv-scroll-decoration { position: fixed; z-index: 0; inset: 0; overflow: hidden; pointer-events: none; opacity: 0.5; mix-blend-mode: multiply; }
 .hv-scroll-rosette { position: absolute; will-change: transform; }
-.hv-scroll-rosette-main { top: 6%; right: -8%; width: clamp(290px, 31vw, 520px); }
-.hv-scroll-rosette-secondary { bottom: -6%; left: -8%; width: clamp(220px, 24vw, 390px); }
+.hv-scroll-rosette-main { top: 6%; right: -6%; width: clamp(220px, 25vw, 390px); }
+.hv-scroll-rosette-secondary { bottom: -6%; left: -8%; width: clamp(220px, 25vw, 390px); }
 .hv-rosette { position: relative; display: block; width: 100%; aspect-ratio: 1; }
-.hv-rosette > i { position: absolute; top: 43%; left: 50%; width: 43%; height: 15%; border-radius: 82% 18% 82% 18%; background: var(--hv-red); transform: rotate(calc(var(--petal) * 45deg)) translateX(10%); transform-origin: 0 50%; }
-.hv-rosette > i:nth-child(even) { background: var(--hv-green); }
-.hv-rosette > b { position: absolute; z-index: 2; top: 50%; left: 50%; width: 18%; aspect-ratio: 1; border: 6px solid var(--hv-paper); border-radius: 50%; background: var(--hv-red); transform: translate(-50%, -50%); }
+.hv-rosette > img { display: block; width: 100%; height: 100%; object-fit: contain; }
 .hv-scroll-diamonds { position: absolute; top: 48%; left: 5%; width: 90%; display: grid; grid-template-columns: repeat(9, 1fr); justify-items: center; opacity: 0.14; }
 .hv-scroll-diamonds i { width: clamp(9px, 1vw, 15px); aspect-ratio: 1; border: 2px solid var(--hv-green); transform: rotate(45deg); }
 .hv-scroll-diamonds i:nth-child(3n) { border-color: var(--hv-red); }
@@ -229,7 +220,6 @@
   .hv-dance-visual { min-height: 250px; max-height: 38vh; }
   .hv-dance-photo { width: min(72%, 480px); }
   .hv-dance-caption { right: 8%; bottom: 1%; width: min(230px, 42%); padding: 13px 15px; }
-  .hv-photo-accent { right: 12%; bottom: 5%; transform: scale(0.75) rotate(-9deg); }
   .hv-scroll-decoration { opacity: 0.42; }
   .hv-after { width: min(calc(100% - 32px), 720px); grid-template-columns: 1fr; gap: 60px; }
 }
@@ -257,7 +247,6 @@
   .hv-proof dd { font-size: 1rem; }
   .hv-dance-visual { min-height: 165px; max-height: 29vh; }
   .hv-dance-photo { width: min(68%, 280px); }
-  .hv-photo-accent { display: none; }
   .hv-dance-caption { right: 0; bottom: 0; width: 46%; padding: 9px 11px; }
   .hv-dance-caption span { display: none; }
   .hv-dance-caption strong { font-size: 0.83rem; }

@@ -8,10 +8,7 @@ import "./hero-variants.css";
 function FolkRosette() {
   return (
     <span className="hv-rosette" aria-hidden="true">
-      {Array.from({ length: 8 }, (_, index) => (
-        <i key={index} style={{ "--petal": index } as React.CSSProperties} />
-      ))}
-      <b />
+      <img src="/rozeta-tlo.svg" alt="" />
     </span>
   );
 }
@@ -99,7 +96,7 @@ export function DanceHero() {
           transition={{ duration: 9, repeat: Infinity, ease: "easeInOut" }}
         >
           <img
-            src="/home-page-dance-circle.webp"
+            src="/home-page-dance-circle.png"
             alt="Tancerka Halki widziana z góry podczas obrotu"
             width={2200}
             height={1467}
@@ -107,7 +104,6 @@ export function DanceHero() {
             decoding="async"
           />
         </motion.div>
-        <span className="hv-photo-accent" aria-hidden="true"><i /><i /><i /></span>
         <figcaption className="hv-dance-caption">
           <span>Halka w ruchu</span>
           <strong>Tradycja, którą tworzymy dziś.</strong>

@@ -128,16 +128,8 @@ const oneOffEvents: CalendarEvent[] = [
   {
     id: "dozynki-herby-2026",
     date: "2026-09-06",
-    title: "Dożynki",
-    location: "Herby",
-    kind: "Występ",
-    groups: ["ensemble"],
-  },
-  {
-    id: "niniwa-kokotek-11-wrzesnia",
-    date: "2026-09-11",
-    title: "Spotkanie w Niniwie",
-    location: "Kokotek",
+    title: "Jarmark rękodzieła",
+    location: "MDK Lubliniec",
     kind: "Występ",
     groups: ["ensemble"],
   },

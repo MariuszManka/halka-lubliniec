@@ -34,6 +34,8 @@ const galleryImagePicks: Record<string, readonly [number, number, number]> = {
 };
 
 export function HalkaHome() {
+  const UPCOMING_PERFORMANCES_AMOUNT = 3;
+  
   const [menuOpen, setMenuOpen] = useState(false);
   const [activeGallery, setActiveGallery] = useState(0);
   const headerRef = useRef<HTMLElement>(null);
@@ -42,7 +44,7 @@ export function HalkaHome() {
   const today = new Date().toISOString().slice(0, 10);
   const upcomingPerformances = calendarEvents
     .filter((event) => event.kind === "Występ" && (event.endDate ?? event.date) >= today)
-    .slice(0, 2);
+    .slice(0, UPCOMING_PERFORMANCES_AMOUNT);
   const featuredGallery = [...galleryEvents]
     .sort((a, b) => Number(b.pinned) - Number(a.pinned) || b.date.localeCompare(a.date))
     .slice(0, 4);
@@ -88,7 +90,7 @@ export function HalkaHome() {
       <header className="home-v2-header" ref={headerRef}>
         <a className="home-v2-brand" href="#poczatek" aria-label="Halka — przejdź na początek strony">
           <img src="/logo.jpg" alt="" width="46" height="46" />
-          <span><strong>HALKA</strong><small>Lubliniec</small></span>
+          <span><strong>Halka</strong><small>Lubliniec</small></span>
         </a>
         <nav className="home-v2-nav" aria-label="Główna nawigacja">
           {mainNavigation.map((item) => <a href={item.href} key={item.href}>{item.label}</a>)}
@@ -147,10 +149,6 @@ export function HalkaHome() {
               </a>
             ))}
           </div>
-
-          <a className="home-v2-text-link" href="/dolacz">
-            Jak wygląda pierwsza próba <ArrowRight size={18} />
-          </a>
         </div>
       </section>
 
@@ -172,8 +170,8 @@ export function HalkaHome() {
 
           <div className="home-v2-offer-showcase">
             <figure className="home-v2-offer-image">
-              <img src="/session/group.webp" srcSet="/home-responsive/group-960.webp 960w" sizes="(max-width: 940px) calc(100vw - 32px), 48vw" alt="Wszystkie grupy Zespołu Pieśni i Tańca Halka na scenie" loading="lazy" decoding="async" />
-              <figcaption>Program dobieramy do miejsca, czasu i charakteru wydarzenia.</figcaption>
+              {/* <img src="/session/group.webp" srcSet="/home-responsive/group-960.webp 960w" sizes="(max-width: 940px) calc(100vw - 32px), 48vw" alt="Wszystkie grupy Zespołu Pieśni i Tańca Halka na scenie" loading="lazy" decoding="async" /> */}
+              <img src="gallery\dni-lublinca-2025\14.webp" srcSet="/home-responsive/group-alt.webp 960w" sizes="(max-width: 940px) calc(100vw - 32px), 48vw" alt="Wszystkie grupy Zespołu Pieśni i Tańca Halka na scenie" loading="lazy" decoding="async" />
             </figure>
 
           </div>
@@ -216,7 +214,9 @@ export function HalkaHome() {
               <p className="home-v2-section-note">Halka na scenie</p>
               <h2 id="galeria-title">Zobacz nas<br />w ruchu.</h2>
             </div>
-            <p>Koncerty, festiwale i spotkania, podczas których pieśń, ruch i kostium tworzą jeden obraz.</p>
+            <p style={{ borderRight: "4px solid var(--v2-red)", paddingRight: "12px", textAlign: "right", alignSelf: "center" }}>
+              Sceny, festiwale i spotkania, podczas których tworzymy wspólną opowieść. Każdy występ to inna scena, publiczność i emocje, które zostają z nami na długo.
+            </p>
           </div>
 
           <div
@@ -304,9 +304,12 @@ export function HalkaHome() {
       </section>
 
       <section className="home-v2-costumes home-v2-shell" aria-labelledby="kostiumy-title">
-        <div className="home-v2-costume-copy">
+        <div className="home-v2-costume-copy" style={{ alignSelf: 'flex-start' }}>
           <p className="home-v2-section-note">Różne regiony · jedna kolekcja</p>
-          <h2 id="kostiumy-title">Kostium opowiada, zanim zacznie się taniec.</h2>
+          <h2 id="kostiumy-title">Kostium</h2>
+          <h2 style={{ fontSize: "clamp(1.5rem, 2.9vw, 2.9rem)", color: "var(--v2-red)", fontFamily: 'var(--font-sans)', margin: "0.7rem 0" }}>
+            opowiada zanim zacznie się taniec
+          </h2>
           <p>
             Każdy haft, pas i sposób wiązania ma własne znaczenie. Poznaj stroje, w których Halka
             prezentuje różnorodność polskich regionów — nie tylko jako kolekcję, ale część scenicznej opowieści.
@@ -322,25 +325,27 @@ export function HalkaHome() {
         </div>
       </section>
 
-      <section className="home-v2-contact-section home-v2-shell" id="kontakt" aria-labelledby="kontakt-title">
-        <div className="home-v2-contact-copy">
-          <p className="home-v2-section-note">Kontakt</p>
-          <h2 id="kontakt-title">Porozmawiajmy.</h2>
-          <p>
-            Chcesz dołączyć, zaprosić Halkę albo zapytać o współpracę? Wybierz najwygodniejszy kontakt.
-            Bieżące informacje publikujemy również w mediach społecznościowych.
-          </p>
-          <div className="home-v2-contact-actions">
-            <a href={`mailto:${siteConfig.contact.email}`}><EnvelopeSimple size={22} /><span><small>Napisz do nas</small><strong>{siteConfig.contact.email}</strong></span></a>
-            <a href={`tel:${siteConfig.contact.phone}`}><Phone size={22} /><span><small>Zadzwoń</small><strong>{siteConfig.contact.phoneDisplay}</strong></span></a>
-            <a href={siteConfig.contact.mapUrl} target="_blank" rel="noreferrer"><MapPin size={22} /><span><small>Siedziba zespołu</small><strong>{siteConfig.contact.address}</strong></span></a>
+      <section className='home-v2-contact-section-outer-wrapper'  id="kontakt" aria-labelledby="kontakt-title">
+        <div className="home-v2-contact-section home-v2-shell">
+          <div className="home-v2-contact-copy">
+            <p className="home-v2-section-note">Kontakt</p>
+            <h2 id="kontakt-title">Porozmawiajmy.</h2>
+            <p>
+              Chcesz dołączyć, zaprosić Halkę albo zapytać o współpracę? Wybierz najwygodniejszy kontakt.
+              Bieżące informacje publikujemy również w mediach społecznościowych.
+            </p>
+            <div className="home-v2-contact-actions">
+              <a href={`mailto:${siteConfig.contact.email}`}><EnvelopeSimple size={22} /><span><small>Napisz do nas</small><strong>{siteConfig.contact.email}</strong></span></a>
+              <a href={`tel:${siteConfig.contact.phone}`}><Phone size={22} /><span><small>Zadzwoń</small><strong>{siteConfig.contact.phoneDisplay}</strong></span></a>
+              <a href={siteConfig.contact.mapUrl} target="_blank" rel="noreferrer"><MapPin size={22} /><span><small>Siedziba zespołu</small><strong>{siteConfig.contact.address}</strong></span></a>
+            </div>
           </div>
-        </div>
-        <div className="home-v2-contact-aside">
-          <div className="home-v2-socials" aria-label="Media społecznościowe Halki">
-            <a className="home-v2-social home-v2-social-facebook" href={siteConfig.social.facebook} target="_blank" rel="noreferrer"><span className="home-v2-social-logo"><FaFacebookF aria-hidden="true" /></span><span><strong>Facebook</strong><small>Aktualności i wydarzenia</small></span><ArrowUpRight size={19} /></a>
-            <a className="home-v2-social home-v2-social-instagram" href={siteConfig.social.instagram} target="_blank" rel="noreferrer"><span className="home-v2-social-logo"><FaInstagram aria-hidden="true" /></span><span><strong>Instagram</strong><small>Kulisy i zdjęcia</small></span><ArrowUpRight size={19} /></a>
-            <a className="home-v2-social home-v2-social-youtube" href={siteConfig.social.youtube} target="_blank" rel="noreferrer"><span className="home-v2-social-logo"><FaYoutube aria-hidden="true" /></span><span><strong>YouTube</strong><small>Występy i nagrania</small></span><ArrowUpRight size={19} /></a>
+          <div className="home-v2-contact-aside">
+            <div className="home-v2-socials" aria-label="Media społecznościowe Halki">
+              <a className="home-v2-social home-v2-social-facebook" href={siteConfig.social.facebook} target="_blank" rel="noreferrer"><span className="home-v2-social-logo"><FaFacebookF aria-hidden="true" /></span><span><strong>Facebook</strong><small>Aktualności i wydarzenia</small></span><ArrowUpRight size={19} /></a>
+              <a className="home-v2-social home-v2-social-instagram" href={siteConfig.social.instagram} target="_blank" rel="noreferrer"><span className="home-v2-social-logo"><FaInstagram aria-hidden="true" /></span><span><strong>Instagram</strong><small>Kulisy i zdjęcia</small></span><ArrowUpRight size={19} /></a>
+              <a className="home-v2-social home-v2-social-youtube" href={siteConfig.social.youtube} target="_blank" rel="noreferrer"><span className="home-v2-social-logo"><FaYoutube aria-hidden="true" /></span><span><strong>YouTube</strong><small>Występy i nagrania</small></span><ArrowUpRight size={19} /></a>
+            </div>
           </div>
         </div>
       </section>
