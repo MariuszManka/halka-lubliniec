@@ -66,6 +66,11 @@ function HeroCopy() {
         <a className="hv-button hv-button-primary" href="/dolacz">Dołącz do Halki <ArrowRight size={18} weight="bold" /></a>
         <a className="hv-button hv-button-secondary" href="/zapros-halke">Zaproś nas na wydarzenie</a>
       </div>
+      <dl className="hv-proof" aria-label="Najważniejsze informacje o zespole">
+        <div><dt>Historia</dt><dd>od 1948</dd></div>
+        <div><dt>Zespół</dt><dd>4 grupy</dd></div>
+        <div><dt>Nabór</dt><dd>cały rok</dd></div>
+      </dl>
     </motion.div>
   );
 }
@@ -74,7 +79,11 @@ export function DanceHero() {
   const reduce = useReducedMotion();
 
   return (
-    <section className="hv-hero" id="poczatek" aria-label="Hero strony głównej">
+    <section
+      className="hv-hero"
+      id="poczatek"
+      aria-label="Hero strony głównej"
+    >
       <HeroCopy />
       <motion.figure
         className="hv-dance-visual"
@@ -89,11 +98,20 @@ export function DanceHero() {
           animate={reduce ? undefined : { rotate: [-1.5, 1.5, -1.5] }}
           transition={{ duration: 9, repeat: Infinity, ease: "easeInOut" }}
         >
-          {/* <img src="/session/dance-circle.webp" srcSet="/home-responsive/dance-circle-960.webp 960w, /home-responsive/dance-circle-1600.webp 1600w" sizes="(max-width: 940px) 72vw, 50vw" alt="Tancerka Halki widziana z góry podczas obrotu" width="2200" height="1467" fetchPriority="high" decoding="async" /> */}
-
-          <img src="/home-page-dance-circle.webp" srcSet="/home-responsive/home-page-dance-circle-960.webp 960w, /home-responsive/home-page-dance-circle-1600.webp 1600w" sizes="(max-width: 940px) 72vw, 50vw" alt="Tancerka Halki widziana z góry podczas obrotu" width="2200" height="1467" fetchPriority="high" decoding="async" />
+          <img
+            src="/home-page-dance-circle.webp"
+            alt="Tancerka Halki widziana z góry podczas obrotu"
+            width={2200}
+            height={1467}
+            fetchPriority="high"
+            decoding="async"
+          />
         </motion.div>
         <span className="hv-photo-accent" aria-hidden="true"><i /><i /><i /></span>
+        <figcaption className="hv-dance-caption">
+          <span>Halka w ruchu</span>
+          <strong>Tradycja, którą tworzymy dziś.</strong>
+        </figcaption>
       </motion.figure>
     </section>
   );

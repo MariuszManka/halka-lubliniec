@@ -23,7 +23,7 @@ import { sessionImages } from "../content/generated-session";
 const navItems = [
   ["Galeria", "/galeria"],
   ["Kostiumy", "/kostiumy"],
-  ["Historia", "/#historia"],
+  ["Historia", "/historia"],
   ["Terminarz", "/#terminarz"],
   ["Kontakt", "/#kontakt"],
 ] as const;

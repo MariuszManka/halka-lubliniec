@@ -3,25 +3,25 @@
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import {
-  ArrowRight,
-  ArrowUpRight,
-  CalendarBlank,
-  Check,
-  Clock,
-  EnvelopeSimple,
-  InstagramLogo,
-  List,
-  MapPin,
-  MessengerLogo,
-  Phone,
-  UsersThree,
-  X,
+  ArrowRight, ArrowUpRight, CalendarBlank, Check, Clock, EnvelopeSimple,
+  InstagramLogo, List, MapPin, MessengerLogo, Phone, UsersThree, X,
 } from "@phosphor-icons/react";
 import { mainNavigation, siteConfig } from "../content/site-config";
 import type { InvitePageContent } from "../sanity/content-types";
 import { ScrollRosettes } from "./HeroVariants";
 
-const contactSubject = "Zapytanie%20o%20dost%C4%99pno%C5%9B%C4%87%20zespo%C5%82u";
+const bookingSubject = "Zapytanie o występ ZPiT Halka";
+const bookingBody = `Dzień dobry,
+
+chcę zaprosić ZPiT Halka na wydarzenie.
+
+Termin:
+Miejsce:
+Rodzaj wydarzenia:
+Przewidywana długość występu:
+
+Proszę o informację o dostępności i możliwym programie.`;
+const bookingHref = `mailto:${siteConfig.contact.email}?subject=${encodeURIComponent(bookingSubject)}&body=${encodeURIComponent(bookingBody)}`;
 
 const iconComponents = {
   calendar: CalendarBlank,
@@ -31,6 +31,12 @@ const iconComponents = {
   people: UsersThree,
 } as const;
 
+const formatImages = [
+  { src: "/gallery/tydzien-kultury-beskidzkiej-2026/01.webp", alt: "Para taneczna Halki podczas suity śląskiej" },
+  { src: "/gallery/tydzien-kultury-beskidzkiej-2026/10.webp", alt: "Męska część chóru Halki podczas występu" },
+  { src: "/gallery/dni-lublinca-2025/14.webp", alt: "Wszystkie pokolenia Halki na jednej scenie" },
+];
+
 export function InvitePage({ content }: { content: InvitePageContent }) {
   const [menuOpen, setMenuOpen] = useState(false);
   const headerRef = useRef<HTMLElement>(null);
@@ -38,7 +44,6 @@ export function InvitePage({ content }: { content: InvitePageContent }) {
 
   useEffect(() => {
     if (!menuOpen) return;
-
     const closeOnEscape = (event: KeyboardEvent) => {
       if (event.key === "Escape") {
         setMenuOpen(false);
@@ -48,7 +53,6 @@ export function InvitePage({ content }: { content: InvitePageContent }) {
     const closeOutside = (event: PointerEvent) => {
       if (!headerRef.current?.contains(event.target as Node)) setMenuOpen(false);
     };
-
     document.addEventListener("keydown", closeOnEscape);
     document.addEventListener("pointerdown", closeOutside);
     return () => {
@@ -72,7 +76,7 @@ export function InvitePage({ content }: { content: InvitePageContent }) {
             <Link aria-current={item.href === "/zapros-halke" ? "page" : undefined} href={item.href} key={item.href}>{item.label}</Link>
           ))}
         </nav>
-        <Link className="home-v2-contact" href="/#kontakt">Kontakt</Link>
+        <a className="home-v2-contact" href={bookingHref}>Sprawdź termin</a>
         <button
           className="home-v2-menu-button"
           ref={menuButtonRef}
@@ -89,82 +93,105 @@ export function InvitePage({ content }: { content: InvitePageContent }) {
             {mainNavigation.map((item) => (
               <Link aria-current={item.href === "/zapros-halke" ? "page" : undefined} href={item.href} key={item.href} onClick={() => setMenuOpen(false)}>{item.label}</Link>
             ))}
-            <Link href="/#kontakt" onClick={() => setMenuOpen(false)}>Kontakt</Link>
+            <a href={bookingHref} onClick={() => setMenuOpen(false)}>Sprawdź termin</a>
           </nav>
         )}
       </header>
 
-      <section className="invite-hero invite-shell" id="invite-content" aria-labelledby="invite-title">
-        <div className="invite-hero-copy">
-          <p className="invite-eyebrow"><span>{content.hero.eyebrow}</span><i aria-hidden="true" /></p>
-          <h1 id="invite-title">{content.hero.title} <em>{content.hero.titleAccent}</em><br />{content.hero.titleSuffix}</h1>
-          <p className="invite-hero-lead">{content.hero.lead}</p>
-          <div className="invite-hero-actions">
-            <a className="invite-button invite-button-primary" href={`mailto:${siteConfig.contact.email}?subject=${contactSubject}`}>{content.hero.primaryCtaLabel} <ArrowRight size={18} weight="bold" /></a>
-            <a className="invite-button invite-button-light" href="#programy">{content.hero.secondaryCtaLabel}</a>
-          </div>
+      <section className="invite-hero" id="invite-content" aria-labelledby="invite-title">
+        <div className="invite-hero-media" aria-hidden="true">
+          <img src="/gallery/tydzien-kultury-beskidzkiej-2026/08.webp" alt="" width="1800" height="1200" fetchPriority="high" />
         </div>
-
-        <div className="invite-hero-visual">
-          <figure className="invite-hero-photo">
-            <img
-              src={content.hero.image.src}
-              alt={content.hero.image.alt}
-              width={content.hero.image.width || 1800}
-              height={content.hero.image.height || 1200}
-              fetchPriority="high"
-              decoding="async"
-            />
-          </figure>
-          <div className="invite-hero-note">
-            <span>{content.hero.noteLabel}</span>
-            <strong>{content.hero.noteText}</strong>
+        <div className="invite-hero-shade" aria-hidden="true" />
+        <div className="invite-hero-inner invite-shell">
+          <div className="invite-hero-copy">
+            <p className="invite-kicker">{content.hero.eyebrow} · ZPiT Halka Lubliniec</p>
+            <h1 id="invite-title">Zaproś Halkę.<br /><em>Niech scena ożyje.</em></h1>
+            <p className="invite-hero-lead">{content.hero.lead}</p>
+            <div className="invite-hero-actions">
+              <a className="invite-button invite-button-primary" href={bookingHref}>Sprawdź dostępność <ArrowRight size={19} weight="bold" /></a>
+              <a className="invite-button invite-button-ghost" href="#programy">Poznaj możliwości</a>
+            </div>
           </div>
-          <span className="invite-hero-ornament" aria-hidden="true"><i /><i /><i /><i /><i /></span>
+
+          <aside className="invite-hero-card" aria-label="Jak zacząć rozmowę o występie">
+            <p>Żeby sprawdzić termin, wystarczą 3 informacje</p>
+            <ol>
+              <li><CalendarBlank size={20} aria-hidden="true" /><span><strong>Termin</strong><small>data wydarzenia</small></span></li>
+              <li><MapPin size={20} aria-hidden="true" /><span><strong>Miejsce</strong><small>miasto i rodzaj sceny</small></span></li>
+              <li><Clock size={20} aria-hidden="true" /><span><strong>Format</strong><small>planowany czas występu</small></span></li>
+            </ol>
+            <a href={`tel:${siteConfig.contact.phone}`}><Phone size={18} weight="fill" /> {siteConfig.contact.phoneDisplay}</a>
+          </aside>
+        </div>
+        <div className="invite-hero-caption invite-shell">
+          <span>Tydzień Kultury Beskidzkiej · Wisła</span>
+          <span>Pieśń · taniec · żywa tradycja</span>
         </div>
       </section>
 
-      <section className="invite-formats invite-shell" aria-labelledby="formats-title">
-        <div className="invite-format-intro">
-          <span className="invite-format-kicker">{content.formats.eyebrow}</span>
-          <h2 id="formats-title"><span>{content.formats.title}</span><em>{content.formats.titleAccent}</em></h2>
+      <section className="invite-intro invite-shell" aria-labelledby="invite-intro-title">
+        <div>
+          <p className="invite-kicker">Występ szyty na miarę wydarzenia</p>
+          <h2 id="invite-intro-title">Od kameralnej sceny po <em>święto całego miasta.</em></h2>
+        </div>
+        <div className="invite-intro-copy">
+          <p>Nie wysyłamy jednej, sztywnej oferty. Najpierw poznajemy miejsce, publiczność i rytm wydarzenia, a potem proponujemy skład i repertuar, które naprawdę do niego pasują.</p>
+          <a href={bookingHref}>Opowiedz nam o wydarzeniu <ArrowUpRight size={18} weight="bold" /></a>
+        </div>
+      </section>
+
+      <section className="invite-formats invite-shell" id="programy" aria-labelledby="formats-title">
+        <div className="invite-section-head">
+          <p className="invite-kicker">{content.formats.eyebrow}</p>
+          <h2 id="formats-title">Trzy sposoby,<br /><em>żeby spotkać Halkę.</em></h2>
           <p>{content.formats.lead}</p>
         </div>
-
-        <ol className="invite-format-layout">
-          {content.formats.items.map(({ icon, title, text }, index) => {
-            const Icon = iconComponents[icon];
-            return (
-            <li className={`invite-format-card invite-format-card-${index + 1}`} key={title}>
-              <div className="invite-format-marker" aria-hidden="true">
+        <div className="invite-format-grid">
+          {content.formats.items.map(({ title, text }, index) => (
+            <article className="invite-format-card" key={title}>
+              <figure>
+                <img src={formatImages[index].src} alt={formatImages[index].alt} width="1800" height="1200" loading="lazy" decoding="async" />
+              </figure>
+              <div>
                 <span>0{index + 1}</span>
-                <Icon size={30} weight="duotone" />
+                <h3>{title}</h3>
+                <p>{text}</p>
               </div>
-              <div><h3>{title}</h3><p>{text}</p></div>
-            </li>
-            );
-          })}
-        </ol>
+            </article>
+          ))}
+        </div>
       </section>
 
-      <section className="invite-suites invite-shell" id="programy" aria-labelledby="suites-title">
-        <div className="invite-section-heading invite-section-heading-suites">
-          <p>{content.suites.eyebrow}</p>
-          <h2 id="suites-title">{content.suites.title}<br /><em>{content.suites.titleAccent}</em></h2>
-          <p className="invite-section-lead">{content.suites.lead}</p>
+      <section className="invite-availability" aria-labelledby="availability-title">
+        <div className="invite-availability-inner invite-shell">
+          <div>
+            <p className="invite-kicker">Masz już datę?</p>
+            <h2 id="availability-title">Zacznijmy od terminu.</h2>
+            <p>W odpowiedzi podpowiemy, jaki skład i program możemy zaproponować.</p>
+          </div>
+          <a className="invite-button invite-button-paper" href={bookingHref}>Napisz do nas <ArrowRight size={19} weight="bold" /></a>
         </div>
+      </section>
 
-        <div className="invite-suite-grid">
+      <section className="invite-suites invite-shell" aria-labelledby="suites-title">
+        <div className="invite-section-head invite-section-head-wide">
+          <p className="invite-kicker">{content.suites.eyebrow}</p>
+          <h2 id="suites-title">Trzy regiony.<br /><em>Trzy sceniczne temperamenty.</em></h2>
+          <p>{content.suites.lead}</p>
+        </div>
+        <div className="invite-suite-list">
           {content.suites.items.map((suite, index) => (
-            <article className={`invite-suite invite-suite-${index + 1}`} id={suite.id} key={suite.id}>
+            <article className="invite-suite" id={suite.id} key={suite.id}>
               <figure>
-                <img src={suite.image.src} alt={suite.image.alt} width={suite.image.width || 1800} height={suite.image.height || 1200} loading={index ? "lazy" : "eager"} decoding="async" />
+                <img src={suite.image.src} alt={suite.image.alt} width={suite.image.width || 1800} height={suite.image.height || 1200} loading="lazy" decoding="async" />
               </figure>
               <div className="invite-suite-copy">
                 <span>{suite.label}</span>
+                <strong>0{index + 1}</strong>
                 <h3>{suite.name}</h3>
                 <p>{suite.description}</p>
-                <a href="/kostiumy">{content.suites.costumesCtaLabel} <ArrowUpRight size={18} /></a>
+                <Link href="/kostiumy">{content.suites.costumesCtaLabel} <ArrowUpRight size={18} /></Link>
               </div>
             </article>
           ))}
@@ -172,71 +199,64 @@ export function InvitePage({ content }: { content: InvitePageContent }) {
       </section>
 
       <section className="invite-process invite-shell" aria-labelledby="process-title">
-        <div className="invite-process-photo">
-          <img src={content.process.image.src} srcSet={content.process.image.src === "/session/dance-circle.webp" ? "/home-responsive/dance-circle-960.webp 960w, /home-responsive/dance-circle-1600.webp 1600w" : undefined} sizes="(max-width: 940px) calc(100vw - 32px), 46vw" alt={content.process.image.alt} width={content.process.image.width || 2200} height={content.process.image.height || 1467} loading="lazy" decoding="async" />
+        <div className="invite-process-image">
+          <img src="/gallery/polonez-na-lublinieckim-rynku/06.webp" alt="Halka prowadzi poloneza na rynku w Lublińcu" width="1800" height="1200" loading="lazy" decoding="async" />
+          <span>Występujemy na scenach, rynkach i podczas wydarzeń plenerowych.</span>
         </div>
         <div className="invite-process-copy">
-          <p className="invite-section-label">{content.process.eyebrow}</p>
-          <h2 id="process-title">{content.process.title}</h2>
-          <div className="invite-process-list">
-            {content.process.items.map(({ icon, title, text }) => {
+          <p className="invite-kicker">Od wiadomości do występu</p>
+          <h2 id="process-title">Prosto i bez niedomówień.</h2>
+          <ol>
+            {content.process.items.map(({ icon, title, text }, index) => {
               const Icon = iconComponents[icon];
-              return <div key={title}><Icon size={23} /><span><strong>{title}</strong><small>{text}</small></span></div>;
+              return (
+                <li key={title}>
+                  <span>0{index + 1}</span>
+                  <Icon size={22} aria-hidden="true" />
+                  <div><strong>{title}</strong><p>{text}</p></div>
+                </li>
+              );
             })}
-          </div>
+          </ol>
         </div>
       </section>
 
-      <section className="invite-stage invite-shell" aria-labelledby="stage-title">
-        <div className="invite-stage-heading">
-          <p>{content.stage.eyebrow}</p>
-          <h2 id="stage-title">{content.stage.title} <em>{content.stage.titleAccent}</em></h2>
-          <span>{content.stage.lead}</span>
+      <section className="invite-proof invite-shell" aria-labelledby="proof-title">
+        <div className="invite-proof-copy">
+          <p className="invite-kicker">Scena Pokoleń</p>
+          <h2 id="proof-title">Jedna Halka.<br /><em>Wiele pokoleń.</em></h2>
+          <p>Chór, balet i grupy dziecięce mogą spotkać się w jednym wspólnym programie — jeśli termin i scena pozwalają zebrać pełny skład.</p>
+          <Link href="/galeria">Zobacz nas na żywo <ArrowRight size={18} weight="bold" /></Link>
         </div>
-        <figure className="invite-stage-window">
-          <img src={content.stage.image.src} alt={content.stage.image.alt} width={content.stage.image.width || 1800} height={content.stage.image.height || 1200} loading="lazy" decoding="async" />
-          <figcaption>
-            <span><strong>{content.stage.eventTitle}</strong><small>{content.stage.eventText}</small></span>
-            <Link href="/galeria">{content.stage.ctaLabel} <ArrowRight size={18} weight="bold" /></Link>
-          </figcaption>
+        <figure>
+          <img src="/gallery/dni-lublinca-2025/14.webp" alt="Pełny, międzypokoleniowy skład Halki na scenie podczas Dni Lublińca" width="1800" height="1200" loading="lazy" decoding="async" />
+          <figcaption>Dni Lublińca · wspólny występ wszystkich grup</figcaption>
         </figure>
       </section>
 
       <section className="invite-contact" aria-labelledby="invite-contact-title">
-        <span className="invite-contact-ornament invite-contact-ornament-left" aria-hidden="true">
-          <span className="folk-rosette invite-contact-rosette"><i /><i /><i /><i /><i /><i /><i /><i /><b /></span>
-          <i /><i /><i />
-        </span>
-        <span className="invite-contact-ornament invite-contact-ornament-right" aria-hidden="true">
-          <span className="folk-rosette invite-contact-rosette"><i /><i /><i /><i /><i /><i /><i /><i /><b /></span>
-          <i /><i /><i />
-        </span>
         <div className="invite-contact-inner invite-shell">
           <div className="invite-contact-copy">
-            <p>{content.contact.eyebrow}</p>
-            <h2 id="invite-contact-title">{content.contact.title}</h2>
-            <span>{content.contact.lead}</span>
+            <p className="invite-kicker">{content.contact.eyebrow}</p>
+            <h2 id="invite-contact-title">Zróbmy razem<br /><em>dobry występ.</em></h2>
+            <p>{content.contact.lead}</p>
             <small>{content.contact.hint}</small>
           </div>
           <div className="invite-contact-panel">
-            <div className="invite-contact-direct">
-              <a href={`mailto:${siteConfig.contact.email}?subject=${contactSubject}`}>
-                <span className="invite-contact-channel-icon"><EnvelopeSimple size={22} weight="duotone" /></span>
-                <span><small>E-mail</small><strong>{siteConfig.contact.email}</strong></span>
-                <span className="invite-contact-arrow"><ArrowUpRight size={18} weight="bold" /></span>
-              </a>
-              <a href={`tel:${siteConfig.contact.phone}`}>
-                <span className="invite-contact-channel-icon"><Phone size={22} weight="duotone" /></span>
-                <span><small>Telefon</small><strong>{siteConfig.contact.phoneDisplay}</strong></span>
-                <span className="invite-contact-arrow"><ArrowUpRight size={18} weight="bold" /></span>
-              </a>
-            </div>
+            <a className="invite-contact-main" href={bookingHref}>
+              <EnvelopeSimple size={24} weight="duotone" />
+              <span><small>Napisz e-mail</small><strong>{siteConfig.contact.email}</strong></span>
+              <ArrowUpRight size={20} weight="bold" />
+            </a>
+            <a className="invite-contact-main" href={`tel:${siteConfig.contact.phone}`}>
+              <Phone size={24} weight="duotone" />
+              <span><small>Zadzwoń</small><strong>{siteConfig.contact.phoneDisplay}</strong></span>
+              <ArrowUpRight size={20} weight="bold" />
+            </a>
             <div className="invite-contact-socials">
-              <p>{content.contact.socialPrompt}</p>
-              <div>
-                <a href={siteConfig.social.messenger} target="_blank" rel="noreferrer"><MessengerLogo size={21} weight="fill" /><span>Messenger</span><ArrowUpRight size={16} /></a>
-                <a href={siteConfig.social.instagram} target="_blank" rel="noreferrer"><InstagramLogo size={21} weight="bold" /><span>Instagram</span><ArrowUpRight size={16} /></a>
-              </div>
+              <span>{content.contact.socialPrompt}</span>
+              <a href={siteConfig.social.messenger} target="_blank" rel="noreferrer"><MessengerLogo size={20} weight="fill" /> Messenger</a>
+              <a href={siteConfig.social.instagram} target="_blank" rel="noreferrer"><InstagramLogo size={20} weight="bold" /> Instagram</a>
             </div>
           </div>
         </div>

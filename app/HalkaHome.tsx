@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import {
+  ArrowLeft,
   ArrowRight,
   ArrowUpRight,
   CalendarBlank,
@@ -14,7 +15,7 @@ import {
 import { FaFacebookF, FaInstagram, FaYoutube } from "react-icons/fa6";
 import { calendarEvents, eventGroups } from "../content/events";
 import { galleryEvents } from "../content/generated-gallery";
-import { ensembleGroups, mainNavigation, readySuites, siteConfig } from "../content/site-config";
+import { ensembleGroups, mainNavigation, siteConfig } from "../content/site-config";
 import { DanceHero, ScrollRosettes } from "./HeroVariants";
 
 const monthShort = ["STY", "LUT", "MAR", "KWI", "MAJ", "CZE", "LIP", "SIE", "WRZ", "PAŹ", "LIS", "GRU"];
@@ -25,20 +26,38 @@ const formatGalleryDate = (date: string) => new Intl.DateTimeFormat("pl-PL", {
   year: "numeric",
 }).format(new Date(`${date}T12:00:00`));
 
-const homeImage = (src: string, width = 960) =>
-  src.replace("/session/", "/home-responsive/").replace(/\.webp$/, `-${width}.webp`);
+const galleryImagePicks: Record<string, readonly [number, number, number]> = {
+  "warsztaty-w-wisle": [23, 3, 4],
+  "dzien-slaski-w-chorzowie": [0, 11, 6],
+  "dni-lublinca-2025": [5, 7, 3],
+  "tydzien-kultury-beskidzkiej-2026": [6, 7, 8],
+};
 
 export function HalkaHome() {
   const [menuOpen, setMenuOpen] = useState(false);
+  const [activeGallery, setActiveGallery] = useState(0);
   const headerRef = useRef<HTMLElement>(null);
   const menuButtonRef = useRef<HTMLButtonElement>(null);
+  const galleryRailRef = useRef<HTMLDivElement>(null);
   const today = new Date().toISOString().slice(0, 10);
   const upcomingPerformances = calendarEvents
     .filter((event) => event.kind === "Występ" && (event.endDate ?? event.date) >= today)
-    .slice(0, 4);
+    .slice(0, 2);
   const featuredGallery = [...galleryEvents]
     .sort((a, b) => Number(b.pinned) - Number(a.pinned) || b.date.localeCompare(a.date))
-    .slice(0, 3);
+    .slice(0, 4);
+
+  const moveGallery = (direction: -1 | 1) => {
+    if (!featuredGallery.length) return;
+    const nextIndex = (activeGallery + direction + featuredGallery.length) % featuredGallery.length;
+    const nextSlide = galleryRailRef.current?.querySelector<HTMLElement>(`[data-gallery-index="${nextIndex}"]`);
+    setActiveGallery(nextIndex);
+    nextSlide?.scrollIntoView({
+      behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth",
+      block: "nearest",
+      inline: "start",
+    });
+  };
 
   useEffect(() => {
     if (!menuOpen) return;
@@ -63,6 +82,7 @@ export function HalkaHome() {
 
   return (
     <main className="home-v2">
+      <a className="home-v2-skip-link" href="#dolacz">Przejdź do głównej treści</a>
       <ScrollRosettes />
 
       <header className="home-v2-header" ref={headerRef}>
@@ -96,46 +116,41 @@ export function HalkaHome() {
       <DanceHero />
 
       <section className="home-v2-join home-v2-shell" id="dolacz" aria-labelledby="dolacz-title">
-        <div className="home-v2-join-heading">
+        <div className="home-v2-join-layout">
           <p className="home-v2-section-note">Nabór otwarty przez cały rok</p>
-          <h2 id="dolacz-title">
+          <h2 className="dolacz-title" id="dolacz-title">
             <span>Znajdź swoje miejsce</span>
             <em>w Halce.</em>
           </h2>
-          <div className="home-v2-join-intro">
-            <p>
-              Nie wymagamy doświadczenia ani przesłuchań. Wybierz grupę i przyjdź na najbliższą próbę.
-              Pierwsze spotkanie nic nie kosztuje, podobnie jak późniejszy udział w zespole.
-            </p>
-            <a className="home-v2-text-link" href="/dolacz">Jak wygląda pierwsza próba <ArrowRight size={18} /></a>
+          <aside className="home-v2-join-signal" aria-label="Cztery grupy, jeden zespół">
+            <span className="home-v2-join-count" aria-hidden="true">04</span>
+            <p><strong>grupy.</strong><span>jeden zespół.</span></p>
+            <div className="home-v2-join-facts">
+              <span>od 6 lat</span>
+              <span>bez przesłuchań</span>
+              <span>zajęcia darmowe</span>
+            </div>
+          </aside>
+
+          <div className="home-v2-group-list home-v2-group-list-compact">
+            {ensembleGroups.map((group, index) => (
+              <a className="home-v2-group-row" href={`/dolacz#${group.id}`} key={group.id}>
+                <div className="home-v2-group-copy">
+                  <div className="home-v2-group-meta">
+                    <span className="home-v2-group-index">0{index + 1}</span>
+                    <span>{group.age}</span>
+                  </div>
+                  <div className="home-v2-group-name"><h3>{group.name}</h3></div>
+                  <p>{group.activity}</p>
+                  <span className="home-v2-group-action">Poznaj grupę <ArrowRight size={19} /></span>
+                </div>
+              </a>
+            ))}
           </div>
-        </div>
 
-        <div className="home-v2-group-list">
-          {ensembleGroups.map((group, index) => (
-            <a className="home-v2-group-row" href={`/dolacz#${group.id}`} key={group.id}>
-              <figure className="home-v2-group-photo">
-                <img src={group.image} srcSet={`${homeImage(group.image)} 960w`} sizes="(max-width: 820px) calc(100vw - 32px), 55vw" alt={group.imageAlt} loading="lazy" decoding="async" />
-              </figure>
-              <div className="home-v2-group-copy">
-                <div className="home-v2-group-meta">
-                  <span className="home-v2-group-index">0{index + 1}</span>
-                  <span>{group.age}</span>
-                </div>
-                <div className="home-v2-group-name"><h3>{group.name}</h3></div>
-                <div className="home-v2-group-details">
-                  <div><small>Zajęcia</small><strong>{group.activity}</strong></div>
-                  <div><small>Próby</small><strong>{group.schedule}</strong></div>
-                </div>
-                <span className="home-v2-group-action">Sprawdź najbliższą próbę <ArrowRight size={19} /></span>
-              </div>
-            </a>
-          ))}
-        </div>
-
-        <div className="home-v2-join-footer">
-          <p><strong>Wszystkie próby odbywają się w siedzibie zespołu.</strong> ul. Stalmacha 12 w Lublińcu.</p>
-          <a href={siteConfig.contact.mapUrl} target="_blank" rel="noreferrer"><MapPin size={18} /> Pokaż na mapie</a>
+          <a className="home-v2-text-link" href="/dolacz">
+            Jak wygląda pierwsza próba <ArrowRight size={18} />
+          </a>
         </div>
       </section>
 
@@ -149,11 +164,6 @@ export function HalkaHome() {
               Ostateczny program i skład ustalamy wspólnie, zależnie od terminu oraz dostępności członków.
             </p>
 
-            <div className="home-v2-offer-formats" aria-label="Możliwe formaty występu">
-              <div><strong>Pełna suita</strong><span>Pieśni i tańce, około 40 minut</span></div>
-              <div><strong>Wybrana grupa</strong><span>Chór, dzieci albo balet reprezentacyjny</span></div>
-            </div>
-
             <div className="home-v2-offer-actions">
               <a className="home-v2-button home-v2-button-primary" href="/zapros-halke">Poznaj ofertę występów <ArrowRight size={19} /></a>
               <a className="home-v2-offer-mail" href={`mailto:${siteConfig.contact.email}?subject=Zapytanie%20o%20dostępność%20zespołu`}>Zapytaj o dostępność</a>
@@ -166,16 +176,6 @@ export function HalkaHome() {
               <figcaption>Program dobieramy do miejsca, czasu i charakteru wydarzenia.</figcaption>
             </figure>
 
-            <div className="home-v2-suite-list" aria-label="Gotowe suity zespołu">
-              <div className="home-v2-suite-heading"><span>Gotowy repertuar</span><strong>Trzy suity sceniczne</strong></div>
-              {readySuites.map((suite, index) => (
-                <div className={`home-v2-suite${index === 0 ? " home-v2-suite-featured" : ""}`} key={suite.id}>
-                  <span className="home-v2-suite-index">0{index + 1}</span>
-                  <div><small>{suite.label}</small><strong>{suite.name}</strong></div>
-                  <p>{suite.description}</p>
-                </div>
-              ))}
-            </div>
           </div>
         </div>
       </section>
@@ -190,23 +190,6 @@ export function HalkaHome() {
         </div>
 
         <div className="home-v2-event-list">
-          <section className="home-v2-fixed-plan" aria-labelledby="staly-plan-title">
-            <div className="home-v2-fixed-plan-heading">
-              <div>
-                <span><CalendarBlank size={18} /> Stały plan</span>
-                <h3 id="staly-plan-title">Regularne próby w siedzibie zespołu</h3>
-              </div>
-              <a href="/wydarzenia#proby">Wszystkie terminy prób <ArrowRight size={17} /></a>
-            </div>
-            <div className="home-v2-fixed-plan-grid">
-              {ensembleGroups.map((group) => (
-                <div key={group.id}>
-                  <span>{group.name}</span>
-                  <strong>{group.schedule}</strong>
-                </div>
-              ))}
-            </div>
-          </section>
           {upcomingPerformances.length ? upcomingPerformances.map((event) => {
             const date = new Date(`${event.date}T12:00:00`);
             return (
@@ -226,53 +209,97 @@ export function HalkaHome() {
         </div>
       </section>
 
-      <section className="home-v2-gallery home-v2-shell" aria-labelledby="galeria-title">
-        <div className="home-v2-section-heading">
-          <div>
-            <p className="home-v2-section-note">Halka na scenie</p>
-            <h2 id="galeria-title">Zobacz nas w ruchu.</h2>
-          </div>
-          <div className="home-v2-section-intro">
+      <section className="home-v2-gallery-panel" aria-labelledby="galeria-title">
+        <div className='home-v2-gallery-panel-outer-wrapper'>
+          <div className="home-v2-gallery-showcase-heading">
+            <div>
+              <p className="home-v2-section-note">Halka na scenie</p>
+              <h2 id="galeria-title">Zobacz nas<br />w ruchu.</h2>
+            </div>
             <p>Koncerty, festiwale i spotkania, podczas których pieśń, ruch i kostium tworzą jeden obraz.</p>
-            <a className="home-v2-text-link" href="/galeria">Przejdź do galerii <ArrowRight size={18} /></a>
           </div>
-        </div>
-        <div className="home-v2-gallery-grid">
-          {featuredGallery.map((event, index) => (
-            <a className={`home-v2-gallery-card home-v2-gallery-card-${index + 1}`} href="/galeria" key={event.id}>
-              <img src={event.images[0].src} alt={event.images[0].alt} loading="lazy" width={event.images[0].width} height={event.images[0].height} />
-              <div><span>{formatGalleryDate(event.date)} · {event.location}</span><h3>{event.title}</h3><p>{event.images.length} zdjęć</p></div>
-            </a>
-          ))}
+
+          <div
+            className="home-v2-gallery-rail"
+            aria-label="Najnowsze galerie. Przewiń poziomo, aby zobaczyć kolejne wydarzenie."
+            ref={galleryRailRef}
+            tabIndex={0}
+            onScroll={(event) => {
+              const rail = event.currentTarget;
+              const slides = Array.from(rail.querySelectorAll<HTMLElement>("[data-gallery-index]"));
+              const railLeft = rail.getBoundingClientRect().left;
+              const nearest = slides.reduce((best, slide, index) => (
+                Math.abs(slide.getBoundingClientRect().left - railLeft) < best.distance
+                ? { index, distance: Math.abs(slide.getBoundingClientRect().left - railLeft) }
+                : best
+              ), { index: 0, distance: Number.POSITIVE_INFINITY });
+              if (nearest.index !== activeGallery) setActiveGallery(nearest.index);
+            }}
+          >
+            {featuredGallery.map((event, index) => {
+              const picks = galleryImagePicks[event.id] ?? [0, 1, 2];
+              const firstImage = event.images[picks[0]] ?? event.images[0];
+              const secondImage = event.images[picks[1]] ?? event.images[0];
+              
+              return (
+                <article className="home-v2-gallery-slide" data-gallery-index={index} aria-hidden={index !== activeGallery} key={event.id}>
+                  <div className="home-v2-gallery-slide-copy">
+                    <p className="home-v2-gallery-count"><strong>{String(index + 1).padStart(2, "0")}</strong><span>/{String(featuredGallery.length).padStart(2, "0")}</span></p>
+                    <p>{event.description}</p>
+                    <a href="/galeria" tabIndex={index === activeGallery ? 0 : -1}>Zobacz cały album <ArrowRight size={17} /></a>
+                    <div className="home-v2-gallery-controls" aria-label="Sterowanie galerią">
+                      <button type="button" tabIndex={index === activeGallery ? 0 : -1} onClick={() => moveGallery(-1)} aria-label="Poprzednie wydarzenie"><ArrowLeft size={19} /></button>
+                      <button type="button" tabIndex={index === activeGallery ? 0 : -1} onClick={() => moveGallery(1)} aria-label="Następne wydarzenie"><ArrowRight size={19} /></button>
+                    </div>
+                  </div>
+
+                  <div className="home-v2-gallery-pair">
+                    <a className="home-v2-gallery-shot" href="/galeria" tabIndex={index === activeGallery ? 0 : -1}>
+                      <img src={firstImage.src} alt={firstImage.alt} loading="lazy" width={firstImage.width} height={firstImage.height} />
+                      <span><small>Wydarzenie</small><strong>{event.title}</strong></span>
+                    </a>
+                    <a className="home-v2-gallery-shot" href="/galeria" tabIndex={index === activeGallery ? 0 : -1}>
+                      <img src={secondImage.src} alt={secondImage.alt} loading="lazy" width={secondImage.width} height={secondImage.height} />
+                      <span><small>{formatGalleryDate(event.date)}</small><strong>{event.location}</strong></span>
+                    </a>
+                  </div>
+                </article>
+              );
+            })}
+          </div>
         </div>
       </section>
 
       <section className="home-v2-history home-v2-shell" id="historia" aria-labelledby="historia-title">
         <div className="home-v2-history-copy">
-          <p className="home-v2-section-note">Historia, która nadal trwa</p>
-          <p className="home-v2-history-kicker"><span>1948</span><i aria-hidden="true" />Dziś</p>
-          <h2 id="historia-title">Od 1948 roku tańczymy razem.</h2>
-          <p className="home-v2-history-lead">
-            Zmieniały się pokolenia, sceny i repertuar. Halka pozostała miejscem, w którym pieśni i tańce
-            są przekazywane dalej — nie jako zamknięte archiwum, lecz żywa część wspólnego życia.
-          </p>
-          <div className="home-v2-history-facts" aria-label="Halka w liczbach">
-            <div><strong>75+</strong><span>lat działalności</span></div>
-            <div><strong>4</strong><span>działające grupy</span></div>
+          <header className="home-v2-history-heading">
+            <p className="home-v2-section-note">Historia, która nadal trwa</p>
+            <p className="home-v2-history-kicker"><span>1948</span><i aria-hidden="true" /><strong>Dziś</strong></p>
+            <h2 id="historia-title"><span>Od 1948 roku</span><em>tańczymy razem.</em></h2>
+          </header>
+          <div className="home-v2-history-details">
+            <p className="home-v2-history-lead">
+              Zmieniały się pokolenia, sceny i repertuar. Halka pozostała miejscem, w którym pieśni i tańce
+              są przekazywane dalej — nie jako zamknięte archiwum, lecz żywa część wspólnego życia.
+            </p>
+            <div className="home-v2-history-facts" aria-label="Halka w liczbach">
+              <div><strong>75+</strong><span>lat działalności</span></div>
+              <div><strong>4</strong><span>działające grupy</span></div>
+            </div>
+            <a className="home-v2-text-link" href="/historia">Poznaj historię zespołu <ArrowRight size={18} /></a>
           </div>
-          <a className="home-v2-text-link" href="/historia">Poznaj historię zespołu <ArrowRight size={18} /></a>
         </div>
 
         <div className="home-v2-history-visual" aria-label="Halka dawniej i dziś">
-          <figure className="home-v2-history-main-photo">
+          <figure className="home-v2-history-photo home-v2-history-photo-old">
+            <img src="/history/halka-1948.webp" alt="Archiwalne zdjęcie pierwszego składu Zespołu Pieśni i Tańca Halka z 1948 roku" loading="lazy" decoding="async" />
+            <figcaption><span>Kiedyś · 1948</span><strong>Pierwszy skład Halki</strong></figcaption>
+          </figure>
+          <figure className="home-v2-history-photo home-v2-history-photo-now">
             <img src="/session/group.webp" srcSet="/home-responsive/group-960.webp 960w" sizes="(max-width: 940px) calc(100vw - 32px), 52vw" alt="Współczesny skład Zespołu Pieśni i Tańca Halka" loading="lazy" decoding="async" />
-            <figcaption><span>Współczesna Halka</span><strong>Tradycja obecna na scenie</strong></figcaption>
+            <figcaption><span>Dziś</span><strong>Kolejne pokolenia na jednej scenie</strong></figcaption>
           </figure>
-          <figure className="home-v2-history-generation-photo">
-            <img src="/session/children-group.webp" srcSet="/home-responsive/children-group-960.webp 960w" sizes="(max-width: 520px) 42vw, 260px" alt="Najmłodsi członkowie Zespołu Pieśni i Tańca Halka" loading="lazy" decoding="async" />
-            <figcaption>Następne pokolenie</figcaption>
-          </figure>
-          <span className="home-v2-history-mark" aria-hidden="true">1948</span>
+          <span className="home-v2-history-mark" aria-hidden="true"><i>1948</i><b>Dziś</b></span>
         </div>
       </section>
 
@@ -287,26 +314,11 @@ export function HalkaHome() {
           <a className="home-v2-button home-v2-button-primary" href="/kostiumy">Odkryj kostiumy <ArrowRight size={19} /></a>
         </div>
         <div className="home-v2-costume-mosaic" aria-label="Detale kostiumów scenicznych Halki">
-          <figure className="home-v2-costume-tile home-v2-costume-tile-belt">
-            <img src="/session/modal-zywiec-male-10.webp" srcSet="/home-responsive/modal-zywiec-male-10-960.webp 960w" sizes="(max-width: 940px) 46vw, 24vw" alt="Zdobiony skórzany pas stroju Górali Żywieckich" loading="lazy" decoding="async" />
-            <figcaption>Pas góralski</figcaption>
-          </figure>
-          <figure className="home-v2-costume-tile home-v2-costume-tile-beads">
-            <img src="/session/modal-zywiec-female-10.webp" srcSet="/home-responsive/modal-zywiec-female-10-960.webp 960w" sizes="(max-width: 940px) 46vw, 24vw" alt="Kwiatowy haft kobiecego stroju Górali Żywieckich" loading="lazy" decoding="async" />
-            <figcaption>Haft żywiecki</figcaption>
-          </figure>
-          <figure className="home-v2-costume-tile home-v2-costume-tile-collar">
-            <img src="/session/modal-lublin-female-13.webp" srcSet="/home-responsive/modal-lublin-female-13-960.webp 960w" sizes="(max-width: 940px) 46vw, 24vw" alt="Wielobarwne wstążki kobiecego stroju lubelskiego" loading="lazy" decoding="async" />
-            <figcaption>Wstążki</figcaption>
-          </figure>
-          <figure className="home-v2-costume-tile home-v2-costume-tile-embroidery">
-            <img src="/session/modal-krakow-male-07.webp" srcSet="/home-responsive/modal-krakow-male-07-960.webp 960w" sizes="(max-width: 940px) 46vw, 24vw" alt="Haftowany granatowy kaftan stroju Krakowiaków Zachodnich" loading="lazy" decoding="async" />
-            <figcaption>Haft krakowski</figcaption>
-          </figure>
-          <figure className="home-v2-costume-tile home-v2-costume-tile-lace">
-            <img src="/session/modal-lublin-female-06.webp" srcSet="/home-responsive/modal-lublin-female-06-960.webp 960w" sizes="(max-width: 940px) 46vw, 24vw" alt="Haftowany kołnierz i korale kobiecego stroju lubelskiego" loading="lazy" decoding="async" />
-            <figcaption>Kołnierz</figcaption>
-          </figure>
+          <figure className="home-v2-costume-tile home-v2-costume-tile-belt"><img src="/session/modal-zywiec-male-10.webp" srcSet="/home-responsive/modal-zywiec-male-10-960.webp 960w" sizes="(max-width: 940px) 46vw, 24vw" alt="Zdobiony skórzany pas stroju Górali Żywieckich" loading="lazy" decoding="async" /><figcaption>Pas góralski</figcaption></figure>
+          <figure className="home-v2-costume-tile home-v2-costume-tile-beads"><img src="/session/modal-zywiec-female-10.webp" srcSet="/home-responsive/modal-zywiec-female-10-960.webp 960w" sizes="(max-width: 940px) 46vw, 24vw" alt="Kwiatowy haft kobiecego stroju Górali Żywieckich" loading="lazy" decoding="async" /><figcaption>Haft żywiecki</figcaption></figure>
+          <figure className="home-v2-costume-tile home-v2-costume-tile-collar"><img src="/session/modal-lublin-female-13.webp" srcSet="/home-responsive/modal-lublin-female-13-960.webp 960w" sizes="(max-width: 940px) 46vw, 24vw" alt="Wielobarwne wstążki kobiecego stroju lubelskiego" loading="lazy" decoding="async" /><figcaption>Wstążki</figcaption></figure>
+          <figure className="home-v2-costume-tile home-v2-costume-tile-embroidery"><img src="/session/modal-krakow-male-07.webp" srcSet="/home-responsive/modal-krakow-male-07-960.webp 960w" sizes="(max-width: 940px) 46vw, 24vw" alt="Haftowany granatowy kaftan stroju Krakowiaków Zachodnich" loading="lazy" decoding="async" /><figcaption>Haft krakowski</figcaption></figure>
+          <figure className="home-v2-costume-tile home-v2-costume-tile-lace"><img src="/session/modal-lublin-female-06.webp" srcSet="/home-responsive/modal-lublin-female-06-960.webp 960w" sizes="(max-width: 940px) 46vw, 24vw" alt="Haftowany kołnierz i korale kobiecego stroju lubelskiego" loading="lazy" decoding="async" /><figcaption>Kołnierz</figcaption></figure>
         </div>
       </section>
 
@@ -330,18 +342,6 @@ export function HalkaHome() {
             <a className="home-v2-social home-v2-social-instagram" href={siteConfig.social.instagram} target="_blank" rel="noreferrer"><span className="home-v2-social-logo"><FaInstagram aria-hidden="true" /></span><span><strong>Instagram</strong><small>Kulisy i zdjęcia</small></span><ArrowUpRight size={19} /></a>
             <a className="home-v2-social home-v2-social-youtube" href={siteConfig.social.youtube} target="_blank" rel="noreferrer"><span className="home-v2-social-logo"><FaYoutube aria-hidden="true" /></span><span><strong>YouTube</strong><small>Występy i nagrania</small></span><ArrowUpRight size={19} /></a>
           </div>
-        </div>
-        <div className="home-v2-map-card">
-          <iframe
-            src={siteConfig.contact.mapEmbedUrl}
-            title="Mapa z lokalizacją siedziby Zespołu Pieśni i Tańca Halka"
-            loading="lazy"
-            referrerPolicy="no-referrer-when-downgrade"
-          />
-          <a href={siteConfig.contact.mapUrl} target="_blank" rel="noreferrer">
-            <span><MapPin size={18} /><strong>Siedziba zespołu</strong><small>{siteConfig.contact.address}</small></span>
-            <small>Otwórz trasę w Google Maps <ArrowUpRight size={15} /></small>
-          </a>
         </div>
       </section>
 
