@@ -3,8 +3,13 @@ export const siteConfig = {
   shortName: "Halka",
   city: "Lubliniec",
   founded: 1948,
+  association: {
+    name: 'Stowarzyszenie Zespołu Pieśni i Tańca „Halka”',
+    krs: "0000186198",
+    nip: "5751026830",
+  },
   contact: {
-    email: "imprezy@mdk.lubliniec.pl",
+    email: "zpithalka1948@gmail.com",
     phoneDisplay: "34 351 06 87",
     phone: "+48343510687",
     address: "ul. Stalmacha 12, 42-700 Lubliniec",
@@ -31,7 +36,7 @@ export const mainNavigation = [
 export const ensembleGroups = [
   {
     id: "grupa-1",
-    name: "Grupa 1",
+    name: "Dzieci 1",
     age: "6-8 lat",
     activity: "Śpiew i taniec",
     schedule: "Środy i piątki, 15:30-16:20",
@@ -41,7 +46,7 @@ export const ensembleGroups = [
   },
   {
     id: "grupa-2",
-    name: "Grupa 2",
+    name: "Dzieci 2",
     age: "9-14 lat",
     activity: "Śpiew i taniec",
     schedule: "Środy i piątki, 16:30-17:50",

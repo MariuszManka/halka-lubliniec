@@ -115,7 +115,13 @@ async function fetchSanityDocument<T>(query: string): Promise<T | null> {
 
 export async function getJoinPageContent(): Promise<JoinPageContent> {
   const fallback = defaults.joinPage as JoinPageContent;
-  return mergeContent(fallback, await fetchSanityDocument<Partial<JoinPageContent>>(joinPageQuery));
+  const content = mergeContent(fallback, await fetchSanityDocument<Partial<JoinPageContent>>(joinPageQuery));
+  // Keep legacy CMS names consistent with the current public group names.
+  content.groups.items = content.groups.items.map((group) => ({
+    ...group,
+    name: group.name.replace(/^Grupa ([12])$/i, "Dzieci $1"),
+  }));
+  return content;
 }
 
 export async function getInvitePageContent(): Promise<InvitePageContent> {

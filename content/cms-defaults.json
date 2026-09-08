@@ -62,7 +62,7 @@
         },
         {
           "id": "grupa-1",
-          "name": "Grupa 1",
+          "name": "Dzieci 1",
           "meta": "Dla dzieci · 6-8 lat · Śpiew i taniec",
           "schedule": "Środy i piątki, 15:30-16:20",
           "description": "Grupa dla najmłodszych dzieci, które przez ruch, zabawę i wspólny śpiew poznają folklor oraz uczą się pracy w zespole.",
@@ -71,7 +71,7 @@
         },
         {
           "id": "grupa-2",
-          "name": "Grupa 2",
+          "name": "Dzieci 2",
           "meta": "Dla dzieci · 9-14 lat · Śpiew i taniec",
           "schedule": "Środy i piątki, 16:30-17:50",
           "description": "Grupa dla starszych dzieci, które rozwijają śpiew i taniec razem — z coraz większą swobodą ruchu i sceniczną pewnością.",

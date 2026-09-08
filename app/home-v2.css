@@ -707,6 +707,16 @@
 .home-v2-social-facebook { color: #1877f2; }
 .home-v2-social-instagram { color: #b42375; }
 .home-v2-social-youtube { color: #e62117; }
+.home-v2-association { margin-top: 24px; color: var(--v2-ink); font-size: 0.875rem; line-height: 1.6; }
+.home-v2-association p { margin: 0; }
+.home-v2-association dl { display: flex; flex-wrap: wrap; gap: 8px 28px; margin: 10px 0 0; }
+.home-v2-association dl > div { display: flex; gap: 8px; }
+.home-v2-association dt { color: var(--v2-muted); }
+.home-v2-association dd { margin: 0; font-variant-numeric: tabular-nums; }
+.home-v2-social-intro h3 { margin: 0; color: var(--v2-green); font-family: var(--font-sans); font-size: clamp(1.5rem, 2.2vw, 2rem); line-height: 1.2; text-wrap: balance; }
+.home-v2-social-intro p { margin: 12px 0 0; color: var(--v2-muted); font-size: 0.95rem; line-height: 1.65; text-wrap: pretty; }
+.home-v2-social-hint { margin: 0; color: var(--v2-muted); font-size: 0.8rem; line-height: 1.5; }
+.home-v2-social:focus-visible { outline: 2px solid var(--v2-green); outline-offset: 4px; }
 .home-v2-map-card { grid-column: 1 / -1; overflow: hidden; margin-top: clamp(12px, 2vw, 28px); border: 1px solid var(--v2-line); border-radius: 18px; background: #fffdf8; box-shadow: 0 20px 58px rgba(18, 59, 42, 0.08); }
 .home-v2-map-card iframe { width: 100%; height: clamp(340px, 34vw, 470px); display: block; border: 0; filter: saturate(0.9) contrast(0.97); }
 .home-v2-map-card > a { display: flex; align-items: center; justify-content: space-between; gap: 18px; padding: 16px 18px; border-top: 1px solid var(--v2-line); transition: background-color 180ms ease; }

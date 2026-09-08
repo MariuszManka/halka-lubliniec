@@ -278,24 +278,35 @@ export function HalkaHome({ galleryEvents, galleryContent }: { galleryEvents: Ga
       <section className='home-v2-contact-section-outer-wrapper'  id="kontakt" aria-labelledby="kontakt-title">
         <div className="home-v2-contact-section home-v2-shell">
           <div className="home-v2-contact-copy">
-            <p className="home-v2-section-note">Kontakt</p>
-            <h2 id="kontakt-title">Porozmawiajmy.</h2>
+            <p className="home-v2-section-note">Porozmawiajmy</p>
+            <h2 id="kontakt-title">Kontakt</h2>
             <p>
               Chcesz dołączyć, zaprosić Halkę albo zapytać o współpracę? Wybierz najwygodniejszy kontakt.
-              Bieżące informacje publikujemy również w mediach społecznościowych.
             </p>
             <div className="home-v2-contact-actions">
               <a href={`mailto:${siteConfig.contact.email}`}><EnvelopeSimple size={22} /><span><small>Napisz do nas</small><strong>{siteConfig.contact.email}</strong></span></a>
               <a href={`tel:${siteConfig.contact.phone}`}><Phone size={22} /><span><small>Zadzwoń</small><strong>{siteConfig.contact.phoneDisplay}</strong></span></a>
               <a href={siteConfig.contact.mapUrl} target="_blank" rel="noreferrer"><MapPin size={22} /><span><small>Siedziba zespołu</small><strong>{siteConfig.contact.address}</strong></span></a>
             </div>
+            <div className="home-v2-association">
+              <p>{siteConfig.association.name}</p>
+              <dl>
+                <div><dt>KRS</dt><dd>{siteConfig.association.krs}</dd></div>
+                <div><dt>NIP</dt><dd>{siteConfig.association.nip}</dd></div>
+              </dl>
+            </div>
           </div>
-          <div className="home-v2-contact-aside">
+          <div className="home-v2-contact-aside" aria-labelledby="home-social-title">
+            <div className="home-v2-social-intro">
+              <h3 id="home-social-title">Bądź bliżej Halki.</h3>
+              <p>Obserwuj nas i zaglądaj za kulisy. Zobacz, co dzieje się na próbach, i nie przegap kolejnego koncertu.</p>
+            </div>
             <div className="home-v2-socials" aria-label="Media społecznościowe Halki">
-              <a className="home-v2-social home-v2-social-facebook" href={siteConfig.social.facebook} target="_blank" rel="noreferrer"><span className="home-v2-social-logo"><FaFacebookF aria-hidden="true" /></span><span><strong>Facebook</strong><small>Aktualności i wydarzenia</small></span><ArrowUpRight size={19} /></a>
-              <a className="home-v2-social home-v2-social-instagram" href={siteConfig.social.instagram} target="_blank" rel="noreferrer"><span className="home-v2-social-logo"><FaInstagram aria-hidden="true" /></span><span><strong>Instagram</strong><small>Kulisy i zdjęcia</small></span><ArrowUpRight size={19} /></a>
+              <a className="home-v2-social home-v2-social-facebook" href={siteConfig.social.facebook} target="_blank" rel="noreferrer"><span className="home-v2-social-logo"><FaFacebookF aria-hidden="true" /></span><span><strong>Obserwuj na Facebooku</strong><small>Zapowiedzi koncertów i aktualności</small></span><ArrowUpRight size={19} aria-hidden="true" /></a>
+              <a className="home-v2-social home-v2-social-instagram" href={siteConfig.social.instagram} target="_blank" rel="noreferrer"><span className="home-v2-social-logo"><FaInstagram aria-hidden="true" /></span><span><strong>Obserwuj na Instagramie</strong><small>Próby, kulisy i chwile ze sceny</small></span><ArrowUpRight size={19} aria-hidden="true" /></a>
               <a className="home-v2-social home-v2-social-youtube" href={siteConfig.social.youtube} target="_blank" rel="noreferrer"><span className="home-v2-social-logo"><FaYoutube aria-hidden="true" /></span><span><strong>YouTube</strong><small>Występy i nagrania</small></span><ArrowUpRight size={19} /></a>
             </div>
+            <p className="home-v2-social-hint">Przejdź na nasz profil i kliknij „Obserwuj”.</p>
           </div>
         </div>
       </section>

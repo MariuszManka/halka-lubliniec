@@ -55,7 +55,7 @@ export const schedule = [
 export const contact = {
   phoneDisplay: "34 351 06 87",
   phone: "+48343510687",
-  email: "imprezy@mdk.lubliniec.pl",
+  email: "zpithalka1948@gmail.com",
   address: "ul. Stalmacha 12, 42-700 Lubliniec",
   mapLink: "https://maps.app.goo.gl/Fbw8pngy29Q4Bpmo9",
   mdkLink: "https://mdk.lubliniec.pl/sekcje-mdk/zespol-piesni-i-tanca-halka/",
