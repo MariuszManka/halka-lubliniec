@@ -1,19 +1,18 @@
 "use client";
 
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useMemo, useState } from "react";
 import Link from "next/link";
 import {
   ArrowRight,
   ArrowUpRight,
   CalendarBlank,
   Clock,
-  List,
   MapPin,
   Ticket,
-  X,
 } from "@phosphor-icons/react";
 import { calendarEvents, eventGroups, type CalendarEvent } from "../content/events";
 import { ensembleGroups, mainNavigation, siteConfig } from "../content/site-config";
+import { SiteHeader } from "./SiteHeader";
 
 const monthNames = [
   "Styczeń", "Luty", "Marzec", "Kwiecień", "Maj", "Czerwiec",
@@ -38,9 +37,6 @@ const formatTime = (event: CalendarEvent) => {
 const monthKey = (event: CalendarEvent) => event.date.slice(0, 7);
 
 export function EventsPage() {
-  const [menuOpen, setMenuOpen] = useState(false);
-  const headerRef = useRef<HTMLElement>(null);
-  const menuButtonRef = useRef<HTMLButtonElement>(null);
   const today = new Date().toISOString().slice(0, 10);
   const currentMonth = today.slice(0, 7);
 
@@ -53,25 +49,6 @@ export function EventsPage() {
   const months = [...new Set(calendarEvents.map(monthKey))].sort();
   const defaultMonth = months.find((month) => month >= currentMonth) ?? months.at(-1) ?? currentMonth;
   const [selectedMonth, setSelectedMonth] = useState(defaultMonth);
-
-  useEffect(() => {
-    if (!menuOpen) return;
-    const closeOnEscape = (event: KeyboardEvent) => {
-      if (event.key === "Escape") {
-        setMenuOpen(false);
-        menuButtonRef.current?.focus();
-      }
-    };
-    const closeOutside = (event: PointerEvent) => {
-      if (!headerRef.current?.contains(event.target as Node)) setMenuOpen(false);
-    };
-    document.addEventListener("keydown", closeOnEscape);
-    document.addEventListener("pointerdown", closeOutside);
-    return () => {
-      document.removeEventListener("keydown", closeOnEscape);
-      document.removeEventListener("pointerdown", closeOutside);
-    };
-  }, [menuOpen]);
 
   const [year, month] = selectedMonth.split("-").map(Number);
   const firstWeekday = (new Date(year, month - 1, 1).getDay() + 6) % 7;
@@ -91,33 +68,7 @@ export function EventsPage() {
     <main className="events-page">
       <a className="events-skip-link" href="#events-content">Przejdź do wydarzeń</a>
 
-      <header className="home-v2-header" ref={headerRef}>
-        <Link className="home-v2-brand" href="/" aria-label="Halka, strona główna">
-          <img src="/logo.jpg" alt="" width="46" height="46" />
-          <span><strong>HALKA</strong><small>Lubliniec</small></span>
-        </Link>
-        <nav className="home-v2-nav" aria-label="Główna nawigacja">
-          {mainNavigation.map((item) => <Link aria-current={item.href === "/wydarzenia" ? "page" : undefined} href={item.href} key={item.href}>{item.label}</Link>)}
-        </nav>
-        <Link className="home-v2-contact" href="/#kontakt">Kontakt</Link>
-        <button
-          className="home-v2-menu-button"
-          ref={menuButtonRef}
-          type="button"
-          aria-label={menuOpen ? "Zamknij menu" : "Otwórz menu"}
-          aria-expanded={menuOpen}
-          aria-controls="events-mobile-menu"
-          onClick={() => setMenuOpen((open) => !open)}
-        >
-          {menuOpen ? <X size={22} /> : <List size={22} />}
-        </button>
-        {menuOpen && (
-          <nav className="home-v2-mobile-nav" id="events-mobile-menu" aria-label="Menu mobilne">
-            {mainNavigation.map((item) => <Link aria-current={item.href === "/wydarzenia" ? "page" : undefined} href={item.href} key={item.href}>{item.label}</Link>)}
-            <Link href="/#kontakt">Kontakt</Link>
-          </nav>
-        )}
-      </header>
+      <SiteHeader activeHref="/wydarzenia" />
 
       <section className="events-hero events-shell" id="events-content" aria-labelledby="events-title">
         <div className="events-hero-copy">

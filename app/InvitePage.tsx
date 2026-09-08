@@ -1,14 +1,14 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import {
   ArrowRight, ArrowUpRight, CalendarBlank, Check, Clock, EnvelopeSimple,
-  InstagramLogo, List, MapPin, MessengerLogo, Phone, UsersThree, X,
+  InstagramLogo, MapPin, MessengerLogo, Phone, UsersThree,
 } from "@phosphor-icons/react";
 import { mainNavigation, siteConfig } from "../content/site-config";
 import type { InvitePageContent } from "../sanity/content-types";
 import { ScrollRosettes } from "./HeroVariants";
+import { SiteHeader } from "./SiteHeader";
 
 const bookingSubject = "Zapytanie o występ ZPiT Halka";
 const bookingBody = `Dzień dobry,
@@ -38,65 +38,12 @@ const formatImages = [
 ];
 
 export function InvitePage({ content }: { content: InvitePageContent }) {
-  const [menuOpen, setMenuOpen] = useState(false);
-  const headerRef = useRef<HTMLElement>(null);
-  const menuButtonRef = useRef<HTMLButtonElement>(null);
-
-  useEffect(() => {
-    if (!menuOpen) return;
-    const closeOnEscape = (event: KeyboardEvent) => {
-      if (event.key === "Escape") {
-        setMenuOpen(false);
-        menuButtonRef.current?.focus();
-      }
-    };
-    const closeOutside = (event: PointerEvent) => {
-      if (!headerRef.current?.contains(event.target as Node)) setMenuOpen(false);
-    };
-    document.addEventListener("keydown", closeOnEscape);
-    document.addEventListener("pointerdown", closeOutside);
-    return () => {
-      document.removeEventListener("keydown", closeOnEscape);
-      document.removeEventListener("pointerdown", closeOutside);
-    };
-  }, [menuOpen]);
-
   return (
     <main className="home-v2 invite-page">
       <a className="invite-skip-link" href="#invite-content">Przejdź do treści</a>
       <ScrollRosettes />
 
-      <header className="home-v2-header" ref={headerRef}>
-        <Link className="home-v2-brand" href="/" aria-label="Halka, strona główna">
-          <img src="/logo.jpg" alt="" width="46" height="46" />
-          <span><strong>HALKA</strong><small>Lubliniec</small></span>
-        </Link>
-        <nav className="home-v2-nav" aria-label="Główna nawigacja">
-          {mainNavigation.map((item) => (
-            <Link aria-current={item.href === "/zapros-halke" ? "page" : undefined} href={item.href} key={item.href}>{item.label}</Link>
-          ))}
-        </nav>
-        <a className="home-v2-contact" href={bookingHref}>Sprawdź termin</a>
-        <button
-          className="home-v2-menu-button"
-          ref={menuButtonRef}
-          type="button"
-          aria-label={menuOpen ? "Zamknij menu" : "Otwórz menu"}
-          aria-expanded={menuOpen}
-          aria-controls="invite-mobile-menu"
-          onClick={() => setMenuOpen((open) => !open)}
-        >
-          {menuOpen ? <X size={22} /> : <List size={22} />}
-        </button>
-        {menuOpen && (
-          <nav className="home-v2-mobile-nav" id="invite-mobile-menu" aria-label="Menu mobilne">
-            {mainNavigation.map((item) => (
-              <Link aria-current={item.href === "/zapros-halke" ? "page" : undefined} href={item.href} key={item.href} onClick={() => setMenuOpen(false)}>{item.label}</Link>
-            ))}
-            <a href={bookingHref} onClick={() => setMenuOpen(false)}>Sprawdź termin</a>
-          </nav>
-        )}
-      </header>
+      <SiteHeader activeHref="/zapros-halke" />
 
       <section className="invite-hero" id="invite-content" aria-labelledby="invite-title">
         <div className="invite-hero-media" aria-hidden="true">

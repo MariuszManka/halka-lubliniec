@@ -1,0 +1,181 @@
+/* A single, joined composition using Halka's existing green, ivory and photo. */
+.chronicle-page .gallery-hero-editorial {
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  align-items: stretch;
+  gap: 0;
+  min-height: min(640px, calc(100svh - var(--header-height) - 64px));
+  margin-block: 32px;
+  padding: 0;
+  overflow: hidden;
+  border-radius: 16px;
+  background: #0c452d;
+}
+
+.chronicle-page .gallery-hero-editorial .chronicle-hero-copy {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  max-width: none;
+  min-width: 0;
+  padding: clamp(32px, 4.5vw, 64px);
+  color: #fffaf1;
+}
+
+.chronicle-page .gallery-hero-editorial .section-kicker {
+  margin: 0 0 28px;
+  color: #f0bc43;
+}
+
+.chronicle-page .gallery-hero-editorial h1 {
+  margin: 0;
+  color: #fffaf1;
+  font-size: clamp(3.5rem, 6.2vw, 6rem);
+  font-weight: 470;
+  line-height: 0.98;
+  letter-spacing: -0.035em;
+}
+
+.chronicle-page .gallery-hero-editorial h1 em {
+  display: block;
+  color: inherit;
+  font-weight: inherit;
+  line-height: 1.06;
+}
+
+.chronicle-page .gallery-hero-editorial .gallery-folk-divider {
+  width: min(100%, 190px);
+  margin-top: 24px;
+  color: #f0bc43;
+}
+
+.chronicle-page .gallery-hero-editorial .gallery-folk-divider > b span {
+  background: #fffaf1;
+}
+
+.chronicle-page .gallery-hero-editorial .gallery-folk-divider > b span:nth-child(2) {
+  border-color: #0c452d;
+  background: #f0bc43;
+}
+
+.chronicle-page .gallery-hero-editorial .chronicle-hero-copy > p:not(.section-kicker) {
+  max-width: 39ch;
+  margin: 24px 0 0;
+  color: #e1ebe3;
+  font-size: 1rem;
+  line-height: 1.65;
+  text-wrap: pretty;
+}
+
+.gallery-hero-browse {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  min-height: 48px;
+  max-width: 100%;
+  margin-top: 32px;
+  padding: 12px 22px;
+  border-radius: 999px;
+  background: #fffaf1;
+  color: #0c452d;
+  font-size: 0.875rem;
+  font-weight: 750;
+  transition: background-color 180ms ease, transform 180ms ease;
+}
+
+.gallery-hero-browse:hover { background: #f0bc43; transform: translateY(-2px); }
+.gallery-hero-browse:focus-visible { outline: 3px solid #f0bc43; outline-offset: 5px; }
+.gallery-hero-browse svg { flex-shrink: 0; }
+
+.chronicle-page .gallery-hero-editorial .gallery-hero-costume {
+  width: 100%;
+  height: auto;
+  min-height: 100%;
+  max-height: none;
+  justify-self: stretch;
+  margin: 0;
+  background: #101b13;
+}
+
+.chronicle-page .gallery-hero-editorial .gallery-costume-frame {
+  inset: 0;
+  border: 0;
+  border-radius: 0;
+  background-color: #101b13;
+  box-shadow: none;
+}
+
+.chronicle-page .gallery-hero-editorial .gallery-costume-frame img { object-position: 50% 32%; }
+.chronicle-page .gallery-hero-editorial .gallery-costume-frame::after {
+  background: linear-gradient(180deg, transparent 55%, rgba(7, 23, 16, 0.8));
+}
+
+.chronicle-page .gallery-hero-editorial .gallery-hero-costume figcaption {
+  right: 32px;
+  bottom: 28px;
+  left: 32px;
+  max-width: none;
+  gap: 6px;
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  backdrop-filter: none;
+}
+
+.chronicle-page .gallery-hero-editorial figcaption span { color: #f0bc43; }
+.chronicle-page .gallery-hero-editorial figcaption strong { font-size: clamp(1.2rem, 1.8vw, 1.6rem); line-height: 1.2; }
+.chronicle-page .gallery-hero-editorial .gallery-costume-stitch { display: none; }
+
+@media (min-width: 701px) and (max-height: 740px) {
+  .chronicle-page .gallery-hero-editorial { margin-block: 24px; min-height: calc(100svh - var(--header-height) - 48px); }
+  .chronicle-page .gallery-hero-editorial .chronicle-hero-copy { padding: 28px clamp(28px, 4vw, 56px); }
+  .chronicle-page .gallery-hero-editorial h1 { font-size: clamp(3rem, 8.8svh, 4.5rem); }
+  .chronicle-page .gallery-hero-editorial .section-kicker { margin-bottom: 18px; }
+  .chronicle-page .gallery-hero-editorial .gallery-folk-divider { margin-top: 18px; }
+  .chronicle-page .gallery-hero-editorial .chronicle-hero-copy > p:not(.section-kicker) { margin-top: 18px; line-height: 1.55; }
+  .gallery-hero-browse { margin-top: 22px; }
+}
+
+@media (max-width: 940px) {
+  .chronicle-page .gallery-hero-editorial .chronicle-hero-copy { padding-inline: 28px; }
+  .chronicle-page .gallery-hero-editorial h1 { font-size: clamp(2.75rem, 6.5vw, 4.5rem); }
+}
+
+@media (max-width: 700px) {
+  .chronicle-page .gallery-hero-editorial { grid-template-columns: minmax(0, 1fr); min-height: 0; margin-block: 20px; border-radius: 14px; }
+  .chronicle-page .gallery-hero-editorial .chronicle-hero-copy { padding: 28px 24px 32px; }
+  .chronicle-page .gallery-hero-editorial .section-kicker { margin-bottom: 18px; }
+  .chronicle-page .gallery-hero-editorial h1 { font-size: clamp(3rem, 12vw, 4.5rem); }
+  .chronicle-page .gallery-hero-editorial .gallery-folk-divider { margin-top: 18px; }
+  .chronicle-page .gallery-hero-editorial .chronicle-hero-copy > p:not(.section-kicker) { margin-top: 18px; }
+  .gallery-hero-browse { margin-top: 24px; }
+  .chronicle-page .gallery-hero-editorial .gallery-hero-costume { min-height: 0; height: clamp(280px, 64vw, 400px); }
+  .chronicle-page .gallery-hero-editorial .gallery-hero-costume figcaption { inset: auto 24px 22px; }
+  .chronicle-page .gallery-hero-editorial .gallery-costume-frame img { object-position: 50% 30%; }
+}
+
+@media (min-width: 701px) and (hover: hover) and (pointer: fine) {
+  .chronicle-page .gallery-hero-editorial .gallery-costume-frame {
+    background-image: url("/session/modal-zywiec-female-04.webp");
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+    background-size: min(50vw, 660px) auto;
+    background-position: right max(24px, calc((100vw - 1320px) / 2)) top 10%;
+  }
+
+  .chronicle-page .gallery-hero-editorial .gallery-costume-frame img {
+    opacity: 0;
+  }
+}
+
+@media (min-width: 701px) and (max-width: 820px) and (hover: hover) and (pointer: fine) {
+  .chronicle-page .gallery-hero-editorial .gallery-costume-frame {
+    background-position: right 16px top 32%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .gallery-hero-browse { transition: none; }
+}

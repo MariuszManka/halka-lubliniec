@@ -1,6 +1,16 @@
 # Zespół Pieśni i Tańca „Halka”
 
-Strona wizytówkowa i cyfrowa kronika zespołu z Lublińca. Projekt korzysta z Next.js/Vinext i przechowuje treści w prostych plikach, bez panelu administracyjnego i bazy danych.
+Strona wizytówkowa i cyfrowa kronika zespołu z Lublińca. Projekt korzysta z Next.js/Vinext, a treści redakcyjne i galerie są obsługiwane przez Sanity.
+
+## Galeria w Sanity
+
+Panel treści zawiera dokument **Teksty galerii** oraz kolekcję **Galerie**. W nowej galerii pierwsze zdjęcie jest okładką, a kolejność zdjęć można zmieniać przeciąganiem. Każde zdjęcie ma wymagany opis alternatywny i opcjonalny podpis widoczny w powiększeniu.
+
+```bash
+npm run cms:dev
+```
+
+Jednorazowy import obecnej lokalnej galerii wykonuje `npm run cms:migrate:gallery`. Skrypt nie nadpisuje wpisów, które już istnieją w Sanity.
 
 ## Uruchomienie
 

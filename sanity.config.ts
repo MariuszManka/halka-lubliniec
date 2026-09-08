@@ -3,9 +3,9 @@ import { structureTool } from "sanity/structure";
 import { visionTool } from "@sanity/vision";
 import { schemaTypes } from "./sanity/schemaTypes";
 
-const projectId = process.env.SANITY_STUDIO_PROJECT_ID || process.env.NEXT_PUBLIC_SANITY_PROJECT_ID || "missing-project-id";
+const projectId = process.env.SANITY_STUDIO_PROJECT_ID || process.env.NEXT_PUBLIC_SANITY_PROJECT_ID || "bj1fbyz1";
 const dataset = process.env.SANITY_STUDIO_DATASET || process.env.NEXT_PUBLIC_SANITY_DATASET || "production";
-const singletonTypes = new Set(["joinPage", "invitePage"]);
+const singletonTypes = new Set(["joinPage", "invitePage", "galleryPage"]);
 
 export default defineConfig({
   name: "halka",
@@ -26,6 +26,19 @@ export default defineConfig({
               .title("Zaproś Halkę")
               .id("invitePage")
               .child(S.document().schemaType("invitePage").documentId("invitePage")),
+            S.divider(),
+            S.listItem()
+              .title("Teksty galerii")
+              .id("galleryPage")
+              .child(S.document().schemaType("galleryPage").documentId("galleryPage")),
+            S.listItem()
+              .title("Galerie")
+              .id("galleryAlbums")
+              .child(
+                S.documentTypeList("galleryAlbum")
+                  .title("Galerie")
+                  .defaultOrdering([{ field: "date", direction: "desc" }]),
+              ),
           ]),
     }),
     visionTool(),

@@ -1,22 +1,22 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import {
   ArrowLeft,
   ArrowRight,
   ArrowUpRight,
   CalendarBlank,
   EnvelopeSimple,
-  List,
   MapPin,
   Phone,
-  X,
 } from "@phosphor-icons/react";
 import { FaFacebookF, FaInstagram, FaYoutube } from "react-icons/fa6";
 import { calendarEvents, eventGroups } from "../content/events";
-import { galleryEvents } from "../content/generated-gallery";
 import { ensembleGroups, mainNavigation, siteConfig } from "../content/site-config";
+import type { GalleryEvent, GalleryPageContent } from "../sanity/content-types";
 import { DanceHero, ScrollRosettes } from "./HeroVariants";
+import Link from 'next/link'
+import { SiteHeader } from "./SiteHeader";
 
 const monthShort = ["STY", "LUT", "MAR", "KWI", "MAJ", "CZE", "LIP", "SIE", "WRZ", "PAŹ", "LIS", "GRU"];
 
@@ -33,13 +33,10 @@ const galleryImagePicks: Record<string, readonly [number, number, number]> = {
   "tydzien-kultury-beskidzkiej-2026": [6, 7, 8],
 };
 
-export function HalkaHome() {
+export function HalkaHome({ galleryEvents, galleryContent }: { galleryEvents: GalleryEvent[]; galleryContent: GalleryPageContent }) {
   const UPCOMING_PERFORMANCES_AMOUNT = 3;
   
-  const [menuOpen, setMenuOpen] = useState(false);
   const [activeGallery, setActiveGallery] = useState(0);
-  const headerRef = useRef<HTMLElement>(null);
-  const menuButtonRef = useRef<HTMLButtonElement>(null);
   const galleryRailRef = useRef<HTMLDivElement>(null);
   const today = new Date().toISOString().slice(0, 10);
   const upcomingPerformances = calendarEvents
@@ -61,59 +58,12 @@ export function HalkaHome() {
     });
   };
 
-  useEffect(() => {
-    if (!menuOpen) return;
-
-    const handleKeyDown = (event: KeyboardEvent) => {
-      if (event.key === "Escape") {
-        setMenuOpen(false);
-        menuButtonRef.current?.focus();
-      }
-    };
-    const handlePointerDown = (event: PointerEvent) => {
-      if (!headerRef.current?.contains(event.target as Node)) setMenuOpen(false);
-    };
-
-    document.addEventListener("keydown", handleKeyDown);
-    document.addEventListener("pointerdown", handlePointerDown);
-    return () => {
-      document.removeEventListener("keydown", handleKeyDown);
-      document.removeEventListener("pointerdown", handlePointerDown);
-    };
-  }, [menuOpen]);
-
   return (
     <main className="home-v2">
       <a className="home-v2-skip-link" href="#dolacz">Przejdź do głównej treści</a>
       <ScrollRosettes />
 
-      <header className="home-v2-header" ref={headerRef}>
-        <a className="home-v2-brand" href="#poczatek" aria-label="Halka — przejdź na początek strony">
-          <img src="/logo.jpg" alt="" width="46" height="46" />
-          <span><strong>Halka</strong><small>Lubliniec</small></span>
-        </a>
-        <nav className="home-v2-nav" aria-label="Główna nawigacja">
-          {mainNavigation.map((item) => <a href={item.href} key={item.href}>{item.label}</a>)}
-        </nav>
-        <a className="home-v2-contact" href="#kontakt">Kontakt</a>
-        <button
-          className="home-v2-menu-button"
-          ref={menuButtonRef}
-          type="button"
-          aria-label={menuOpen ? "Zamknij menu" : "Otwórz menu"}
-          aria-expanded={menuOpen}
-          aria-controls="home-v2-mobile-menu"
-          onClick={() => setMenuOpen((open) => !open)}
-        >
-          {menuOpen ? <X size={22} /> : <List size={22} />}
-        </button>
-        {menuOpen && (
-          <nav className="home-v2-mobile-nav" id="home-v2-mobile-menu" aria-label="Menu mobilne">
-            {mainNavigation.map((item) => <a href={item.href} key={item.href} onClick={() => setMenuOpen(false)}>{item.label}</a>)}
-            <a href="#kontakt" onClick={() => setMenuOpen(false)}>Kontakt</a>
-          </nav>
-        )}
-      </header>
+      <SiteHeader home />
 
       <DanceHero />
 
@@ -211,11 +161,11 @@ export function HalkaHome() {
         <div className='home-v2-gallery-panel-outer-wrapper'>
           <div className="home-v2-gallery-showcase-heading">
             <div>
-              <p className="home-v2-section-note">Halka na scenie</p>
-              <h2 id="galeria-title">Zobacz nas<br />w ruchu.</h2>
+              <p className="home-v2-section-note">{galleryContent.home.eyebrow}</p>
+              <h2 id="galeria-title">{galleryContent.home.title}<br />{galleryContent.home.titleAccent}</h2>
             </div>
             <p style={{ borderRight: "4px solid var(--v2-red)", paddingRight: "12px", textAlign: "right", alignSelf: "center" }}>
-              Sceny, festiwale i spotkania, podczas których tworzymy wspólną opowieść. Każdy występ to inna scena, publiczność i emocje, które zostają z nami na długo.
+              {galleryContent.home.lead}
             </p>
           </div>
 
@@ -246,7 +196,7 @@ export function HalkaHome() {
                   <div className="home-v2-gallery-slide-copy">
                     <p className="home-v2-gallery-count"><strong>{String(index + 1).padStart(2, "0")}</strong><span>/{String(featuredGallery.length).padStart(2, "0")}</span></p>
                     <p>{event.description}</p>
-                    <a href="/galeria" tabIndex={index === activeGallery ? 0 : -1}>Zobacz cały album <ArrowRight size={17} /></a>
+                    <a href="/galeria" tabIndex={index === activeGallery ? 0 : -1}>{galleryContent.home.albumCtaLabel} <ArrowRight size={17} /></a>
                     <div className="home-v2-gallery-controls" aria-label="Sterowanie galerią">
                       <button type="button" tabIndex={index === activeGallery ? 0 : -1} onClick={() => moveGallery(-1)} aria-label="Poprzednie wydarzenie"><ArrowLeft size={19} /></button>
                       <button type="button" tabIndex={index === activeGallery ? 0 : -1} onClick={() => moveGallery(1)} aria-label="Następne wydarzenie"><ArrowRight size={19} /></button>
@@ -256,7 +206,7 @@ export function HalkaHome() {
                   <div className="home-v2-gallery-pair">
                     <a className="home-v2-gallery-shot" href="/galeria" tabIndex={index === activeGallery ? 0 : -1}>
                       <img src={firstImage.src} alt={firstImage.alt} loading="lazy" width={firstImage.width} height={firstImage.height} />
-                      <span><small>Wydarzenie</small><strong>{event.title}</strong></span>
+                      <span><small>{galleryContent.home.eventLabel}</small><strong>{event.title}</strong></span>
                     </a>
                     <a className="home-v2-gallery-shot" href="/galeria" tabIndex={index === activeGallery ? 0 : -1}>
                       <img src={secondImage.src} alt={secondImage.alt} loading="lazy" width={secondImage.width} height={secondImage.height} />

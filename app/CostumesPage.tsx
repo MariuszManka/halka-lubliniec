@@ -8,8 +8,6 @@ import {
   ArrowRight,
   ArrowUpRight,
   Check,
-  House,
-  List,
   Palette,
   PersonArmsSpread,
   Sparkle,
@@ -19,14 +17,8 @@ import {
 import { costumeFacts, costumeLooks } from "../content/costumes";
 import { costumeModalImages } from "../content/generated-costume-modal";
 import { sessionImages } from "../content/generated-session";
-
-const navItems = [
-  ["Galeria", "/galeria"],
-  ["Kostiumy", "/kostiumy"],
-  ["Historia", "/historia"],
-  ["Terminarz", "/#terminarz"],
-  ["Kontakt", "/#kontakt"],
-] as const;
+import { mainNavigation } from "../content/site-config";
+import { SiteHeader } from "./SiteHeader";
 
 const costumeImageFocus: Record<string, string> = {
   "costume-hero-new": "50% 30%",
@@ -158,7 +150,6 @@ export function CostumesPage() {
   const reduce = useReducedMotion();
   const modalRef = useRef<HTMLElement>(null);
   const previousFocusRef = useRef<HTMLElement | null>(null);
-  const [menuOpen, setMenuOpen] = useState(false);
   const [activeLook, setActiveLook] = useState<number | null>(null);
   const [catalogueGroup, setCatalogueGroup] = useState<"female" | "male">("female");
   const [activeGroup, setActiveGroup] = useState<"female" | "male">("female");
@@ -242,43 +233,7 @@ export function CostumesPage() {
     <main className="costumes-page">
       <CostumeBackdrop />
 
-      <header className="site-header chronicle-site-header costumes-site-header">
-        <Link className="brand" href="/" aria-label="Halka, wróć na stronę główną">
-          <img src="/logo.jpg" alt="" width="48" height="48" />
-          <span><strong>HALKA</strong><small>Lubliniec</small></span>
-        </Link>
-        <nav className="desktop-nav" aria-label="Główna nawigacja">
-          {navItems.map(([label, href]) => (
-            <Link className={href === "/kostiumy" ? "active" : ""} key={href} href={href}>{label}</Link>
-          ))}
-        </nav>
-        <Link className="header-cta chronicle-home-link" href="/"><House size={17} /> Strona główna</Link>
-        <button
-          className="menu-button"
-          type="button"
-          aria-label={menuOpen ? "Zamknij menu" : "Otwórz menu"}
-          aria-expanded={menuOpen}
-          onClick={() => setMenuOpen((current) => !current)}
-        >
-          {menuOpen ? <X size={24} /> : <List size={24} />}
-        </button>
-        <AnimatePresence>
-          {menuOpen && (
-            <motion.nav
-              className="mobile-nav"
-              aria-label="Menu mobilne"
-              initial={reduce ? false : { opacity: 0, y: -10 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -10 }}
-            >
-              {navItems.map(([label, href]) => (
-                <Link key={href} href={href} onClick={() => setMenuOpen(false)}>{label}</Link>
-              ))}
-              <Link href="/" onClick={() => setMenuOpen(false)}>Strona główna</Link>
-            </motion.nav>
-          )}
-        </AnimatePresence>
-      </header>
+      <SiteHeader activeHref="/kostiumy" />
 
       <section className="costumes-hero section-shell">
         <motion.div
@@ -523,7 +478,7 @@ export function CostumesPage() {
           <div><strong>HALKA</strong><span>Pieśń. Taniec. Pokolenia.</span></div>
         </div>
         <div className="footer-links">
-          {navItems.map(([label, href]) => <Link key={href} href={href}>{label}</Link>)}
+          {mainNavigation.map((item) => <Link key={item.href} href={item.href}>{item.label}</Link>)}
         </div>
         <p>© 2026 Zespół Pieśni i Tańca Halka w Lublińcu</p>
       </footer>

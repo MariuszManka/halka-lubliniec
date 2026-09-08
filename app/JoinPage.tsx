@@ -1,20 +1,18 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import {
   ArrowRight,
   CalendarBlank,
   CheckCircle,
   EnvelopeSimple,
-  List,
   MapPin,
-  X,
 } from "@phosphor-icons/react";
 import { calendarEvents } from "../content/events";
 import { mainNavigation, siteConfig } from "../content/site-config";
 import type { JoinPageContent } from "../sanity/content-types";
 import { ScrollRosettes } from "./HeroVariants";
+import { SiteHeader } from "./SiteHeader";
 
 const dateFormatter = new Intl.DateTimeFormat("pl-PL", {
   weekday: "long",
@@ -34,63 +32,13 @@ const practiceMatchesGroup = (groupId: string, title: string, groups: readonly s
 };
 
 export function JoinPage({ content }: { content: JoinPageContent }) {
-  const [menuOpen, setMenuOpen] = useState(false);
-  const headerRef = useRef<HTMLElement>(null);
-  const menuButtonRef = useRef<HTMLButtonElement>(null);
   const today = new Date().toISOString().slice(0, 10);
-
-  useEffect(() => {
-    if (!menuOpen) return;
-
-    const closeOnEscape = (event: KeyboardEvent) => {
-      if (event.key === "Escape") {
-        setMenuOpen(false);
-        menuButtonRef.current?.focus();
-      }
-    };
-    const closeOutside = (event: PointerEvent) => {
-      if (!headerRef.current?.contains(event.target as Node)) setMenuOpen(false);
-    };
-
-    document.addEventListener("keydown", closeOnEscape);
-    document.addEventListener("pointerdown", closeOutside);
-    return () => {
-      document.removeEventListener("keydown", closeOnEscape);
-      document.removeEventListener("pointerdown", closeOutside);
-    };
-  }, [menuOpen]);
 
   return (
     <main className="join-page">
       <ScrollRosettes />
 
-      <header className="home-v2-header" ref={headerRef}>
-        <Link className="home-v2-brand" href="/" aria-label="Halka — strona główna">
-          <img src="/logo.jpg" alt="" width="46" height="46" />
-          <span><strong>HALKA</strong><small>Lubliniec</small></span>
-        </Link>
-        <nav className="home-v2-nav" aria-label="Główna nawigacja">
-          {mainNavigation.map((item) => <Link aria-current={item.href === "/dolacz" ? "page" : undefined} href={item.href} key={item.href}>{item.label}</Link>)}
-        </nav>
-        <Link className="home-v2-contact" href="/#kontakt">Kontakt</Link>
-        <button
-          className="home-v2-menu-button"
-          ref={menuButtonRef}
-          type="button"
-          aria-label={menuOpen ? "Zamknij menu" : "Otwórz menu"}
-          aria-expanded={menuOpen}
-          aria-controls="join-mobile-menu"
-          onClick={() => setMenuOpen((open) => !open)}
-        >
-          {menuOpen ? <X size={22} /> : <List size={22} />}
-        </button>
-        {menuOpen && (
-          <nav className="home-v2-mobile-nav" id="join-mobile-menu" aria-label="Menu mobilne">
-            {mainNavigation.map((item) => <Link aria-current={item.href === "/dolacz" ? "page" : undefined} href={item.href} key={item.href}>{item.label}</Link>)}
-            <Link href="/#kontakt">Kontakt</Link>
-          </nav>
-        )}
-      </header>
+      <SiteHeader activeHref="/dolacz" />
 
       <section className="join-hero join-shell" aria-labelledby="join-title">
         <div className="join-hero-copy">

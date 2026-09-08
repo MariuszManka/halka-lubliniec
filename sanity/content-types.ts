@@ -5,6 +5,58 @@ export type CmsImage = {
   height?: number;
 };
 
+export type GalleryImage = CmsImage & {
+  caption?: string;
+};
+
+export type GalleryEvent = {
+  id: string;
+  year: number;
+  pinned: boolean;
+  title: string;
+  date: string;
+  location: string;
+  description: string;
+  credit: string;
+  tags: string[];
+  coverFocus?: string;
+  images: GalleryImage[];
+};
+
+export type GalleryPageContent = {
+  hero: {
+    eyebrow: string;
+    title: string;
+    titleAccent: string;
+    lead: string;
+    ctaLabel: string;
+    image: CmsImage;
+    imageLabel: string;
+    imageCaption: string;
+  };
+  archive: {
+    eyebrow: string;
+    title: string;
+    lead: string;
+    allYearsLabel: string;
+    emptyLabel: string;
+  };
+  home: {
+    eyebrow: string;
+    title: string;
+    titleAccent: string;
+    lead: string;
+    albumCtaLabel: string;
+    eventLabel: string;
+  };
+  return: {
+    eyebrow: string;
+    title: string;
+    lead: string;
+    ctaLabel: string;
+  };
+};
+
 export type TextItem = {
   title: string;
   text: string;
