@@ -32,7 +32,8 @@ const iconComponents = {
 } as const;
 
 const formatImages = [
-  { src: "/gallery/tydzien-kultury-beskidzkiej-2026/01.webp", alt: "Para taneczna Halki podczas suity śląskiej" },
+  // { src: "/gallery/tydzien-kultury-beskidzkiej-2026/01.webp", alt: "Para taneczna Halki podczas suity śląskiej" },
+  { src: "/gallery/dni-lublinca-2025/08.webp", alt: "Para taneczna Halki podczas suity śląskiej" },
   { src: "/gallery/tydzien-kultury-beskidzkiej-2026/10.webp", alt: "Męska część chóru Halki podczas występu" },
   { src: "/gallery/dni-lublinca-2025/14.webp", alt: "Wszystkie pokolenia Halki na jednej scenie" },
 ];
@@ -45,6 +46,117 @@ export function InvitePage({ content }: { content: InvitePageContent }) {
 
       <SiteHeader activeHref="/zapros-halke" />
 
+
+
+      <section className="invite-hero" id="invite-content" aria-labelledby="invite-title">
+        <div className="invite-hero-copy">
+          <p className="invite-kicker">{content.hero.eyebrow}</p>
+          <h1 id="invite-title">
+            Zaproś Halkę.
+            <br />
+            <em>Niech scena ożyje.</em>
+          </h1>
+
+          <span className="invite-hero-divider" aria-hidden="true">
+            <i />
+            <b />
+            <i />
+          </span>
+
+          <p className="invite-hero-lead">
+            {content.hero.lead}
+          </p>
+
+          <div className="invite-hero-actions">
+            <a
+              className="invite-button invite-button-primary"
+              href={bookingHref}
+            >
+              Sprawdź dostępność
+              <ArrowRight size={19} weight="bold" />
+            </a>
+
+            <a
+              className="invite-button invite-button-ghost"
+              href="#programy"
+            >
+              Poznaj możliwości
+            </a>
+          </div>
+
+          <a
+            className="invite-hero-phone"
+            href={`tel:${siteConfig.contact.phone}`}
+          >
+            <Phone size={17} weight="fill" />
+            {siteConfig.contact.phoneDisplay}
+          </a>
+        </div>
+
+        <div
+          className="invite-hero-visual"
+          aria-label="Tancerze Zespołu Pieśni i Tańca Halka"
+        >
+          <figure className="invite-hero-media">
+            <img
+              src="/invite/invite-header-image2.webp"
+              alt="Tancerze Zespołu Pieśni i Tańca Halka podczas wydarzenia plenerowego"
+              width={2048}
+              height={1363}
+              sizes="(max-width: 700px) 100vw, 50vw"
+              fetchPriority="high"
+              decoding="async"
+            />
+
+            <figcaption className="invite-hero-visual-note">
+              <small>Tydzień Kultury Beskidzkiej · Wisła</small>
+              <strong>Pieśń · taniec · żywa tradycja</strong>
+            </figcaption>
+          </figure>
+        </div>
+
+        <div
+          className="invite-hero-facts"
+          aria-label="Najważniejsze informacje potrzebne do sprawdzenia terminu"
+        >
+          <p>
+            Żeby sprawdzić termin,
+            <br />
+            wystarczą 3 informacje
+          </p>
+
+          <ul>
+            <li>
+              <CalendarBlank size={24} weight="duotone" aria-hidden="true" />
+              <span>
+                <strong>Termin</strong>
+                <small>data wydarzenia</small>
+              </span>
+            </li>
+
+            <li>
+              <MapPin size={24} weight="duotone" aria-hidden="true" />
+              <span>
+                <strong>Miejsce</strong>
+                <small>miasto i rodzaj sceny</small>
+              </span>
+            </li>
+
+            <li>
+              <Clock size={24} weight="duotone" aria-hidden="true" />
+              <span>
+                <strong>Format</strong>
+                <small>planowany czas występu</small>
+              </span>
+            </li>
+          </ul>
+        </div>
+      </section>
+
+
+
+
+{/* 
       <section className="invite-hero" id="invite-content" aria-labelledby="invite-title">
         <div className="invite-hero-media" aria-hidden="true">
           <img src="/gallery/tydzien-kultury-beskidzkiej-2026/08.webp" alt="" width="1800" height="1200" fetchPriority="high" />
@@ -75,8 +187,8 @@ export function InvitePage({ content }: { content: InvitePageContent }) {
           <span>Tydzień Kultury Beskidzkiej · Wisła</span>
           <span>Pieśń · taniec · żywa tradycja</span>
         </div>
-      </section>
-
+      </section> */}
+{/* 
       <section className="invite-intro invite-shell" aria-labelledby="invite-intro-title">
         <div>
           <p className="invite-kicker">Występ szyty na miarę wydarzenia</p>
@@ -86,7 +198,7 @@ export function InvitePage({ content }: { content: InvitePageContent }) {
           <p>Nie wysyłamy jednej, sztywnej oferty. Najpierw poznajemy miejsce, publiczność i rytm wydarzenia, a potem proponujemy skład i repertuar, które naprawdę do niego pasują.</p>
           <a href={bookingHref}>Opowiedz nam o wydarzeniu <ArrowUpRight size={18} weight="bold" /></a>
         </div>
-      </section>
+      </section> */}
 
       <section className="invite-formats invite-shell" id="programy" aria-labelledby="formats-title">
         <div className="invite-section-head">
@@ -101,23 +213,12 @@ export function InvitePage({ content }: { content: InvitePageContent }) {
                 <img src={formatImages[index].src} alt={formatImages[index].alt} width="1800" height="1200" loading="lazy" decoding="async" />
               </figure>
               <div>
-                <span>0{index + 1}</span>
                 <h3>{title}</h3>
+                <span>0{index + 1}</span>
                 <p>{text}</p>
               </div>
             </article>
           ))}
-        </div>
-      </section>
-
-      <section className="invite-availability" aria-labelledby="availability-title">
-        <div className="invite-availability-inner invite-shell">
-          <div>
-            <p className="invite-kicker">Masz już datę?</p>
-            <h2 id="availability-title">Zacznijmy od terminu.</h2>
-            <p>W odpowiedzi podpowiemy, jaki skład i program możemy zaproponować.</p>
-          </div>
-          <a className="invite-button invite-button-paper" href={bookingHref}>Napisz do nas <ArrowRight size={19} weight="bold" /></a>
         </div>
       </section>
 
@@ -147,8 +248,8 @@ export function InvitePage({ content }: { content: InvitePageContent }) {
 
       <section className="invite-process invite-shell" aria-labelledby="process-title">
         <div className="invite-process-image">
-          <img src="/gallery/polonez-na-lublinieckim-rynku/06.webp" alt="Halka prowadzi poloneza na rynku w Lublińcu" width="1800" height="1200" loading="lazy" decoding="async" />
-          <span>Występujemy na scenach, rynkach i podczas wydarzeń plenerowych.</span>
+          <img src="/session/modal-cieszyn-male-02.webp" alt="Tancerze Halki ćwiczący w parach podczas warsztatów w Wiśle" width="1800" height="1198" loading="lazy" decoding="async" />
+          <span>Za każdym występem stoi wspólna praca. Warsztaty w Wiśle.</span>
         </div>
         <div className="invite-process-copy">
           <p className="invite-kicker">Od wiadomości do występu</p>
@@ -166,19 +267,6 @@ export function InvitePage({ content }: { content: InvitePageContent }) {
             })}
           </ol>
         </div>
-      </section>
-
-      <section className="invite-proof invite-shell" aria-labelledby="proof-title">
-        <div className="invite-proof-copy">
-          <p className="invite-kicker">Scena Pokoleń</p>
-          <h2 id="proof-title">Jedna Halka.<br /><em>Wiele pokoleń.</em></h2>
-          <p>Chór, balet i grupy dziecięce mogą spotkać się w jednym wspólnym programie — jeśli termin i scena pozwalają zebrać pełny skład.</p>
-          <Link href="/galeria">Zobacz nas na żywo <ArrowRight size={18} weight="bold" /></Link>
-        </div>
-        <figure>
-          <img src="/gallery/dni-lublinca-2025/14.webp" alt="Pełny, międzypokoleniowy skład Halki na scenie podczas Dni Lublińca" width="1800" height="1200" loading="lazy" decoding="async" />
-          <figcaption>Dni Lublińca · wspólny występ wszystkich grup</figcaption>
-        </figure>
       </section>
 
       <section className="invite-contact" aria-labelledby="invite-contact-title">

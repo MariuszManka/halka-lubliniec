@@ -1,0 +1,53 @@
+.costumes-page .costumes-hero-photo {
+  --costumes-header-height: 78px;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  min-height: calc(100svh - var(--costumes-header-height));
+  height: calc(100svh - var(--costumes-header-height));
+  padding: 24px max(32px, calc((100vw - 1320px) / 2));
+  background: #d5c2b1 url('/costume-heading.png') no-repeat 50% center / cover;
+}
+.costumes-hero-photo .costumes-hero-copy { width: 42%; max-width: 520px; min-width: 0; }
+.costumes-hero-photo .costumes-hero-copy h1 { font-size: clamp(2.5rem, min(6.2vw, 12svh), 6rem); line-height: 1.05; max-width: none; color: #123b2a; }
+.costumes-hero-photo .chronicle-breadcrumb { margin-bottom: clamp(16px, 4svh, 40px); color: #123b2a; }
+.costumes-hero-photo .costumes-hero-copy > p:last-of-type { color: #243c30; font-size: clamp(0.875rem, 1.2vw, 1.1rem); line-height: 1.55; margin: 20px 0 24px; }
+.costumes-hero-photo .costumes-hero-actions { display: flex; flex-wrap: wrap; }
+.costumes-hero-photo .costumes-hero-actions .button { width: auto; min-height: 44px; padding: 12px 18px; }
+/* The face sits at 60% of the wide source. Keep its upper edge in frame. */
+@media (min-aspect-ratio: 3/1) {
+  .costumes-page .costumes-hero-photo { background-position: center top; }
+}
+@media (max-width: 700px) and (orientation: portrait) {
+  .costumes-page .costumes-hero-photo {
+    align-items: flex-start;
+    padding: 24px;
+    background-size: auto 65%;
+    background-position: 57% bottom;
+    background-image: linear-gradient(#d5c2b1, #d5c2b100 12%), url('/costume-heading.png');
+  }
+  .costumes-hero-photo .costumes-hero-copy { width: 100%; max-width: 440px; }
+  .costumes-hero-photo .costumes-hero-copy h1 { font-size: clamp(2.4rem, 10vw, 3.5rem); }
+  .costumes-hero-photo .chronicle-breadcrumb { margin-bottom: 12px; }
+  .costumes-hero-photo .costumes-hero-copy > p:last-of-type { margin: 12px 0 16px; font-size: 0.875rem; }
+  .costumes-hero-photo .costume-folk-divider { display: none; }
+}
+@media (max-width: 520px) {
+  .costumes-page .costumes-hero-photo { --costumes-header-height: 68px; }
+}
+@media (max-height: 600px) {
+  .costumes-hero-photo .chronicle-breadcrumb { margin-bottom: 10px; }
+  .costumes-hero-photo .costumes-hero-copy > p:last-of-type { margin: 12px 0; line-height: 1.4; }
+  .costumes-hero-photo .costume-folk-divider { display: none; }
+}
+@media (max-height: 600px) and (orientation: portrait) {
+  .costumes-page .costumes-hero-photo { padding: 16px; background-size: auto 55%; }
+  .costumes-hero-photo .costumes-hero-actions .button { font-size: 0.75rem; padding-inline: 12px; }
+}
+@media (max-height: 450px) and (orientation: landscape) {
+  .costumes-page .costumes-hero-photo { padding: 12px 24px; }
+  .costumes-hero-photo .costumes-hero-copy { width: 44%; }
+  .costumes-hero-photo .costumes-hero-copy > p:last-of-type { font-size: 0.8rem; }
+  .costumes-hero-photo .costumes-hero-actions { gap: 6px; }
+  .costumes-hero-photo .costumes-hero-actions .button { font-size: 0.7rem; padding: 8px 10px; }
+}

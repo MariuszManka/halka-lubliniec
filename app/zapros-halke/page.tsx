@@ -3,6 +3,7 @@ import { InvitePage } from "../InvitePage";
 import { getInvitePageContent } from "../../sanity/content";
 import "../home-v2.css";
 import "../invite.css";
+import "../invite-responsive.css";
 
 // Firebase Hosting serves a static export. Sanity is read while `next build` runs.
 export const dynamic = "force-static";

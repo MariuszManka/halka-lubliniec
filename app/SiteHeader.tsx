@@ -2,7 +2,7 @@
 
 import { useEffect, useId, useRef, useState } from "react";
 import Link from "next/link";
-import { List, X } from "@phosphor-icons/react";
+import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import { mainNavigation } from "../content/site-config";
 
 type SiteHeaderProps = {
@@ -25,6 +25,7 @@ export function SiteBrand({ home = false }: { home?: boolean }) {
 
 export function SiteHeader({ activeHref, home = false }: SiteHeaderProps) {
   const [menuOpen, setMenuOpen] = useState(false);
+  const reduceMotion = useReducedMotion();
   const headerRef = useRef<HTMLElement>(null);
   const menuButtonRef = useRef<HTMLButtonElement>(null);
   const generatedId = useId();
@@ -41,6 +42,9 @@ export function SiteHeader({ activeHref, home = false }: SiteHeaderProps) {
   useEffect(() => {
     if (!menuOpen) return;
 
+    const previousBodyOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+
     const closeMenu = (event: Event) => {
       if (!headerRef.current?.contains(event.target as Node)) setMenuOpen(false);
     };
@@ -54,6 +58,7 @@ export function SiteHeader({ activeHref, home = false }: SiteHeaderProps) {
     document.addEventListener("pointerdown", closeMenu);
     document.addEventListener("focusin", closeMenu);
     return () => {
+      document.body.style.overflow = previousBodyOverflow;
       document.removeEventListener("keydown", closeOnEscape);
       document.removeEventListener("pointerdown", closeMenu);
       document.removeEventListener("focusin", closeMenu);
@@ -84,23 +89,35 @@ export function SiteHeader({ activeHref, home = false }: SiteHeaderProps) {
         aria-controls={menuId}
         onClick={() => setMenuOpen((open) => !open)}
       >
-        {menuOpen ? <X size={22} aria-hidden="true" /> : <List size={22} aria-hidden="true" />}
+        <span className="home-v2-menu-icon" aria-hidden="true"><i /><i /><i /></span>
       </button>
-      {menuOpen && (
-        <nav className="home-v2-mobile-nav" id={menuId} aria-label="Menu mobilne">
-          {mainNavigation.map((item) => (
-            <Link
-              aria-current={item.href === activeHref ? "page" : undefined}
-              href={item.href}
-              key={item.href}
-              onClick={() => setMenuOpen(false)}
-            >
-              {item.label}
-            </Link>
-          ))}
-          <Link href={contactHref} onClick={() => setMenuOpen(false)}>Kontakt</Link>
-        </nav>
-      )}
+      <AnimatePresence>
+        {menuOpen && (
+          <motion.nav
+            className="home-v2-mobile-nav"
+            id={menuId}
+            aria-label="Menu mobilne"
+            initial={reduceMotion ? { opacity: 0 } : { opacity: 0, clipPath: "inset(0 0 100% 0)" }}
+            animate={{ opacity: 1, clipPath: "inset(0 0 0% 0)" }}
+            exit={reduceMotion
+              ? { opacity: 0, transition: { duration: 0.12 } }
+              : { opacity: 0, clipPath: "inset(0 0 100% 0)", transition: { duration: 0.24, ease: [0.16, 1, 0.3, 1] } }}
+            transition={{ duration: reduceMotion ? 0.12 : 0.38, ease: [0.16, 1, 0.3, 1] }}
+          >
+            {mainNavigation.map((item) => (
+              <Link
+                aria-current={item.href === activeHref ? "page" : undefined}
+                href={item.href}
+                key={item.href}
+                onClick={() => setMenuOpen(false)}
+              >
+                {item.label}
+              </Link>
+            ))}
+            <Link href={contactHref} onClick={() => setMenuOpen(false)}>Kontakt</Link>
+          </motion.nav>
+        )}
+      </AnimatePresence>
     </header>
   );
 }

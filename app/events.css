@@ -1,4 +1,5 @@
 .events-page {
+  --events-header-height: 78px;
   --events-ink: #143a2b;
   --events-green: #17613f;
   --events-green-deep: #0d452f;
@@ -38,7 +39,7 @@
 .events-skip-link:focus { transform: translateY(0); }
 .events-page :where(a, button, summary):focus-visible { outline: 3px solid var(--events-red); outline-offset: 4px; }
 
-.events-hero { min-height: min(800px, calc(100dvh - 78px)); display: grid; grid-template-columns: minmax(350px, 0.82fr) minmax(520px, 1.18fr); align-items: center; gap: clamp(48px, 7vw, 104px); padding-block: clamp(58px, 7vh, 84px); }
+.events-hero { min-height: calc(100vh - var(--events-header-height)); min-height: calc(100svh - var(--events-header-height)); min-height: calc(100dvh - var(--events-header-height)); display: grid; grid-template-columns: minmax(350px, 0.82fr) minmax(520px, 1.18fr); align-items: center; gap: clamp(48px, 7vw, 104px); padding-block: clamp(58px, 7vh, 84px); box-sizing: border-box; }
 .events-hero-copy { min-width: 0; }
 .events-eyebrow { display: flex; align-items: center; gap: 14px; margin: 0 0 24px; color: var(--events-red); font-size: 0.78rem; font-weight: 850; letter-spacing: 0.12em; text-transform: uppercase; }
 .events-eyebrow span { white-space: nowrap; }
@@ -207,7 +208,7 @@
 
 @media (max-width: 920px) {
   .events-shell { width: min(calc(100% - 32px), 760px); }
-  .events-hero { min-height: auto; grid-template-columns: 1fr; gap: 50px; padding-block: 64px 82px; }
+  .events-hero { grid-template-columns: 1fr; gap: 50px; padding-block: 64px 82px; }
   .events-hero-copy { max-width: 680px; }
   .events-hero-visual { width: min(100%, 720px); }
   .events-upcoming-row { grid-template-columns: 92px minmax(0, 1fr) auto; gap: 16px; }
@@ -237,7 +238,7 @@
   .events-button { width: 100%; }
   .events-hero-visual { padding: 0 0 122px; }
   .events-hero-photo { aspect-ratio: 1.02; border-radius: 8px 30px 8px 30px; }
-  .events-hero-photo img { object-position: 52% 47%; }
+  .events-hero-photo img { object-position: 56% 46%; }
   .events-next-card { right: 12px; bottom: 0; width: calc(100% - 24px); padding: 21px; border-radius: 14px; }
   .events-next-card > strong { font-size: 1.55rem; }
   .events-section-nav { grid-template-columns: 1fr; }
@@ -268,6 +269,10 @@
   .events-past-groups article > span { grid-column: 2; }
   .events-cta .events-button { width: auto; }
   .events-footer nav { display: grid; grid-template-columns: 1fr 1fr; width: 100%; }
+}
+
+@media (max-width: 520px) {
+  .events-page { --events-header-height: 68px; }
 }
 
 @media (max-width: 390px) {
