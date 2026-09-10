@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { CostumesPage } from "../CostumesPage";
+import "../costumes-hero.css";
 
 export const metadata: Metadata = {
   title: "Kostiumy zespołu | Halka Lubliniec",

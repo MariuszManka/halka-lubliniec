@@ -81,8 +81,8 @@ export const audiencePath = defineType({
         list: [
           { title: "Chór", value: "#chor" },
           { title: "Balet", value: "#balet" },
-          { title: "Dzieci 1", value: "#grupa-1" },
-          { title: "Dzieci 2", value: "#grupa-2" },
+          { title: "Maluchy", value: "#grupa-1" },
+          { title: "Starszaki", value: "#grupa-2" },
         ],
       },
       validation: (rule) => rule.required(),

@@ -36,7 +36,7 @@ export const mainNavigation = [
 export const ensembleGroups = [
   {
     id: "grupa-1",
-    name: "Dzieci 1",
+    name: "Maluchy",
     age: "6-8 lat",
     activity: "Śpiew i taniec",
     schedule: "Środy i piątki, 15:30-16:20",
@@ -46,7 +46,7 @@ export const ensembleGroups = [
   },
   {
     id: "grupa-2",
-    name: "Dzieci 2",
+    name: "Starszaki",
     age: "9-14 lat",
     activity: "Śpiew i taniec",
     schedule: "Środy i piątki, 16:30-17:50",

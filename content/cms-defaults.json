@@ -62,7 +62,7 @@
         },
         {
           "id": "grupa-1",
-          "name": "Dzieci 1",
+          "name": "Maluchy",
           "meta": "Dla dzieci · 6-8 lat · Śpiew i taniec",
           "schedule": "Środy i piątki, 15:30-16:20",
           "description": "Grupa dla najmłodszych dzieci, które przez ruch, zabawę i wspólny śpiew poznają folklor oraz uczą się pracy w zespole.",
@@ -71,7 +71,7 @@
         },
         {
           "id": "grupa-2",
-          "name": "Dzieci 2",
+          "name": "Starszaki",
           "meta": "Dla dzieci · 9-14 lat · Śpiew i taniec",
           "schedule": "Środy i piątki, 16:30-17:50",
           "description": "Grupa dla starszych dzieci, które rozwijają śpiew i taniec razem — z coraz większą swobodą ruchu i sceniczną pewnością.",
@@ -118,7 +118,7 @@
       "lead": "Po krótkiej rozmowie proponujemy skład, repertuar i długość występu odpowiednie dla sceny oraz publiczności.",
       "items": [
         { "icon": "clock", "title": "Pełna suita regionalna", "text": "Spójny program pieśni i tańców w kostiumach danego regionu. Pełna forma może trwać około 40 minut." },
-        { "icon": "people", "title": "Wybrana część zespołu", "text": "Chór, grupa dziecięca albo balet. Dobieramy skład do charakteru wydarzenia i dostępnej przestrzeni." },
+        { "icon": "people", "title": "Wybrana część", "text": "Chór, grupa dziecięca albo balet. Dobieramy skład do charakteru wydarzenia i dostępnej przestrzeni." },
         { "icon": "check", "title": "Cała Halka na scenie", "text": "Wspólny występ dzieci, chóru i baletu, jeśli termin pozwala zebrać pełny skład zespołu." }
       ]
     },

@@ -40,57 +40,122 @@ export function JoinPage({ content }: { content: JoinPageContent }) {
 
       <SiteHeader activeHref="/dolacz" />
 
-      <section className="join-hero join-shell" aria-labelledby="join-title">
-        <div className="join-hero-copy">
-          <p className="join-eyebrow"><span>{content.hero.eyebrow}</span><i aria-hidden="true" /></p>
+      {/* <section className="recruit-hero" aria-labelledby="join-title">
+        <div className="recruit-copy">
+          <p className="recruit-eyebrow"><span>{content.hero.eyebrow}</span><i aria-hidden="true" /></p>
           <h1 id="join-title">{content.hero.title.split("\n").map((line, index) => <span key={line}>{index > 0 && <br />}{line}</span>)} <em>{content.hero.titleAccent}</em></h1>
-          <p className="join-hero-lead">{content.hero.lead}</p>
-          <div className="join-hero-actions">
+          <span className="recruit-divider" aria-hidden="true"><i /><b /><i /></span>
+          <p className="recruit-lead">{content.hero.lead}</p>
+          <div className="recruit-actions">
             <a className="join-button join-button-primary" href="#grupy">{content.hero.primaryCtaLabel} <ArrowRight size={18} weight="bold" /></a>
             <a className="join-button join-button-light" href={siteConfig.contact.mapUrl} target="_blank" rel="noreferrer"><MapPin size={18} /> {content.hero.secondaryCtaLabel}</a>
           </div>
-          <ul className="join-hero-facts" aria-label="Najważniejsze informacje o naborze">
-            {content.hero.facts.map((fact) => <li key={`${fact.value}-${fact.label}`}><strong>{fact.value}</strong><span>{fact.label}</span></li>)}
-          </ul>
         </div>
 
-        <div className="join-hero-visual" aria-label="Tancerki Zespołu Pieśni i Tańca Halka">
-          <span className="join-hero-year" aria-hidden="true">1948</span>
-          <figure className="join-hero-photo">
+        <div className="recruit-visual" aria-label="Tancerki Zespołu Pieśni i Tańca Halka">
+          <figure className="recruit-photo">
             <img
-              src={content.hero.image.src}
-              srcSet={content.hero.image.src.startsWith("/join/") ? "/join/hero-dancers-landscape-960.webp 960w, /join/hero-dancers-landscape-1800.webp 1800w" : undefined}
-              sizes="(max-width: 940px) calc(100vw - 32px), 54vw"
+              src="/join/hero-dancers-landscape-1800.webp"
+              srcSet="/join/hero-dancers-landscape-960.webp 960w, /join/hero-dancers-landscape-1800.webp 1800w"
+              sizes="(max-width: 700px) 100vw, 50vw"
               alt={content.hero.image.alt}
+              width={1800}
+              height={2700}
               fetchPriority="high"
               decoding="async"
             />
-            <figcaption><span>{content.hero.imageLabel}</span><strong>{content.hero.imageMeta}</strong></figcaption>
           </figure>
-          <span className="join-hero-visual-note"><small>{content.hero.noteLabel}</small><strong>{content.hero.noteText.split("\n").map((line, index) => <span key={line}>{index > 0 && <br />}{line}</span>)}</strong></span>
-          <span className="join-hero-ornament" aria-hidden="true"><i /><i /><i /><i /><i /></span>
+          <figcaption className="recruit-visual-note"><small>{content.hero.noteLabel}</small><strong>{content.hero.noteText.split("\n").map((line, index) => <span key={line}>{index > 0 && <br />}{line}</span>)}</strong></figcaption>
         </div>
-      </section>
+        <ul className="recruit-facts" aria-label="Najważniejsze informacje o naborze">
+          {content.hero.facts.map((fact) => <li key={`${fact.value}-${fact.label}`}><strong>{fact.value}</strong><span>{fact.label}</span></li>)}
+        </ul>
+      </section> */}
 
-      <section className="join-how join-shell" aria-labelledby="join-how-title">
-        <div className="join-section-heading">
-          <p>{content.how.eyebrow}</p>
-          <h2 id="join-how-title">{content.how.title}<br /><em>{content.how.titleAccent}</em></h2>
-        </div>
-        <ol className="join-steps">
-          {content.how.steps.map((step, index) => <li key={step.title}><span>{String(index + 1).padStart(2, "0")}</span><div><strong>{step.title}</strong><p>{step.text}</p></div></li>)}
-        </ol>
-      </section>
+
+          <section
+            className="join-hero join-shell"
+            aria-labelledby="join-title"
+          >
+            <div className="join-hero-copy">
+              <p className="join-eyebrow">
+                <span>{content.hero.eyebrow}</span>
+                <i aria-hidden="true" />
+              </p>
+
+              <h1 id="join-title">
+                {content.hero.title.split("\n").map((line, index) => (
+                  <span key={line}>
+                    {index > 0 && <br />}
+                    {line}
+                  </span>
+                ))}{" "}
+                <em>{content.hero.titleAccent}</em>
+              </h1>
+
+              <p className="join-hero-lead">
+                {content.hero.lead}
+              </p>
+
+              <div className="join-hero-actions">
+                <a
+                  className="join-button join-button-primary"
+                  href="#grupy"
+                >
+                  {content.hero.primaryCtaLabel}
+                  <ArrowRight size={18} weight="bold" aria-hidden="true" />
+                </a>
+
+                <a
+                  className="join-button join-button-light"
+                  href={siteConfig.contact.mapUrl}
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  <MapPin size={18} aria-hidden="true" />
+                  {content.hero.secondaryCtaLabel}
+                </a>
+              </div>
+            </div>
+
+            <div className="join-hero-visual">
+              <figure className="join-hero-photo">
+                <img
+                  src="/join/dance-duo.webp"
+                  srcSet="/join/dance-duo-768.webp 768w,/join/dance-duo.webp 1365w"
+                  sizes="(max-width: 920px) calc(100vw - 28px), 58vw"
+                  alt={content.hero.image.alt}
+                  width={1365}
+                  height={2048}
+                  fetchPriority="high"
+                  decoding="async"
+                />
+              </figure>
+
+              <div className="join-hero-card">
+                <span>{content.hero.noteLabel}</span>
+
+                <strong>
+                  {content.hero.noteText.split("\n").map((line, index) => (
+                    <span key={line}>
+                      {index > 0 && <br />}
+                      {line}
+                    </span>
+                  ))}
+                </strong>
+              </div>
+            </div>
+          </section>
+
+
+
+
 
       <section className="join-groups join-shell" id="grupy" aria-labelledby="join-groups-title">
         <div className="join-section-heading join-section-heading-groups">
           <p>{content.groups.eyebrow}</p>
           <h2 id="join-groups-title">{content.groups.title} <em>{content.groups.titleAccent}</em></h2>
         </div>
-
-        <nav className="join-audience-paths" aria-label="Wybierz odpowiednią ścieżkę naboru">
-          {content.groups.paths.map((path) => <a href={path.href} key={path.href}><small>{path.eyebrow}</small><strong>{path.title}</strong><span>{path.text}</span><ArrowRight size={19} /></a>)}
-        </nav>
 
         <div className="join-group-list">
           {content.groups.items.map((group, index) => {

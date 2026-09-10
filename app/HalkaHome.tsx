@@ -102,32 +102,6 @@ export function HalkaHome({ galleryEvents, galleryContent }: { galleryEvents: Ga
         </div>
       </section>
 
-      <section className="home-v2-offer" id="zapros" aria-labelledby="zapros-title">
-        <div className="home-v2-offer-shell home-v2-shell">
-          <div className="home-v2-offer-copy">
-            <p className="home-v2-section-note">Dla organizatorów</p>
-            <h2 id="zapros-title">Zaproś Halkę.</h2>
-            <p className="home-v2-offer-lead">
-              Możemy przygotować pełną suitę, występ chóru, grupy dziecięcej albo całego zespołu.
-              Ostateczny program i skład ustalamy wspólnie, zależnie od terminu oraz dostępności członków.
-            </p>
-
-            <div className="home-v2-offer-actions">
-              <a className="home-v2-button home-v2-button-primary" href="/zapros-halke">Poznaj ofertę występów <ArrowRight size={19} /></a>
-              <a className="home-v2-offer-mail" href={`mailto:${siteConfig.contact.email}?subject=Zapytanie%20o%20dostępność%20zespołu`}>Zapytaj o dostępność</a>
-            </div>
-          </div>
-
-          <div className="home-v2-offer-showcase">
-            <figure className="home-v2-offer-image">
-              {/* <img src="/session/group.webp" srcSet="/home-responsive/group-960.webp 960w" sizes="(max-width: 940px) calc(100vw - 32px), 48vw" alt="Wszystkie grupy Zespołu Pieśni i Tańca Halka na scenie" loading="lazy" decoding="async" /> */}
-              <img src="gallery\dni-lublinca-2025\14.webp" srcSet="/home-responsive/group-alt.webp 960w" sizes="(max-width: 940px) calc(100vw - 32px), 48vw" alt="Wszystkie grupy Zespołu Pieśni i Tańca Halka na scenie" loading="lazy" decoding="async" />
-            </figure>
-
-          </div>
-        </div>
-      </section>
-
       <section className="home-v2-events home-v2-shell" id="wydarzenia" aria-labelledby="wydarzenia-title">
         <div className="home-v2-section-heading home-v2-section-heading-compact">
           <div>
@@ -154,6 +128,32 @@ export function HalkaHome({ galleryEvents, galleryContent }: { galleryEvents: Ga
           }) : (
             <div className="home-v2-events-empty"><CalendarBlank size={26} /><p>Nowe terminy występów pojawią się tutaj po ich potwierdzeniu.</p></div>
           )}
+        </div>
+      </section>
+
+            <section className="home-v2-offer" id="zapros" aria-labelledby="zapros-title">
+        <div className="home-v2-offer-shell home-v2-shell">
+          <div className="home-v2-offer-copy">
+            <p className="home-v2-section-note">Dla organizatorów</p>
+            <h2 id="zapros-title">Zaproś Halkę.</h2>
+            <p className="home-v2-offer-lead">
+              Możemy przygotować pełną suitę, występ chóru, grupy dziecięcej albo całego zespołu.
+              Ostateczny program i skład ustalamy wspólnie, zależnie od terminu oraz dostępności członków.
+            </p>
+
+            <div className="home-v2-offer-actions">
+              <a className="home-v2-button home-v2-button-primary" href="/zapros-halke">Poznaj ofertę występów <ArrowRight size={19} /></a>
+              <a className="home-v2-offer-mail" href={`mailto:${siteConfig.contact.email}?subject=Zapytanie%20o%20dostępność%20zespołu`}>Zapytaj o dostępność</a>
+            </div>
+          </div>
+
+          <div className="home-v2-offer-showcase">
+            <figure className="home-v2-offer-image">
+              {/* <img src="/session/group.webp" srcSet="/home-responsive/group-960.webp 960w" sizes="(max-width: 940px) calc(100vw - 32px), 48vw" alt="Wszystkie grupy Zespołu Pieśni i Tańca Halka na scenie" loading="lazy" decoding="async" /> */}
+              <img src="gallery\dni-lublinca-2025\14.webp" srcSet="/home-responsive/group-alt.webp 960w" sizes="(max-width: 940px) calc(100vw - 32px), 48vw" alt="Wszystkie grupy Zespołu Pieśni i Tańca Halka na scenie" loading="lazy" decoding="async" />
+            </figure>
+
+          </div>
         </div>
       </section>
 
@@ -257,7 +257,7 @@ export function HalkaHome({ galleryEvents, galleryContent }: { galleryEvents: Ga
         <div className="home-v2-costume-copy" style={{ alignSelf: 'flex-start' }}>
           <p className="home-v2-section-note">Różne regiony · jedna kolekcja</p>
           <h2 id="kostiumy-title">Kostium</h2>
-          <h2 style={{ fontSize: "clamp(1.5rem, 2.9vw, 2.9rem)", color: "var(--v2-red)", fontFamily: 'var(--font-sans)', margin: "0.7rem 0" }}>
+          <h2 style={{ fontSize: "clamp(1.5rem, 2.9vw, 2.9rem)", color: "var(--v2-red)", fontFamily: 'var(--font-display)', margin: "0.7rem 0" }}>
             opowiada zanim zacznie się taniec
           </h2>
           <p>

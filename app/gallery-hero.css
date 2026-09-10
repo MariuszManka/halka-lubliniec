@@ -1,13 +1,20 @@
 /* A single, joined composition using Halka's existing green, ivory and photo. */
 .chronicle-page .gallery-hero-editorial {
+  --header-height: 78px;
   grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
   align-items: stretch;
   gap: 0;
-  min-height: min(640px, calc(100svh - var(--header-height) - 64px));
-  margin-block: 32px;
+  --gallery-hero-height: calc(100svh - var(--header-height));
+  --gallery-panel-width: 50vw;
+  --gallery-photo-width: min(var(--gallery-panel-width), calc(var(--gallery-hero-height) * 0.666818));
+  width: 100%;
+  max-width: none;
+  height: var(--gallery-hero-height);
+  min-height: var(--gallery-hero-height);
+  margin-block: 0;
   padding: 0;
   overflow: hidden;
-  border-radius: 16px;
+  border-radius: 0;
   background: #0c452d;
 }
 
@@ -95,18 +102,18 @@
   max-height: none;
   justify-self: stretch;
   margin: 0;
-  background: #101b13;
+  background: #101010;
 }
 
 .chronicle-page .gallery-hero-editorial .gallery-costume-frame {
   inset: 0;
   border: 0;
   border-radius: 0;
-  background-color: #101b13;
+  background-color: #101010;
   box-shadow: none;
 }
 
-.chronicle-page .gallery-hero-editorial .gallery-costume-frame img { object-position: 50% 32%; }
+.chronicle-page .gallery-hero-editorial .gallery-costume-frame img { object-fit: contain; object-position: center; }
 .chronicle-page .gallery-hero-editorial .gallery-costume-frame::after {
   background: linear-gradient(180deg, transparent 55%, rgba(7, 23, 16, 0.8));
 }
@@ -129,7 +136,7 @@
 .chronicle-page .gallery-hero-editorial .gallery-costume-stitch { display: none; }
 
 @media (min-width: 701px) and (max-height: 740px) {
-  .chronicle-page .gallery-hero-editorial { margin-block: 24px; min-height: calc(100svh - var(--header-height) - 48px); }
+  .chronicle-page .gallery-hero-editorial { margin-block: 0; }
   .chronicle-page .gallery-hero-editorial .chronicle-hero-copy { padding: 28px clamp(28px, 4vw, 56px); }
   .chronicle-page .gallery-hero-editorial h1 { font-size: clamp(3rem, 8.8svh, 4.5rem); }
   .chronicle-page .gallery-hero-editorial .section-kicker { margin-bottom: 18px; }
@@ -144,16 +151,17 @@
 }
 
 @media (max-width: 700px) {
-  .chronicle-page .gallery-hero-editorial { grid-template-columns: minmax(0, 1fr); min-height: 0; margin-block: 20px; border-radius: 14px; }
-  .chronicle-page .gallery-hero-editorial .chronicle-hero-copy { padding: 28px 24px 32px; }
-  .chronicle-page .gallery-hero-editorial .section-kicker { margin-bottom: 18px; }
-  .chronicle-page .gallery-hero-editorial h1 { font-size: clamp(3rem, 12vw, 4.5rem); }
-  .chronicle-page .gallery-hero-editorial .gallery-folk-divider { margin-top: 18px; }
-  .chronicle-page .gallery-hero-editorial .chronicle-hero-copy > p:not(.section-kicker) { margin-top: 18px; }
-  .gallery-hero-browse { margin-top: 24px; }
-  .chronicle-page .gallery-hero-editorial .gallery-hero-costume { min-height: 0; height: clamp(280px, 64vw, 400px); }
-  .chronicle-page .gallery-hero-editorial .gallery-hero-costume figcaption { inset: auto 24px 22px; }
-  .chronicle-page .gallery-hero-editorial .gallery-costume-frame img { object-position: 50% 30%; }
+  .chronicle-page .gallery-hero-editorial { grid-template-columns: minmax(0, 1fr); grid-template-rows: auto minmax(0, 1fr); border-radius: 0; }
+  .chronicle-page .gallery-hero-editorial .chronicle-hero-copy { padding: clamp(16px, 3svh, 28px) 24px; }
+  .chronicle-page .gallery-hero-editorial .section-kicker { margin-bottom: 10px; }
+  .chronicle-page .gallery-hero-editorial h1 { font-size: clamp(2rem, 5.8svh, 3.5rem); }
+  .chronicle-page .gallery-hero-editorial h1 em { display: inline; }
+  .chronicle-page .gallery-hero-editorial .gallery-folk-divider { margin-top: 12px; }
+  .chronicle-page .gallery-hero-editorial .chronicle-hero-copy > p:not(.section-kicker) { margin-top: 12px; font-size: 0.875rem; line-height: 1.45; }
+  .gallery-hero-browse { margin-top: 14px; min-height: 44px; padding-block: 10px; }
+  .chronicle-page .gallery-hero-editorial .gallery-hero-costume { min-height: 0; height: 100%; }
+  .chronicle-page .gallery-hero-editorial .gallery-hero-costume figcaption { inset: auto 16px 12px; }
+  .chronicle-page .gallery-hero-editorial figcaption strong { font-size: 1rem; }
 }
 
 @media (min-width: 701px) and (hover: hover) and (pointer: fine) {
@@ -161,8 +169,8 @@
     background-image: url("/session/modal-zywiec-female-04.webp");
     background-attachment: fixed;
     background-repeat: no-repeat;
-    background-size: min(50vw, 660px) auto;
-    background-position: right max(24px, calc((100vw - 1320px) / 2)) top 10%;
+    background-size: var(--gallery-photo-width) auto;
+    background-position: left calc(50vw + var(--gallery-panel-width) / 2 - var(--gallery-photo-width) / 2) top calc(var(--header-height) + (var(--gallery-hero-height) - var(--gallery-photo-width) * 1.49966) / 2);
   }
 
   .chronicle-page .gallery-hero-editorial .gallery-costume-frame img {
@@ -171,11 +179,33 @@
 }
 
 @media (min-width: 701px) and (max-width: 820px) and (hover: hover) and (pointer: fine) {
-  .chronicle-page .gallery-hero-editorial .gallery-costume-frame {
-    background-position: right 16px top 32%;
-  }
+  .chronicle-page .gallery-hero-editorial { --gallery-panel-width: 50vw; }
+}
+
+@media (min-width: 701px) and (max-height: 540px) {
+  .chronicle-page .gallery-hero-editorial .chronicle-hero-copy { padding: 16px 24px; }
+  .chronicle-page .gallery-hero-editorial h1 { font-size: clamp(2rem, 7svh, 3rem); }
+  .chronicle-page .gallery-hero-editorial .section-kicker { margin-bottom: 8px; }
+  .chronicle-page .gallery-hero-editorial .gallery-folk-divider { margin-top: 10px; }
+  .chronicle-page .gallery-hero-editorial .chronicle-hero-copy > p:not(.section-kicker) { margin-top: 10px; font-size: 0.875rem; line-height: 1.4; }
+  .gallery-hero-browse { margin-top: 12px; min-height: 44px; padding-block: 10px; }
 }
 
 @media (prefers-reduced-motion: reduce) {
   .gallery-hero-browse { transition: none; }
+}
+
+@media (max-width: 520px) {
+  .chronicle-page .gallery-hero-editorial { --header-height: 68px; }
+}
+
+@media (max-width: 700px) and (max-height: 500px) and (orientation: landscape) {
+  .chronicle-page .gallery-hero-editorial { grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr); grid-template-rows: minmax(0, 1fr); }
+  .chronicle-page .gallery-hero-editorial .chronicle-hero-copy { padding: 12px 16px; }
+  .chronicle-page .gallery-hero-editorial h1 { font-size: 1.75rem; }
+  .chronicle-page .gallery-hero-editorial .section-kicker { margin-bottom: 6px; font-size: 0.65rem; }
+  .chronicle-page .gallery-hero-editorial .gallery-folk-divider { display: none; }
+  .chronicle-page .gallery-hero-editorial .chronicle-hero-copy > p:not(.section-kicker) { margin-top: 8px; font-size: 0.8rem; line-height: 1.35; }
+  .chronicle-page .gallery-hero-editorial .gallery-hero-browse { margin-top: 10px; }
+  .chronicle-page .gallery-hero-editorial figcaption strong { font-size: 0.875rem; }
 }

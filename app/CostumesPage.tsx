@@ -10,7 +10,6 @@ import {
   Check,
   Palette,
   PersonArmsSpread,
-  Sparkle,
   Stack,
   X,
 } from "@phosphor-icons/react";
@@ -235,15 +234,15 @@ export function CostumesPage() {
 
       <SiteHeader activeHref="/kostiumy" />
 
-      <section className="costumes-hero section-shell">
+      <section className="costumes-hero costumes-hero-photo" aria-labelledby="costumes-title">
         <motion.div
           className="costumes-hero-copy"
-          initial={reduce ? false : { opacity: 0, x: -28 }}
+          initial={false}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.86, ease: [0.16, 1, 0.3, 1] }}
         >
           <Link className="chronicle-breadcrumb" href="/"><ArrowLeft size={16} /> Strona główna</Link>
-          <h1>Kostiumy</h1>
+          <h1 id="costumes-title">Kostiumy</h1>
           <CostumeDivider />
           <p>Każdy haft, fałda i wstążka pracuje razem z ruchem. Zobacz stroje Halki od sylwetki po detal.</p>
           <div className="costumes-hero-actions" aria-label="Wybierz część kolekcji">
@@ -252,31 +251,6 @@ export function CostumesPage() {
           </div>
         </motion.div>
 
-        <motion.div
-          className="costumes-hero-collage"
-          initial={reduce ? false : { opacity: 0, y: 26 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
-        >
-          <motion.figure
-            className="costumes-hero-main"
-            initial={reduce ? false : { clipPath: "inset(0 0 0 14% round 20px)", opacity: 0.82 }}
-            animate={{ clipPath: "inset(0 0 0 0% round 20px)", opacity: 1 }}
-            transition={{ duration: 0.82, ease: [0.16, 1, 0.3, 1] }}
-          >
-            <CostumeImage name="costume-hero-new" loading="eager" />
-          </motion.figure>
-          <motion.figure
-            className="costumes-hero-detail"
-            initial={reduce ? false : { opacity: 0, y: 30, rotate: -2 }}
-            animate={{ opacity: 1, y: 0, rotate: 0 }}
-            transition={{ duration: 0.72, delay: 0.62, ease: [0.16, 1, 0.3, 1] }}
-          >
-            <CostumeImage name="costume-hero-detail" loading="eager" />
-          </motion.figure>
-          <p className="costumes-hero-caption"><Sparkle size={15} weight="fill" /> Strój krzczonowski, Lubelszczyzna</p>
-          <span className="costumes-hero-stitch" aria-hidden="true" />
-        </motion.div>
       </section>
 
       <section className="costumes-intro section-shell" aria-labelledby="costumes-intro-title">
