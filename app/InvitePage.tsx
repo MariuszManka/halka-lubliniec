@@ -7,8 +7,9 @@ import {
 } from "@phosphor-icons/react";
 import { mainNavigation, siteConfig } from "../content/site-config";
 import type { InvitePageContent } from "../sanity/content-types";
-import { ScrollRosettes } from "./HeroVariants";
+import { ScrollRosettes } from "./FolkRosette";
 import { SiteHeader } from "./SiteHeader";
+import { PageHero } from "./PageHero";
 
 const bookingSubject = "Zapytanie o występ ZPiT Halka";
 const bookingBody = `Dzień dobry,
@@ -48,110 +49,74 @@ export function InvitePage({ content }: { content: InvitePageContent }) {
 
 
 
-      <section className="invite-hero" id="invite-content" aria-labelledby="invite-title">
-        <div className="invite-hero-copy">
-          <p className="invite-kicker">{content.hero.eyebrow}</p>
-          <h1 id="invite-title">
-            Zaproś Halkę.
-            <br />
-            <em>Niech scena ożyje.</em>
-          </h1>
 
-          <span className="invite-hero-divider" aria-hidden="true">
-            <i />
-            <b />
-            <i />
-          </span>
-
-          <p className="invite-hero-lead">
-            {content.hero.lead}
-          </p>
-
-          <div className="invite-hero-actions">
-            <a
-              className="invite-button invite-button-primary"
-              href={bookingHref}
-            >
-              Sprawdź dostępność
-              <ArrowRight size={19} weight="bold" />
+      <PageHero id="invite-content" titleId="invite-title"
+        eyebrow={content.hero.eyebrow}
+        title={<><span>Zaproś Halkę.</span><em>Niech scena ożyje.</em></>}
+        lead={content.hero.lead}
+        actions={
+          <>
+            <a href={bookingHref}>Sprawdź dostępność <ArrowRight size={18} weight="bold" aria-hidden="true" /></a>
+            <a href={"tel:" + siteConfig.contact.phone}>
+              <span className="page-hero-phone-icon" aria-hidden="true">
+                <Phone  size={18} weight="regular" />
+              </span>
+              <span className="page-hero-phone-copy">
+                <small>Skontaktuj się!</small>
+                <strong>{siteConfig.contact.phoneDisplay}</strong>
+              </span>
             </a>
+          </>
+        }
+        // extra={
+        //   <a className="page-hero-phone" href={"tel:" + siteConfig.contact.phone}>
+        //     <span className="page-hero-phone-icon" aria-hidden="true">
+        //       <Phone size={18} weight="fill" />
+        //     </span>
+        //     <span className="page-hero-phone-copy">
+        //       <small>Wolisz zadzwonić?</small>
+        //       <strong>{siteConfig.contact.phoneDisplay}</strong>
+        //     </span>
+        //   </a>
+        // }
+        image={{ src: "/invite/invite-header-image2.webp", alt: "Tancerze Halki podczas wydarzenia plenerowego", width: 2500, height: 1667, position: "50% 42%" }}
+        noteLabel="Najważniejsze informacje potrzebne do sprawdzenia terminu"
+        note={
+          <>
+            <p>
+              Żeby sprawdzić termin,
+              <br />
+              wystarczą 3 informacje
+            </p>
 
-            <a
-              className="invite-button invite-button-ghost"
-              href="#programy"
-            >
-              Poznaj możliwości
-            </a>
-          </div>
+            <ul className="page-hero-facts">
+              <li>
+                <CalendarBlank size={24} weight="duotone" aria-hidden="true" />
+                <span>
+                  <b>Termin</b>
+                  <small>data wydarzenia</small>
+                </span>
+              </li>
 
-          <a
-            className="invite-hero-phone"
-            href={`tel:${siteConfig.contact.phone}`}
-          >
-            <Phone size={17} weight="fill" />
-            {siteConfig.contact.phoneDisplay}
-          </a>
-        </div>
+              <li>
+                <MapPin size={24} weight="duotone" aria-hidden="true" />
+                <span>
+                  <b>Miejsce</b>
+                  <small>miasto i rodzaj sceny</small>
+                </span>
+              </li>
 
-        <div
-          className="invite-hero-visual"
-          aria-label="Tancerze Zespołu Pieśni i Tańca Halka"
-        >
-          <figure className="invite-hero-media">
-            <img
-              src="/invite/invite-header-image2.webp"
-              alt="Tancerze Zespołu Pieśni i Tańca Halka podczas wydarzenia plenerowego"
-              width={2048}
-              height={1363}
-              sizes="(max-width: 700px) 100vw, 50vw"
-              fetchPriority="high"
-              decoding="async"
-            />
-
-            <figcaption className="invite-hero-visual-note">
-              <small>Tydzień Kultury Beskidzkiej · Wisła</small>
-              <strong>Pieśń · taniec · żywa tradycja</strong>
-            </figcaption>
-          </figure>
-        </div>
-
-        <div
-          className="invite-hero-facts"
-          aria-label="Najważniejsze informacje potrzebne do sprawdzenia terminu"
-        >
-          <p>
-            Żeby sprawdzić termin,
-            <br />
-            wystarczą 3 informacje
-          </p>
-
-          <ul>
-            <li>
-              <CalendarBlank size={24} weight="duotone" aria-hidden="true" />
-              <span>
-                <strong>Termin</strong>
-                <small>data wydarzenia</small>
-              </span>
-            </li>
-
-            <li>
-              <MapPin size={24} weight="duotone" aria-hidden="true" />
-              <span>
-                <strong>Miejsce</strong>
-                <small>miasto i rodzaj sceny</small>
-              </span>
-            </li>
-
-            <li>
-              <Clock size={24} weight="duotone" aria-hidden="true" />
-              <span>
-                <strong>Format</strong>
-                <small>planowany czas występu</small>
-              </span>
-            </li>
-          </ul>
-        </div>
-      </section>
+              <li>
+                <Clock size={24} weight="duotone" aria-hidden="true" />
+                <span>
+                  <b>Format</b>
+                  <small>planowany czas występu</small>
+                </span>
+              </li>
+            </ul>
+          </>
+        }
+      />
 
 
 
@@ -249,7 +214,6 @@ export function InvitePage({ content }: { content: InvitePageContent }) {
       <section className="invite-process invite-shell" aria-labelledby="process-title">
         <div className="invite-process-image">
           <img src="/session/modal-cieszyn-male-02.webp" alt="Tancerze Halki ćwiczący w parach podczas warsztatów w Wiśle" width="1800" height="1198" loading="lazy" decoding="async" />
-          <span>Za każdym występem stoi wspólna praca. Warsztaty w Wiśle.</span>
         </div>
         <div className="invite-process-copy">
           <p className="invite-kicker">Od wiadomości do występu</p>

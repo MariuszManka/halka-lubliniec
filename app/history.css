@@ -21,7 +21,7 @@
   --v2-muted: var(--history-muted);
   min-height: 100dvh;
   overflow: clip;
-  background: var(--history-paper);
+  background: var(--site-page-background);
   color: var(--history-ink);
 }
 

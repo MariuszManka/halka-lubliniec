@@ -7,12 +7,14 @@ import {
   CheckCircle,
   EnvelopeSimple,
   MapPin,
+  UsersThree,
 } from "@phosphor-icons/react";
 import { calendarEvents } from "../content/events";
 import { mainNavigation, siteConfig } from "../content/site-config";
 import type { JoinPageContent } from "../sanity/content-types";
-import { ScrollRosettes } from "./HeroVariants";
+import { ScrollRosettes } from "./FolkRosette";
 import { SiteHeader } from "./SiteHeader";
+import { PageHero } from "./PageHero";
 
 const dateFormatter = new Intl.DateTimeFormat("pl-PL", {
   weekday: "long",
@@ -73,79 +75,42 @@ export function JoinPage({ content }: { content: JoinPageContent }) {
       </section> */}
 
 
-          <section
-            className="join-hero join-shell"
-            aria-labelledby="join-title"
-          >
-            <div className="join-hero-copy">
-              <p className="join-eyebrow">
-                <span>{content.hero.eyebrow}</span>
-                <i aria-hidden="true" />
-              </p>
 
-              <h1 id="join-title">
-                {content.hero.title.split("\n").map((line, index) => (
-                  <span key={line}>
-                    {index > 0 && <br />}
-                    {line}
-                  </span>
-                ))}{" "}
-                <em>{content.hero.titleAccent}</em>
-              </h1>
+      <PageHero titleId="join-title"
+        eyebrow={content.hero.eyebrow}
+        title={<><span>{content.hero.title.replace(/\n/g, " ")}</span><em>{content.hero.titleAccent}</em></>}
+        lead={content.hero.lead}
+        actions={<>
+          <a href="#grupy">{content.hero.primaryCtaLabel} <ArrowRight size={18} weight="bold" aria-hidden="true" /></a>
+          <a href={siteConfig.contact.mapUrl} target="_blank" rel="noreferrer"><MapPin size={18} aria-hidden="true" /> {content.hero.secondaryCtaLabel}</a>
+        </>}
+        image={{ src: "/join/dance-duo.webp", srcSet: "/join/dance-duo-760.webp 760w, /join/dance-duo.webp 1467w", alt: content.hero.image.alt, width: 1467, height: 2200, position: "50% 20%", fit: "contain" }}
+        noteLabel="Najważniejsze informacje o dołączeniu do zespołu"
+        note={
+          <>
+            <p>
+              {content.hero.noteLabel}
+              <br />
+              {content.hero.noteText.replace(/\n/g, " ")}
+            </p>
+            <ul className="page-hero-facts">
+              {content.hero.facts.map((fact, index) => {
+                const Icon = [CheckCircle, UsersThree, CalendarBlank][index] ?? CheckCircle;
 
-              <p className="join-hero-lead">
-                {content.hero.lead}
-              </p>
-
-              <div className="join-hero-actions">
-                <a
-                  className="join-button join-button-primary"
-                  href="#grupy"
-                >
-                  {content.hero.primaryCtaLabel}
-                  <ArrowRight size={18} weight="bold" aria-hidden="true" />
-                </a>
-
-                <a
-                  className="join-button join-button-light"
-                  href={siteConfig.contact.mapUrl}
-                  target="_blank"
-                  rel="noreferrer"
-                >
-                  <MapPin size={18} aria-hidden="true" />
-                  {content.hero.secondaryCtaLabel}
-                </a>
-              </div>
-            </div>
-
-            <div className="join-hero-visual">
-              <figure className="join-hero-photo">
-                <img
-                  src="/join/dance-duo.webp"
-                  srcSet="/join/dance-duo-768.webp 768w,/join/dance-duo.webp 1365w"
-                  sizes="(max-width: 920px) calc(100vw - 28px), 58vw"
-                  alt={content.hero.image.alt}
-                  width={1365}
-                  height={2048}
-                  fetchPriority="high"
-                  decoding="async"
-                />
-              </figure>
-
-              <div className="join-hero-card">
-                <span>{content.hero.noteLabel}</span>
-
-                <strong>
-                  {content.hero.noteText.split("\n").map((line, index) => (
-                    <span key={line}>
-                      {index > 0 && <br />}
-                      {line}
+                return (
+                  <li key={`${fact.value}-${fact.label}`}>
+                    <Icon size={24} weight="duotone" aria-hidden="true" />
+                    <span>
+                      <b>{fact.value}</b>
+                      <small>{fact.label}</small>
                     </span>
-                  ))}
-                </strong>
-              </div>
-            </div>
-          </section>
+                  </li>
+                );
+              })}
+            </ul>
+          </>
+        }
+      />
 
 
 

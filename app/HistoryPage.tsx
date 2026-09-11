@@ -5,6 +5,7 @@ import { ArrowRight, CalendarBlank } from "@phosphor-icons/react";
 import { timeline } from "../content/site-content";
 import { ensembleGroups, mainNavigation } from "../content/site-config";
 import { SiteHeader } from "./SiteHeader";
+import { ScrollRosettes } from "./FolkRosette";
 
 export function HistoryPage() {
   const yearsOfHistory = new Date().getFullYear() - 1948;
@@ -12,6 +13,7 @@ export function HistoryPage() {
   return (
     <main className="history-page">
       <a className="history-skip-link" href="#history-content">Przejdź do historii</a>
+      <ScrollRosettes />
 
       <SiteHeader activeHref="/historia" />
 

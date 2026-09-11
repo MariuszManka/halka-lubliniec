@@ -14,7 +14,8 @@ import { FaFacebookF, FaInstagram, FaYoutube } from "react-icons/fa6";
 import { calendarEvents, eventGroups } from "../content/events";
 import { ensembleGroups, mainNavigation, siteConfig } from "../content/site-config";
 import type { GalleryEvent, GalleryPageContent } from "../sanity/content-types";
-import { DanceHero, ScrollRosettes } from "./HeroVariants";
+import { DanceHero } from "./HeroVariants";
+import { ScrollRosettes } from "./FolkRosette";
 import Link from 'next/link'
 import { SiteHeader } from "./SiteHeader";
 

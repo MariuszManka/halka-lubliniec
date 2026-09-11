@@ -1,37 +1,10 @@
 "use client";
 
 import { ArrowLeft, ArrowRight } from "@phosphor-icons/react";
-import { motion, useReducedMotion, useScroll, useTransform } from "motion/react";
+import { motion, useReducedMotion } from "motion/react";
 import Link from "next/link";
+import { ScrollRosettes } from "./FolkRosette";
 import "./hero-variants.css";
-
-function FolkRosette() {
-  return (
-    <span className="hv-rosette" aria-hidden="true">
-      <img src="/rozeta-tlo.svg" alt="" />
-    </span>
-  );
-}
-
-export function ScrollRosettes() {
-  const reduce = useReducedMotion();
-  const { scrollYProgress } = useScroll();
-  const rotate = useTransform(scrollYProgress, [0, 1], [-18, 170]);
-  const rotateReverse = useTransform(scrollYProgress, [0, 1], [38, -130]);
-  const drift = useTransform(scrollYProgress, [0, 1], [-80, 170]);
-  const driftReverse = useTransform(scrollYProgress, [0, 1], [110, -160]);
-  const scale = useTransform(scrollYProgress, [0, 0.52, 1], [0.9, 1.08, 0.94]);
-
-  return (
-    <div className="hv-scroll-decoration" aria-hidden="true">
-      <motion.div className="hv-scroll-rosette hv-scroll-rosette-main" style={reduce ? undefined : { rotate, y: drift, scale }}><FolkRosette /></motion.div>
-      <motion.div className="hv-scroll-rosette hv-scroll-rosette-secondary" style={reduce ? undefined : { rotate: rotateReverse, y: driftReverse }}><FolkRosette /></motion.div>
-      <motion.div className="hv-scroll-diamonds" style={reduce ? undefined : { y: driftReverse }}>
-        {Array.from({ length: 9 }, (_, index) => <i key={index} />)}
-      </motion.div>
-    </div>
-  );
-}
 
 function FolkDivider() {
   return (

@@ -21,6 +21,7 @@ import { galleryEvents } from "../content/generated-gallery";
 import { sessionImages } from "../content/generated-session";
 import { calendarEvents, eventGroups, type CalendarEvent } from "../content/events";
 import { contact, facts, schedule, timeline } from "../content/site-content";
+import { FolkRosette } from "./FolkRosette";
 
 type GalleryEvent = (typeof galleryEvents)[number];
 
@@ -99,17 +100,6 @@ function Reveal({
     >
       {children}
     </motion.div>
-  );
-}
-
-function FolkRosette({ className = "" }: { className?: string }) {
-  return (
-    <span className={`folk-rosette ${className}`}>
-      {Array.from({ length: 8 }, (_, index) => (
-        <i key={index} style={{ "--petal": index } as React.CSSProperties} />
-      ))}
-      <b />
-    </span>
   );
 }
 

@@ -4,6 +4,7 @@
   --gallery-red: #c62f2c;
   --gallery-cream: #fbf7ee;
   overflow: clip;
+  background: var(--site-page-background);
 }
 
 /* Hero zachowuje wczesniejszy ksztalt i pozycje fotografii. */

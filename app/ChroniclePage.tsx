@@ -2,11 +2,13 @@
 
 import { useEffect, useMemo, useRef, useState } from "react";
 import Link from "next/link";
-import { AnimatePresence, motion, useReducedMotion, useScroll, useTransform } from "motion/react";
+import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import { ArrowLeft, ArrowRight, Camera, MapPin, X } from "@phosphor-icons/react";
 import { mainNavigation } from "../content/site-config";
 import type { GalleryEvent, GalleryPageContent } from "../sanity/content-types";
 import { SiteHeader } from "./SiteHeader";
+import { PageHero } from "./PageHero";
+import { ScrollRosettes } from "./FolkRosette";
 
 type ChroniclePageProps = {
   galleryEvents: GalleryEvent[];
@@ -17,14 +19,6 @@ const formatDate = (date: string) =>
   new Intl.DateTimeFormat("pl-PL", { day: "numeric", month: "long", year: "numeric" })
     .format(new Date(`${date}T12:00:00`));
 
-function FolkRosette() {
-  return (
-    <span className="hv-rosette" aria-hidden="true">
-      <img src="/rozeta-tlo.svg" alt="" />
-    </span>
-  );
-}
-
 function FolkDivider() {
   return (
     <span className="gallery-folk-divider" aria-hidden="true">
@@ -32,36 +26,6 @@ function FolkDivider() {
       <b><span /><span /><span /></b>
       <i />
     </span>
-  );
-}
-
-function ChronicleBackdrop() {
-  const reduce = useReducedMotion();
-  const { scrollYProgress } = useScroll();
-  const leftY = useTransform(scrollYProgress, [0, 1], [-80, 240]);
-  const rightY = useTransform(scrollYProgress, [0, 1], [180, -170]);
-  const leftRotate = useTransform(scrollYProgress, [0, 1], [-25, 105]);
-  const rightRotate = useTransform(scrollYProgress, [0, 1], [40, -95]);
-  const ribbonY = useTransform(scrollYProgress, [0, 1], [60, -220]);
-
-  return (
-    <div className="folk-backdrop chronicle-folk-backdrop" aria-hidden="true">
-      <motion.div className="chronicle-stitch-ribbon" style={reduce ? undefined : { y: ribbonY }}>
-        {Array.from({ length: 18 }, (_, index) => <span key={index} />)}
-      </motion.div>
-      <motion.div
-        className="chronicle-page-rosette chronicle-page-rosette-left"
-        style={reduce ? undefined : { y: leftY, rotate: leftRotate }}
-      >
-        <FolkRosette />
-      </motion.div>
-      <motion.div
-        className="chronicle-page-rosette chronicle-page-rosette-right"
-        style={reduce ? undefined : { y: rightY, rotate: rightRotate }}
-      >
-        <FolkRosette />
-      </motion.div>
-    </div>
   );
 }
 
@@ -139,47 +103,20 @@ export function ChroniclePage({ galleryEvents, content }: ChroniclePageProps) {
 
   return (
     <main className="chronicle-page">
-      <ChronicleBackdrop />
+      <ScrollRosettes />
 
       <SiteHeader activeHref="/galeria" />
 
-      <section className="chronicle-hero gallery-hero-editorial section-shell" aria-labelledby="gallery-hero-title">
-        <motion.div
-          className="chronicle-hero-copy"
-          initial={false}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.85, ease: [0.16, 1, 0.3, 1] }}
-        >
-          <p className="section-kicker">{content.hero.eyebrow}</p>
-          <h1 id="gallery-hero-title">{content.hero.title} <em>{content.hero.titleAccent}</em></h1>
-          <FolkDivider />
-          <p>{content.hero.lead}</p>
-          <a className="gallery-hero-browse" href="#galerie">{content.hero.ctaLabel} <ArrowRight size={19} /></a>
-        </motion.div>
 
-        <motion.figure
-          className="gallery-hero-costume"
-          initial={false}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.95, ease: [0.16, 1, 0.3, 1] }}
-        >
-          <div className="gallery-costume-frame">
-            <motion.img
-              src={content.hero.image.src}
-              alt={content.hero.image.alt}
-              width={content.hero.image.width ?? 1467}
-              height={content.hero.image.height ?? 2200}
-              loading="eager"
-              initial={false}
-              animate={{ scale: 1 }}
-              transition={{ duration: 1.5, ease: [0.16, 1, 0.3, 1] }}
-            />
-            <span className="gallery-costume-glow" />
-          </div>
-          <figcaption><span>{content.hero.imageLabel}</span><strong>{content.hero.imageCaption}</strong></figcaption>
-          <span className="gallery-costume-stitch" aria-hidden="true" />
-        </motion.figure>
-      </section>
+      <PageHero titleId="gallery-hero-title"
+        eyebrow={content.hero.eyebrow}
+        title={<><span>{content.hero.title}</span><em>{content.hero.titleAccent}</em></>}
+        lead={content.hero.lead}
+        actions={<a href="#galerie">{content.hero.ctaLabel} <ArrowRight size={18} weight="bold" aria-hidden="true" /></a>}
+        image={{ src: content.hero.image.src, alt: content.hero.image.alt, width: content.hero.image.width ?? 1467, height: content.hero.image.height ?? 2200, position: "50% 32%", fit: "contain" }}
+        noteLabel="Opis fotografii"
+        // note={<><span>{content.hero.imageLabel}</span><strong>{content.hero.imageCaption}</strong></>}
+      />
 
       <section className="chronicle-archive section-shell" id="galerie" aria-labelledby="archive-title">
         <div className="chronicle-archive-heading">
@@ -259,11 +196,11 @@ export function ChroniclePage({ galleryEvents, content }: ChroniclePageProps) {
 
       {/* <section className="chronicle-return section-shell">
         <span className="chronicle-return-ornament chronicle-return-ornament-left" aria-hidden="true">
-          <FolkRosette />
+          <FolkRosette variant="asset" />
           <i /><i /><i />
         </span>
         <span className="chronicle-return-ornament chronicle-return-ornament-right" aria-hidden="true">
-          <FolkRosette />
+          <FolkRosette variant="asset" />
           <i /><i /><i />
         </span>
         <p className="section-kicker">{content.return.eyebrow}</p>

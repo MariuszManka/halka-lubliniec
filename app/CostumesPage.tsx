@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useCallback, useEffect, useRef, useState, type CSSProperties, type ReactNode } from "react";
-import { AnimatePresence, motion, useReducedMotion, useScroll, useTransform } from "motion/react";
+import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import {
   ArrowLeft,
   ArrowRight,
@@ -18,6 +18,9 @@ import { costumeModalImages } from "../content/generated-costume-modal";
 import { sessionImages } from "../content/generated-session";
 import { mainNavigation } from "../content/site-config";
 import { SiteHeader } from "./SiteHeader";
+import { PageHero } from "./PageHero";
+import { ScrollRosettes } from "./FolkRosette";
+
 
 const costumeImageFocus: Record<string, string> = {
   "costume-hero-new": "50% 30%",
@@ -100,17 +103,6 @@ function Reveal({ children, className = "", delay = 0 }: { children: ReactNode; 
   );
 }
 
-function FolkRosette({ className = "" }: { className?: string }) {
-  return (
-    <span className={`folk-rosette ${className}`} aria-hidden="true">
-      {Array.from({ length: 8 }, (_, index) => (
-        <i key={index} style={{ "--petal": index } as CSSProperties} />
-      ))}
-      <b />
-    </span>
-  );
-}
-
 function CostumeDivider() {
   return (
     <span className="costume-folk-divider" aria-hidden="true">
@@ -118,30 +110,6 @@ function CostumeDivider() {
       <b><span /><span /><span /></b>
       <i />
     </span>
-  );
-}
-
-function CostumeBackdrop() {
-  const reduce = useReducedMotion();
-  const { scrollYProgress } = useScroll();
-  const leftY = useTransform(scrollYProgress, [0, 1], [-120, 260]);
-  const rightY = useTransform(scrollYProgress, [0, 1], [180, -230]);
-  const leftRotate = useTransform(scrollYProgress, [0, 1], [-24, 112]);
-  const rightRotate = useTransform(scrollYProgress, [0, 1], [54, -92]);
-  const threadY = useTransform(scrollYProgress, [0, 1], [100, -170]);
-
-  return (
-    <div className="costumes-backdrop" aria-hidden="true">
-      <motion.div className="costumes-backdrop-thread" style={reduce ? undefined : { y: threadY }}>
-        {Array.from({ length: 30 }, (_, index) => <span key={index} />)}
-      </motion.div>
-      <motion.div className="costumes-backdrop-rosette costumes-backdrop-rosette-left" style={reduce ? undefined : { y: leftY, rotate: leftRotate }}>
-        <FolkRosette />
-      </motion.div>
-      <motion.div className="costumes-backdrop-rosette costumes-backdrop-rosette-right" style={reduce ? undefined : { y: rightY, rotate: rightRotate }}>
-        <FolkRosette />
-      </motion.div>
-    </div>
   );
 }
 
@@ -230,28 +198,21 @@ export function CostumesPage() {
 
   return (
     <main className="costumes-page">
-      <CostumeBackdrop />
+      <ScrollRosettes />
 
       <SiteHeader activeHref="/kostiumy" />
 
-      <section className="costumes-hero costumes-hero-photo" aria-labelledby="costumes-title">
-        <motion.div
-          className="costumes-hero-copy"
-          initial={false}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.86, ease: [0.16, 1, 0.3, 1] }}
-        >
-          <Link className="chronicle-breadcrumb" href="/"><ArrowLeft size={16} /> Strona główna</Link>
-          <h1 id="costumes-title">Kostiumy</h1>
-          <CostumeDivider />
-          <p>Każdy haft, fałda i wstążka pracuje razem z ruchem. Zobacz stroje Halki od sylwetki po detal.</p>
-          <div className="costumes-hero-actions" aria-label="Wybierz część kolekcji">
-            <a className="button button-primary" href="#kolekcja" onClick={() => chooseCatalogueGroup("female")}>Stroje damskie</a>
-            <a className="button button-secondary" href="#kolekcja" onClick={() => chooseCatalogueGroup("male")}>Stroje męskie</a>
-          </div>
-        </motion.div>
-
-      </section>
+      <PageHero
+        titleId="costumes-title"
+        eyebrow={"Nasze stroje"}
+        title={<span>Poznaj nasze <em>stroje.</em></span>}
+        lead="Każdy region ma własne kolory, hafty i detale. Zobacz stroje, w których występujemy — od ludowych ubiorów regionalnych po kostiumy historyczne."
+        actions={<>
+          <a href="#kolekcja">Sprawdź stroje</a>
+          <a href="#detale">Zobacz detale</a>
+        </>}
+        image={{ src: "/costume-heading.webp", alt: "Tancerka Halki w stroj cieszyńskim", width: 2172, height: 724, position: "76% 50%" }}
+      />
 
       <section className="costumes-intro section-shell" aria-labelledby="costumes-intro-title">
         <Reveal className="costumes-intro-title">
@@ -280,7 +241,6 @@ export function CostumesPage() {
             <button type="button" role="tab" aria-selected={catalogueGroup === "female"} className={catalogueGroup === "female" ? "active" : ""} onClick={() => chooseCatalogueGroup("female")}>Stroje damskie</button>
             <button type="button" role="tab" aria-selected={catalogueGroup === "male"} className={catalogueGroup === "male" ? "active" : ""} onClick={() => chooseCatalogueGroup("male")}>Stroje męskie</button>
           </div>
-          <p aria-live="polite">{visibleLooks.length} {visibleLooks.length === 1 ? "region" : "regionów"} w tej części kolekcji</p>
         </Reveal>
 
         <div className="costume-look-grid" role="list" aria-label="Kategorie kostiumów">
@@ -417,7 +377,7 @@ export function CostumesPage() {
         )}
       </AnimatePresence>
 
-      <section className="costume-anatomy section-shell" aria-labelledby="costume-anatomy-title">
+      <section className="costume-anatomy section-shell" aria-labelledby="costume-anatomy-title" id="detale">
         <Reveal className="costume-anatomy-heading">
           <h2 id="costume-anatomy-title">To detal buduje całość.</h2>
         </Reveal>
@@ -436,14 +396,6 @@ export function CostumesPage() {
             </Reveal>
           ))}
         </div>
-      </section>
-
-      <section className="costume-cta section-shell">
-        <span className="costume-cta-ornament costume-cta-ornament-left"><FolkRosette /><i /><i /><i /></span>
-        <span className="costume-cta-ornament costume-cta-ornament-right"><FolkRosette /><i /><i /><i /></span>
-        <h2>Poznaj Halkę bliżej.</h2>
-        <p>Zobacz nasze koncerty, wspomnienia i ludzi, którzy każdego dnia ożywiają te kostiumy.</p>
-        <Link className="button button-primary" href="/galeria">Przejdź do galerii <ArrowRight size={18} /></Link>
       </section>
 
       <footer className="footer section-shell">

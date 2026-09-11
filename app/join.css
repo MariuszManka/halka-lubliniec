@@ -9,12 +9,12 @@
   position: relative;
   min-height: 100dvh;
   overflow: clip;
-  background: var(--join-paper);
+  background: var(--site-page-background);
   color: var(--join-ink);
   isolation: isolate;
 }
 
-.join-page > .hv-scroll-decoration { z-index: 0; }
+.join-page > .scroll-rosettes { z-index: 0; }
 .join-page > header,
 .join-page > section,
 .join-page > footer { position: relative; z-index: 1; }

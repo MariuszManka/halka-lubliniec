@@ -20,12 +20,12 @@
   position: relative;
   min-height: 100dvh;
   overflow: clip;
-  background: var(--v2-paper);
+  background: var(--site-page-background);
   color: var(--v2-ink);
   isolation: isolate;
 }
 
-.home-v2 > .hv-scroll-decoration { z-index: 0; }
+.home-v2 > .scroll-rosettes { z-index: 0; }
 
 .home-v2-skip-link {
   position: fixed;

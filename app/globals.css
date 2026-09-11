@@ -14,6 +14,10 @@
   --ivory: #fffaf1;
   --radius: 22px;
   --header-height: 74px;
+  --space-between-sections: clamp(88px, 9vw, 136px);
+  --site-page-background:
+    radial-gradient(circle at 82% 9%, rgba(189, 74, 67, 0.09), transparent 29%),
+    radial-gradient(circle at 10% 45%, rgba(47, 121, 83, 0.08), transparent 26%);
 }
 
 * {
@@ -1173,7 +1177,7 @@ main {
   display: grid;
   width: 100%;
   min-width: 0;
-  gap: 24px;
+  gap: 12px;
 }
 
 .calendar-toolbar {
@@ -4388,12 +4392,10 @@ main {
 .costumes-page {
   position: relative;
   overflow: clip;
-  background:
-    radial-gradient(circle at 82% 9%, rgba(189, 74, 67, 0.09), transparent 29%),
-    radial-gradient(circle at 10% 45%, rgba(47, 121, 83, 0.08), transparent 26%);
+  background: var(--site-page-background);
 }
 
-.costumes-page > :not(.costumes-backdrop) {
+.costumes-page > :not(.costumes-backdrop):not(.scroll-rosettes) {
   position: relative;
   z-index: 1;
 }
@@ -4446,7 +4448,7 @@ main {
   opacity: 0.19;
 }
 
-.costumes-backdrop-rosette .folk-rosette {
+.costumes-backdrop-rosette .folk-rosette-image {
   width: 300px;
 }
 
@@ -4668,7 +4670,7 @@ main {
   display: grid;
   grid-template-columns: minmax(0, 0.9fr) minmax(360px, 0.72fr);
   gap: clamp(60px, 10vw, 170px);
-  padding-block: 132px 148px;
+  padding-top: var(--space-between-sections); padding-bottom: calc(var(--space-between-sections) / 2);
   border-top: 1px solid var(--line);
 }
 
@@ -4717,9 +4719,8 @@ main {
 .costumes-intro-facts small { color: var(--muted); font-size: 0.68rem; }
 
 .costume-catalogue {
-  padding-block: 128px 150px;
+  padding-block: calc(var(--space-between-sections) / 2);
 }
-
 .costume-catalogue-heading {
   display: block;
   max-width: 800px;
@@ -5390,7 +5391,7 @@ main {
 }
 
 .costume-anatomy {
-  padding-block: 138px 158px;
+  padding-block: calc(var(--space-between-sections) / 2);
   border-top: 1px solid var(--line);
 }
 
@@ -5732,7 +5733,7 @@ main {
 
 @media (max-width: 680px) {
   .costumes-backdrop-thread { right: -18px; opacity: 0.16; }
-  .costumes-backdrop-rosette .folk-rosette { width: 220px; }
+  .costumes-backdrop-rosette .folk-rosette-image { width: 220px; }
   .costumes-hero-copy h1 { font-size: clamp(4rem, 19vw, 5.2rem); }
   .costume-folk-divider { margin-top: 24px; }
   .costumes-hero-collage { min-height: clamp(420px, 120vw, 650px); }

@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import { ChroniclePage } from "../ChroniclePage";
 import { getGalleryEvents, getGalleryPageContent } from "../../sanity/content";
 import "../gallery.css";
-import "../gallery-hero.css";
 
 export const metadata: Metadata = {
   title: "Galeria zespołu | Halka Lubliniec",
