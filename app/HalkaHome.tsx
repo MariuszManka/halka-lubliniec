@@ -237,7 +237,11 @@ export function HalkaHome({ galleryEvents, galleryContent }: { galleryEvents: Ga
               <div><strong>75+</strong><span>lat działalności</span></div>
               <div><strong>4</strong><span>działające grupy</span></div>
             </div>
-            <a className="home-v2-text-link" href="/historia">Poznaj historię zespołu <ArrowRight size={18} /></a>
+
+            {/* [HISTORY PAGE HIDE] */}
+            {/* <a className="home-v2-text-link" href="/historia">Poznaj historię zespołu <ArrowRight size={18} /></a> */}
+
+
           </div>
         </div>
 

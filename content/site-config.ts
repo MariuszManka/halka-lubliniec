@@ -29,7 +29,11 @@ export const mainNavigation = [
   { label: "Zaproś Halkę", href: "/zapros-halke" },
   { label: "Wydarzenia", href: "/wydarzenia" },
   { label: "Galeria", href: "/galeria" },
-  { label: "Historia", href: "/historia" },
+
+  // [HISTORY PAGE HIDE]
+  // { label: "Historia", href: "/historia" },
+
+
   { label: "Kostiumy", href: "/kostiumy" },
 ] as const;
 
