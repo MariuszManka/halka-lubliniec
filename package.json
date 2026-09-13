@@ -11,6 +11,8 @@
     "cms:deploy": "sanity deploy",
     "cms:seed": "sanity exec scripts/seed-sanity.mjs --with-user-token",
     "cms:migrate:gallery": "sanity exec scripts/migrate-gallery-to-sanity.mjs --with-user-token",
+    "cms:migrate:content": "sanity exec scripts/migrate-page-content-to-sanity.ts --with-user-token",
+    "cms:sync:invite": "sanity exec scripts/sync-invite-page-to-sanity.ts --with-user-token",
     "deploy": "node scripts/deploy-site.mjs",
     "deploy:preview": "node scripts/deploy-site.mjs --target=preview",
     "deploy:production": "node scripts/deploy-site.mjs --target=production",

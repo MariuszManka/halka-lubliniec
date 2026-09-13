@@ -4,7 +4,8 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import Link from "next/link";
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import { ArrowLeft, ArrowRight, Camera, MapPin, X } from "@phosphor-icons/react";
-import { mainNavigation } from "../content/site-config";
+import type { CopyMap } from "../content/page-copy-defaults";
+import type { SharedContent } from "../sanity/content";
 import type { GalleryEvent, GalleryPageContent } from "../sanity/content-types";
 import { SiteHeader } from "./SiteHeader";
 import { PageHero } from "./PageHero";
@@ -13,6 +14,8 @@ import { ScrollRosettes } from "./FolkRosette";
 type ChroniclePageProps = {
   galleryEvents: GalleryEvent[];
   content: GalleryPageContent;
+  ui: CopyMap;
+  shared: SharedContent;
 };
 
 const formatDate = (date: string) =>
@@ -29,7 +32,7 @@ function FolkDivider() {
   );
 }
 
-export function ChroniclePage({ galleryEvents, content }: ChroniclePageProps) {
+export function ChroniclePage({ galleryEvents, content, ui, shared }: ChroniclePageProps) {
   const reduce = useReducedMotion();
   const [year, setYear] = useState<"all" | number>("all");
   const [activeEvent, setActiveEvent] = useState<GalleryEvent | null>(null);
@@ -105,7 +108,7 @@ export function ChroniclePage({ galleryEvents, content }: ChroniclePageProps) {
     <main className="chronicle-page">
       <ScrollRosettes />
 
-      <SiteHeader activeHref="/galeria" />
+      <SiteHeader activeHref="/galeria" shared={shared} />
 
 
       <PageHero titleId="gallery-hero-title"
@@ -127,7 +130,7 @@ export function ChroniclePage({ galleryEvents, content }: ChroniclePageProps) {
           <p>{content.archive.lead}</p>
         </div>
 
-        <div className="year-filter chronicle-year-filter" aria-label="Filtruj galerię według roku">
+        <div className="year-filter chronicle-year-filter" aria-label={ui["filter.label"]}>
           <button type="button" className={year === "all" ? "active" : ""} aria-pressed={year === "all"} aria-controls="gallery-event-grid" onClick={() => setYear("all")}>{content.archive.allYearsLabel}</button>
           {years.map((item) => (
             <button type="button" key={item} className={year === item ? "active" : ""} aria-pressed={year === item} aria-controls="gallery-event-grid" onClick={() => setYear(item)}>{item}</button>
@@ -135,7 +138,7 @@ export function ChroniclePage({ galleryEvents, content }: ChroniclePageProps) {
         </div>
 
         <p className="gallery-results-status" role="status" aria-live="polite">
-          {visibleEvents.length === 1 ? "1 galeria" : `${visibleEvents.length} galerii`}
+          {visibleEvents.length === 1 ? ui["results.one"] : ui["results.many"].replace("{count}", String(visibleEvents.length))}
         </p>
 
         <AnimatePresence mode="popLayout">
@@ -162,7 +165,7 @@ export function ChroniclePage({ galleryEvents, content }: ChroniclePageProps) {
                     setActiveEvent(event);
                     setActiveImage(0);
                   }}
-                  aria-label={`Otwórz galerię: ${event.title}`}
+                  aria-label={`${ui["card.openLabel"]}: ${event.title}`}
                 >
                   <img
                     src={event.images[0].src}
@@ -181,7 +184,7 @@ export function ChroniclePage({ galleryEvents, content }: ChroniclePageProps) {
                       <span><MapPin size={14} /> {event.location}</span>
                     </span>
                     <strong>{event.title}</strong>
-                    <span className="gallery-card-action">Zobacz zdjęcia <ArrowRight size={17} /></span>
+                    <span className="gallery-card-action">{ui["card.cta"]} <ArrowRight size={17} /></span>
                   </span>
                 </button>
               </motion.article>
@@ -211,13 +214,13 @@ export function ChroniclePage({ galleryEvents, content }: ChroniclePageProps) {
 
       <footer className="footer section-shell">
         <div className="footer-brand">
-          <img src="/logo.jpg" alt="Logo Zespołu Pieśni i Tańca Halka" width="70" height="70" />
-          <div><strong>HALKA</strong><span>Pieśń. Taniec. Pokolenia.</span></div>
+          <img src="/logo.jpg" alt={shared.footer.logoAlt} width="70" height="70" />
+          <div><strong>{shared.footer.brand}</strong><span>{shared.footer.longTagline}</span></div>
         </div>
         <div className="footer-links">
-          {mainNavigation.map((item) => <a key={item.href} href={item.href}>{item.label}</a>)}
+          {shared.mainNavigation.map((item) => <a key={item.href} href={item.href}>{item.label}</a>)}
         </div>
-        <p>© 2026 Zespół Pieśni i Tańca Halka w Lublińcu</p>
+        <p>© 2026 {shared.footer.copyrightLong}</p>
       </footer>
 
       <AnimatePresence>
@@ -236,10 +239,10 @@ export function ChroniclePage({ galleryEvents, content }: ChroniclePageProps) {
               exit={{ opacity: 0, scale: 0.97 }}
               onMouseDown={(event) => event.stopPropagation()}
             >
-              <button ref={closeButtonRef} className="lightbox-close" type="button" aria-label="Zamknij galerię" onClick={closeGallery}><X size={24} /></button>
+              <button ref={closeButtonRef} className="lightbox-close" type="button" aria-label={ui["lightbox.close"]} onClick={closeGallery}><X size={24} /></button>
               <div className="lightbox-stage">
                 <span className="lightbox-counter">{String(activeImage + 1).padStart(2, "0")} / {String(activeEvent.images.length).padStart(2, "0")}</span>
-                <button type="button" className="lightbox-arrow previous" aria-label="Poprzednie zdjęcie" onClick={showPrevious}><ArrowLeft size={24} /></button>
+                <button type="button" className="lightbox-arrow previous" aria-label={ui["lightbox.previous"]} onClick={showPrevious}><ArrowLeft size={24} /></button>
                 <AnimatePresence mode="wait">
                   <motion.img
                     key={activeEvent.images[activeImage].src}
@@ -253,7 +256,7 @@ export function ChroniclePage({ galleryEvents, content }: ChroniclePageProps) {
                     transition={{ duration: 0.28 }}
                   />
                 </AnimatePresence>
-                <button type="button" className="lightbox-arrow next" aria-label="Następne zdjęcie" onClick={showNext}><ArrowRight size={24} /></button>
+                <button type="button" className="lightbox-arrow next" aria-label={ui["lightbox.next"]} onClick={showNext}><ArrowRight size={24} /></button>
               </div>
               <aside className="lightbox-sidebar">
                 <p className="section-kicker">{formatDate(activeEvent.date)}</p>
@@ -263,11 +266,11 @@ export function ChroniclePage({ galleryEvents, content }: ChroniclePageProps) {
                   <p className="lightbox-photo-caption">{activeEvent.images[activeImage].caption}</p>
                 )}
                 <dl className="lightbox-details">
-                  <div><dt>Miejsce</dt><dd>{activeEvent.location}</dd></div>
-                  <div><dt>Zdjęcia</dt><dd>{activeEvent.images.length}</dd></div>
-                  <div><dt>Autor</dt><dd>{activeEvent.credit}</dd></div>
+                  <div><dt>{ui["lightbox.place"]}</dt><dd>{activeEvent.location}</dd></div>
+                  <div><dt>{ui["lightbox.photos"]}</dt><dd>{activeEvent.images.length}</dd></div>
+                  <div><dt>{ui["lightbox.author"]}</dt><dd>{activeEvent.credit}</dd></div>
                 </dl>
-                <div className="lightbox-thumbnails" aria-label="Wybierz zdjęcie">
+                <div className="lightbox-thumbnails" aria-label={ui["lightbox.choosePhoto"]}>
                   {activeEvent.images.map((image, index) => (
                     <button
                       type="button"
@@ -281,7 +284,7 @@ export function ChroniclePage({ galleryEvents, content }: ChroniclePageProps) {
                     </button>
                   ))}
                 </div>
-                <p className="lightbox-hint">Użyj strzałek klawiatury lub przycisków na zdjęciu.</p>
+                <p className="lightbox-hint">{ui["lightbox.hint"]}</p>
               </aside>
             </motion.section>
           </motion.div>

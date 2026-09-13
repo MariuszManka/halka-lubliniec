@@ -5,6 +5,7 @@ import { motion, useReducedMotion } from "motion/react";
 import Link from "next/link";
 import { ScrollRosettes } from "./FolkRosette";
 import "./hero-variants.css";
+import type { CopyMap } from "../content/page-copy-defaults";
 
 function FolkDivider() {
   return (
@@ -16,7 +17,7 @@ function FolkDivider() {
   );
 }
 
-function HeroCopy() {
+function HeroCopy({ copy }: { copy: CopyMap }) {
   const reduce = useReducedMotion();
 
   return (
@@ -27,34 +28,34 @@ function HeroCopy() {
       transition={{ duration: 0.82, ease: [0.16, 1, 0.3, 1] }}
     >
       <div className="hv-eyebrow">
-        <strong>Tu tradycja żyje</strong>
+        <strong>{copy["hero.eyebrow"]}</strong>
         <FolkDivider />
       </div>
-      <h1><span>Od 1948 roku</span><em>tańczymy razem.</em></h1>
-      <p>Cztery grupy i wiele pokoleń wspólnie pielęgnują śląskie korzenie na scenach w całej Polsce.</p>
+      <h1><span>{copy["hero.title"]}</span><em>{copy["hero.titleAccent"]}</em></h1>
+      <p>{copy["hero.lead"]}</p>
       <div className="hv-actions">
-        <a className="hv-button hv-button-primary" href="/dolacz">Dołącz do Halki <ArrowRight size={18} weight="bold" /></a>
-        <a className="hv-button hv-button-secondary" href="/zapros-halke">Zaproś nas na wydarzenie</a>
+        <a className="hv-button hv-button-primary" href="/dolacz">{copy["hero.primaryCta"]} <ArrowRight size={18} weight="bold" /></a>
+        <a className="hv-button hv-button-secondary" href="/zapros-halke">{copy["hero.secondaryCta"]}</a>
       </div>
-      <dl className="hv-proof" aria-label="Najważniejsze informacje o zespole">
-        <div><dt>Historia</dt><dd>od 1948</dd></div>
-        <div><dt>Zespół</dt><dd>4 grupy</dd></div>
-        <div><dt>Nabór</dt><dd>cały rok</dd></div>
+      <dl className="hv-proof" aria-label={copy["hero.proofLabel"]}>
+        <div><dt>{copy["hero.proof1Title"]}</dt><dd>{copy["hero.proof1Value"]}</dd></div>
+        <div><dt>{copy["hero.proof2Title"]}</dt><dd>{copy["hero.proof2Value"]}</dd></div>
+        <div><dt>{copy["hero.proof3Title"]}</dt><dd>{copy["hero.proof3Value"]}</dd></div>
       </dl>
     </motion.div>
   );
 }
 
-export function DanceHero() {
+export function DanceHero({ copy }: { copy: CopyMap }) {
   const reduce = useReducedMotion();
 
   return (
     <section
       className="hv-hero"
       id="poczatek"
-      aria-label="Hero strony głównej"
+      aria-label={copy["hero.ariaLabel"]}
     >
-      <HeroCopy />
+      <HeroCopy copy={copy} />
       <motion.figure
         className="hv-dance-visual"
         initial={reduce ? false : { opacity: 0, scale: 0.94, x: 30 }}
@@ -70,7 +71,7 @@ export function DanceHero() {
         >
           <img
             src="/home-page-dance-circle.png"
-            alt="Tancerka Halki widziana z góry podczas obrotu"
+            alt={copy["hero.imageAlt"]}
             width={2200}
             height={1467}
             fetchPriority="high"
@@ -78,37 +79,37 @@ export function DanceHero() {
           />
         </motion.div>
         <figcaption className="hv-dance-caption">
-          <span>Halka w ruchu</span>
-          <strong>Tradycja, którą tworzymy dziś.</strong>
+          <span>{copy["hero.imageLabel"]}</span>
+          <strong>{copy["hero.imageCaption"]}</strong>
         </figcaption>
       </motion.figure>
     </section>
   );
 }
 
-export function HeroVariants() {
+export function HeroVariants({ copy }: { copy: CopyMap }) {
   return (
     <main className="hero-variants-page">
       <ScrollRosettes />
       <header className="hv-header">
-        <Link className="hv-brand" href="/" aria-label="Wróć na stronę główną">
+        <Link className="hv-brand" href="/" aria-label={copy["header.return"]}>
           <img src="/logo.jpg" alt="" width="44" height="44" />
-          <span><strong>HALKA</strong><small>Lubliniec</small></span>
+          <span><strong>{copy["header.brand"]}</strong><small>{copy["header.city"]}</small></span>
         </Link>
-        <p>Dopracowany kierunek hero</p>
-        <Link className="hv-return" href="/"><ArrowLeft size={17} /> Strona główna</Link>
+        <p>{copy["header.label"]}</p>
+        <Link className="hv-return" href="/"><ArrowLeft size={17} /> {copy["header.return"]}</Link>
       </header>
-      <DanceHero />
+      <DanceHero copy={copy} />
       <section className="hv-after" aria-labelledby="hv-after-title">
         <div>
-          <p>Wir tradycji</p>
-          <h2 id="hv-after-title">Rozpoznawalny ruch. Nowy pierwszy ekran.</h2>
-          <span>Duży kolisty kadr wraca ze starej strony. Geometria ornamentu łączy hero z galerią i kostiumami.</span>
+          <p>{copy["after.eyebrow"]}</p>
+          <h2 id="hv-after-title">{copy["after.title"]}</h2>
+          <span>{copy["after.lead"]}</span>
         </div>
         <div className="hv-after-points">
-          <p><strong>Najpierw człowiek</strong> Zdjęcie pozostaje czyste i czytelne, bez maski rozmywającej jego charakter.</p>
-          <p><strong>Folklor w detalu</strong> Drobne romby i rytm linii wspierają kompozycję, zamiast konkurować z nią.</p>
-          <p><strong>Ruch ze scrollem</strong> Rozety podążają za przewijaniem, a hero respektuje ograniczenie animacji.</p>
+          <p><strong>{copy["after.point1Title"]}</strong> {copy["after.point1Text"]}</p>
+          <p><strong>{copy["after.point2Title"]}</strong> {copy["after.point2Text"]}</p>
+          <p><strong>{copy["after.point3Title"]}</strong> {copy["after.point3Text"]}</p>
         </div>
       </section>
     </main>

@@ -1,13 +1,13 @@
 import type { Metadata } from "next";
 import { ChroniclePage } from "../ChroniclePage";
-import { getGalleryEvents, getGalleryPageContent } from "../../sanity/content";
+import { getGalleryEvents, getGalleryPageContent, getGalleryUiCopy, getSharedContent } from "../../sanity/content";
 
-export const metadata: Metadata = {
-  title: "Galeria zespołu | Halka Lubliniec",
-  description: "Galerie z koncertów, warsztatów, wyjazdów i spotkań Zespołu Pieśni i Tańca Halka z Lublińca.",
-};
+export async function generateMetadata(): Promise<Metadata> {
+  const ui = await getGalleryUiCopy();
+  return { title: ui["meta.title"], description: ui["meta.description"] };
+}
 
 export default async function GalleryLegacyRoute() {
-  const [galleryEvents, content] = await Promise.all([getGalleryEvents(), getGalleryPageContent()]);
-  return <ChroniclePage galleryEvents={galleryEvents} content={content} />;
+  const [galleryEvents, content, ui, shared] = await Promise.all([getGalleryEvents(), getGalleryPageContent(), getGalleryUiCopy(), getSharedContent()]);
+  return <ChroniclePage galleryEvents={galleryEvents} content={content} ui={ui} shared={shared} />;
 }

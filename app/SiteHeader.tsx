@@ -3,27 +3,28 @@
 import { useEffect, useId, useRef, useState } from "react";
 import Link from "next/link";
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
-import { mainNavigation } from "../content/site-config";
+import type { SharedContent } from "../sanity/content";
 
 type SiteHeaderProps = {
   activeHref?: string;
   home?: boolean;
+  shared: SharedContent;
 };
 
-export function SiteBrand({ home = false }: { home?: boolean }) {
+export function SiteBrand({ home = false, shared }: { home?: boolean; shared: SharedContent }) {
   return (
     <Link
       className="home-v2-brand"
       href={home ? "#poczatek" : "/"}
-      aria-label={home ? "Halka — przejdź na początek strony" : "Halka — strona główna"}
+      aria-label={home ? shared.header.homeAriaLabel : shared.header.pageAriaLabel}
     >
       <img src="/logo.jpg" alt="" width="46" height="46" />
-      <span><strong>Halka</strong><small>Lubliniec</small></span>
+      <span><strong>{shared.header.brand}</strong><small>{shared.header.city}</small></span>
     </Link>
   );
 }
 
-export function SiteHeader({ activeHref, home = false }: SiteHeaderProps) {
+export function SiteHeader({ activeHref, home = false, shared }: SiteHeaderProps) {
   const [menuOpen, setMenuOpen] = useState(false);
   const reduceMotion = useReducedMotion();
   const headerRef = useRef<HTMLElement>(null);
@@ -67,9 +68,9 @@ export function SiteHeader({ activeHref, home = false }: SiteHeaderProps) {
 
   return (
     <header className="home-v2-header" ref={headerRef}>
-      <SiteBrand home={home} />
-      <nav className="home-v2-nav" aria-label="Główna nawigacja">
-        {mainNavigation.map((item) => (
+      <SiteBrand home={home} shared={shared} />
+      <nav className="home-v2-nav" aria-label={shared.header.navigationLabel}>
+        {shared.mainNavigation.map((item) => (
           <Link
             aria-current={item.href === activeHref ? "page" : undefined}
             href={item.href}
@@ -79,12 +80,12 @@ export function SiteHeader({ activeHref, home = false }: SiteHeaderProps) {
           </Link>
         ))}
       </nav>
-      <Link className="home-v2-contact" href={contactHref}>Kontakt</Link>
+      <Link className="home-v2-contact" href={contactHref}>{shared.header.contactLabel}</Link>
       <button
         className="home-v2-menu-button"
         ref={menuButtonRef}
         type="button"
-        aria-label={menuOpen ? "Zamknij menu" : "Otwórz menu"}
+        aria-label={menuOpen ? shared.header.closeMenuLabel : shared.header.openMenuLabel}
         aria-expanded={menuOpen}
         aria-controls={menuId}
         onClick={() => setMenuOpen((open) => !open)}
@@ -96,7 +97,7 @@ export function SiteHeader({ activeHref, home = false }: SiteHeaderProps) {
           <motion.nav
             className="home-v2-mobile-nav"
             id={menuId}
-            aria-label="Menu mobilne"
+            aria-label={shared.header.mobileNavigationLabel}
             initial={reduceMotion ? { opacity: 0 } : { opacity: 0, clipPath: "inset(0 0 100% 0)" }}
             animate={{ opacity: 1, clipPath: "inset(0 0 0% 0)" }}
             exit={reduceMotion
@@ -104,7 +105,7 @@ export function SiteHeader({ activeHref, home = false }: SiteHeaderProps) {
               : { opacity: 0, clipPath: "inset(0 0 100% 0)", transition: { duration: 0.24, ease: [0.16, 1, 0.3, 1] } }}
             transition={{ duration: reduceMotion ? 0.12 : 0.38, ease: [0.16, 1, 0.3, 1] }}
           >
-            {mainNavigation.map((item) => (
+            {shared.mainNavigation.map((item) => (
               <Link
                 aria-current={item.href === activeHref ? "page" : undefined}
                 href={item.href}
@@ -114,7 +115,7 @@ export function SiteHeader({ activeHref, home = false }: SiteHeaderProps) {
                 {item.label}
               </Link>
             ))}
-            <Link href={contactHref} onClick={() => setMenuOpen(false)}>Kontakt</Link>
+            <Link href={contactHref} onClick={() => setMenuOpen(false)}>{shared.header.contactLabel}</Link>
           </motion.nav>
         )}
       </AnimatePresence>

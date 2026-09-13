@@ -1,17 +1,19 @@
 import { defineField, defineType } from "sanity";
+import { metadataFields } from "./fieldHelpers";
 
 export const joinPage = defineType({
   name: "joinPage",
   title: "Dołącz do Halki",
   type: "document",
   groups: [
+    { name: "meta", title: "SEO" },
     { name: "hero", title: "Pierwszy ekran" },
-    { name: "how", title: "Jak dołączyć" },
     { name: "groups", title: "Grupy" },
     { name: "firstVisit", title: "Pierwsza próba" },
     { name: "location", title: "Siedziba" },
   ],
   fields: [
+    defineField({ name: "meta", title: "SEO", type: "object", group: "meta", fields: metadataFields }),
     defineField({
       name: "hero",
       title: "Pierwszy ekran",
@@ -26,22 +28,9 @@ export const joinPage = defineType({
         defineField({ name: "secondaryCtaLabel", title: "Drugi przycisk", type: "string" }),
         defineField({ name: "facts", title: "Najważniejsze fakty", type: "array", of: [{ type: "factItem" }], validation: (rule) => rule.max(3) }),
         defineField({ name: "image", title: "Zdjęcie", type: "cmsImage" }),
-        defineField({ name: "imageLabel", title: "Etykieta zdjęcia", type: "string" }),
-        defineField({ name: "imageMeta", title: "Dopisek przy zdjęciu", type: "string" }),
         defineField({ name: "noteLabel", title: "Mała etykieta notatki", type: "string" }),
         defineField({ name: "noteText", title: "Notatka na zdjęciu", type: "text", rows: 2 }),
-      ],
-    }),
-    defineField({
-      name: "how",
-      title: "Jak dołączyć",
-      type: "object",
-      group: "how",
-      fields: [
-        defineField({ name: "eyebrow", title: "Mały nagłówek", type: "string" }),
-        defineField({ name: "title", title: "Nagłówek", type: "string" }),
-        defineField({ name: "titleAccent", title: "Czerwony fragment nagłówka", type: "string" }),
-        defineField({ name: "steps", title: "Kroki", type: "array", of: [{ type: "textItem" }], validation: (rule) => rule.max(4) }),
+        defineField({ name: "accessibilityLabel", title: "Opis sekcji dla czytników", type: "string" }),
       ],
     }),
     defineField({
@@ -53,8 +42,10 @@ export const joinPage = defineType({
         defineField({ name: "eyebrow", title: "Mały nagłówek", type: "string" }),
         defineField({ name: "title", title: "Nagłówek", type: "string" }),
         defineField({ name: "titleAccent", title: "Czerwony fragment nagłówka", type: "string" }),
-        defineField({ name: "paths", title: "Skróty dla odbiorców", type: "array", of: [{ type: "audiencePath" }], validation: (rule) => rule.max(2) }),
         defineField({ name: "items", title: "Grupy zespołu", description: "Przeciągnij elementy, aby zmienić ich kolejność.", type: "array", of: [{ type: "recruitmentGroup" }], validation: (rule) => rule.max(4) }),
+        defineField({ name: "scheduleFixedLabel", title: "Etykieta stałego terminu", type: "string" }),
+        defineField({ name: "nextPracticesLabel", title: "Etykieta najbliższych prób", type: "string" }),
+        defineField({ name: "locationLabel", title: "Odnośnik do siedziby", type: "string" }),
       ],
     }),
     defineField({
@@ -80,6 +71,7 @@ export const joinPage = defineType({
         defineField({ name: "title", title: "Nagłówek", type: "string" }),
         defineField({ name: "mapCtaLabel", title: "Przycisk mapy", type: "string" }),
         defineField({ name: "emailCtaLabel", title: "Odnośnik e-mail", type: "string" }),
+        defineField({ name: "mapTitle", title: "Tytuł mapy dla dostępności", type: "string" }),
       ],
     }),
   ],

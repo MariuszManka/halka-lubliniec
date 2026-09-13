@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { DM_Sans, Fraunces } from "next/font/google";
 import "./globals.css";
 import "./site-header.css";
+import { getHomePageCopy } from "../sanity/content";
 
 const sans = DM_Sans({
   variable: "--font-sans",
@@ -17,15 +18,14 @@ const display = Fraunces({
 
 const base = new URL("https://halkalubliniec.pl");
 
-const title = "Zespół Pieśni i Tańca Halka | Lubliniec";
-
-const description =
-  "Zespół Pieśni i Tańca Halka z Lublińca. Dołącz do jednej z czterech grup albo zaproś zespół na swoje wydarzenie.";
-
-export const metadata: Metadata = {
-  metadataBase: base,
-  title,
-  description,
+export async function generateMetadata(): Promise<Metadata> {
+  const copy = await getHomePageCopy();
+  const title = copy["meta.title"];
+  const description = copy["meta.description"];
+  return {
+    metadataBase: base,
+    title,
+    description,
 
   icons: {
     icon: "/logo.jpg",
@@ -53,7 +53,8 @@ export const metadata: Metadata = {
     description,
     images: ["/og-home.png"],
   },
-};
+  };
+}
 
 export default function RootLayout({
   children,

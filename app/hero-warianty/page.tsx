@@ -1,5 +1,6 @@
 import { HeroVariants } from "../HeroVariants";
+import { getHeroVariantsPageCopy } from "../../sanity/content";
 
-export default function HeroVariantsPage() {
-  return <HeroVariants />;
+export default async function HeroVariantsPage() {
+  return <HeroVariants copy={await getHeroVariantsPageCopy()} />;
 }

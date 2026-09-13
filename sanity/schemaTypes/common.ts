@@ -54,6 +54,18 @@ export const iconTextItem = defineType({
   preview: { select: { title: "title", subtitle: "text" } },
 });
 
+export const performanceFormat = defineType({
+  name: "performanceFormat",
+  title: "Format występu",
+  type: "object",
+  fields: [
+    defineField({ name: "title", title: "Tytuł", type: "string", validation: (rule) => rule.required() }),
+    defineField({ name: "text", title: "Opis", type: "text", rows: 3, validation: (rule) => rule.required() }),
+    defineField({ name: "image", title: "Zdjęcie", type: "cmsImage", validation: (rule) => rule.required() }),
+  ],
+  preview: { select: { title: "title", subtitle: "text", media: "image" } },
+});
+
 export const factItem = defineType({
   name: "factItem",
   title: "Fakt / liczba",

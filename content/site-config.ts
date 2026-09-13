@@ -60,7 +60,7 @@ export const ensembleGroups = [
   },
   {
     id: "chor",
-    name: "Chór",
+    name: "Wokaliści",
     age: "Od 15 lat",
     activity: "Śpiew wielogłosowy",
     schedule: "Czwartki, 17:30-19:30",
@@ -70,9 +70,9 @@ export const ensembleGroups = [
   },
   {
     id: "balet",
-    name: "Balet",
+    name: "Tancerze",
     age: "Od 15 lat",
-    activity: "Taniec",
+    activity: "Taniec ludowy",
     schedule: "Środy i piątki, 18:00-20:00",
     image: "/session/2-grupowe-halka-wkf-0785.webp",
     imageAlt: "Grupa baletowa reprezentacyjna Zespołu Halka",

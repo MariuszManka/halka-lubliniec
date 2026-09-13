@@ -5,7 +5,7 @@ import { schemaTypes } from "./sanity/schemaTypes";
 
 const projectId = process.env.SANITY_STUDIO_PROJECT_ID || process.env.NEXT_PUBLIC_SANITY_PROJECT_ID || "bj1fbyz1";
 const dataset = process.env.SANITY_STUDIO_DATASET || process.env.NEXT_PUBLIC_SANITY_DATASET || "production";
-const singletonTypes = new Set(["joinPage", "invitePage", "galleryPage"]);
+const singletonTypes = new Set(["homePage", "joinPage", "invitePage", "eventsPage", "galleryPage", "costumesPage"]);
 
 export default defineConfig({
   name: "halka",
@@ -18,6 +18,7 @@ export default defineConfig({
         S.list()
           .title("Treści strony")
           .items([
+            S.listItem().title("Strona główna").id("homePage").child(S.document().schemaType("homePage").documentId("homePage")),
             S.listItem()
               .title("Dołącz do Halki")
               .id("joinPage")
@@ -26,9 +27,9 @@ export default defineConfig({
               .title("Zaproś Halkę")
               .id("invitePage")
               .child(S.document().schemaType("invitePage").documentId("invitePage")),
-            S.divider(),
+            S.listItem().title("Wydarzenia").id("eventsPage").child(S.document().schemaType("eventsPage").documentId("eventsPage")),
             S.listItem()
-              .title("Teksty galerii")
+              .title("Galeria")
               .id("galleryPage")
               .child(S.document().schemaType("galleryPage").documentId("galleryPage")),
             S.listItem()
@@ -39,6 +40,7 @@ export default defineConfig({
                   .title("Galerie")
                   .defaultOrdering([{ field: "date", direction: "desc" }]),
               ),
+            S.listItem().title("Kostiumy").id("costumesPage").child(S.document().schemaType("costumesPage").documentId("costumesPage")),
           ]),
     }),
     visionTool(),

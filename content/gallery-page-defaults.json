@@ -10,9 +10,7 @@
       "alt": "Barwny haft stroju żywieckiego Zespołu Halka",
       "width": 1467,
       "height": 2200
-    },
-    "imageLabel": "Sesja zdjęciowa",
-    "imageCaption": "Detal, który niesie tradycję."
+    }
   },
   "archive": {
     "eyebrow": "Galerie według lat",
@@ -20,19 +18,5 @@
     "lead": "W każdym roku może pojawić się dowolna liczba koncertów i realizacji. Każde wydarzenie otwiera osobny zestaw fotografii.",
     "allYearsLabel": "Wszystkie lata",
     "emptyLabel": "W tym roku nie ma jeszcze opublikowanej galerii."
-  },
-  "home": {
-    "eyebrow": "Halka na scenie",
-    "title": "Zobacz nas",
-    "titleAccent": "w ruchu.",
-    "lead": "Sceny, festiwale i spotkania, podczas których tworzymy wspólną opowieść. Każdy występ to inna scena, publiczność i emocje, które zostają z nami na długo.",
-    "albumCtaLabel": "Zobacz cały album",
-    "eventLabel": "Wydarzenie"
-  },
-  "return": {
-    "eyebrow": "Poza kadrem",
-    "title": "Poznaj Halkę bliżej.",
-    "lead": "Zobacz historię zespołu, najbliższe wydarzenia i miejsca, w których można nas spotkać.",
-    "ctaLabel": "Poznaj historię Halki"
   }
 }

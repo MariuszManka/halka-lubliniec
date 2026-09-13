@@ -24,6 +24,10 @@ export type GalleryEvent = {
 };
 
 export type GalleryPageContent = {
+  meta: {
+    title: string;
+    description: string;
+  };
   hero: {
     eyebrow: string;
     title: string;
@@ -31,8 +35,6 @@ export type GalleryPageContent = {
     lead: string;
     ctaLabel: string;
     image: CmsImage;
-    imageLabel: string;
-    imageCaption: string;
   };
   archive: {
     eyebrow: string;
@@ -41,19 +43,20 @@ export type GalleryPageContent = {
     allYearsLabel: string;
     emptyLabel: string;
   };
-  home: {
-    eyebrow: string;
-    title: string;
-    titleAccent: string;
-    lead: string;
-    albumCtaLabel: string;
-    eventLabel: string;
-  };
-  return: {
-    eyebrow: string;
-    title: string;
-    lead: string;
-    ctaLabel: string;
+  ui: {
+    resultsOne: string;
+    resultsMany: string;
+    cardCta: string;
+    cardOpenLabel: string;
+    close: string;
+    previous: string;
+    next: string;
+    place: string;
+    photos: string;
+    author: string;
+    hint: string;
+    filterLabel: string;
+    choosePhoto: string;
   };
 };
 
@@ -67,6 +70,10 @@ export type IconTextItem = TextItem & {
 };
 
 export type JoinPageContent = {
+  meta: {
+    title: string;
+    description: string;
+  };
   hero: {
     eyebrow: string;
     title: string;
@@ -76,22 +83,14 @@ export type JoinPageContent = {
     secondaryCtaLabel: string;
     facts: Array<{ value: string; label: string }>;
     image: CmsImage;
-    imageLabel: string;
-    imageMeta: string;
     noteLabel: string;
     noteText: string;
-  };
-  how: {
-    eyebrow: string;
-    title: string;
-    titleAccent: string;
-    steps: TextItem[];
+    accessibilityLabel: string;
   };
   groups: {
     eyebrow: string;
     title: string;
     titleAccent: string;
-    paths: Array<{ eyebrow: string; title: string; text: string; href: string }>;
     items: Array<{
       id: string;
       name: string;
@@ -101,6 +100,9 @@ export type JoinPageContent = {
       statusLabel: string;
       image: CmsImage;
     }>;
+    scheduleFixedLabel: string;
+    nextPracticesLabel: string;
+    locationLabel: string;
   };
   firstVisit: {
     eyebrow: string;
@@ -114,28 +116,39 @@ export type JoinPageContent = {
     title: string;
     mapCtaLabel: string;
     emailCtaLabel: string;
+    mapTitle: string;
   };
 };
 
 export type InvitePageContent = {
+  meta: {
+    title: string;
+    description: string;
+  };
+  skipLabel: string;
   hero: {
     eyebrow: string;
     title: string;
     titleAccent: string;
-    titleSuffix: string;
     lead: string;
     primaryCtaLabel: string;
-    secondaryCtaLabel: string;
     image: CmsImage;
     noteLabel: string;
     noteText: string;
+    phoneLabel: string;
+    fact1Title: string;
+    fact1Text: string;
+    fact2Title: string;
+    fact2Text: string;
+    fact3Title: string;
+    fact3Text: string;
   };
   formats: {
     eyebrow: string;
     title: string;
     titleAccent: string;
     lead: string;
-    items: IconTextItem[];
+    items: Array<TextItem & { image: CmsImage }>;
   };
   suites: {
     eyebrow: string;
@@ -157,22 +170,21 @@ export type InvitePageContent = {
     image: CmsImage;
     items: IconTextItem[];
   };
-  stage: {
-    eyebrow: string;
-    title: string;
-    titleAccent: string;
-    lead: string;
-    image: CmsImage;
-    eventTitle: string;
-    eventText: string;
-    ctaLabel: string;
-  };
   contact: {
     eyebrow: string;
     title: string;
     lead: string;
     hint: string;
     socialPrompt: string;
+    titleAccent: string;
+    emailLabel: string;
+    phoneLabel: string;
+    messengerLabel: string;
+    instagramLabel: string;
+  };
+  booking: {
+    subject: string;
+    body: string;
   };
 };
 

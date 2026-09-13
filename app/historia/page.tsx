@@ -2,12 +2,14 @@ import type { Metadata } from "next";
 import { HistoryPage } from "../HistoryPage";
 import "../home-v2.css";
 import "../history.css";
+import { getHistoryPageContent, getSharedContent } from "../../sanity/content";
 
-export const metadata: Metadata = {
-  title: "Historia Zespołu Halka | Od 1948 roku",
-  description: "Poznaj najważniejsze momenty w historii Zespołu Pieśni i Tańca Halka z Lublińca — od założenia w 1948 roku po współczesność.",
-};
+export async function generateMetadata(): Promise<Metadata> {
+  const { copy } = await getHistoryPageContent();
+  return { title: copy["meta.title"], description: copy["meta.description"] };
+}
 
-export default function HistoryRoute() {
-  return <HistoryPage />;
+export default async function HistoryRoute() {
+  const [content, shared] = await Promise.all([getHistoryPageContent(), getSharedContent()]);
+  return <HistoryPage content={content} shared={shared} />;
 }

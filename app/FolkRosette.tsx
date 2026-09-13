@@ -45,9 +45,6 @@ export function ScrollRosettes() {
       <motion.div className="scroll-rosettes-item scroll-rosettes-secondary" style={reduce ? undefined : { rotate: rotateReverse, y: driftReverse }}>
         <FolkRosette variant="asset" />
       </motion.div>
-      <motion.div className="scroll-rosettes-diamonds" style={reduce ? undefined : { y: driftReverse }}>
-        {Array.from({ length: 9 }, (_, index) => <i key={index} />)}
-      </motion.div>
     </div>
   );
 }

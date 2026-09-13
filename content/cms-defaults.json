@@ -18,29 +18,13 @@
         "width": 1800,
         "height": 1200
       },
-      "imageLabel": "Balet",
-      "imageMeta": "od 15 lat",
       "noteLabel": "Bez przesłuchań",
       "noteText": "Przyjdź na próbę\ni poznaj nas."
-    },
-    "how": {
-      "eyebrow": "Najprostsza droga do zespołu",
-      "title": "Nie zapisujesz się.",
-      "titleAccent": "Po prostu przychodzisz.",
-      "steps": [
-        { "title": "Wybierz właściwą grupę", "text": "Sprawdź wiek uczestników oraz rodzaj zajęć. Chór skupia się na śpiewie, balet na tańcu, a obie grupy dziecięce łączą śpiew i taniec." },
-        { "title": "Sprawdź próbę", "text": "Terminy znajdziesz poniżej. Wszystkie zajęcia odbywają się w siedzibie zespołu." },
-        { "title": "Przyjdź na próbę", "text": "Nie trzeba wcześniej się zapisywać ani niczego deklarować. Wystarczy pojawić się na wybranych zajęciach — samodzielnie lub z dzieckiem — i poznać zespół." }
-      ]
     },
     "groups": {
       "eyebrow": "Cztery grupy. Jeden zespół.",
       "title": "Wybierz swoją drogę",
       "titleAccent": "do Halki.",
-      "paths": [
-        { "eyebrow": "Chcę dołączyć", "title": "Mam co najmniej 15 lat", "text": "Chór lub grupa taneczna", "href": "#chor" },
-        { "eyebrow": "Szukam zajęć", "title": "Dla dziecka w wieku 6–14 lat", "text": "Dwie grupy łączące śpiew i taniec", "href": "#grupa-1" }
-      ],
       "items": [
         {
           "id": "chor",
@@ -144,16 +128,6 @@
         { "icon": "people", "title": "Skład zespołu", "text": "Potwierdzamy, które grupy mogą wystąpić w danym terminie." },
         { "icon": "location", "title": "Warunki na miejscu", "text": "Rozmawiamy o przestrzeni, scenie i przebiegu wydarzenia." }
       ]
-    },
-    "stage": {
-      "eyebrow": "Halka na żywo",
-      "title": "Zobacz nas",
-      "titleAccent": "w pełnym składzie.",
-      "lead": "Balet, chór i grupy dziecięce mogą spotkać się w jednym wspólnym programie.",
-      "image": { "src": "/gallery/dni-lublinca-2025/14.webp", "alt": "Dzieci, chór i balet Halki podczas wspólnego występu na Dniach Lublińca", "width": 1800, "height": 1200 },
-      "eventTitle": "Dni Lublińca",
-      "eventText": "Wspólny występ wszystkich grup zespołu",
-      "ctaLabel": "Przejdź do galerii"
     },
     "contact": {
       "eyebrow": "Zapytaj o termin",

@@ -1,18 +1,21 @@
 import { defineField, defineType } from "sanity";
+import { metadataFields } from "./fieldHelpers";
 
 export const invitePage = defineType({
   name: "invitePage",
   title: "Zaproś Halkę",
   type: "document",
   groups: [
+    { name: "meta", title: "SEO" },
     { name: "hero", title: "Pierwszy ekran" },
     { name: "formats", title: "Formaty występu" },
     { name: "suites", title: "Suity" },
     { name: "process", title: "Ustalenia" },
-    { name: "stage", title: "Galeria" },
     { name: "contact", title: "Kontakt" },
   ],
   fields: [
+    defineField({ name: "meta", title: "SEO", type: "object", group: "meta", fields: metadataFields }),
+    defineField({ name: "skipLabel", title: "Tekst odnośnika „Przejdź do treści”", type: "string", group: "hero" }),
     defineField({
       name: "hero",
       title: "Pierwszy ekran",
@@ -22,13 +25,18 @@ export const invitePage = defineType({
         defineField({ name: "eyebrow", title: "Mały nagłówek", type: "string" }),
         defineField({ name: "title", title: "Początek nagłówka", type: "string" }),
         defineField({ name: "titleAccent", title: "Czerwony fragment", type: "string" }),
-        defineField({ name: "titleSuffix", title: "Końcówka nagłówka", type: "string" }),
         defineField({ name: "lead", title: "Wprowadzenie", type: "text", rows: 4 }),
         defineField({ name: "primaryCtaLabel", title: "Główny przycisk", type: "string" }),
-        defineField({ name: "secondaryCtaLabel", title: "Drugi przycisk", type: "string" }),
         defineField({ name: "image", title: "Zdjęcie", type: "cmsImage" }),
         defineField({ name: "noteLabel", title: "Etykieta notatki", type: "string" }),
         defineField({ name: "noteText", title: "Notatka na zdjęciu", type: "text", rows: 2 }),
+        defineField({ name: "phoneLabel", title: "Etykieta telefonu", type: "string" }),
+        defineField({ name: "fact1Title", title: "Informacja 1 — tytuł", type: "string" }),
+        defineField({ name: "fact1Text", title: "Informacja 1 — opis", type: "string" }),
+        defineField({ name: "fact2Title", title: "Informacja 2 — tytuł", type: "string" }),
+        defineField({ name: "fact2Text", title: "Informacja 2 — opis", type: "string" }),
+        defineField({ name: "fact3Title", title: "Informacja 3 — tytuł", type: "string" }),
+        defineField({ name: "fact3Text", title: "Informacja 3 — opis", type: "string" }),
       ],
     }),
     defineField({
@@ -41,7 +49,7 @@ export const invitePage = defineType({
         defineField({ name: "title", title: "Nagłówek", type: "string" }),
         defineField({ name: "titleAccent", title: "Druga część nagłówka", type: "string" }),
         defineField({ name: "lead", title: "Wprowadzenie", type: "text", rows: 3 }),
-        defineField({ name: "items", title: "Możliwe formaty", description: "Przeciągnij elementy, aby zmienić ich kolejność.", type: "array", of: [{ type: "iconTextItem" }], validation: (rule) => rule.max(4) }),
+        defineField({ name: "items", title: "Możliwe formaty", description: "Każdy format zawiera tekst i zdjęcie używane bezpośrednio na stronie.", type: "array", of: [{ type: "performanceFormat" }], validation: (rule) => rule.max(3) }),
       ],
     }),
     defineField({
@@ -71,22 +79,6 @@ export const invitePage = defineType({
       ],
     }),
     defineField({
-      name: "stage",
-      title: "Zajawka galerii",
-      type: "object",
-      group: "stage",
-      fields: [
-        defineField({ name: "eyebrow", title: "Mały nagłówek", type: "string" }),
-        defineField({ name: "title", title: "Nagłówek", type: "string" }),
-        defineField({ name: "titleAccent", title: "Wyróżniony fragment", type: "string" }),
-        defineField({ name: "lead", title: "Wprowadzenie", type: "text", rows: 2 }),
-        defineField({ name: "image", title: "Zdjęcie", type: "cmsImage" }),
-        defineField({ name: "eventTitle", title: "Nazwa wydarzenia", type: "string" }),
-        defineField({ name: "eventText", title: "Opis zdjęcia", type: "string" }),
-        defineField({ name: "ctaLabel", title: "Odnośnik do galerii", type: "string" }),
-      ],
-    }),
-    defineField({
       name: "contact",
       title: "Kontakt",
       type: "object",
@@ -97,6 +89,21 @@ export const invitePage = defineType({
         defineField({ name: "lead", title: "Wprowadzenie", type: "text", rows: 2 }),
         defineField({ name: "hint", title: "Podpowiedź do wiadomości", type: "text", rows: 2 }),
         defineField({ name: "socialPrompt", title: "Tekst nad social mediami", type: "string" }),
+        defineField({ name: "titleAccent", title: "Wyróżniona część tytułu", type: "string" }),
+        defineField({ name: "emailLabel", title: "Etykieta e-mail", type: "string" }),
+        defineField({ name: "phoneLabel", title: "Etykieta telefonu", type: "string" }),
+        defineField({ name: "messengerLabel", title: "Etykieta Messengera", type: "string" }),
+        defineField({ name: "instagramLabel", title: "Etykieta Instagrama", type: "string" }),
+      ],
+    }),
+    defineField({
+      name: "booking",
+      title: "Wiadomość z formularza e-mail",
+      type: "object",
+      group: "contact",
+      fields: [
+        defineField({ name: "subject", title: "Temat", type: "string" }),
+        defineField({ name: "body", title: "Treść wiadomości", type: "text", rows: 10 }),
       ],
     }),
   ],

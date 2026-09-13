@@ -9,8 +9,9 @@ import {
   MapPin,
   UsersThree,
 } from "@phosphor-icons/react";
-import { calendarEvents } from "../content/events";
-import { mainNavigation, siteConfig } from "../content/site-config";
+import type { CalendarEvent } from "../content/events";
+import type { CopyMap } from "../content/page-copy-defaults";
+import type { SharedContent } from "../sanity/content";
 import type { JoinPageContent } from "../sanity/content-types";
 import { ScrollRosettes } from "./FolkRosette";
 import { SiteHeader } from "./SiteHeader";
@@ -33,14 +34,14 @@ const practiceMatchesGroup = (groupId: string, title: string, groups: readonly s
   return groups.includes("ballet");
 };
 
-export function JoinPage({ content }: { content: JoinPageContent }) {
+export function JoinPage({ content, ui, shared, calendarEvents }: { content: JoinPageContent; ui: CopyMap; shared: SharedContent; calendarEvents: CalendarEvent[] }) {
   const today = new Date().toISOString().slice(0, 10);
 
   return (
     <main className="join-page">
       <ScrollRosettes />
 
-      <SiteHeader activeHref="/dolacz" />
+      <SiteHeader activeHref="/dolacz" shared={shared} />
 
       {/* <section className="recruit-hero" aria-labelledby="join-title">
         <div className="recruit-copy">
@@ -82,10 +83,10 @@ export function JoinPage({ content }: { content: JoinPageContent }) {
         lead={content.hero.lead}
         actions={<>
           <a href="#grupy">{content.hero.primaryCtaLabel} <ArrowRight size={18} weight="bold" aria-hidden="true" /></a>
-          <a href={siteConfig.contact.mapUrl} target="_blank" rel="noreferrer"><MapPin size={18} aria-hidden="true" /> {content.hero.secondaryCtaLabel}</a>
+          <a href={shared.siteConfig.contact.mapUrl} target="_blank" rel="noreferrer"><MapPin size={18} aria-hidden="true" /> {content.hero.secondaryCtaLabel}</a>
         </>}
         image={{ src: "/join/dance-duo.webp", srcSet: "/join/dance-duo-760.webp 760w, /join/dance-duo.webp 1467w", alt: content.hero.image.alt, width: 1467, height: 2200, position: "50% 20%", fit: "contain" }}
-        noteLabel="Najważniejsze informacje o dołączeniu do zespołu"
+        noteLabel={ui["hero.noteLabel"]}
         note={
           <>
             <p>
@@ -132,7 +133,7 @@ export function JoinPage({ content }: { content: JoinPageContent }) {
               <article className={`join-group-card ${index % 2 ? "join-group-card-reverse" : ""}`} id={group.id} key={group.id}>
                 <figure className="join-group-image">
                   <img src={group.image.src} srcSet={responsiveImage(group.image.src) ? `${responsiveImage(group.image.src)} 960w` : undefined} sizes="(max-width: 760px) calc(100vw - 32px), 52vw" alt={group.image.alt} loading="lazy" decoding="async" />
-                  <figcaption>{String(index + 1).padStart(2, "0")} / 04</figcaption>
+                  <figcaption>{String(index + 1).padStart(2, "0")} / {String(content.groups.items.length).padStart(2, "0")}</figcaption>
                 </figure>
                 <div className="join-group-copy">
                   <p className="join-group-status"><i aria-hidden="true" /> {group.statusLabel}</p>
@@ -141,11 +142,11 @@ export function JoinPage({ content }: { content: JoinPageContent }) {
                   <p>{group.description}</p>
                   <div className="join-group-schedule">
                     <CalendarBlank size={22} weight="duotone" />
-                    <div><small>Stały termin</small><strong>{group.schedule}</strong></div>
+                    <div><small>{ui["schedule.fixed"]}</small><strong>{group.schedule}</strong></div>
                   </div>
                   {nextPractices.length > 0 && (
                     <div className="join-next-practices">
-                      <small>Najbliższe próby</small>
+                      <small>{ui["schedule.next"]}</small>
                       <ul>
                         {nextPractices.map((practice) => (
                           <li key={practice.id}><time dateTime={practice.date}>{dateFormatter.format(new Date(`${practice.date}T12:00:00`))}</time><strong>{practice.time}{practice.endTime ? `–${practice.endTime}` : ""}</strong></li>
@@ -153,7 +154,7 @@ export function JoinPage({ content }: { content: JoinPageContent }) {
                       </ul>
                     </div>
                   )}
-                  <a className="join-map-link" href={siteConfig.contact.mapUrl} target="_blank" rel="noreferrer"><MapPin size={17} /> Siedziba zespołu <ArrowRight size={16} /></a>
+                  <a className="join-map-link" href={shared.siteConfig.contact.mapUrl} target="_blank" rel="noreferrer"><MapPin size={17} /> {ui["schedule.location"]} <ArrowRight size={16} /></a>
                 </div>
               </article>
             );
@@ -177,22 +178,22 @@ export function JoinPage({ content }: { content: JoinPageContent }) {
           <div>
             <p className="join-section-label">{content.location.eyebrow}</p>
             <h2 id="join-location-title">{content.location.title}</h2>
-            <p>{siteConfig.contact.address}</p>
+            <p>{shared.siteConfig.contact.address}</p>
           </div>
           <div className="join-location-actions">
-            <a className="join-button join-button-on-green" href={siteConfig.contact.mapUrl} target="_blank" rel="noreferrer">{content.location.mapCtaLabel} <ArrowRight size={18} /></a>
-            <a href={`mailto:${siteConfig.contact.email}`}><EnvelopeSimple size={18} /> {content.location.emailCtaLabel}</a>
+            <a className="join-button join-button-on-green" href={shared.siteConfig.contact.mapUrl} target="_blank" rel="noreferrer">{content.location.mapCtaLabel} <ArrowRight size={18} /></a>
+            <a href={`mailto:${shared.siteConfig.contact.email}`}><EnvelopeSimple size={18} /> {content.location.emailCtaLabel}</a>
           </div>
         </div>
         <div className="join-map">
-          <iframe src={siteConfig.contact.mapEmbedUrl} title="Mapa z siedzibą Zespołu Pieśni i Tańca Halka w Lublińcu" loading="lazy" referrerPolicy="no-referrer-when-downgrade" />
+          <iframe src={shared.siteConfig.contact.mapEmbedUrl} title={ui["map.title"]} loading="lazy" referrerPolicy="no-referrer-when-downgrade" />
         </div>
       </section>
 
       <footer className="join-footer join-shell">
-        <Link className="home-v2-footer-brand" href="/"><img src="/logo.jpg" alt="Logo Zespołu Pieśni i Tańca Halka" width="58" height="58" /><span><strong>HALKA</strong><small>Od 1948 roku tańczymy razem.</small></span></Link>
-        <nav aria-label="Nawigacja w stopce">{mainNavigation.map((item) => <Link href={item.href} key={item.href}>{item.label}</Link>)}</nav>
-        <p>© {new Date().getFullYear()} ZPiT Halka</p>
+        <Link className="home-v2-footer-brand" href="/"><img src="/logo.jpg" alt={shared.footer.logoAlt} width="58" height="58" /><span><strong>{shared.footer.brand}</strong><small>{shared.footer.tagline}</small></span></Link>
+        <nav aria-label={shared.header.navigationLabel}>{shared.mainNavigation.map((item) => <Link href={item.href} key={item.href}>{item.label}</Link>)}</nav>
+        <p>© {new Date().getFullYear()} {shared.footer.copyrightShort}</p>
       </footer>
     </main>
   );

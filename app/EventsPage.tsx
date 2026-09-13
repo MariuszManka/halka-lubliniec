@@ -10,17 +10,11 @@ import {
   MapPin,
   Ticket,
 } from "@phosphor-icons/react";
-import { calendarEvents, eventGroups, type CalendarEvent } from "../content/events";
-import { ensembleGroups, mainNavigation, siteConfig } from "../content/site-config";
+import type { CalendarEvent } from "../content/events";
+import type { EventsPageCmsContent, SharedContent } from "../sanity/content";
 import { PageHero } from "./PageHero";
 import { SiteHeader } from "./SiteHeader";
 import { ScrollRosettes } from "./FolkRosette";
-
-const monthNames = [
-  "Styczeń", "Luty", "Marzec", "Kwiecień", "Maj", "Czerwiec",
-  "Lipiec", "Sierpień", "Wrzesień", "Październik", "Listopad", "Grudzień",
-];
-const weekdayNames = ["Pon", "Wt", "Śr", "Czw", "Pt", "Sob", "Nie"];
 
 const dateFormatter = new Intl.DateTimeFormat("pl-PL", { day: "numeric", month: "long", year: "numeric" });
 const shortDateFormatter = new Intl.DateTimeFormat("pl-PL", { day: "numeric", month: "short" });
@@ -31,14 +25,17 @@ const formatDate = (event: CalendarEvent) => {
   return `${shortDateFormatter.format(new Date(`${event.date}T12:00:00`))} - ${dateFormatter.format(new Date(`${event.endDate}T12:00:00`))}`;
 };
 
-const formatTime = (event: CalendarEvent) => {
-  if (!event.time) return "Godzina zostanie podana";
+const formatTime = (event: CalendarEvent, unknownLabel: string) => {
+  if (!event.time) return unknownLabel;
   return event.endTime ? `${event.time} - ${event.endTime}` : event.time;
 };
 
 const monthKey = (event: CalendarEvent) => event.date.slice(0, 7);
 
-export function EventsPage() {
+export function EventsPage({ content, shared }: { content: EventsPageCmsContent; shared: SharedContent }) {
+  const { copy, calendarEvents, eventGroups } = content;
+  const monthNames = copy["calendar.months"].split("|");
+  const weekdayNames = copy["calendar.weekdays"].split("|");
   const today = new Date().toISOString().slice(0, 10);
   const currentMonth = today.slice(0, 7);
 
@@ -68,26 +65,26 @@ export function EventsPage() {
 
   return (
     <main className="events-page">
-      <a className="events-skip-link" href="#events-content">Przejdź do wydarzeń</a>
+      <a className="events-skip-link" href="#events-content">{copy["skipLabel"]}</a>
       <ScrollRosettes />
 
-      <SiteHeader activeHref="/wydarzenia" />
+      <SiteHeader activeHref="/wydarzenia" shared={shared} />
 
       <PageHero
         id="events-content"
         titleId="events-title"
-        eyebrow="Kalendarz"
-        title={<><span>Zobacz nas</span><em>na żywo.</em></>}
-        lead="Występy, warsztaty i stały plan prób — wszystkie terminy, których naprawdę potrzebujesz, w jednym miejscu."
+        eyebrow={copy["hero.eyebrow"]}
+        title={<><span>{copy["hero.title"]}</span><em>{copy["hero.titleAccent"]}</em></>}
+        lead={copy["hero.lead"]}
         actions={
           <>
-            <a href="#najblizsze">Najbliższe wydarzenia <ArrowRight size={18} weight="bold" aria-hidden="true" /></a>
-            <a href="#proby">Sprawdź próby</a>
+            <a href="#najblizsze">{copy["hero.primaryCta"]} <ArrowRight size={18} weight="bold" aria-hidden="true" /></a>
+            <a href="#proby">{copy["hero.secondaryCta"]}</a>
           </>
         }
         image={{
           src: "/gallery/tydzien-kultury-beskidzkiej-2026/01.webp",
-          alt: "Tancerze Halki podczas Tygodnia Kultury Beskidzkiej",
+          alt: copy["hero.imageAlt"],
           width: 1400,
           height: 933,
           position: "50% 42%",
@@ -121,8 +118,8 @@ export function EventsPage() {
 
       <section className="events-upcoming events-shell" id="najblizsze" aria-labelledby="upcoming-title">
         <div className="events-section-heading">
-          <p>Najbliższe występy</p>
-          <h2 id="upcoming-title">Gdzie nas zobaczysz.</h2>
+          <p>{copy["upcoming.eyebrow"]}</p>
+          <h2 id="upcoming-title">{copy["upcoming.title"]}</h2>
         </div>
 
         {upcoming.length ? (
@@ -141,10 +138,10 @@ export function EventsPage() {
                     {event.note && <p>{event.note}</p>}
                   </div>
                   <div className="events-upcoming-place">
-                    <span><Clock size={18} aria-hidden="true" /> {formatTime(event)}</span>
+                    <span><Clock size={18} aria-hidden="true" /> {formatTime(event, copy["timeUnknown"])}</span>
                     <span><MapPin size={18} aria-hidden="true" /> {event.location}</span>
                   </div>
-                  <div className="events-group-list" aria-label="Występujące grupy">
+                  <div className="events-group-list" aria-label={copy["calendar.performingGroupsLabel"]}>
                     {event.groups.map((group) => <span key={group}>{eventGroups[group].label}</span>)}
                   </div>
                 </article>
@@ -154,7 +151,7 @@ export function EventsPage() {
         ) : (
           <div className="events-empty-state">
             <CalendarBlank size={30} weight="duotone" aria-hidden="true" />
-            <div><h3>Czekamy na potwierdzenie terminów.</h3><p>Nowe występy pojawią się tutaj, gdy tylko zostaną ustalone.</p></div>
+            <div><h3>{copy["upcoming.emptyTitle"]}</h3><p>{copy["upcoming.emptyText"]}</p></div>
           </div>
         )}
       </section>
@@ -162,12 +159,12 @@ export function EventsPage() {
       <section className="events-calendar-section" id="kalendarz" aria-labelledby="calendar-title">
         <div className="events-shell">
           <div className="events-calendar-heading">
-            <p>Pełny terminarz</p>
-            <h2 id="calendar-title">Wybierz miesiąc.</h2>
-            <span>Wybierz miesiąc, aby sprawdzić występy, warsztaty i regularne próby.</span>
+            <p>{copy["calendar.eyebrow"]}</p>
+            <h2 id="calendar-title">{copy["calendar.title"]}</h2>
+            <span>{copy["calendar.lead"]}</span>
           </div>
 
-          <div className="events-month-tabs" role="group" aria-label="Wybierz miesiąc">
+          <div className="events-month-tabs" role="group" aria-label={copy["calendar.selectMonthLabel"]}>
             {months.map((key) => {
               const [tabYear, tabMonth] = key.split("-").map(Number);
               return (
@@ -193,7 +190,7 @@ export function EventsPage() {
                     <div className={dayEvents.length ? "events-calendar-day has-events" : "events-calendar-day"} role="gridcell" key={date}>
                       <time dateTime={date}>{day}</time>
                       <div>
-                        {dayEvents.slice(0, 2).map((event) => <span className={`events-calendar-entry events-calendar-entry-${event.kind.toLowerCase()}`} title={`${event.title}, ${formatTime(event)}`} key={event.id}>{event.time ?? ""} {event.title}</span>)}
+                        {dayEvents.slice(0, 2).map((event) => <span className={`events-calendar-entry events-calendar-entry-${event.kind.toLowerCase()}`} title={`${event.title}, ${formatTime(event, copy["timeUnknown"])}`} key={event.id}>{event.time ?? ""} {event.title}</span>)}
                         {dayEvents.length > 2 && <small>+{dayEvents.length - 2}</small>}
                       </div>
                     </div>
@@ -207,10 +204,10 @@ export function EventsPage() {
               {selectedPublicEvents.length ? selectedPublicEvents.map((event) => (
                 <article key={event.id}>
                   <time dateTime={event.date}>{shortDateFormatter.format(new Date(`${event.date}T12:00:00`))}</time>
-                  <div><span>{event.kind}</span><h3>{event.title}</h3><p>{formatTime(event)}, {event.location}</p></div>
+                  <div><span>{event.kind}</span><h3>{event.title}</h3><p>{formatTime(event, copy["timeUnknown"])}, {event.location}</p></div>
                 </article>
-              )) : <p className="events-agenda-empty">W tym miesiącu nie ma jeszcze opublikowanych wydarzeń.</p>}
-              {selectedPracticeCount > 0 && <p className="events-agenda-note">Regularne próby ({selectedPracticeCount}) są zaznaczone w kalendarzu. Ich stałe godziny znajdziesz poniżej.</p>}
+              )) : <p className="events-agenda-empty">{copy["calendar.empty"]}</p>}
+              {selectedPracticeCount > 0 && <p className="events-agenda-note">{copy["calendar.practiceNote"].replace("{count}", String(selectedPracticeCount))}</p>}
             </aside>
           </div>
         </div>
@@ -220,8 +217,8 @@ export function EventsPage() {
         <section className='events-past-outer-wrapper' aria-labelledby="past-title">
           <div className="events-past events-shell" >
               <summary>
-                <span><small>Archiwum {today.slice(0, 4)}</small><strong id="past-title">Minione wydarzenia</strong></span>
-                <span className="events-past-summary-action">Pokaż listę <ArrowRight size={18} aria-hidden="true" /></span>
+                <span><small>{copy["archive.label"].replace("{year}", today.slice(0, 4))}</small><strong id="past-title">{copy["archive.title"]}</strong></span>
+                <span className="events-past-summary-action">{copy["archive.action"]} <ArrowRight size={18} aria-hidden="true" /></span>
               </summary>
           </div>
         </section>
@@ -231,19 +228,19 @@ export function EventsPage() {
       <section className="events-practices-outer-wrapper" id="proby" aria-labelledby="practices-title">
         <div className="events-practices events-shell">
           <div className="events-practices-intro">
-            <p>Stały plan</p>
-            <h2 id="practices-title">Próby w Lublińcu.</h2>
-            <span>Wszystkie grupy spotykają się w siedzibie zespołu przy ul. Stalmacha 12.</span>
-            <a href={siteConfig.contact.mapUrl} target="_blank" rel="noreferrer"><MapPin size={18} aria-hidden="true" /> Pokaż siedzibę na mapie <ArrowUpRight size={16} aria-hidden="true" /></a>
+            <p>{copy["practices.eyebrow"]}</p>
+            <h2 id="practices-title">{copy["practices.title"]}</h2>
+            <span>{copy["practices.lead"]}</span>
+            <a href={shared.siteConfig.contact.mapUrl} target="_blank" rel="noreferrer"><MapPin size={18} aria-hidden="true" /> {copy["practices.mapCta"]} <ArrowUpRight size={16} aria-hidden="true" /></a>
           </div>
           <div className="events-practice-grid">
-            {ensembleGroups.map((group) => (
+            {shared.ensembleGroups.map((group) => (
               <article key={group.id}>
                 <span>{group.age}</span>
                 <h3>{group.name}</h3>
                 <p>{group.activity}</p>
                 <strong><CalendarBlank size={19} aria-hidden="true" /> {group.schedule}</strong>
-                <Link href={`/dolacz#${group.id}`}>Informacje o grupie <ArrowRight size={16} aria-hidden="true" /></Link>
+                <Link href={`/dolacz#${group.id}`}>{copy["practices.groupCta"]} <ArrowRight size={16} aria-hidden="true" /></Link>
               </article>
             ))}
           </div>
@@ -252,15 +249,15 @@ export function EventsPage() {
 
       <section className="events-cta" aria-labelledby="events-cta-title">
         <div className="events-shell">
-          <div><p>Organizujesz wydarzenie?</p><h2 id="events-cta-title">Halka może wystąpić także u Ciebie.</h2></div>
-          <Link className="events-button events-button-on-green" href="/zapros-halke">Poznaj ofertę <ArrowRight size={18} aria-hidden="true" /></Link>
+          <div><p>{copy["cta.eyebrow"]}</p><h2 id="events-cta-title">{copy["cta.title"]}</h2></div>
+          <Link className="events-button events-button-on-green" href="/zapros-halke">{copy["cta.label"]} <ArrowRight size={18} aria-hidden="true" /></Link>
         </div>
       </section>
 
       <footer className="events-footer events-shell">
-        <Link className="home-v2-footer-brand" href="/"><img src="/logo.jpg" alt="Logo Zespołu Pieśni i Tańca Halka" width="58" height="58" /><span><strong>HALKA</strong><small>Od 1948 roku tańczymy razem.</small></span></Link>
-        <nav aria-label="Nawigacja w stopce">{mainNavigation.map((item) => <Link href={item.href} key={item.href}>{item.label}</Link>)}</nav>
-        <p>© {new Date().getFullYear()} ZPiT Halka</p>
+        <Link className="home-v2-footer-brand" href="/"><img src="/logo.jpg" alt={shared.footer.logoAlt} width="58" height="58" /><span><strong>{shared.footer.brand}</strong><small>{shared.footer.tagline}</small></span></Link>
+        <nav aria-label={shared.header.navigationLabel}>{shared.mainNavigation.map((item) => <Link href={item.href} key={item.href}>{item.label}</Link>)}</nav>
+        <p>© {new Date().getFullYear()} {shared.footer.copyrightShort}</p>
       </footer>
     </main>
   );

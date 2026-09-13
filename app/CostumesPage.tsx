@@ -13,10 +13,9 @@ import {
   Stack,
   X,
 } from "@phosphor-icons/react";
-import { costumeFacts, costumeLooks } from "../content/costumes";
 import { costumeModalImages } from "../content/generated-costume-modal";
 import { sessionImages } from "../content/generated-session";
-import { mainNavigation } from "../content/site-config";
+import type { CostumesPageCmsContent, SharedContent } from "../sanity/content";
 import { SiteHeader } from "./SiteHeader";
 import { PageHero } from "./PageHero";
 import { ScrollRosettes } from "./FolkRosette";
@@ -113,7 +112,8 @@ function CostumeDivider() {
   );
 }
 
-export function CostumesPage() {
+export function CostumesPage({ content, shared }: { content: CostumesPageCmsContent; shared: SharedContent }) {
+  const { copy, costumeFacts, costumeLooks } = content;
   const reduce = useReducedMotion();
   const modalRef = useRef<HTMLElement>(null);
   const previousFocusRef = useRef<HTMLElement | null>(null);
@@ -200,30 +200,30 @@ export function CostumesPage() {
     <main className="costumes-page">
       <ScrollRosettes />
 
-      <SiteHeader activeHref="/kostiumy" />
+      <SiteHeader activeHref="/kostiumy" shared={shared} />
 
       <PageHero
         titleId="costumes-title"
-        eyebrow={"Nasze stroje"}
-        title={<span>Poznaj nasze <em>stroje.</em></span>}
-        lead="Każdy region ma własne kolory, hafty i detale. Zobacz stroje, w których występujemy — od ludowych ubiorów regionalnych po kostiumy historyczne."
+        eyebrow={copy["hero.eyebrow"]}
+        title={<span>{copy["hero.title"]} <em>{copy["hero.titleAccent"]}</em></span>}
+        lead={copy["hero.lead"]}
         actions={<>
-          <a href="#kolekcja">Sprawdź stroje</a>
-          <a href="#detale">Zobacz detale</a>
+          <a href="#kolekcja">{copy["hero.primaryCta"]}</a>
+          <a href="#detale">{copy["hero.secondaryCta"]}</a>
         </>}
-        image={{ src: "/costume-heading.webp", alt: "Tancerka Halki w stroj cieszyńskim", width: 2172, height: 724, position: "76% 50%" }}
+        image={{ src: "/costume-heading.webp", alt: copy["hero.imageAlt"], width: 2172, height: 724, position: "76% 50%" }}
       />
 
       <section className="costumes-intro section-shell" aria-labelledby="costumes-intro-title">
         <Reveal className="costumes-intro-title">
-          <h2 id="costumes-intro-title">Nie tylko ubiór.<br /><em>Część opowieści.</em></h2>
+          <h2 id="costumes-intro-title">{copy["intro.title"]}<br /><em>{copy["intro.titleAccent"]}</em></h2>
         </Reveal>
         <Reveal className="costumes-intro-copy" delay={0.08}>
-          <p>Kostium porządkuje obraz zespołu, podkreśla gest i pozwala rozpoznać charakter scenicznej opowieści. To, co z widowni tworzy jedną barwną całość, z bliska okazuje się kompozycją wielu warstw.</p>
+          <p>{copy["intro.text"]}</p>
           <div className="costumes-intro-facts">
-            <span><Stack size={22} /><strong>Warstwy</strong><small>forma i proporcja</small></span>
-            <span><Palette size={22} /><strong>Kolor</strong><small>rytm i kontrast</small></span>
-            <span><PersonArmsSpread size={22} /><strong>Ruch</strong><small>kostium na scenie</small></span>
+            <span><Stack size={22} /><strong>{copy["intro.layerTitle"]}</strong><small>{copy["intro.layerText"]}</small></span>
+            <span><Palette size={22} /><strong>{copy["intro.colorTitle"]}</strong><small>{copy["intro.colorText"]}</small></span>
+            <span><PersonArmsSpread size={22} /><strong>{copy["intro.motionTitle"]}</strong><small>{copy["intro.motionText"]}</small></span>
           </div>
         </Reveal>
       </section>
@@ -231,19 +231,19 @@ export function CostumesPage() {
       <section className="costume-catalogue section-shell" id="kolekcja" aria-labelledby="costume-catalogue-title">
         <Reveal className="costume-catalogue-heading">
           <div>
-            <h2 id="costume-catalogue-title">Wybierz region.</h2>
+            <h2 id="costume-catalogue-title">{copy["catalogue.title"]}</h2>
           </div>
-          <p>Najpierw wybierz stroje damskie lub męskie, potem otwórz region i zobacz pełne sylwetki oraz detale.</p>
+          <p>{copy["catalogue.lead"]}</p>
         </Reveal>
 
         <Reveal className="costume-catalogue-toolbar" delay={0.06}>
-          <div className={`costume-catalogue-groups is-${catalogueGroup}`} role="tablist" aria-label="Rodzaj stroju">
-            <button type="button" role="tab" aria-selected={catalogueGroup === "female"} className={catalogueGroup === "female" ? "active" : ""} onClick={() => chooseCatalogueGroup("female")}>Stroje damskie</button>
-            <button type="button" role="tab" aria-selected={catalogueGroup === "male"} className={catalogueGroup === "male" ? "active" : ""} onClick={() => chooseCatalogueGroup("male")}>Stroje męskie</button>
+          <div className={`costume-catalogue-groups is-${catalogueGroup}`} role="tablist" aria-label={copy["catalogue.typeLabel"]}>
+            <button type="button" role="tab" aria-selected={catalogueGroup === "female"} className={catalogueGroup === "female" ? "active" : ""} onClick={() => chooseCatalogueGroup("female")}>{copy["catalogue.female"]}</button>
+            <button type="button" role="tab" aria-selected={catalogueGroup === "male"} className={catalogueGroup === "male" ? "active" : ""} onClick={() => chooseCatalogueGroup("male")}>{copy["catalogue.male"]}</button>
           </div>
         </Reveal>
 
-        <div className="costume-look-grid" role="list" aria-label="Kategorie kostiumów">
+        <div className="costume-look-grid" role="list" aria-label={copy["catalogue.categoriesLabel"]}>
           <AnimatePresence mode="popLayout" initial={false}>
             {visibleLooks.map(({ item, index }, visibleIndex) => {
               const catalogueModalSet = costumeModalImages[item.galleryKey as keyof typeof costumeModalImages];
@@ -265,7 +265,7 @@ export function CostumesPage() {
                     className={`costume-look-card ${activeLook === index ? "active" : ""}`}
                     onClick={() => chooseLook(index, catalogueGroup)}
                     aria-pressed={activeLook === index}
-                    aria-label={`Otwórz ${item.title}, ${catalogueGroup === "female" ? "stroje damskie" : "stroje męskie"}`}
+                    aria-label={`${copy["catalogue.open"]} ${item.title}, ${catalogueGroup === "female" ? copy["catalogue.female"] : copy["catalogue.male"]}`}
                   >
                     <CostumePreviewImage name={preview ?? item.images[0]} />
                     <span className="costume-look-meta">
@@ -306,8 +306,8 @@ export function CostumesPage() {
               transition={{ duration: 0.42, ease: [0.16, 1, 0.3, 1] }}
             >
               <header className="costume-modal-header">
-                <span>{look.eyebrow}<b>{activeGroup === "female" ? "Strój damski" : "Strój męski"}</b></span>
-                <button type="button" onClick={() => setActiveLook(null)} aria-label="Zamknij prezentację stroju" autoFocus>
+                <span>{look.eyebrow}<b>{activeGroup === "female" ? copy["modal.female"] : copy["modal.male"]}</b></span>
+                <button type="button" onClick={() => setActiveLook(null)} aria-label={copy["modal.close"]} autoFocus>
                   <X size={22} />
                 </button>
               </header>
@@ -328,9 +328,9 @@ export function CostumesPage() {
                   </AnimatePresence>
                   {gallery.length > 1 && (
                     <div className="costume-modal-arrows">
-                      <button type="button" onClick={() => changePhoto(-1)} aria-label="Poprzednie zdjęcie"><ArrowLeft size={20} /></button>
+                      <button type="button" onClick={() => changePhoto(-1)} aria-label={copy["modal.previous"]}><ArrowLeft size={20} /></button>
                       <span>{String(activePhoto + 1).padStart(2, "0")} / {String(gallery.length).padStart(2, "0")}</span>
-                      <button type="button" onClick={() => changePhoto(1)} aria-label="Następne zdjęcie"><ArrowRight size={20} /></button>
+                      <button type="button" onClick={() => changePhoto(1)} aria-label={copy["modal.next"]}><ArrowRight size={20} /></button>
                     </div>
                   )}
                 </div>
@@ -339,15 +339,15 @@ export function CostumesPage() {
                   <h3 id="costume-modal-title">{look.title}</h3>
                   <p id="costume-modal-description">{look.description}</p>
 
-                  <div className={`costume-modal-groups is-${activeGroup}`} role="tablist" aria-label="Wersja stroju">
+                  <div className={`costume-modal-groups is-${activeGroup}`} role="tablist" aria-label={copy["modal.versionLabel"]}>
                     {femaleGallery.length ? (
                       <button type="button" role="tab" aria-selected={activeGroup === "female"} className={activeGroup === "female" ? "active" : ""} onClick={() => chooseGroup("female")}>
-                        <span>Strój damski</span><small aria-label={`${femaleGallery.length} zdjęć`}>{femaleGallery.length}</small>
+                        <span>{copy["modal.female"]}</span><small aria-label={`${femaleGallery.length} ${copy["modal.photosLabel"]}`}>{femaleGallery.length}</small>
                       </button>
                     ) : null}
                     {maleGallery.length ? (
                       <button type="button" role="tab" aria-selected={activeGroup === "male"} className={activeGroup === "male" ? "active" : ""} onClick={() => chooseGroup("male")}>
-                        <span>Strój męski</span><small aria-label={`${maleGallery.length} zdjęć`}>{maleGallery.length}</small>
+                        <span>{copy["modal.male"]}</span><small aria-label={`${maleGallery.length} ${copy["modal.photosLabel"]}`}>{maleGallery.length}</small>
                       </button>
                     ) : null}
                   </div>
@@ -356,12 +356,12 @@ export function CostumesPage() {
                     {look.details.map((detail) => <li key={detail}><Check size={16} weight="bold" /> {detail}</li>)}
                   </ul>
 
-                  <div className="costume-modal-thumbnails" role="tabpanel" aria-label={`${activeGroup === "female" ? "Strój damski" : "Strój męski"}: ${look.title}`}>
+                  <div className="costume-modal-thumbnails" role="tabpanel" aria-label={`${activeGroup === "female" ? copy["modal.female"] : copy["modal.male"]}: ${look.title}`}>
                     {gallery.map((imageName, index) => (
                       <button
                         type="button"
                         className={activePhoto === index ? "active" : ""}
-                        aria-label={`Pokaż zdjęcie ${index + 1}`}
+                        aria-label={`${copy["modal.showPhoto"]} ${index + 1}`}
                         aria-pressed={activePhoto === index}
                         onClick={() => setActivePhoto(index)}
                         key={imageName}
@@ -379,7 +379,7 @@ export function CostumesPage() {
 
       <section className="costume-anatomy section-shell" aria-labelledby="costume-anatomy-title" id="detale">
         <Reveal className="costume-anatomy-heading">
-          <h2 id="costume-anatomy-title">To detal buduje całość.</h2>
+          <h2 id="costume-anatomy-title">{copy["details.title"]}</h2>
         </Reveal>
         <div className="costume-anatomy-grid">
           {costumeFacts.map((fact, index) => (
@@ -400,13 +400,13 @@ export function CostumesPage() {
 
       <footer className="footer section-shell">
         <div className="footer-brand">
-          <img src="/logo.jpg" alt="Logo Zespołu Pieśni i Tańca Halka" width="70" height="70" />
-          <div><strong>HALKA</strong><span>Pieśń. Taniec. Pokolenia.</span></div>
+          <img src="/logo.jpg" alt={shared.footer.logoAlt} width="70" height="70" />
+          <div><strong>{shared.footer.brand}</strong><span>{shared.footer.longTagline}</span></div>
         </div>
         <div className="footer-links">
-          {mainNavigation.map((item) => <Link key={item.href} href={item.href}>{item.label}</Link>)}
+          {shared.mainNavigation.map((item) => <Link key={item.href} href={item.href}>{item.label}</Link>)}
         </div>
-        <p>© 2026 Zespół Pieśni i Tańca Halka w Lublińcu</p>
+        <p>© 2026 {shared.footer.copyrightLong}</p>
       </footer>
     </main>
   );
