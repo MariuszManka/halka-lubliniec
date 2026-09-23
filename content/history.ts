@@ -15,6 +15,7 @@ export type HistoryChapter = {
   layout?: "pair" | "wide" | "portrait";
   note?: { title: string; text: string };
   sourcePages: number[];
+  textFullWidth?: boolean;
 };
 const photo = (file: string, width: number, height: number, alt: string, caption: string): HistoryPhoto => ({
   src: `/history/${file}.webp`, width, height, alt, caption,
@@ -63,6 +64,7 @@ export const historyChapters: HistoryChapter[] = [
     ],
     photos: [photo("wernigerode-1970", 1601, 1020, "Tancerki w wirujących spódnicach podczas występu na rynku w Wernigerode", "1970. Koncert w Wernigerode, ówczesna NRD."), photo("jubileusz-1978", 1601, 1074, "Zespół Halka na scenie podczas koncertu z okazji trzydziestolecia", "1978. Trzydzieści lat Halki na scenie.")],
     layout: "pair", sourcePages: [5, 6, 7],
+    textFullWidth: true,
   },
   {
     id: "przyjaznie", years: "1981–1988", label: "Ponad granicami", title: "Podróże, z których zostają przyjaźnie",
@@ -72,6 +74,7 @@ export const historyChapters: HistoryChapter[] = [
     ],
     photos: [photo("krems-1981", 1601, 1049, "Członkowie Halki w strojach ludowych na ulicy austriackiego Krems", "1981. Halka w Krems, Austria."), photo("jubileusz-1983", 1601, 909, "Wspólny portret członków zespołu na scenie pod napisem 35 lat w służbie kultury", "1983. Pamiątka jubileuszu 35-lecia.")],
     layout: "pair", sourcePages: [8, 11],
+    textFullWidth: true,
   },
   {
     id: "pokolenia", years: "1990–2003", label: "Kolejne pokolenie", title: "Pół wieku i nowe twarze",
@@ -90,6 +93,7 @@ export const historyChapters: HistoryChapter[] = [
     ],
     photos: [photo("mala-halka-2005-2007", 1601, 1101, "Dzieci z Małej Halki w strojach ludowych pozujące na trawie w Kokotku", "2005–2007. „Mała Halka” w Kokotku."), photo("opawa-2010", 1601, 1087, "Młodzi członkowie Halki w strojach ludowych z biało-czerwoną flagą w Opawie", "2010. Przegląd folklorystyczny w Opawie.")],
     layout: "pair", sourcePages: [10],
+    textFullWidth: true,
   },
   {
     id: "jubileusze", years: "2013–2018", label: "Wspólna scena", title: "Siedemdziesiąt lat razem",
@@ -115,5 +119,6 @@ export const historyChapters: HistoryChapter[] = [
       photo("halka-wisla", 2500, 1667, "Członkowie Halki w strojach ludowych pozują do wspólnego zdjęcia w Wiśle", "Halka w Wiśle podczas Tygodnia Kultury Beskidzkiej."),
     ],
     layout: "wide", sourcePages: [],
+    textFullWidth: true,
   },
 ];

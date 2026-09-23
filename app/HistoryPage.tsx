@@ -100,7 +100,7 @@ export function HistoryPage({ shared }: { shared: SharedContent }) {
             <div className="history-story">
               {historyChapters.map((chapter) => (
                 <div id={chapter.id} className={`history-chapter history-chapter--${chapter.layout ?? "split"}`} key={chapter.id} aria-labelledby={`${chapter.id}-title`}>
-                  <div className="history-chapter-copy">
+                  <div className={`history-chapter-copy ${chapter.textFullWidth ? "history-chapter-copy--full" : ""}`}>
                     <p className="history-years">{chapter.years}</p>
                     <h2 id={`${chapter.id}-title`}>{chapter.title}</h2>
                     {chapter.paragraphs.map((paragraph) => <p key={paragraph}>{paragraph}</p>)}

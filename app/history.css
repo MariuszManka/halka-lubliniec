@@ -54,6 +54,8 @@ html:has(.history-page) { scroll-padding-top: 0; }
 .history-story { min-width: 0; }
 .history-chapter { position: relative; display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); align-items: start; gap: 42px; margin-bottom: clamp(80px, 9vw, 135px); scroll-margin-top: 40px; }
 .history-chapter-copy { min-width: 0; }
+.history-chapter-copy--full { max-width: none !important; }
+.history-chapter-copy--full > p { max-width: none !important; }
 .history-years { margin: 0 0 17px; font-family: var(--font-display), Georgia, serif; font-size: clamp(1.85rem, 2.7vw, 2.65rem); font-weight: 420; color: var(--v2-red-dark); font-variant-numeric: lining-nums; line-height: 1.15; }
 .history-chapter h2 { margin: 0 0 23px; font-family: var(--font-display), Georgia, serif; font-size: clamp(1.9rem, 3vw, 2.8rem); font-weight: 470; letter-spacing: -0.025em; line-height: 1.1; text-wrap: balance; }
 .history-chapter-copy > p:not(.history-years) { max-width: 65ch; margin: 0 0 18px; font-size: 1rem; line-height: 1.85; text-wrap: pretty; }
@@ -76,7 +78,7 @@ html:has(.history-page) { scroll-padding-top: 0; }
 #przyjaznie .history-photo:nth-child(2) { margin-top: 85px; }
 #dzisiaj { margin-bottom: 50px; }
 #dzisiaj .history-chapter-copy { max-width: 780px; }
-#dzisiaj .history-chapter-photos { display: block; width: min(100%, 900px); margin: 16px auto 0; padding: 0 18px; columns: 2; column-gap: 24px; }
+#dzisiaj .history-chapter-photos { display: block; margin: 16px auto 0; columns: 2; column-gap: 24px; }
 #dzisiaj .history-photo { display: inline-block; width: 100%; margin: 0 0 24px; break-inside: avoid; }
 #dzisiaj .history-photo:nth-child(2) { margin-top: 42px; }
 #dzisiaj .history-photo-button { overflow: hidden; }
@@ -143,7 +145,7 @@ html:has(.history-page) { scroll-padding-top: 0; }
   .history-chapter--pair .history-photo:nth-child(2), #przyjaznie .history-photo:nth-child(2) { margin-top: 0; }
   .history-chapter--portrait .history-chapter-photos { gap: 14px; }
   .history-cover-photo .history-photo-button { padding: 7px; }
-  #dzisiaj .history-chapter-photos { width: min(100%, 430px); padding-inline: 8px; columns: 1; }
+  #dzisiaj .history-chapter-photos { padding-inline: 8px; columns: 1; }
   #dzisiaj .history-photo, #dzisiaj .history-photo:nth-child(2) { margin: 0 0 22px; }
 }
 @media (prefers-reduced-motion: reduce) {
