@@ -76,9 +76,13 @@ html:has(.history-page) { scroll-padding-top: 0; }
 #przyjaznie .history-photo:nth-child(2) { margin-top: 85px; }
 #dzisiaj { margin-bottom: 50px; }
 #dzisiaj .history-chapter-copy { max-width: 780px; }
-#dzisiaj .history-chapter-photos { grid-template-columns: 1fr 1fr; gap: 26px 22px; width: min(100%, 820px); margin-inline: auto; }
-#dzisiaj .history-photo:first-child { grid-column: 1 / -1; width: min(100%, 680px); }
+#dzisiaj .history-chapter-photos { display: block; width: min(100%, 900px); margin: 16px auto 0; padding: 0 18px; columns: 2; column-gap: 24px; }
+#dzisiaj .history-photo { display: inline-block; width: 100%; margin: 0 0 24px; break-inside: avoid; }
 #dzisiaj .history-photo:nth-child(2) { margin-top: 42px; }
+#dzisiaj .history-photo-button { overflow: hidden; }
+#dzisiaj .history-photo img { aspect-ratio: 4 / 3; object-fit: cover; }
+#dzisiaj .history-photo:nth-child(2) img,
+#dzisiaj .history-photo:nth-child(3) img { aspect-ratio: 3 / 2; }
 .history-afterword { padding-block: 15px 45px; }
 .history-afterword > p { margin: 0 0 18px; font-family: var(--font-display), Georgia, serif; font-size: clamp(1.75rem, 3vw, 2.5rem); font-weight: 450; line-height: 1.25; text-wrap: balance; }
 .history-afterword a { display: inline-flex; align-items: center; gap: 12px; min-height: 44px; font-size: 0.9rem; font-weight: 700; }
@@ -139,9 +143,8 @@ html:has(.history-page) { scroll-padding-top: 0; }
   .history-chapter--pair .history-photo:nth-child(2), #przyjaznie .history-photo:nth-child(2) { margin-top: 0; }
   .history-chapter--portrait .history-chapter-photos { gap: 14px; }
   .history-cover-photo .history-photo-button { padding: 7px; }
-  #dzisiaj .history-chapter-photos { grid-template-columns: 1fr; }
-  #dzisiaj .history-photo:first-child { grid-column: auto; width: 100%; }
-  #dzisiaj .history-photo:nth-child(2) { margin-top: 0; }
+  #dzisiaj .history-chapter-photos { width: min(100%, 430px); padding-inline: 8px; columns: 1; }
+  #dzisiaj .history-photo, #dzisiaj .history-photo:nth-child(2) { margin: 0 0 22px; }
 }
 @media (prefers-reduced-motion: reduce) {
   html:has(.history-page) { scroll-behavior: auto; }
