@@ -1,5 +1,13 @@
 # Źródła lokalnej podstrony /historia
 
+## Mapa podróży
+
+`content/history-journeys.ts` opiera się na planszy „Najdalsze podróże”, s. 11: Austria (Krems, 1981), Belgia (1991), Bułgaria (1979), Czechy (Opawa, 2010), Finlandia (Tampere, 1980; Finlandia, 1988), Francja (1987), Gruzja (Tbilisi, 1969), Niemcy (Berlin, 1979), Norwegia (bez daty na tej planszy), Rumunia (1974), Ukraina (Tarnopol, 2010), Węgry (Budapeszt, 1970 i 1972; Mohacz, 1972). To 12 krajów zagranicznych, nie deklaracja wszystkich krajów odwiedzonych w całej historii. Polska jest punktem odniesienia, nie trzynastym kierunkiem zagranicznym. O wyjeździe Małej Halki do Tarnopola mówi także s. 10.
+
+Pinezki są umownymi punktami w obrębie państw, nie geokodowanymi miejscami koncertów. Nie dopisano daty Norwegii ani miejscowości tam, gdzie plansza podaje wyłącznie kraj. Mapa wykorzystuje współczesny podkład Natural Earth 1:50m (public domain), pobrany z https://raw.githubusercontent.com/nvkelso/natural-earth-vector/master/geojson/ne_50m_admin_0_countries.geojson i przeliczony przez `scripts/generate-history-map.mjs`. Geometria jest lokalna; brak zewnętrznych zapytań mapowych, kluczy API i integracji z Sanity.
+
+## Historia i fotografie
+
 Źródło: `ASSETS/wystawa.pdf` (13 stron). Wystawa opracowana z materiałów archiwalnych ZPiT Halka; projekt graficzny: Urząd Miejski w Lublińcu, Wydział Dialogu Obywatelskiego.
 
 Treść: `content/history.ts`. Pole `sourcePages` wskazuje strony PDF dla każdego fragmentu. Daty sprawdzono wizualnie w kolumnach plansz, a nie wyłącznie w wyciągniętym tekście. Opowieść obejmuje lata 1948–2018; nie dopisuje współczesnych wydarzeń. Sformułowania „nadal” z historycznej planszy personalnej nie są traktowane jako aktualne informacje.

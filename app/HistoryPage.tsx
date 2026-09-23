@@ -8,6 +8,7 @@ import { historyChapters, openingPhoto, type HistoryPhoto } from "../content/his
 import { SiteHeader } from "./SiteHeader";
 import { ScrollRosettes } from "./FolkRosette";
 import { SiteFooter } from "./SiteFooter";
+import { HistoryMap } from "./HistoryMap";
 
 export function HistoryPage({ shared }: { shared: SharedContent }) {
   const [activeChapter, setActiveChapter] = useState(historyChapters[0].id);
@@ -64,8 +65,8 @@ export function HistoryPage({ shared }: { shared: SharedContent }) {
       <a className="history-skip-link" href="#history-content">Przejdź do historii</a>
       <ScrollRosettes />
       <SiteHeader activeHref="/historia" shared={shared} />
-      <main id="history-content" className="history-shell" tabIndex={-1}>
-        <article aria-labelledby="history-title">
+      <main id="history-content" tabIndex={-1}>
+        <article className="history-shell" aria-labelledby="history-title">
           <header className="history-cover">
             <div className="history-cover-copy">
               <p className="history-kicker">Halka · Lubliniec · od 1948 roku</p>
@@ -124,6 +125,7 @@ export function HistoryPage({ shared }: { shared: SharedContent }) {
             </div>
           </div>
         </article>
+        <HistoryMap />
       </main>
       <SiteFooter shared={shared} />
       <dialog ref={dialogRef} className="history-lightbox" aria-label="Archiwalna fotografia Halki" aria-describedby="history-photo-caption" onClose={() => setSelectedPhoto(null)} onClick={(event) => {
