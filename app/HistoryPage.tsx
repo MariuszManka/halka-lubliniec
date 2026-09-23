@@ -121,6 +121,7 @@ export function HistoryPage({ shared }: { shared: SharedContent }) {
               <footer className="history-source">
                 <p>Opowieść i fotografie na podstawie wystawy „Historia Zespołu Pieśni i Tańca «Halka»”, opracowanej z materiałów archiwalnych zespołu. Projekt graficzny wystawy: Urząd Miejski w Lublińcu, Wydział Dialogu Obywatelskiego.</p>
                 <p>Zachowaliśmy oryginalny charakter fotografii i datowanie podane na planszach.</p>
+                <p>Rozdział „2023–dziś” powstał na podstawie współczesnych materiałów i informacji przekazanych przez zespół.</p>
               </footer>
             </div>
           </div>

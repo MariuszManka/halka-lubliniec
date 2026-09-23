@@ -100,4 +100,19 @@ export const historyChapters: HistoryChapter[] = [
     photos: [photo("jubileusz-2018", 1601, 871, "Wszyscy wykonawcy koncertu jubileuszowego Halki stoją razem na oświetlonej scenie", "2018. Finał koncertu z okazji 70-lecia Halki.")],
     layout: "wide", sourcePages: [10],
   },
+  {
+    id: "dzisiaj", years: "2023–dziś", label: "Tradycja żyje", title: "Historia, która wciąż trwa",
+    paragraphs: [
+      "W 2023 roku Halka oficjalnie stała się jedną z sekcji Miejskiego Domu Kultury w Lublińcu. Pod jego skrzydłami zespół nadal działa, rozwija repertuar i łączy ludzi, dla których wspólne śpiewanie i taniec są czymś więcej niż próbą przed kolejnym koncertem.",
+      "Ten sam rok przyniósł jubileusz 75-lecia. Na scenie Miejskiego Domu Kultury spotkali się członkowie Halki pamiętający zespół z lat 80. i 90. oraz artyści młodego pokolenia. Wspólnie przywrócili scenie odnowione suity z dawnych lat i połączyli je z nowymi aranżacjami, między innymi tańcami i pieśniami cieszyńskimi. Jubileusz miał formę przedstawienia, w którym dialog starszych i młodszych wykonawców przeplatały fragmenty archiwalnych nagrań. Tak opowiedziana została długoletnia historia zespołu — przez głosy i kroki ludzi, którzy tworzyli ją w różnych dekadach.",
+      "Kolejne lata dopisały nowe ważne chwile. W 2024 roku Halka zdobyła Słowika — najwyższe wyróżnienie przeglądu „Śląskie Śpiewanie”, a w kolejnej edycji zajęła pierwsze miejsce w kategorii zespołów pieśni i tańca. Zespół wystąpił również w Muzeum Armii Krajowej w Krakowie, w Narodowym Instytucie Kultury i Dziedzictwa Wsi w Warszawie oraz podczas Tygodnia Kultury Beskidzkiej w Wiśle, największego festiwalu folklorystycznego w Polsce.",
+      "Pomiędzy tymi wydarzeniami były dziesiątki koncertów, dożynek, prób i spotkań — tych wielkich i tych zupełnie lokalnych. Każde z nich jest kolejnym sposobem, by pielęgnować tradycję i dzielić się kulturą, którą otrzymaliśmy od wcześniejszych pokoleń. Halka nadal opowiada tę samą historię, lecz za każdym razem robi to nowymi głosami. Dopóki spotykamy się na scenie, ta historia pozostaje żywa.",
+    ],
+    photos: [
+      photo("jubileusz-75", 2000, 1331, "Starszy i młodszy członek Halki wspólnie czytają kronikę podczas jubileuszowego przedstawienia", "2023. Jubileusz 75-lecia — historia zespołu opowiedziana przez dwa pokolenia."),
+      photo("dni-lublinca-2025-tancerze", 2500, 1665, "Tancerze Halki w strojach ludowych podczas koncertu na Dniach Lublińca", "2025. Halka na scenie podczas Dni Lublińca."),
+      photo("dni-lublinca-2025-pokolenia", 2500, 1664, "Dzieci i dorośli członkowie Halki razem na scenie podczas Dni Lublińca", "2025. Kolejne pokolenia Halki podczas wspólnego finału."),
+    ],
+    layout: "wide", sourcePages: [],
+  },
 ];

@@ -6,7 +6,7 @@ import "../history.css";
 
 export const metadata: Metadata = {
   title: "Historia Halki | Wspólna opowieść od 1948 roku",
-  description: "Historia Zespołu Pieśni i Tańca Halka z Lublińca. Archiwalne fotografie, teatr, podróże i jubileusze od 1948 do 2018 roku.",
+  description: "Historia Zespołu Pieśni i Tańca Halka z Lublińca. Archiwalne fotografie, podróże, jubileusze i żywa tradycja od 1948 roku do dziś.",
 };
 
 export default function HistoryRoute() {

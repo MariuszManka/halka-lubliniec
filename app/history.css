@@ -74,7 +74,10 @@ html:has(.history-page) { scroll-padding-top: 0; }
 #telewizja .history-photo:nth-child(2) { margin-top: 10px; }
 #przyjaznie .history-chapter-photos { grid-template-columns: 0.8fr 1.2fr; }
 #przyjaznie .history-photo:nth-child(2) { margin-top: 85px; }
-#jubileusze { margin-bottom: 50px; }
+#dzisiaj { margin-bottom: 50px; }
+#dzisiaj .history-chapter-copy { max-width: 780px; }
+#dzisiaj .history-chapter-photos { grid-template-columns: 1fr 1fr; gap: 24px; }
+#dzisiaj .history-photo:first-child { grid-column: 1 / -1; }
 .history-afterword { padding-block: 15px 45px; }
 .history-afterword > p { margin: 0 0 18px; font-family: var(--font-display), Georgia, serif; font-size: clamp(1.75rem, 3vw, 2.5rem); font-weight: 450; line-height: 1.25; text-wrap: balance; }
 .history-afterword a { display: inline-flex; align-items: center; gap: 12px; min-height: 44px; font-size: 0.9rem; font-weight: 700; }
@@ -135,6 +138,8 @@ html:has(.history-page) { scroll-padding-top: 0; }
   .history-chapter--pair .history-photo:nth-child(2), #przyjaznie .history-photo:nth-child(2) { margin-top: 0; }
   .history-chapter--portrait .history-chapter-photos { gap: 14px; }
   .history-cover-photo .history-photo-button { padding: 7px; }
+  #dzisiaj .history-chapter-photos { grid-template-columns: 1fr; }
+  #dzisiaj .history-photo:first-child { grid-column: auto; }
 }
 @media (prefers-reduced-motion: reduce) {
   html:has(.history-page) { scroll-behavior: auto; }
