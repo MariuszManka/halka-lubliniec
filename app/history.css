@@ -76,8 +76,9 @@ html:has(.history-page) { scroll-padding-top: 0; }
 #przyjaznie .history-photo:nth-child(2) { margin-top: 85px; }
 #dzisiaj { margin-bottom: 50px; }
 #dzisiaj .history-chapter-copy { max-width: 780px; }
-#dzisiaj .history-chapter-photos { grid-template-columns: 1fr 1fr; gap: 24px; }
-#dzisiaj .history-photo:first-child { grid-column: 1 / -1; }
+#dzisiaj .history-chapter-photos { grid-template-columns: 1fr 1fr; gap: 26px 22px; width: min(100%, 820px); margin-inline: auto; }
+#dzisiaj .history-photo:first-child { grid-column: 1 / -1; width: min(100%, 680px); }
+#dzisiaj .history-photo:nth-child(2) { margin-top: 42px; }
 .history-afterword { padding-block: 15px 45px; }
 .history-afterword > p { margin: 0 0 18px; font-family: var(--font-display), Georgia, serif; font-size: clamp(1.75rem, 3vw, 2.5rem); font-weight: 450; line-height: 1.25; text-wrap: balance; }
 .history-afterword a { display: inline-flex; align-items: center; gap: 12px; min-height: 44px; font-size: 0.9rem; font-weight: 700; }
@@ -139,7 +140,8 @@ html:has(.history-page) { scroll-padding-top: 0; }
   .history-chapter--portrait .history-chapter-photos { gap: 14px; }
   .history-cover-photo .history-photo-button { padding: 7px; }
   #dzisiaj .history-chapter-photos { grid-template-columns: 1fr; }
-  #dzisiaj .history-photo:first-child { grid-column: auto; }
+  #dzisiaj .history-photo:first-child { grid-column: auto; width: 100%; }
+  #dzisiaj .history-photo:nth-child(2) { margin-top: 0; }
 }
 @media (prefers-reduced-motion: reduce) {
   html:has(.history-page) { scroll-behavior: auto; }

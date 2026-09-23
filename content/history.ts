@@ -110,8 +110,8 @@ export const historyChapters: HistoryChapter[] = [
     ],
     photos: [
       photo("jubileusz-75", 2000, 1331, "Starszy i młodszy członek Halki wspólnie czytają kronikę podczas jubileuszowego przedstawienia", "2023. Jubileusz 75-lecia — historia zespołu opowiedziana przez dwa pokolenia."),
-      photo("dni-lublinca-2025-tancerze", 2500, 1665, "Tancerze Halki w strojach ludowych podczas koncertu na Dniach Lublińca", "2025. Halka na scenie podczas Dni Lublińca."),
-      photo("dni-lublinca-2025-pokolenia", 2500, 1664, "Dzieci i dorośli członkowie Halki razem na scenie podczas Dni Lublińca", "2025. Kolejne pokolenia Halki podczas wspólnego finału."),
+      photo("wspolczesna-halka", 2500, 1664, "Dwie tancerki i tancerz Halki uśmiechają się do siebie po występie", "Tradycja trwa także poza sceną — w spotkaniu, bliskości i wspólnej radości."),
+      photo("halka-wisla", 2500, 1667, "Członkowie Halki w strojach ludowych pozują do wspólnego zdjęcia w Wiśle", "Halka w Wiśle podczas Tygodnia Kultury Beskidzkiej."),
     ],
     layout: "wide", sourcePages: [],
   },

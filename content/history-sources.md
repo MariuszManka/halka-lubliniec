@@ -8,7 +8,7 @@ Pinezki są umownymi punktami w obrębie państw, nie geokodowanymi miejscami ko
 
 ## Historia i fotografie
 
-Rozdział `2023–dziś` wykracza poza zakres wystawy. Jego treść oraz trzy współczesne fotografie pochodzą z materiałów przekazanych przez zespół w `ASSETS/historia`: jubileusz 75-lecia (`_DSC7926.webp`) i Dni Lublińca 2025 (`Dni Lublińca - niedziela (301).webp`, `Dni Lublińca - niedziela (577).webp`). Informacje obejmują włączenie Halki do sekcji MDK w 2023 roku, jubileusz 75-lecia, wyróżnienia „Śląskiego Śpiewania” oraz występy w Krakowie, Warszawie i Wiśle.
+Rozdział `2023–dziś` wykracza poza zakres wystawy. Jego treść oraz trzy współczesne fotografie pochodzą z materiałów przekazanych przez zespół w `ASSETS/historia`: jubileusz 75-lecia (`_DSC7926.webp`), współczesny portret członków zespołu (`1.webp`) i wspólne zdjęcie w Wiśle (`DSCF9115.webp`). Informacje obejmują włączenie Halki do sekcji MDK w 2023 roku, jubileusz 75-lecia, wyróżnienia „Śląskiego Śpiewania” oraz występy w Krakowie, Warszawie i Wiśle.
 
 Źródło: `ASSETS/wystawa.pdf` (13 stron). Wystawa opracowana z materiałów archiwalnych ZPiT Halka; projekt graficzny: Urząd Miejski w Lublińcu, Wydział Dialogu Obywatelskiego.
 
