@@ -1,119 +1,140 @@
 "use client";
 
+import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
-import { ArrowRight, CalendarBlank } from "@phosphor-icons/react";
-import type { HistoryPageCmsContent, SharedContent } from "../sanity/content";
+import { ArrowRight, ArrowUp, MagnifyingGlassPlus, X } from "@phosphor-icons/react";
+import type { SharedContent } from "../sanity/content";
+import { historyChapters, openingPhoto, type HistoryPhoto } from "../content/history";
 import { SiteHeader } from "./SiteHeader";
 import { ScrollRosettes } from "./FolkRosette";
 import { SiteFooter } from "./SiteFooter";
 
-export function HistoryPage({ content, shared }: { content: HistoryPageCmsContent; shared: SharedContent }) {
-  const { copy, timeline } = content;
-  const yearsOfHistory = new Date().getFullYear() - 1948;
+export function HistoryPage({ shared }: { shared: SharedContent }) {
+  const [activeChapter, setActiveChapter] = useState(historyChapters[0].id);
+  const [selectedPhoto, setSelectedPhoto] = useState<HistoryPhoto | null>(null);
+  const dialogRef = useRef<HTMLDialogElement>(null);
+  const indexRef = useRef<HTMLOListElement>(null);
+
+  useEffect(() => {
+    if (!window.matchMedia("(max-width: 760px)").matches) return;
+    const list = indexRef.current;
+    const current = list?.querySelector<HTMLElement>('[aria-current="location"]');
+    if (list && current) {
+      list.scrollTo({ left: list.scrollLeft + current.getBoundingClientRect().left - list.getBoundingClientRect().left - 8, behavior: "instant" });
+    }
+  }, [activeChapter]);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver((entries) => {
+      for (const entry of entries) {
+        if (entry.isIntersecting) setActiveChapter(entry.target.id);
+      }
+    }, { rootMargin: "-15% 0px -65% 0px", threshold: 0 });
+    document.querySelectorAll(".history-chapter").forEach((chapter) => observer.observe(chapter));
+    return () => observer.disconnect();
+  }, []);
+
+  useEffect(() => {
+    if (!selectedPhoto) return;
+    const dialog = dialogRef.current;
+    if (!dialog) return;
+    const previousOverflow = document.body.style.overflow;
+    dialog.showModal();
+    document.body.style.overflow = "hidden";
+    return () => {
+      dialog.close();
+      document.body.style.overflow = previousOverflow;
+    };
+  }, [selectedPhoto]);
+
+  function renderPhoto(photo: HistoryPhoto, priority = false) {
+    return (
+      <figure className="history-photo" key={photo.src}>
+        <button type="button" className="history-photo-button" onClick={() => setSelectedPhoto(photo)} aria-label={`Powiększ zdjęcie: ${photo.caption}`} aria-haspopup="dialog">
+          <img src={photo.src} srcSet={`${photo.src.replace(".webp", "-800.webp")} 800w, ${photo.src} ${photo.width}w`} sizes="(max-width: 760px) calc(100vw - 40px), 1000px" width={photo.width} height={photo.height} alt={photo.alt} loading={priority ? "eager" : "lazy"} fetchPriority={priority ? "high" : undefined} decoding="async" />
+          <span className="history-photo-zoom" aria-hidden="true"><MagnifyingGlassPlus size={19} /> <span>Powiększ</span></span>
+        </button>
+        <figcaption>{photo.caption}</figcaption>
+      </figure>
+    );
+  }
 
   return (
-    <main className="history-page">
-      <a className="history-skip-link" href="#history-content">{copy["skipLabel"]}</a>
+    <div className="history-page" id="poczatek">
+      <a className="history-skip-link" href="#history-content">Przejdź do historii</a>
       <ScrollRosettes />
-
       <SiteHeader activeHref="/historia" shared={shared} />
-
-      <section className="history-hero history-shell" id="history-content" aria-labelledby="history-title">
-        <div className="history-hero-copy">
-          <p className="history-eyebrow">{copy["hero.eyebrow"]}</p>
-          <h1 id="history-title">{copy["hero.title"]} <em>{copy["hero.titleAccent"]}</em></h1>
-          <p className="history-hero-lead">{copy["hero.lead"]}</p>
-          <a className="history-primary-link" href="#os-czasu">{copy["hero.cta"]} <ArrowRight size={18} weight="bold" aria-hidden="true" /></a>
-        </div>
-
-        <figure className="history-hero-visual">
-          <picture>
-            <source media="(max-width: 820px)" srcSet="/home-responsive/group-960.webp" />
-            <img
-              src="/session/group.webp"
-              alt={copy["hero.imageAlt"]}
-              width="2200"
-              height="1467"
-              fetchPriority="high"
-              decoding="async"
-            />
-          </picture>
-          <figcaption><span>{copy["hero.imageLabel"]}</span><strong>{copy["hero.imageCaption"]}</strong></figcaption>
-          <span className="history-hero-year" aria-hidden="true">1948</span>
-        </figure>
-      </section>
-
-      <section className="history-opening history-shell" aria-labelledby="opening-title">
-        <div className="history-opening-label"><span>01</span><p>{copy["opening.eyebrow"]}</p></div>
-        <div className="history-opening-copy">
-          <h2 id="opening-title">{copy["opening.title"]}</h2>
-          <p>{copy["opening.text"]}</p>
-          <dl className="history-facts" aria-label={copy["opening.factsLabel"]}>
-            <div><dt>1948</dt><dd>{copy["opening.fact1Label"]}</dd></div>
-            <div><dt>{shared.ensembleGroups.length}</dt><dd>{copy["opening.fact2Label"]}</dd></div>
-            <div><dt>{yearsOfHistory}</dt><dd>{copy["opening.fact3Label"]}</dd></div>
-          </dl>
-        </div>
-      </section>
-
-      <section className="history-timeline-section" id="os-czasu" aria-labelledby="timeline-title">
-        <div className="history-shell">
-          <header className="history-timeline-heading">
-            <div><p>{copy["timeline.eyebrow"]}</p><h2 id="timeline-title">{copy["timeline.title"]}</h2></div>
-            <p>{copy["timeline.lead"]}</p>
+      <main id="history-content" className="history-shell" tabIndex={-1}>
+        <article aria-labelledby="history-title">
+          <header className="history-cover">
+            <div className="history-cover-copy">
+              <p className="history-kicker">Halka · Lubliniec · od 1948 roku</p>
+              <h1 id="history-title">Historia<br />pisana <em>razem.</em></h1>
+              <p className="history-lead">Pierwsze występy, dalekie podróże, kolejne pokolenia. Otwieramy album Halki i wracamy do ludzi i chwil, od których wszystko się zaczęło.</p>
+              <a href="#poczatki" className="history-read-link">Poznaj naszą historię <ArrowRight size={20} aria-hidden="true" /></a>
+            </div>
+            <div className="history-cover-photo">
+              <span className="history-cover-date" aria-hidden="true">1948</span>
+              {renderPhoto(openingPhoto, true)}
+            </div>
           </header>
 
-          <ol className="history-timeline">
-            {timeline.map((item, index) => (
-              <li key={item.year} className={item.year === "Dziś" ? "history-timeline-item history-timeline-item-current" : "history-timeline-item"}>
-                <span className="history-timeline-index" aria-hidden="true">{String(index + 1).padStart(2, "0")}</span>
-                <time>{item.year}</time>
-                <div><h3>{item.title}</h3><p>{item.text}</p></div>
-              </li>
-            ))}
-          </ol>
+          <div className="history-book">
+            <aside className="history-index">
+              <nav aria-label="Przejdź do okresu w historii Halki">
+                <p>Na kartach historii</p>
+                <ol ref={indexRef}>
+                  {historyChapters.map((chapter) => (
+                    <li key={chapter.id}>
+                      <a href={`#${chapter.id}`} aria-current={activeChapter === chapter.id ? "location" : undefined}>
+                        <span>{chapter.years}</span><small>{chapter.label}</small>
+                      </a>
+                    </li>
+                  ))}
+                </ol>
+                <a href="#poczatek" className="history-back-top"><ArrowUp size={15} aria-hidden="true" /> Na początek</a>
+              </nav>
+            </aside>
 
-          <p className="history-source">
-            {copy["timeline.source"]}
-          </p>
-        </div>
-      </section>
-
-      <section className="history-generations history-shell" aria-labelledby="generations-title">
-        <div className="history-generations-visual" aria-label={copy["generations.visualLabel"]}>
-          <figure className="history-generations-main">
-            <img src="/session/dance-circle.webp" srcSet="/home-responsive/dance-circle-960.webp 960w, /home-responsive/dance-circle-1600.webp 1600w" sizes="(max-width: 900px) calc(100vw - 32px), 56vw" alt={copy["generations.mainAlt"]} loading="lazy" decoding="async" />
-          </figure>
-          <figure className="history-generations-small">
-            <img src="/session/children-group.webp" srcSet="/home-responsive/children-group-960.webp 960w" sizes="(max-width: 520px) 48vw, 280px" alt={copy["generations.smallAlt"]} loading="lazy" decoding="async" />
-            <figcaption>{copy["generations.smallCaption"]}</figcaption>
-          </figure>
-        </div>
-
-        <div className="history-generations-copy">
-          <p>{copy["generations.eyebrow"]}</p>
-          <h2 id="generations-title">{copy["generations.title"]}</h2>
-          <p>{copy["generations.text"]}</p>
-          <ul aria-label={copy["generations.groupsLabel"]}>
-            {shared.ensembleGroups.map((group, index) => (
-              <li key={group.id}><span>{String(index + 1).padStart(2, "0")}</span><strong>{group.name}</strong><small>{group.age}</small></li>
-            ))}
-          </ul>
-          <Link className="history-text-link" href="/dolacz">{copy["generations.cta"]} <ArrowRight size={18} aria-hidden="true" /></Link>
-        </div>
-      </section>
-
-      <section className="history-next" aria-labelledby="history-next-title">
-        <div className="history-shell">
-          <div><p>{copy["next.eyebrow"]}</p><h2 id="history-next-title">{copy["next.title"]}</h2></div>
-          <div className="history-next-actions">
-            <Link className="history-next-primary" href="/wydarzenia"><CalendarBlank size={19} aria-hidden="true" /> {copy["next.eventsCta"]}</Link>
-            <Link href="/galeria">{copy["next.galleryCta"]} <ArrowRight size={18} aria-hidden="true" /></Link>
+            <div className="history-story">
+              {historyChapters.map((chapter) => (
+                <div id={chapter.id} className={`history-chapter history-chapter--${chapter.layout ?? "split"}`} key={chapter.id} aria-labelledby={`${chapter.id}-title`}>
+                  <div className="history-chapter-copy">
+                    <p className="history-years">{chapter.years}</p>
+                    <h2 id={`${chapter.id}-title`}>{chapter.title}</h2>
+                    {chapter.paragraphs.map((paragraph) => <p key={paragraph}>{paragraph}</p>)}
+                    {chapter.note && (
+                      <details className="history-note">
+                        <summary>{chapter.note.title}</summary>
+                        <p>{chapter.note.text}</p>
+                      </details>
+                    )}
+                  </div>
+                  <div className="history-chapter-photos">{chapter.photos.map((photo) => renderPhoto(photo))}</div>
+                </div>
+              ))}
+              <div className="history-afterword">
+                <p>A kolejne strony? Piszemy je wspólnie.</p>
+                <Link href="/galeria">Zajrzyj do dzisiejszej Halki <ArrowRight size={20} aria-hidden="true" /></Link>
+              </div>
+              <footer className="history-source">
+                <p>Opowieść i fotografie na podstawie wystawy „Historia Zespołu Pieśni i Tańca «Halka»”, opracowanej z materiałów archiwalnych zespołu. Projekt graficzny wystawy: Urząd Miejski w Lublińcu, Wydział Dialogu Obywatelskiego.</p>
+                <p>Zachowaliśmy oryginalny charakter fotografii i datowanie podane na planszach.</p>
+              </footer>
+            </div>
           </div>
-        </div>
-      </section>
-
+        </article>
+      </main>
       <SiteFooter shared={shared} />
-    </main>
+      <dialog ref={dialogRef} className="history-lightbox" aria-label="Archiwalna fotografia Halki" aria-describedby="history-photo-caption" onClose={() => setSelectedPhoto(null)} onClick={(event) => {
+        if (event.target === event.currentTarget) dialogRef.current?.close();
+      }}>
+        <button type="button" className="history-lightbox-close" onClick={() => dialogRef.current?.close()} aria-label="Zamknij powiększenie"><X size={24} aria-hidden="true" /></button>
+        {selectedPhoto && <figure>
+          <img src={selectedPhoto.src} width={selectedPhoto.width} height={selectedPhoto.height} alt={selectedPhoto.alt} />
+          <figcaption id="history-photo-caption">{selectedPhoto.caption}</figcaption>
+        </figure>}
+      </dialog>
+    </div>
   );
 }
