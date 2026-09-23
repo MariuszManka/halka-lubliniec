@@ -21,7 +21,9 @@ import { galleryEvents } from "../content/generated-gallery";
 import { sessionImages } from "../content/generated-session";
 import { calendarEvents, eventGroups, type CalendarEvent } from "../content/events";
 import { contact, facts, schedule, timeline } from "../content/site-content";
+import { mainNavigation } from "../content/site-config";
 import { FolkRosette } from "./FolkRosette";
+import { SiteFooter, type SiteFooterContent } from "./SiteFooter";
 
 type GalleryEvent = (typeof galleryEvents)[number];
 
@@ -32,6 +34,20 @@ const navItems = [
   ["Terminarz", "#terminarz"],
   ["Kontakt", "#kontakt"],
 ] as const;
+
+const legacyFooterContent: SiteFooterContent = {
+  mainNavigation,
+  header: {
+    homeAriaLabel: "Halka — przejdź na początek strony",
+    navigationLabel: "Główna nawigacja",
+  },
+  footer: {
+    brand: "HALKA",
+    tagline: "Od 1948 roku tańczymy razem.",
+    copyrightLong: "Zespół Pieśni i Tańca Halka w Lublińcu",
+    logoAlt: "Logo Zespołu Pieśni i Tańca Halka",
+  },
+};
 
 const formatDate = (date: string) =>
   new Intl.DateTimeFormat("pl-PL", {
@@ -820,16 +836,7 @@ export function HalkaSite() {
         </Reveal>
       </section>
 
-      <footer className="footer section-shell">
-        <div className="footer-brand">
-          <img src="/logo.jpg" alt="Logo Zespołu Pieśni i Tańca Halka" width="70" height="70" />
-          <div><strong>HALKA</strong><span>Pieśń. Taniec. Pokolenia.</span></div>
-        </div>
-        <div className="footer-links">
-          {navItems.map(([label, href]) => <a key={href} href={href}>{label}</a>)}
-        </div>
-        <p>© 2026 Zespół Pieśni i Tańca Halka w Lublińcu</p>
-      </footer>
+      <SiteFooter shared={legacyFooterContent} />
 
       <AnimatePresence>
         {activeEvent && (

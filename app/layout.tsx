@@ -1,12 +1,18 @@
 import type { Metadata } from "next";
-import { DM_Sans, Fraunces } from "next/font/google";
+import { DM_Sans, Fraunces, Great_Vibes } from "next/font/google";
 import "./globals.css";
 import "./site-header.css";
+import "./site-footer.css";
 import { getHomePageCopy } from "../sanity/content";
 
 const sans = DM_Sans({
   variable: "--font-sans",
   subsets: ["latin", "latin-ext"],
+});
+
+const fontLogo = Great_Vibes({
+  variable: "--font-logo",
+  weight: "400",
 });
 
 const display = Fraunces({
@@ -63,7 +69,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="pl">
-      <body className={`${sans.variable} ${display.variable}`}>
+      <body className={`${sans.variable} ${display.variable} ${fontLogo.variable}`}>
         {children}
       </body>
     </html>

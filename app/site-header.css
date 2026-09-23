@@ -29,8 +29,9 @@
 }
 
 .home-v2-brand img {
+  max-height: 60px;
   border-radius: 10px;
-  background: #fff;
+  /* background: #fff; */
   object-fit: contain;
 }
 
@@ -171,7 +172,7 @@
 @media (max-width: 520px) {
   .home-v2-header { min-height: 68px; }
   .home-v2-mobile-nav { padding-top: calc(68px + max(16px, env(safe-area-inset-top))); }
-  .home-v2-brand img { width: 42px; height: 42px; }
+  /* .home-v2-brand img { width: 42px; height: 42px; } */
 }
 
 @media (prefers-reduced-motion: reduce) {

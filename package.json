@@ -22,7 +22,7 @@
     "session:prune": "node scripts/prune-session.mjs",
     "media:sync": "npm run gallery:sync && npm run session:sync && npm run home:images",
     "prebuild": "npm run media:sync",
-    "dev": "next dev",
+    "dev": "next dev --port 3002",
     "build": "next build",
     "start": "next start",
     "test": "npm run build && node --test tests/rendered-html.test.mjs",
@@ -32,6 +32,7 @@
   "dependencies": {
     "@phosphor-icons/react": "^2.1.10",
     "drizzle-orm": "0.45.2",
+    "ical.js": "^2.2.1",
     "motion": "^12.43.0",
     "next": "16.2.6",
     "react": "19.2.6",

@@ -9,8 +9,8 @@ export const sharedContentDefaults = {
   ensembleGroups,
   eventGroups,
   footer: {
-    brand: "HALKA",
-    tagline: "Od 1948 roku tańczymy razem.",
+    brand: "Halka",
+    tagline: "Od 1948 roku tańczymy razem",
     longTagline: "Pieśń. Taniec. Pokolenia.",
     copyrightShort: "ZPiT Halka",
     copyrightLong: "Zespół Pieśni i Tańca Halka w Lublińcu",
@@ -18,6 +18,7 @@ export const sharedContentDefaults = {
   },
   header: {
     brand: "Halka",
+    brandTop: "Zespół Pieśni i Tańca",
     city: "Lubliniec",
     contactLabel: "Kontakt",
     navigationLabel: "Główna nawigacja",

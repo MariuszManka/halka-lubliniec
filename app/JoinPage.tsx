@@ -1,6 +1,5 @@
 "use client";
 
-import Link from "next/link";
 import {
   ArrowRight,
   CalendarBlank,
@@ -16,6 +15,7 @@ import type { JoinPageContent } from "../sanity/content-types";
 import { ScrollRosettes } from "./FolkRosette";
 import { SiteHeader } from "./SiteHeader";
 import { PageHero } from "./PageHero";
+import { SiteFooter } from "./SiteFooter";
 
 const dateFormatter = new Intl.DateTimeFormat("pl-PL", {
   weekday: "long",
@@ -190,11 +190,7 @@ export function JoinPage({ content, ui, shared, calendarEvents }: { content: Joi
         </div>
       </section>
 
-      <footer className="join-footer join-shell">
-        <Link className="home-v2-footer-brand" href="/"><img src="/logo.jpg" alt={shared.footer.logoAlt} width="58" height="58" /><span><strong>{shared.footer.brand}</strong><small>{shared.footer.tagline}</small></span></Link>
-        <nav aria-label={shared.header.navigationLabel}>{shared.mainNavigation.map((item) => <Link href={item.href} key={item.href}>{item.label}</Link>)}</nav>
-        <p>© {new Date().getFullYear()} {shared.footer.copyrightShort}</p>
-      </footer>
+      <SiteFooter shared={shared} />
     </main>
   );
 }

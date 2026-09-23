@@ -110,8 +110,7 @@ img {
   gap: 12px;
 }
 
-.brand img,
-.footer-brand img {
+.brand img {
   object-fit: contain;
   background: #fff;
   border-radius: 12px;
@@ -143,13 +142,11 @@ img {
   font-size: 0.9rem;
 }
 
-.desktop-nav a,
-.footer-links a {
+.desktop-nav a {
   transition: color 180ms ease;
 }
 
-.desktop-nav a:hover,
-.footer-links a:hover {
+.desktop-nav a:hover {
   color: var(--text);
 }
 
@@ -1997,49 +1994,6 @@ main {
   transform: translate(2px, -2px);
 }
 
-.footer {
-  display: grid;
-  grid-template-columns: 1fr auto;
-  align-items: end;
-  gap: 36px;
-  padding-block: 60px 38px;
-  border-top: 1px solid var(--line);
-}
-
-.footer-brand {
-  display: flex;
-  align-items: center;
-  gap: 18px;
-}
-
-.footer-brand > div {
-  display: grid;
-  gap: 5px;
-}
-
-.footer-brand strong {
-  font-size: 1.35rem;
-  letter-spacing: 0.16em;
-}
-
-.footer-brand span,
-.footer > p {
-  color: var(--muted);
-  font-size: 0.78rem;
-}
-
-.footer-links {
-  display: flex;
-  gap: 28px;
-  color: var(--muted);
-  font-size: 0.84rem;
-}
-
-.footer > p {
-  grid-column: 1 / -1;
-  margin: 10px 0 0;
-}
-
 .lightbox-backdrop {
   position: fixed;
   inset: 0;
@@ -2364,8 +2318,6 @@ main {
   .form-row { grid-template-columns: 1fr; }
   .contact-place { grid-template-rows: 330px auto; }
   .contact-place iframe { min-height: 330px; }
-  .footer { grid-template-columns: 1fr; align-items: start; }
-  .footer-links { flex-wrap: wrap; }
   .lightbox-backdrop { padding: 0; }
   .lightbox {
     width: 100%;
@@ -2437,7 +2389,6 @@ main {
   .social-link-icon { width: 44px; height: 44px; }
   .social-link:hover,
   .social-link:focus-visible { transform: translateY(-2px); }
-  .footer-links { gap: 18px; }
   .lightbox { grid-template-rows: minmax(0, 58dvh) minmax(0, 42dvh); }
   .lightbox-stage { padding: 48px 8px 62px; }
   .lightbox-stage > img { max-height: 46dvh; }

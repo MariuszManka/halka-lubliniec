@@ -9,7 +9,7 @@ export const siteConfig = {
     nip: "5751026830",
   },
   contact: {
-    email: "zpithalka1948@gmail.com",
+    email: "kontakt@halkalubliniec.pl",
     phoneDisplay: "34 351 06 87",
     phone: "+48343510687",
     address: "ul. Stalmacha 12, 42-700 Lubliniec",

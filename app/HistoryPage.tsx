@@ -5,6 +5,7 @@ import { ArrowRight, CalendarBlank } from "@phosphor-icons/react";
 import type { HistoryPageCmsContent, SharedContent } from "../sanity/content";
 import { SiteHeader } from "./SiteHeader";
 import { ScrollRosettes } from "./FolkRosette";
+import { SiteFooter } from "./SiteFooter";
 
 export function HistoryPage({ content, shared }: { content: HistoryPageCmsContent; shared: SharedContent }) {
   const { copy, timeline } = content;
@@ -112,11 +113,7 @@ export function HistoryPage({ content, shared }: { content: HistoryPageCmsConten
         </div>
       </section>
 
-      <footer className="history-footer history-shell">
-        <Link className="home-v2-footer-brand" href="/"><img src="/logo.jpg" alt={shared.footer.logoAlt} width="58" height="58" /><span><strong>{shared.footer.brand}</strong><small>{shared.footer.tagline}</small></span></Link>
-        <nav aria-label={shared.header.navigationLabel}>{shared.mainNavigation.map((item) => <Link href={item.href} key={item.href}>{item.label}</Link>)}</nav>
-        <p>© {new Date().getFullYear()} {shared.footer.copyrightShort}</p>
-      </footer>
+      <SiteFooter shared={shared} />
     </main>
   );
 }

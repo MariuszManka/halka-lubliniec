@@ -1,6 +1,5 @@
 "use client";
 
-import Link from "next/link";
 import { useCallback, useEffect, useRef, useState, type CSSProperties, type ReactNode } from "react";
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import {
@@ -19,6 +18,7 @@ import type { CostumesPageCmsContent, SharedContent } from "../sanity/content";
 import { SiteHeader } from "./SiteHeader";
 import { PageHero } from "./PageHero";
 import { ScrollRosettes } from "./FolkRosette";
+import { SiteFooter } from "./SiteFooter";
 
 
 const costumeImageFocus: Record<string, string> = {
@@ -398,16 +398,7 @@ export function CostumesPage({ content, shared }: { content: CostumesPageCmsCont
         </div>
       </section>
 
-      <footer className="footer section-shell">
-        <div className="footer-brand">
-          <img src="/logo.jpg" alt={shared.footer.logoAlt} width="70" height="70" />
-          <div><strong>{shared.footer.brand}</strong><span>{shared.footer.longTagline}</span></div>
-        </div>
-        <div className="footer-links">
-          {shared.mainNavigation.map((item) => <Link key={item.href} href={item.href}>{item.label}</Link>)}
-        </div>
-        <p>© 2026 {shared.footer.copyrightLong}</p>
-      </footer>
+      <SiteFooter shared={shared} />
     </main>
   );
 }

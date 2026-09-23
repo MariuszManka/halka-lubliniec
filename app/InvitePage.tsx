@@ -10,6 +10,7 @@ import type { InvitePageContent } from "../sanity/content-types";
 import { ScrollRosettes } from "./FolkRosette";
 import { SiteHeader } from "./SiteHeader";
 import { PageHero } from "./PageHero";
+import { SiteFooter } from "./SiteFooter";
 
 const iconComponents = {
   calendar: CalendarBlank,
@@ -240,11 +241,7 @@ export function InvitePage({ content, shared }: { content: InvitePageContent; sh
         </div>
       </section>
 
-      <footer className="home-v2-footer invite-shell">
-        <Link className="home-v2-footer-brand" href="/"><img src="/logo.jpg" alt={shared.footer.logoAlt} width="58" height="58" /><span><strong>{shared.footer.brand}</strong><small>{shared.footer.tagline}</small></span></Link>
-        <nav aria-label={shared.header.navigationLabel}>{shared.mainNavigation.map((item) => <Link href={item.href} key={item.href}>{item.label}</Link>)}</nav>
-        <p>© {new Date().getFullYear()} {shared.footer.copyrightShort}</p>
-      </footer>
+      <SiteFooter shared={shared} />
     </main>
   );
 }

@@ -18,8 +18,14 @@ export function SiteBrand({ home = false, shared }: { home?: boolean; shared: Sh
       href={home ? "#poczatek" : "/"}
       aria-label={home ? shared.header.homeAriaLabel : shared.header.pageAriaLabel}
     >
-      <img src="/logo.jpg" alt="" width="46" height="46" />
-      <span><strong>{shared.header.brand}</strong><small>{shared.header.city}</small></span>
+      <img src="/logo.svg" alt=""  />
+      {/* <img src="/logo.jpg" alt="" width="46" height="46" />*/}
+      <span>
+          <small style={{ fontSize: 10, letterSpacing: '0', marginBottom: 8, color: 'var(--v2-green-deep)', fontWeight: 700 }}>{shared.header.brandTop}</small>
+          <strong style={{ fontFamily: 'var(--font-logo)', letterSpacing: 6, fontSize: 28, color: 'var(--v2-red-dark)' }}>
+            {shared.header.brand}
+          </strong>
+        </span> 
     </Link>
   );
 }

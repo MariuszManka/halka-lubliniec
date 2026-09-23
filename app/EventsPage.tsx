@@ -14,7 +14,10 @@ import type { CalendarEvent } from "../content/events";
 import type { EventsPageCmsContent, SharedContent } from "../sanity/content";
 import { PageHero } from "./PageHero";
 import { SiteHeader } from "./SiteHeader";
+import { SiteFooter } from "./SiteFooter";
 import { ScrollRosettes } from "./FolkRosette";
+import { EventsMonthTabs } from "./EventsMonthTabs";
+import { EventsCalendarHeader } from "./EventsCalendarHeader";
 
 const dateFormatter = new Intl.DateTimeFormat("pl-PL", { day: "numeric", month: "long", year: "numeric" });
 const shortDateFormatter = new Intl.DateTimeFormat("pl-PL", { day: "numeric", month: "short" });
@@ -32,24 +35,38 @@ const formatTime = (event: CalendarEvent, unknownLabel: string) => {
 
 const monthKey = (event: CalendarEvent) => event.date.slice(0, 7);
 
+function EventLocation({ event, icon = true, iconSize = 18 }: { event: CalendarEvent; icon?: boolean; iconSize?: number }) {
+  const content = <>{icon && <MapPin size={iconSize} aria-hidden="true" />}<span>{event.location}</span></>;
+  const locationUrl = event.locationUrl ?? `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(event.location)}`;
+  return (
+    <a className="events-location events-location-link" href={locationUrl} target="_blank" rel="noreferrer" aria-label={`${event.location} — otwórz w Google Maps`}>
+      {content}<ArrowUpRight size={15} aria-hidden="true" />
+    </a>
+  );
+}
+
 export function EventsPage({ content, shared }: { content: EventsPageCmsContent; shared: SharedContent }) {
   const { copy, calendarEvents, eventGroups } = content;
   const monthNames = copy["calendar.months"].split("|");
   const weekdayNames = copy["calendar.weekdays"].split("|");
-  const today = new Date().toISOString().slice(0, 10);
+  const today = new Intl.DateTimeFormat("sv-SE", { timeZone: "Europe/Warsaw", year: "numeric", month: "2-digit", day: "2-digit" }).format(new Date());
   const currentMonth = today.slice(0, 7);
 
   const publicEvents = useMemo(
     () => calendarEvents.filter((event) => event.kind !== "Próba"),
-    [],
+    [calendarEvents],
   );
   const upcoming = publicEvents.filter((event) => (event.endDate ?? event.date) >= today);
   const past = publicEvents.filter((event) => (event.endDate ?? event.date) < today && event.date.startsWith(today.slice(0, 4))).reverse();
-  const months = [...new Set(calendarEvents.map(monthKey))].sort();
-  const defaultMonth = months.find((month) => month >= currentMonth) ?? months.at(-1) ?? currentMonth;
-  const [selectedMonth, setSelectedMonth] = useState(defaultMonth);
+  const [selectedMonth, setSelectedMonth] = useState(currentMonth);
+  const eventMonths = useMemo(() => new Set(publicEvents.map(monthKey)), [publicEvents]);
 
   const [year, month] = selectedMonth.split("-").map(Number);
+  const currentYear = Number(today.slice(0, 4));
+  const availableYears = [...new Set([
+    currentYear - 1, currentYear, currentYear + 1, year,
+    ...calendarEvents.map((event) => Number(event.date.slice(0, 4))),
+  ])].sort((a, b) => a - b);
   const firstWeekday = (new Date(year, month - 1, 1).getDay() + 6) % 7;
   const daysInMonth = new Date(year, month, 0).getDate();
   const selectedEvents = calendarEvents.filter((event) => monthKey(event) === selectedMonth);
@@ -139,7 +156,7 @@ export function EventsPage({ content, shared }: { content: EventsPageCmsContent;
                   </div>
                   <div className="events-upcoming-place">
                     <span><Clock size={18} aria-hidden="true" /> {formatTime(event, copy["timeUnknown"])}</span>
-                    <span><MapPin size={18} aria-hidden="true" /> {event.location}</span>
+                    <EventLocation event={event} />
                   </div>
                   <div className="events-group-list" aria-label={copy["calendar.performingGroupsLabel"]}>
                     {event.groups.map((group) => <span key={group}>{eventGroups[group].label}</span>)}
@@ -164,18 +181,11 @@ export function EventsPage({ content, shared }: { content: EventsPageCmsContent;
             <span>{copy["calendar.lead"]}</span>
           </div>
 
-          <div className="events-month-tabs" role="group" aria-label={copy["calendar.selectMonthLabel"]}>
-            {months.map((key) => {
-              const [tabYear, tabMonth] = key.split("-").map(Number);
-              return (
-                <button type="button" aria-pressed={selectedMonth === key} onClick={() => setSelectedMonth(key)} key={key}>
-                  <span>{monthNames[tabMonth - 1]}</span><small>{tabYear}</small>
-                </button>
-              );
-            })}
-          </div>
+          <EventsMonthTabs year={String(year)} monthNames={monthNames} selectedMonth={selectedMonth} eventMonths={eventMonths} label={copy["calendar.selectMonthLabel"]} onSelect={setSelectedMonth} />
 
-          <div className="events-calendar-layout">
+          <div className="events-calendar-layout" id="events-month-panel" role="tabpanel" aria-labelledby={`events-tab-${selectedMonth}`} tabIndex={0}>
+            <div className="events-calendar-frame">
+              <EventsCalendarHeader selectedMonth={selectedMonth} currentMonth={currentMonth} monthNames={monthNames} years={availableYears} eventMonths={eventMonths} onSelect={setSelectedMonth} />
             <div className="events-calendar" role="grid" aria-label={`${monthNames[month - 1]} ${year}`}>
               <div className="events-calendar-weekdays" role="row">
                 {weekdayNames.map((day) => <span role="columnheader" key={day}>{day}</span>)}
@@ -199,12 +209,20 @@ export function EventsPage({ content, shared }: { content: EventsPageCmsContent;
               </div>
             </div>
 
-            <aside className="events-month-agenda" aria-label={`Wydarzenia w miesiącu: ${monthNames[month - 1]}`}>
+            </div>
+            <aside className="events-month-agenda" aria-label={`Wydarzenia w miesiącu: ${monthNames[month - 1]} ${year}`}>
               <div className="events-month-agenda-heading"><span>{monthNames[month - 1]}</span><strong>{selectedPublicEvents.length} {selectedPublicEvents.length === 1 ? "wydarzenie" : "wydarzeń"}</strong></div>
               {selectedPublicEvents.length ? selectedPublicEvents.map((event) => (
                 <article key={event.id}>
                   <time dateTime={event.date}>{shortDateFormatter.format(new Date(`${event.date}T12:00:00`))}</time>
-                  <div><span>{event.kind}</span><h3>{event.title}</h3><p>{formatTime(event, copy["timeUnknown"])}, {event.location}</p></div>
+                  <div>
+                    <span>{event.kind}</span>
+                    <h3>{event.title}</h3>
+                    <div className="events-agenda-meta">
+                      <p><Clock size={15} aria-hidden="true" /><span>{formatTime(event, copy["timeUnknown"])}</span></p>
+                      <EventLocation event={event} iconSize={15} />
+                    </div>
+                  </div>
                 </article>
               )) : <p className="events-agenda-empty">{copy["calendar.empty"]}</p>}
               {selectedPracticeCount > 0 && <p className="events-agenda-note">{copy["calendar.practiceNote"].replace("{count}", String(selectedPracticeCount))}</p>}
@@ -213,7 +231,7 @@ export function EventsPage({ content, shared }: { content: EventsPageCmsContent;
         </div>
       </section>
 
-      {Object.keys(pastByMonth).length > 0 && (
+      {/* {Object.keys(pastByMonth).length > 0 && (
         <section className='events-past-outer-wrapper' aria-labelledby="past-title">
           <div className="events-past events-shell" >
               <summary>
@@ -222,7 +240,7 @@ export function EventsPage({ content, shared }: { content: EventsPageCmsContent;
               </summary>
           </div>
         </section>
-      )}
+      )} */}
 
 
       <section className="events-practices-outer-wrapper" id="proby" aria-labelledby="practices-title">
@@ -254,11 +272,7 @@ export function EventsPage({ content, shared }: { content: EventsPageCmsContent;
         </div>
       </section>
 
-      <footer className="events-footer events-shell">
-        <Link className="home-v2-footer-brand" href="/"><img src="/logo.jpg" alt={shared.footer.logoAlt} width="58" height="58" /><span><strong>{shared.footer.brand}</strong><small>{shared.footer.tagline}</small></span></Link>
-        <nav aria-label={shared.header.navigationLabel}>{shared.mainNavigation.map((item) => <Link href={item.href} key={item.href}>{item.label}</Link>)}</nav>
-        <p>© {new Date().getFullYear()} {shared.footer.copyrightShort}</p>
-      </footer>
+      <SiteFooter shared={shared} />
     </main>
   );
 }

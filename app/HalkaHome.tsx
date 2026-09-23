@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useRef, useState, type ReactNode } from "react";
 import {
   ArrowLeft,
   ArrowRight,
@@ -8,6 +8,7 @@ import {
   CalendarBlank,
   EnvelopeSimple,
   MapPin,
+  MessengerLogo,
   Phone,
 } from "@phosphor-icons/react";
 import { FaFacebookF, FaInstagram, FaYoutube } from "react-icons/fa6";
@@ -16,8 +17,8 @@ import type { EventsPageCmsContent, SharedContent } from "../sanity/content";
 import type { CopyMap } from "../content/page-copy-defaults";
 import { DanceHero } from "./HeroVariants";
 import { ScrollRosettes } from "./FolkRosette";
-import Link from 'next/link'
 import { SiteHeader } from "./SiteHeader";
+import { SiteFooter } from "./SiteFooter";
 
 const formatGalleryDate = (date: string) => new Intl.DateTimeFormat("pl-PL", {
   day: "numeric",
@@ -31,6 +32,38 @@ const galleryImagePicks: Record<string, readonly [number, number, number]> = {
   "dni-lublinca-2025": [5, 7, 3],
   "tydzien-kultury-beskidzkiej-2026": [6, 7, 8],
 };
+
+type ContactActionProps = {
+  href: string;
+  actionLabel: string;
+  icon: ReactNode;
+  label: string;
+  value: string;
+  external?: boolean;
+};
+
+function ContactAction({ href, actionLabel, icon, label, value, external = false }: ContactActionProps) {
+  return (
+    <div className="home-v2-contact-action">
+      <div className="home-v2-contact-content">
+        {icon}
+        <span className="home-v2-contact-details"><small>{label}</small><strong>{value}</strong></span>
+      </div>
+      <span className="home-v2-contact-link-cue">
+        <span>{actionLabel}</span>
+        <a
+          className="home-v2-contact-open"
+          href={href}
+          draggable={false}
+          aria-label={`${actionLabel}: ${value}`}
+          {...(external ? { target: "_blank", rel: "noreferrer" } : {})}
+        >
+          <ArrowUpRight size={15} weight="bold" />
+        </a>
+      </span>
+    </div>
+  );
+}
 
 export function HalkaHome({ galleryEvents, copy, shared, eventsContent }: { galleryEvents: GalleryEvent[]; copy: CopyMap; shared: SharedContent; eventsContent: EventsPageCmsContent }) {
   const UPCOMING_PERFORMANCES_AMOUNT = 3;
@@ -276,9 +309,10 @@ export function HalkaHome({ galleryEvents, copy, shared, eventsContent }: { gall
             <h2 id="kontakt-title">{copy["contact.title"]}</h2>
             <p>{copy["contact.lead"]}</p>
             <div className="home-v2-contact-actions">
-              <a href={`mailto:${shared.siteConfig.contact.email}`}><EnvelopeSimple size={22} /><span><small>{copy["contact.emailLabel"]}</small><strong>{shared.siteConfig.contact.email}</strong></span></a>
-              <a href={`tel:${shared.siteConfig.contact.phone}`}><Phone size={22} /><span><small>{copy["contact.phoneLabel"]}</small><strong>{shared.siteConfig.contact.phoneDisplay}</strong></span></a>
-              <a href={shared.siteConfig.contact.mapUrl} target="_blank" rel="noreferrer"><MapPin size={22} /><span><small>{copy["contact.addressLabel"]}</small><strong>{shared.siteConfig.contact.address}</strong></span></a>
+              <ContactAction href={`mailto:${shared.siteConfig.contact.email}`} actionLabel="Otwórz pocztę" icon={<EnvelopeSimple size={22} />} label={copy["contact.emailLabel"]} value={shared.siteConfig.contact.email} />
+              <ContactAction href={`tel:${shared.siteConfig.contact.phone}`} actionLabel="Zadzwoń" icon={<Phone size={22} />} label={copy["contact.phoneLabel"]} value={shared.siteConfig.contact.phoneDisplay} />
+              <ContactAction href={shared.siteConfig.social.messenger} actionLabel="Otwórz czat" icon={<MessengerLogo size={22} />} label="Napisz na Messengerze" value="zpit.halka" external />
+              <ContactAction href={shared.siteConfig.contact.mapUrl} actionLabel="Pokaż trasę" icon={<MapPin size={22} />} label={copy["contact.addressLabel"]} value={shared.siteConfig.contact.address} external />
             </div>
             <div className="home-v2-association">
               <p>{shared.siteConfig.association.name}</p>
@@ -303,11 +337,7 @@ export function HalkaHome({ galleryEvents, copy, shared, eventsContent }: { gall
         </div>
       </section>
 
-      <footer className="home-v2-footer home-v2-shell">
-        <div className="home-v2-footer-brand"><img src="/logo.jpg" alt={shared.footer.logoAlt} width="58" height="58" /><span><strong>{shared.footer.brand}</strong><small>{shared.footer.tagline}</small></span></div>
-        <nav aria-label={shared.header.navigationLabel}>{shared.mainNavigation.map((item) => <a href={item.href} key={item.href}>{item.label}</a>)}</nav>
-        <p>© 2026 {shared.footer.copyrightLong}</p>
-      </footer>
+      <SiteFooter shared={shared} />
     </main>
   );
 }

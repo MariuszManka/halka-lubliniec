@@ -16,8 +16,7 @@
 
 .join-page > .scroll-rosettes { z-index: 0; }
 .join-page > header,
-.join-page > section,
-.join-page > footer { position: relative; z-index: 1; }
+.join-page > section { position: relative; z-index: 1; }
 .join-page .home-v2-nav a[aria-current="page"] { color: var(--join-red); }
 .join-page .home-v2-header { z-index: 20; }
 
@@ -298,11 +297,6 @@
 .join-map { height: clamp(320px, 38vw, 540px); border-top: 1px solid rgba(255,255,255,0.18); }
 .join-map iframe { width: 100%; height: 100%; border: 0; filter: saturate(0.82) contrast(1.02); }
 
-.join-footer { min-height: 150px; display: grid; grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr); align-items: center; gap: 34px; }
-.join-footer nav { display: flex; flex-wrap: wrap; justify-content: center; gap: 18px; color: #456253; font-size: 0.72rem; font-weight: 700; }
-.join-footer nav a { min-height: 44px; display: inline-flex; align-items: center; }
-.join-footer > p { justify-self: end; margin: 0; color: #4d6759; font-size: 0.66rem; }
-
 @media (max-width: 1180px) {
   .join-hero {
     grid-template-columns: minmax(330px, 0.8fr) minmax(450px, 1.2fr);
@@ -455,14 +449,6 @@
 
   .join-location-actions { justify-items: start; }
 
-  .join-footer {
-    grid-template-columns: 1fr;
-    justify-items: center;
-    padding-block: 38px;
-    text-align: center;
-  }
-
-  .join-footer > p { justify-self: center; }
 }
 
 @media (max-width: 660px) {

@@ -32,8 +32,6 @@
 .join-page .join-button { padding-block: 12px; height: auto; min-height: 48px; line-height: 1.4; text-align: center; }
 .join-page .join-button svg { flex-shrink: 0; }
 .join-page a:focus-visible { outline: 3px solid #d69b1c; outline-offset: 4px; }
-.join-page .join-footer { grid-template-columns: minmax(0, 1fr) minmax(0, 1.5fr) auto; }
-
 @media (max-width: 940px) {
   .join-page .join-first-visit,
   .join-page .join-group-card,
@@ -44,7 +42,6 @@
   .join-page .join-group-card-reverse .join-group-copy { padding-top: 0; }
   .join-page .join-first-visit { align-items: stretch; gap: clamp(40px, 6vw, 60px); }
   .join-page .join-first-list { width: 100%; max-width: none; }
-  .join-page .join-footer { grid-template-columns: minmax(0, 1fr); }
 }
 @media (max-width: 820px) {
   .join-page .join-shell { width: min(calc(100% - 32px), 720px); }

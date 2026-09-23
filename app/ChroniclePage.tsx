@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect, useMemo, useRef, useState } from "react";
-import Link from "next/link";
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import { ArrowLeft, ArrowRight, Camera, MapPin, X } from "@phosphor-icons/react";
 import type { CopyMap } from "../content/page-copy-defaults";
@@ -10,6 +9,7 @@ import type { GalleryEvent, GalleryPageContent } from "../sanity/content-types";
 import { SiteHeader } from "./SiteHeader";
 import { PageHero } from "./PageHero";
 import { ScrollRosettes } from "./FolkRosette";
+import { SiteFooter } from "./SiteFooter";
 
 type ChroniclePageProps = {
   galleryEvents: GalleryEvent[];
@@ -212,16 +212,7 @@ export function ChroniclePage({ galleryEvents, content, ui, shared }: ChronicleP
         <a className="button button-primary" href="/historia">{content.return.ctaLabel} <ArrowRight size={18} /></a>
       </section> */}
 
-      <footer className="footer section-shell">
-        <div className="footer-brand">
-          <img src="/logo.jpg" alt={shared.footer.logoAlt} width="70" height="70" />
-          <div><strong>{shared.footer.brand}</strong><span>{shared.footer.longTagline}</span></div>
-        </div>
-        <div className="footer-links">
-          {shared.mainNavigation.map((item) => <a key={item.href} href={item.href}>{item.label}</a>)}
-        </div>
-        <p>© 2026 {shared.footer.copyrightLong}</p>
-      </footer>
+      <SiteFooter shared={shared} />
 
       <AnimatePresence>
         {activeEvent && (

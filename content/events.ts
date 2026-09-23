@@ -16,7 +16,7 @@ export type CalendarEvent = {
   title: string;
   location: string;
   locationUrl?: string;
-  kind: "Występ" | "Próba" | "Warsztaty";
+  kind: "Występ" | "Próba" | "Warsztaty" | "Konkurs" | "Spotkanie" | "Inne";
   groups: EventGroup[];
   note?: string;
 };
@@ -259,7 +259,13 @@ const createWeeklyPracticeEvents = (practice: WeeklyPractice): CalendarEvent[] =
   return events;
 };
 
+export const practiceEvents: CalendarEvent[] = weeklyPractices
+  .flatMap(createWeeklyPracticeEvents)
+  .sort((a, b) => `${a.date}-${a.time ?? "99:99"}`.localeCompare(`${b.date}-${b.time ?? "99:99"}`));
+
+// Dane awaryjne używane, gdy publiczny kalendarz Google nie jest jeszcze
+// skonfigurowany albo jest chwilowo niedostępny podczas lokalnego builda.
 export const calendarEvents: CalendarEvent[] = [
   ...oneOffEvents,
-  ...weeklyPractices.flatMap(createWeeklyPracticeEvents),
+  ...practiceEvents,
 ].sort((a, b) => `${a.date}-${a.time ?? "99:99"}`.localeCompare(`${b.date}-${b.time ?? "99:99"}`));

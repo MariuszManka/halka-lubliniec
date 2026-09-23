@@ -6,6 +6,8 @@ import Link from "next/link";
 import { ScrollRosettes } from "./FolkRosette";
 import "./hero-variants.css";
 import type { CopyMap } from "../content/page-copy-defaults";
+import type { SharedContent } from "../sanity/content";
+import { SiteFooter } from "./SiteFooter";
 
 function FolkDivider() {
   return (
@@ -87,7 +89,7 @@ export function DanceHero({ copy }: { copy: CopyMap }) {
   );
 }
 
-export function HeroVariants({ copy }: { copy: CopyMap }) {
+export function HeroVariants({ copy, shared }: { copy: CopyMap; shared: SharedContent }) {
   return (
     <main className="hero-variants-page">
       <ScrollRosettes />
@@ -112,6 +114,7 @@ export function HeroVariants({ copy }: { copy: CopyMap }) {
           <p><strong>{copy["after.point3Title"]}</strong> {copy["after.point3Text"]}</p>
         </div>
       </section>
+      <SiteFooter shared={shared} />
     </main>
   );
 }

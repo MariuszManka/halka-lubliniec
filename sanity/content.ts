@@ -1,7 +1,8 @@
 import defaults from "../content/cms-defaults.json";
 import galleryPageDefaults from "../content/gallery-page-defaults.json";
 import { galleryEvents as localGalleryEvents } from "../content/generated-gallery";
-import { calendarEvents, eventGroups } from "../content/events";
+import { eventGroups } from "../content/events";
+import { getCalendarEvents } from "../content/google-calendar";
 import { costumeFacts, costumeLooks } from "../content/costumes";
 import { timeline } from "../content/site-content";
 import {
@@ -273,12 +274,15 @@ export async function getCostumesPageContent() {
 }
 
 export async function getEventsPageContent() {
+  const [incoming, calendarEvents] = await Promise.all([
+    fetchSingleton<Record<string, unknown>>("eventsPage"),
+    getCalendarEvents(),
+  ]);
   const fallback = unflattenStrings(eventsCopyDefaults);
-  const incoming = await fetchSingleton<Record<string, unknown>>("eventsPage");
   const content = mergeContent(fallback, incoming ?? {});
   return {
     copy: flattenStrings(content),
-    calendarEvents: structuredClone(calendarEvents),
+    calendarEvents,
     eventGroups,
   };
 }

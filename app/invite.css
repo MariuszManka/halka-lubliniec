@@ -37,11 +37,6 @@
   z-index: 30;
 }
 
-.invite-page .home-v2-footer {
-  position: relative;
-  z-index: 2;
-}
-
 .invite-page .invite-shell {
   width: min(calc(100% - 48px), 1320px);
   margin-inline: auto;
