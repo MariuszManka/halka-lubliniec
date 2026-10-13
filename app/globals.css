@@ -4346,13 +4346,13 @@ main {
   background: var(--site-page-background);
 }
 
-.costumes-page > :not(.costumes-backdrop):not(.scroll-rosettes) {
+.costumes-page > :not(.costumes-backdrop):not(.scroll-rosettes):not(.home-v2-header) {
   position: relative;
   z-index: 1;
 }
 
-.costumes-site-header {
-  z-index: 20 !important;
+.costumes-page > .home-v2-header {
+  z-index: 80;
 }
 
 .costumes-site-header .desktop-nav {
