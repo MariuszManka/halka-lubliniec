@@ -53,8 +53,6 @@ export const schedule = [
 ] as const;
 
 export const contact = {
-  phoneDisplay: "34 351 06 87",
-  phone: "+48343510687",
   email: "kontakt@halkalubliniec.pl",
   address: "ul. Stalmacha 12, 42-700 Lubliniec",
   mapLink: "https://maps.app.goo.gl/Fbw8pngy29Q4Bpmo9",

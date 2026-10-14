@@ -69,6 +69,28 @@ export const homePage = defineType({
       shortText("eyebrow", "Mały nagłówek"), shortText("title", "Tytuł"), longText("lead", "Opis"),
       shortText("emailLabel", "Etykieta e-mail"), shortText("phoneLabel", "Etykieta telefonu"), shortText("addressLabel", "Etykieta adresu"),
       shortText("krsLabel", "Etykieta KRS"), shortText("nipLabel", "Etykieta NIP"),
+      shortText('email', 'Adres e-mail'), shortText('address', 'Adres siedziby'),
+      shortText('mapUrl', 'Link do mapy'), shortText('mapEmbedUrl', 'Adres osadzonej mapy'),
+      shortText('emailActionLabel', 'Przycisk e-mail'), shortText('phoneActionLabel', 'Przycisk telefonu'),
+      shortText('messengerLabel', 'Etykieta Messengera'), shortText('messengerValue', 'Nazwa profilu Messenger'),
+      shortText('messengerActionLabel', 'Przycisk Messengera'), shortText('addressActionLabel', 'Przycisk mapy'),
+      shortText('facebook', 'Link Facebook'), shortText('instagram', 'Link Instagram'),
+      shortText('youtube', 'Link YouTube'), shortText('messenger', 'Link Messenger'),
+      shortText('associationName', 'Nazwa Stowarzyszenia'), shortText('krs', 'KRS'), shortText('nip', 'NIP'),
+      defineField({ name: 'phones', title: 'Numery telefonu', type: 'array',
+        description: 'Wspólne źródło telefonów dla całej strony. Wyłączone numery nie są wyświetlane. Gdy brak głównego, pozostałe podstrony użyją pierwszego włączonego numeru. Gdy wszystkie są wyłączone, ukryją telefon.',
+        validation: rule => rule.custom(value => {
+          const phones = (value ?? []) as Array<{ primary?: boolean; enabled?: boolean }>;
+          if (phones.filter(p => p.primary).length > 1) return 'Tylko jeden numer może być główny.';
+          return true;
+        }),
+        of: [{ type: 'object', name: 'contactPhone', title: 'Telefon', fields: [
+          defineField({ name: 'owner', title: 'Do kogo należy numer', type: 'string', validation: rule => rule.required() }),
+          defineField({ name: 'number', title: 'Numer telefonu', type: 'string', description: 'Np. 34 351 06 83 lub +48 669 101 959.', validation: rule => rule.required().custom(value => !value || /^\+?[\d\s()-]+$/.test(value) && value.replace(/\D/g, '').length >= 9 ? true : 'Podaj poprawny numer telefonu.') }),
+          defineField({ name: 'enabled', title: 'Włączony', type: 'boolean', initialValue: true }),
+          defineField({ name: 'primary', title: 'Główny numer całej strony', type: 'boolean', initialValue: false }),
+        ], preview: { select: { title: 'owner', number: 'number', enabled: 'enabled', primary: 'primary' }, prepare: ({ title, number, enabled, primary }) => ({ title, subtitle: `${number ?? ''}${enabled === false ? ' · wyłączony' : ''}${primary ? ' · główny' : ''}` }) } }],
+      }),
     ] }),
     defineField({ name: "social", title: "Media społecznościowe", type: "object", group: "contact", fields: [
       shortText("title", "Tytuł"), longText("lead", "Opis"),

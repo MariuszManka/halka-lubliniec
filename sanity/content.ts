@@ -1,4 +1,5 @@
 import defaults from "../content/cms-defaults.json";
+import { homeContactDefaults, phoneHref, resolveContactPhones } from '../content/home-contact';
 import galleryPageDefaults from "../content/gallery-page-defaults.json";
 import { galleryEvents as localGalleryEvents } from "../content/generated-gallery";
 import { eventGroups } from "../content/events";
@@ -242,7 +243,24 @@ export async function getGalleryEvents(): Promise<GalleryEvent[]> {
 }
 
 export async function getSharedContent() {
-  return structuredClone(sharedContentDefaults);
+  const shared = structuredClone(sharedContentDefaults);
+  const home = await fetchSingleton<{ contact?: Partial<typeof homeContactDefaults> }>('homePage');
+  const contact = mergeContent(homeContactDefaults, home?.contact);
+  // An explicitly empty array means no phones; do not restore fallback items.
+  if (Array.isArray(home?.contact?.phones)) contact.phones = home.contact.phones;
+  const { enabled, primary } = resolveContactPhones(contact.phones);
+  return {
+    ...shared,
+    homeContact: { ...contact, phones: enabled },
+    siteConfig: {
+      ...shared.siteConfig,
+      contact: { ...shared.siteConfig.contact, email: contact.email, address: contact.address,
+        mapUrl: contact.mapUrl, mapEmbedUrl: contact.mapEmbedUrl,
+        phone: primary ? phoneHref(primary.number) : '', phoneDisplay: primary?.number ?? '' },
+      social: { facebook: contact.facebook, instagram: contact.instagram, youtube: contact.youtube, messenger: contact.messenger },
+      association: { name: contact.associationName, krs: contact.krs, nip: contact.nip },
+    },
+  };
 }
 
 export async function getHomePageCopy() {

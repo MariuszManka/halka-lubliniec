@@ -1,4 +1,5 @@
 "use client";
+import { phoneHref } from '../content/home-contact';
 
 import { useRef, useState, type ReactNode } from "react";
 import {
@@ -55,7 +56,7 @@ function ContactAction({ href, actionLabel, icon, label, value, external = false
           className="home-v2-contact-open"
           href={href}
           draggable={false}
-          aria-label={`${actionLabel}: ${value}`}
+          aria-label={`${actionLabel}: ${label}, ${value}`}
           {...(external ? { target: "_blank", rel: "noreferrer" } : {})}
         >
           <ArrowUpRight size={15} weight="bold" />
@@ -309,10 +310,10 @@ export function HalkaHome({ galleryEvents, copy, shared, eventsContent }: { gall
             <h2 id="kontakt-title">{copy["contact.title"]}</h2>
             <p>{copy["contact.lead"]}</p>
             <div className="home-v2-contact-actions">
-              <ContactAction href={`mailto:${shared.siteConfig.contact.email}`} actionLabel="Otwórz pocztę" icon={<EnvelopeSimple size={22} />} label={copy["contact.emailLabel"]} value={shared.siteConfig.contact.email} />
-              <ContactAction href={`tel:${shared.siteConfig.contact.phone}`} actionLabel="Zadzwoń" icon={<Phone size={22} />} label={copy["contact.phoneLabel"]} value={shared.siteConfig.contact.phoneDisplay} />
-              <ContactAction href={shared.siteConfig.social.messenger} actionLabel="Otwórz czat" icon={<MessengerLogo size={22} />} label="Napisz na Messengerze" value="zpit.halka" external />
-              <ContactAction href={shared.siteConfig.contact.mapUrl} actionLabel="Pokaż trasę" icon={<MapPin size={22} />} label={copy["contact.addressLabel"]} value={shared.siteConfig.contact.address} external />
+              <ContactAction href={`mailto:${shared.siteConfig.contact.email}`} actionLabel={shared.homeContact.emailActionLabel} icon={<EnvelopeSimple size={22} />} label={copy["contact.emailLabel"]} value={shared.siteConfig.contact.email} />
+              {shared.homeContact.phones.map(phone => <ContactAction key={phone._key} href={`tel:${phoneHref(phone.number)}`} actionLabel={shared.homeContact.phoneActionLabel} icon={<Phone size={22} />} label={phone.owner} value={phone.number} />)}
+              <ContactAction href={shared.siteConfig.social.messenger} actionLabel={shared.homeContact.messengerActionLabel} icon={<MessengerLogo size={22} />} label={shared.homeContact.messengerLabel} value={shared.homeContact.messengerValue} external />
+              <ContactAction href={shared.siteConfig.contact.mapUrl} actionLabel={shared.homeContact.addressActionLabel} icon={<MapPin size={22} />} label={copy["contact.addressLabel"]} value={shared.siteConfig.contact.address} external />
             </div>
             <div className="home-v2-association">
               <p>{shared.siteConfig.association.name}</p>

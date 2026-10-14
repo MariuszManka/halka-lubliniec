@@ -20,7 +20,8 @@ import {
 import { galleryEvents } from "../content/generated-gallery";
 import { sessionImages } from "../content/generated-session";
 import { calendarEvents, eventGroups, type CalendarEvent } from "../content/events";
-import { contact, facts, schedule, timeline } from "../content/site-content";
+import { facts, schedule, timeline } from "../content/site-content";
+import type { SharedContent } from '../sanity/content';
 import { mainNavigation } from "../content/site-config";
 import { FolkRosette } from "./FolkRosette";
 import { SiteFooter, type SiteFooterContent } from "./SiteFooter";
@@ -443,7 +444,9 @@ function EventsCalendar() {
   );
 }
 
-export function HalkaSite() {
+export function HalkaSite({ shared }: { shared: SharedContent }) {
+  const contact = { ...shared.siteConfig.contact, mapLink: shared.siteConfig.contact.mapUrl,
+    mdkLink: 'https://mdk.lubliniec.pl/sekcje-mdk/zespol-piesni-i-tanca-halka/' };
   const reduce = useReducedMotion();
   const [menuOpen, setMenuOpen] = useState(false);
   const [activeEvent, setActiveEvent] = useState<GalleryEvent | null>(null);
@@ -805,7 +808,7 @@ export function HalkaSite() {
             />
             <div className="contact-details">
               <a href={contact.mapLink} target="_blank" rel="noreferrer"><MapPin size={22} /><span>{contact.address}</span></a>
-              <a href={`tel:${contact.phone}`}><Phone size={22} /><span>{contact.phoneDisplay}</span></a>
+              {contact.phone && <a href={`tel:${contact.phone}`}><Phone size={22} /><span>{contact.phoneDisplay}</span></a>}
               <a href={`mailto:${contact.email}`}><EnvelopeSimple size={22} /><span>{contact.email}</span></a>
             </div>
           </Reveal>

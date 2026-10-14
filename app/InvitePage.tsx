@@ -39,7 +39,7 @@ export function InvitePage({ content, shared }: { content: InvitePageContent; sh
         actions={
           <>
             <a href={bookingHref}>{content.hero.primaryCtaLabel} <ArrowRight size={18} weight="bold" aria-hidden="true" /></a>
-            <a href={"tel:" + shared.siteConfig.contact.phone}>
+            {shared.siteConfig.contact.phone && <a href={"tel:" + shared.siteConfig.contact.phone}>
               <span className="page-hero-phone-icon" aria-hidden="true">
                 <Phone  size={18} weight="regular" />
               </span>
@@ -47,7 +47,7 @@ export function InvitePage({ content, shared }: { content: InvitePageContent; sh
                 <small>{content.hero.phoneLabel}</small>
                 <strong>{shared.siteConfig.contact.phoneDisplay}</strong>
               </span>
-            </a>
+            </a>}
           </>
         }
         // extra={
@@ -227,11 +227,11 @@ export function InvitePage({ content, shared }: { content: InvitePageContent; sh
               <span><small>{content.contact.emailLabel}</small><strong>{shared.siteConfig.contact.email}</strong></span>
               <ArrowUpRight size={20} weight="bold" />
             </a>
-            <a className="invite-contact-main" href={`tel:${shared.siteConfig.contact.phone}`}>
+            {shared.siteConfig.contact.phone && <a className="invite-contact-main" href={`tel:${shared.siteConfig.contact.phone}`}>
               <Phone size={24} weight="duotone" />
               <span><small>{content.contact.phoneLabel}</small><strong>{shared.siteConfig.contact.phoneDisplay}</strong></span>
               <ArrowUpRight size={20} weight="bold" />
-            </a>
+            </a>}
             <div className="invite-contact-socials">
               <span>{content.contact.socialPrompt}</span>
               <a href={shared.siteConfig.social.messenger} target="_blank" rel="noreferrer"><MessengerLogo size={20} weight="fill" /> {content.contact.messengerLabel}</a>

@@ -20,7 +20,18 @@ export function SiteFooter({ shared }: { shared: SiteFooterContent }) {
       <nav aria-label={shared.header.navigationLabel}>
         {shared.mainNavigation.map((item) => <Link href={item.href} key={item.href}>{item.label}</Link>)}
       </nav>
-      <p>© {new Date().getFullYear()} {shared.footer.copyrightLong}</p>
+      <div className="site-footer-meta">
+        <div className="site-footer-partner">
+          <span>Działamy jako sekcja</span>
+          <Link href="https://mdk.lubliniec.pl/sekcje-mdk/zespol-piesni-i-tanca-halka" target="_blank" rel="noopener noreferrer" aria-label='Przejdź do strony Miejskiego Domu Kultury w Lublińcu'>
+            <img src="/mdk-logo.svg" alt="Miejski Dom Kultury w Lublińcu" width="90" height="90" />
+          </Link>
+        </div>
+      </div>
+      <div className="site-footer-credits">
+        <p>Wykonanie i administracja strony: <strong>Mariusz Mańka</strong></p>
+        <p>© {new Date().getFullYear()} {shared.footer.copyrightLong}</p>
+      </div>
     </footer>
   );
 }
